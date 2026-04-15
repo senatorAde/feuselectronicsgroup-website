@@ -1,0 +1,77 @@
+# ============================================================================
+# FEUS-Web — CI/CD Pipeline (Vercel)
+# ============================================================================
+# Verifies build on every push. Vercel handles deployment automatically.
+# Also validates ROI stats data integrity.
+# ============================================================================
+
+name: FEUS-Web CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build & Validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate ROI stats data
+        run: |
+          echo "Validating ROI stats JSON..."
+          node -e "
+            const fs = require('fs');
+            const data = JSON.parse(fs.readFileSync('public/data/roi-stats.json', 'utf8'));
+            const required = ['session_metrics', 'platform_metrics', 'benchmarks'];
+            for (const key of required) {
+              if (!data[key]) {
+                console.error('Missing required key:', key);
+                process.exit(1);
+              }
+            }
+            const sm = data.session_metrics;
+            if (!sm.time_saved_hours || !sm.risk_cost_avoided || !sm.governance_compliance_pct) {
+              console.error('Missing required session metrics');
+              process.exit(1);
+            }
+            console.log('✅ ROI stats valid');
+            console.log('   Time saved:', sm.time_saved_hours);
+            console.log('   Risk avoided:', sm.risk_cost_avoided);
+            console.log('   Compliance:', sm.governance_compliance_pct);
+          "
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "❌ Build output directory 'dist' not found"
+            exit 1
+          fi
+          if [ ! -f "dist/data/roi-stats.json" ]; then
+            echo "❌ ROI stats not found in build output"
+            exit 1
+          fi
+          echo "✅ Build output verified"
+          echo "   Files: $(find dist -type f | wc -l)"
+          echo "   Size: $(du -sh dist | cut -f1)"

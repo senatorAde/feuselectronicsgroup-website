@@ -1,0 +1,42 @@
+# =============================================================================
+# FEUS-Web — Git Ignore Rules (Public Website Repository)
+# =============================================================================
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables (NEVER commit)
+.env
+.env.local
+.env.production
+.env.*.local
+
+# Logs
+*.log
+
+# Vercel
+.vercel
+
+# OS files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# IDE / Editor
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Virtual environments (safety — should not exist here)
+.venv/
+venv/
+__pycache__/
+
+# Temporary files
+*.tmp
+*.bak

@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-navy-950 text-gray-100 font-sans;
+  }
+
+  ::selection {
+    @apply bg-feus-500/30 text-white;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-3.5 bg-feus-600 text-white font-semibold rounded-lg 
+           hover:bg-feus-500 transition-all duration-300 shadow-lg shadow-feus-600/25
+           hover:shadow-xl hover:shadow-feus-500/30 hover:-translate-y-0.5;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-8 py-3.5 border-2 border-feus-400/30 text-feus-200 font-semibold rounded-lg 
+           hover:bg-feus-600/10 hover:border-feus-400/60 transition-all duration-300
+           hover:-translate-y-0.5;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center px-8 py-3.5 bg-accent-600 text-white font-semibold rounded-lg 
+           hover:bg-accent-500 transition-all duration-300 shadow-lg shadow-accent-600/25
+           hover:shadow-xl hover:shadow-accent-500/30 hover:-translate-y-0.5;
+  }
+
+  .section-dark {
+    @apply bg-navy-950 relative;
+  }
+
+  .section-darker {
+    @apply bg-navy-900 relative;
+  }
+
+  .section-gradient {
+    @apply bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950 relative;
+  }
+
+  .glass-card {
+    @apply bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl 
+           hover:bg-white/[0.07] hover:border-white/[0.15] transition-all duration-500;
+  }
+
+  .glass-card-static {
+    @apply bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-feus-400 via-feus-300 to-accent-400 bg-clip-text text-transparent;
+  }
+
+  .gradient-text-bright {
+    @apply bg-gradient-to-r from-white via-feus-200 to-accent-300 bg-clip-text text-transparent;
+  }
+
+  .section-heading {
+    @apply text-4xl md:text-5xl font-bold tracking-tight;
+  }
+
+  .section-subheading {
+    @apply text-lg md:text-xl text-gray-400 max-w-3xl leading-relaxed;
+  }
+
+  .glow-line {
+    @apply h-px bg-gradient-to-r from-transparent via-feus-500/50 to-transparent;
+  }
+
+  .dot-pattern {
+    background-image: radial-gradient(circle, rgba(99, 102, 241, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0c1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #312e81;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4338ca;
+}
