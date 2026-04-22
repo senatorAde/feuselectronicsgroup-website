@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom'
 import {
   ArrowRight, Shield, Lock, Eye, CheckCircle2, Server,
   AlertTriangle, FileSearch, UserCheck, Activity, Layers,
-  ShieldCheck, ShieldAlert, ClipboardCheck, Fingerprint
+  ShieldCheck, ShieldAlert, ClipboardCheck, Fingerprint,
+  Download, GitBranch, ScanLine, FileCheck2
 } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import { PageHero, SectionHeader, SectionLabel, CTAButton, GlowDivider } from '../components/ui'
@@ -177,6 +178,121 @@ export default function TrustPage() {
               </AnimatedSection>
             ))}
           </div>
+        </div>
+      </section>
+
+      <GlowDivider />
+
+      {/* ─── LIVE COHESION PROOF — v5.2.0 ─── */}
+      <section className="section-gradient py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <SectionHeader
+              label="Live Cohesion Proof · Platform v5.2.0"
+              title={<>The Architecture Doesn’t Just Look Cohesive.<br /><span className="gradient-text">It Is Cohesive — And We Prove It.</span></>}
+              subtitle="Cohesion is verified by an executable scenario (S10 Full Session Audit Trail) that drives a real session through every gate, then asserts 11 invariants across the audit chain. Bypass attempts are independently scanned out of the source. Evidence is hash-chained and reproducible."
+            />
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-10">
+            <AnimatedSection delay={0}>
+              <div className="glass-card p-6 h-full border-emerald-500/20">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
+                  <FileCheck2 className="w-6 h-6 text-emerald-400" />
+                </div>
+                <div className="text-3xl font-bold text-white">11 / 11</div>
+                <div className="text-sm text-emerald-400 font-semibold mt-1">VERIFIED</div>
+                <p className="text-sm text-gray-400 mt-3 leading-relaxed">
+                  S10 cohesion invariants — readiness gate, audit ordering, hash chain integrity, policy/PII/approval/governed-execution chronology, attribution coverage, and immutability.
+                </p>
+              </div>
+            </AnimatedSection>
+            <AnimatedSection delay={80}>
+              <div className="glass-card p-6 h-full border-emerald-500/20">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
+                  <ScanLine className="w-6 h-6 text-emerald-400" />
+                </div>
+                <div className="text-3xl font-bold text-white">0</div>
+                <div className="text-sm text-emerald-400 font-semibold mt-1">NET BYPASS VIOLATIONS</div>
+                <p className="text-sm text-gray-400 mt-3 leading-relaxed">
+                  Static bypass scanner across 71 source files — unauthorised raw connections, f-string SQL execution paths, and audit-skips are detected at build time. Any exemption is file-scoped and justified.
+                </p>
+              </div>
+            </AnimatedSection>
+            <AnimatedSection delay={160}>
+              <div className="glass-card p-6 h-full border-emerald-500/20">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
+                  <GitBranch className="w-6 h-6 text-emerald-400" />
+                </div>
+                <div className="text-3xl font-bold text-white">12 / 12</div>
+                <div className="text-sm text-emerald-400 font-semibold mt-1">VIRGIN-ENVIRONMENT CHECKS</div>
+                <p className="text-sm text-gray-400 mt-3 leading-relaxed">
+                  First-contact behaviour is proved on a clean machine — no DB ops, no silent installs, truthful readiness verdict, complete session-traced audit from byte zero.
+                </p>
+              </div>
+            </AnimatedSection>
+          </div>
+
+          <AnimatedSection delay={240}>
+            <div className="glass-card-static p-8 md:p-10 border-feus-500/20">
+              <div className="grid lg:grid-cols-2 gap-10 items-start">
+                <div>
+                  <SectionLabel>Three-Layer No-Bypass Proof</SectionLabel>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
+                    Structural. Behavioural. Evidential.
+                  </h3>
+                  <p className="mt-4 text-gray-400 leading-relaxed">
+                    The platform proves that governance cannot be skipped on three independent axes. Any one of them failing breaks certification — fail-closed.
+                  </p>
+                  <div className="mt-6 space-y-4">
+                    <div className="flex items-start gap-3">
+                      <Layers className="w-5 h-5 text-feus-400 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <div className="text-white font-semibold text-sm">Layer 1 — Structural</div>
+                        <div className="text-sm text-gray-400">Bootstrap, gates, and the governed executor are the only paths into a database connection. There is no second path.</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Activity className="w-5 h-5 text-feus-400 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <div className="text-white font-semibold text-sm">Layer 2 — Behavioural</div>
+                        <div className="text-sm text-gray-400">S10 drives a live multi-operation session and asserts that every required event appears, in the required order, with the required correlation.</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <ShieldCheck className="w-5 h-5 text-feus-400 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <div className="text-white font-semibold text-sm">Layer 3 — Evidential</div>
+                        <div className="text-sm text-gray-400">Bypass scanner + dependency authenticity + hash-chained manifest — the evidence pack itself is independently verifiable after the fact.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-xs uppercase tracking-wider text-feus-400 font-semibold mb-3">Executive Walkthrough</div>
+                  <h4 className="text-xl font-semibold text-white mb-3">FEUS AIIA Walkthrough — PDF</h4>
+                  <p className="text-sm text-gray-400 leading-relaxed mb-6">
+                    A 7-section executive packet: architecture, three-layer proof, S10 invariants table, session lifecycle worked example, verdict reading guide, and reproducibility steps. Built directly from the live evidence run, with hash references to the manifest.
+                  </p>
+                  <a
+                    href="/FEUS_AIIA_Walkthrough.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-feus-600 hover:bg-feus-500 text-white font-semibold text-sm transition-colors"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download AIIA Walkthrough (PDF)
+                  </a>
+                  <div className="mt-5 text-[11px] text-gray-500 font-mono leading-relaxed">
+                    Generated from CERT_20260422T195909Z_585A54<br />
+                    Manifest hash chain: SHA-256 · immutable · reproducible<br />
+                    Confidential — prepared for AIIA review
+                  </div>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 

@@ -4,7 +4,7 @@ import {
   Cpu, Lock, Server, Zap, CheckCircle2, ChevronRight, Sparkles,
   Building2, Factory, Landmark, HeartPulse, ShoppingCart, GraduationCap,
   ArrowUpRight, Globe, Users, Award, TrendingUp, AlertTriangle,
-  Terminal, MessageSquare, Code2, Eye
+  Terminal, MessageSquare, Code2, Eye, Download, FileCheck2
 } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import { SectionHeader, SectionLabel, CTAButton, StatCard, GlowDivider, ProofPoint } from '../components/ui'
@@ -651,6 +651,8 @@ export default function HomePage() {
       <HowFeusWorks />
       <GlowDivider />
       <FlagshipSolution />
+      <GlowDivider />
+      <AssuranceProof />
       <GlowDivider />
       <Industries />
       <GlowDivider />
