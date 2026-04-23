@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-04-23T00:29:09.965211+00:00",
+  "generated_at": "2026-04-23T00:54:25.159487+00:00",
   "source": "FEUS.ai Assurance Suite v5.2.1",
   "assurance": {
     "data_source": "logs/assurance_evidence/evidence_ASR-*.json",
-    "total_runs": 361,
-    "finalized_runs": 361,
+    "total_runs": 377,
+    "finalized_runs": 377,
     "earliest_run_at": "2026-04-11T02:14:02.861448+00:00",
-    "latest_run_at": "2026-04-22T23:20:37.195169+00:00",
-    "total_evidence_entries": 4410,
+    "latest_run_at": "2026-04-23T00:02:10.638888+00:00",
+    "total_evidence_entries": 4603,
     "packs_invoked": {
-      "workflow_governance_v1": 275,
-      "ai_security_v1": 275
+      "workflow_governance_v1": 287,
+      "ai_security_v1": 287
     },
     "ceiling_decisions": {
-      "PROCEED": 273,
+      "PROCEED": 285,
       "BLOCK": 1,
       "RESTRICT": 1
     }
