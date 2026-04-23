@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-04-22T23:45:09.315617+00:00",
+  "generated_at": "2026-04-23T00:29:09.942753+00:00",
   "source": "FEUS.ai ROI Engine v5.2.1",
   "data_provenance": {
-    "roi_data_source": "logs/audit (real operations)",
-    "ops_data_source": "logs/audit/audit_*.jsonl"
+    "roi_data_source": "demo_constants",
+    "ops_data_source": "empty"
   },
   "session_metrics": {
-    "time_saved_hours": "599+",
-    "time_saved_hours_raw": 599.97,
-    "risk_cost_avoided": "$968K",
-    "risk_cost_avoided_raw": 968400.0,
-    "governance_compliance_pct": "95%",
-    "governance_compliance_raw": 94.87,
+    "time_saved_hours": "14+",
+    "time_saved_hours_raw": 14.36,
+    "risk_cost_avoided": "$53K",
+    "risk_cost_avoided_raw": 53500.0,
+    "governance_compliance_pct": "97%",
+    "governance_compliance_raw": 97.6,
     "time_to_first_roi": "<5 min",
     "time_to_first_roi_raw": 5,
-    "compliance_grade": "B",
-    "operations_governed": 1851,
+    "compliance_grade": "A",
+    "operations_governed": 42,
     "pii_columns_protected": 5,
-    "dba_cost_saved_usd": 82495.42,
+    "dba_cost_saved_usd": 1974.5,
     "session_duration_min": 8.2,
-    "speedup_factor": "96.4%"
+    "speedup_factor": "99.1%"
   },
   "platform_metrics": {
     "sql_instances_managed": "3,150+",
@@ -31,25 +31,21 @@
     "governance_components": 8
   },
   "operational_metrics": {
-    "total_operations": 1851,
-    "successful_operations": 1487,
-    "blocked_operations": 269,
-    "warned_operations": 75,
-    "errored_operations": 20,
+    "total_operations": 0,
+    "successful_operations": 0,
+    "blocked_operations": 0,
+    "warned_operations": 0,
+    "errored_operations": 0,
     "operations_with_approval": 0,
-    "unique_sessions": 275,
-    "audit_chain_verified": true,
-    "audit_files_verified": 3,
+    "unique_sessions": 0,
+    "audit_chain_verified": false,
+    "audit_files_verified": 0,
     "audit_chain_broken_links": 0,
-    "first_event_at": "2026-04-15T16:48:20.074548+00:00",
-    "latest_event_at": "2026-04-22T23:25:57.028583+00:00",
-    "execution_time_p50_ms": 15,
-    "execution_time_p95_ms": 45,
-    "blocks_by_stage": {
-      "GATE_3_POLICY": 137,
-      "GATE_2_CLASSIFICATION": 43,
-      "GATE_4_PII": 9
-    }
+    "first_event_at": null,
+    "latest_event_at": null,
+    "execution_time_p50_ms": 0,
+    "execution_time_p95_ms": 0,
+    "blocks_by_stage": {}
   },
   "benchmarks": {
     "dba_hourly_rate_usd": 137.5,

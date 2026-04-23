@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-22T23:45:19.605786+00:00",
+  "generated_at": "2026-04-23T00:29:09.965211+00:00",
   "source": "FEUS.ai Assurance Suite v5.2.1",
   "assurance": {
     "data_source": "logs/assurance_evidence/evidence_ASR-*.json",
@@ -31,8 +31,8 @@
     "promotion_targets_unlocked": []
   },
   "audit_chain": {
-    "verified": true,
-    "files_checked": 3,
+    "verified": false,
+    "files_checked": 0,
     "broken_links": 0
   },
   "data_provenance": {
