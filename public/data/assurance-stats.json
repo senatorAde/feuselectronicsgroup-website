@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-04-22T23:45:19.605786+00:00",
+  "source": "FEUS.ai Assurance Suite v5.2.1",
+  "assurance": {
+    "data_source": "logs/assurance_evidence/evidence_ASR-*.json",
+    "total_runs": 361,
+    "finalized_runs": 361,
+    "earliest_run_at": "2026-04-11T02:14:02.861448+00:00",
+    "latest_run_at": "2026-04-22T23:20:37.195169+00:00",
+    "total_evidence_entries": 4410,
+    "packs_invoked": {
+      "workflow_governance_v1": 275,
+      "ai_security_v1": 275
+    },
+    "ceiling_decisions": {
+      "PROCEED": 273,
+      "BLOCK": 1,
+      "RESTRICT": 1
+    }
+  },
+  "certification": {
+    "data_source": "logs/certification/*/certification_summary.json",
+    "total_runs": 10,
+    "highest_state_achieved": "CERTIFICATION_FAILED",
+    "latest_verdict": "CERTIFICATION_FAILED",
+    "latest_run_at": "2026-04-22T19:59:42Z",
+    "latest_run_id": "CERT_20260422T195909Z_585A54",
+    "verdict_distribution": {
+      "CERTIFICATION_FAILED": 10
+    },
+    "promotion_targets_unlocked": []
+  },
+  "audit_chain": {
+    "verified": true,
+    "files_checked": 3,
+    "broken_links": 0
+  },
+  "data_provenance": {
+    "evidence_dir": "logs/assurance_evidence/",
+    "certification_dir": "logs/certification/",
+    "audit_dir": "logs/audit/"
+  }
+}

@@ -9,6 +9,7 @@ import {
 import AnimatedSection from '../components/AnimatedSection'
 import { SectionHeader, SectionLabel, CTAButton, StatCard, GlowDivider, ProofPoint } from '../components/ui'
 import { CalendlyButton } from '../components/CalendlyEmbed'
+import AssuranceProof from '../components/AssuranceProof'
 
 /* ─────────────────────── HERO ─────────────────────── */
 function Hero() {

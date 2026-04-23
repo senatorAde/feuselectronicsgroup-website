@@ -48,6 +48,10 @@ export function useROIStats() {
           setData({
             session_metrics: { ...DEFAULTS.session_metrics, ...json.session_metrics },
             platform_metrics: { ...DEFAULTS.platform_metrics, ...json.platform_metrics },
+            operational_metrics: json.operational_metrics || null,
+            data_provenance: json.data_provenance || null,
+            generated_at: json.generated_at || null,
+            source: json.source || null,
           })
         }
       })
@@ -62,8 +66,12 @@ export function useROIStats() {
   }, [])
 
   return {
-    stats: data.session_metrics,
-    platform: data.platform_metrics,
+    stats:        data.session_metrics,
+    platform:     data.platform_metrics,
+    operational:  data.operational_metrics,
+    provenance:   data.data_provenance,
+    generatedAt:  data.generated_at,
+    source:       data.source,
     loading,
   }
 }
