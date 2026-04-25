@@ -243,7 +243,7 @@ function WhyFeus() {
                 <span className="gradient-text">Your Operations Team.</span>
               </h2>
               <p className="mt-6 text-lg text-gray-400 leading-relaxed">
-                Most MSPs give you bodies and tickets. We give you an engineering-led operations team with AI embedded into every workflow — delivered through VS Code and GitHub Copilot Chat, governed, auditable, and built to scale with your enterprise.
+                Most MSPs give you bodies and tickets. We give you an engineering-led operations team with AI embedded into every workflow — delivered through FEUS Copilot, governed, auditable, and built to scale with your enterprise.
               </p>
               <div className="mt-8">
                 <CTAButton to="/feus-ai">
@@ -288,14 +288,14 @@ function HowFeusWorks() {
           <SectionHeader
             label="How FEUS.ai Works"
             title={<>Embedded in Your Workflow.<br /><span className="gradient-text">Governed by Design.</span></>}
-            subtitle="FEUS.ai operates through five layers — from your client environment, through VS Code and GitHub Copilot Chat, through governance and intelligence, to actionable outputs."
+            subtitle="FEUS.ai operates through five layers — from your client environment, through the FEUS Copilot interface, through governance and intelligence, to actionable outputs."
           />
         </AnimatedSection>
 
         <div className="grid md:grid-cols-5 gap-4">
           {[
             { label: 'Client Environment', desc: 'Your SQL, Azure, pipelines', color: 'border-blue-500/30', textColor: 'text-blue-400' },
-            { label: 'VS Code + Copilot Chat', desc: 'Natural language interface', color: 'border-violet-500/30', textColor: 'text-violet-400' },
+            { label: 'FEUS Copilot', desc: 'Natural language interface', color: 'border-violet-500/30', textColor: 'text-violet-400' },
             { label: 'Governance Layer', desc: 'Policy · PII · RBAC · Audit', color: 'border-emerald-500/30', textColor: 'text-emerald-400' },
             { label: 'Intelligence Layer', desc: 'AI agents & decision engine', color: 'border-amber-500/30', textColor: 'text-amber-400' },
             { label: 'Decision Outputs', desc: 'Reports · Recommendations', color: 'border-rose-500/30', textColor: 'text-rose-400' },
@@ -355,7 +355,7 @@ function FlagshipSolution() {
                   8 governance modules. 0 unprotected operations.
                 </p>
                 <p className="mt-4 text-gray-400 leading-relaxed">
-                  Our production-grade AI assistant for database operations combines deep SQL Server expertise with enterprise governance. Delivered through VS Code and GitHub Copilot Chat, it doesn't just find problems — it recommends fixes, enforces policies, protects sensitive data, and generates executive-ready reports — all under human oversight.
+                  Our production-grade AI assistant for database operations combines deep SQL Server expertise with enterprise governance. Delivered through FEUS Copilot, it doesn't just find problems — it recommends fixes, enforces policies, protects sensitive data, and generates executive-ready reports — all under human oversight.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-4">
                   <CTAButton to="/how-it-works">

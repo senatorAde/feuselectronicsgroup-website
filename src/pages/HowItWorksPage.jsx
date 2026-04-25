@@ -23,9 +23,9 @@ const operationalLayers = [
   {
     step: '02',
     label: 'INTERACTION LAYER',
-    title: 'VS Code + GitHub Copilot Chat',
-    description: 'Your team interacts with FEUS.ai through tools they already use — VS Code and GitHub Copilot Chat. There is no new UI to learn, no separate portal to manage. Engineers submit requests, ask questions, and receive recommendations directly in their development environment. Copilot Chat serves as the natural language interface — the conversation layer between your team and the FEUS.ai intelligence engine.',
-    items: ['Natural language requests via Copilot Chat', 'VS Code as the primary workspace', 'No new tools to learn or deploy', 'Context-aware interactions within your IDE'],
+    title: 'FEUS Copilot Chat',
+    description: 'Your team interacts with FEUS.ai through FEUS Copilot — a conversational chat interface embedded directly in their workflow. There is no new portal to manage and no separate UI to learn. Engineers submit requests, ask questions, and receive recommendations through natural language. FEUS Copilot is the conversation layer between your team and the FEUS.ai intelligence engine.',
+    items: ['Natural language requests via FEUS Copilot', 'Embedded in the engineer\'s daily workflow', 'No new tools to learn or deploy', 'Context-aware interactions tied to your environment'],
     color: 'border-violet-500/40',
     bgColor: 'bg-violet-500/10',
     iconColor: 'text-violet-400',
@@ -57,7 +57,7 @@ const operationalLayers = [
     step: '05',
     label: 'DECISION OUTPUTS',
     title: 'Actionable, Auditable Results',
-    description: 'Every FEUS.ai operation produces structured, governed outputs — delivered back through Copilot Chat or as automated reports. Optimization recommendations come with impact analysis. Health assessments include risk scoring. Every output is audit-logged with a complete decision chain, ready for compliance review at any time.',
+    description: 'Every FEUS.ai operation produces structured, governed outputs — delivered back through FEUS Copilot or as automated reports. Optimization recommendations come with impact analysis. Health assessments include risk scoring. Every output is audit-logged with a complete decision chain, ready for compliance review at any time.',
     items: ['Optimization recommendations with impact scoring', 'Health reports with risk assessment', 'Executive summaries in business language', 'Complete audit trail with hash-chained provenance', 'Automated compliance documentation'],
     color: 'border-rose-500/40',
     bgColor: 'bg-rose-500/10',
@@ -70,17 +70,17 @@ const operationalLayers = [
 const differentiators = [
   {
     title: 'Embeds Into Existing Workflows',
-    description: 'FEUS.ai does not require your team to adopt a new platform, learn a new interface, or change their development workflow. It meets engineers where they already work — inside VS Code and Copilot Chat.',
+    description: 'FEUS.ai does not require your team to adopt a new platform, learn a new interface, or change their development workflow. It meets engineers where they already work — through FEUS Copilot.',
     icon: Code2,
   },
   {
-    title: 'Copilot Chat Is the Interface',
-    description: 'GitHub Copilot Chat serves as the natural language interaction layer. Your team asks questions, submits requests, and receives governed responses — all within a conversational interface they already use daily.',
+    title: 'FEUS Copilot Is the Interface',
+    description: 'FEUS Copilot serves as the natural language interaction layer. Your team asks questions, submits requests, and receives governed responses — all within a conversational interface designed for daily use.',
     icon: MessageSquare,
   },
   {
     title: 'FEUS.ai Is the Governance + Intelligence Layer',
-    description: 'Behind every Copilot Chat interaction, FEUS.ai enforces policies, protects PII, routes approvals, executes governed operations, and delivers AI-powered intelligence — invisibly and automatically.',
+    description: 'Behind every FEUS Copilot interaction, FEUS.ai enforces policies, protects PII, routes approvals, executes governed operations, and delivers AI-powered intelligence — invisibly and automatically.',
     icon: Shield,
   },
   {
@@ -92,11 +92,11 @@ const differentiators = [
 
 /* ─────────────────────── WORKFLOW EXAMPLE ─────────────────────── */
 const workflowSteps = [
-  { label: 'Engineer types', text: '"Analyze slow queries on PROD-SQL-03"', sublabel: 'In Copilot Chat within VS Code' },
+  { label: 'Engineer types', text: '"Analyze slow queries on PROD-SQL-03"', sublabel: 'In the FEUS Copilot chat interface' },
   { label: 'FEUS.ai parses', text: 'Intent classified: performance analysis', sublabel: 'Request validated against policies' },
   { label: 'Governance checks', text: 'RBAC verified → PII scan passed → Environment: production', sublabel: 'Approval auto-granted (read-only analysis)' },
   { label: 'AI executes', text: 'Top 5 slow queries identified, root causes analyzed', sublabel: 'Index recommendations generated' },
-  { label: 'Results delivered', text: 'Copilot Chat returns optimization report', sublabel: 'Full audit trail logged, executive summary available' },
+  { label: 'Results delivered', text: 'FEUS Copilot returns optimization report', sublabel: 'Full audit trail logged, executive summary available' },
 ]
 
 export default function HowItWorksPage() {
@@ -106,7 +106,7 @@ export default function HowItWorksPage() {
       <PageHero
         label="How FEUS.ai Works"
         title={<>Five Layers. One Governed Pipeline.<br />From Request to <span className="gradient-text">Auditable Result.</span></>}
-        subtitle="Every operation follows the same path: your team asks a question in Copilot Chat, FEUS.ai governs and executes it, and a structured, auditable result is delivered — without your team leaving VS Code."
+        subtitle="Every operation follows the same path: your team asks a question in FEUS Copilot, FEUS.ai governs and executes it, and a structured, auditable result is delivered — without your team leaving their workflow."
       >
         <div className="flex flex-wrap gap-4">
           <CalendlyButton className="btn-accent group" icon={ArrowRight}>
@@ -123,9 +123,8 @@ export default function HowItWorksPage() {
             <div className="glass-card-static p-8 md:p-12 text-center">
               <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-4xl mx-auto">
                 <span className="text-white font-semibold">FEUS.ai</span> partners with client environments using{' '}
-                <span className="text-violet-400 font-semibold">VS Code</span> and{' '}
-                <span className="text-violet-400 font-semibold">GitHub Copilot Chat</span>{' '}
-                as the interaction layer to establish a{' '}
+                <span className="text-violet-400 font-semibold">FEUS Copilot</span>{' '}
+                as the conversational interaction layer to establish a{' '}
                 <span className="text-emerald-400 font-semibold">governed operational foundation</span>{' '}
                 and deliver{' '}
                 <span className="text-amber-400 font-semibold">environment and operational decision intelligence</span>.
@@ -208,7 +207,7 @@ export default function HowItWorksPage() {
             <SectionHeader
               label="In Practice"
               title="A Real Workflow, Start to Finish"
-              subtitle="Here's what happens when an engineer submits a request through Copilot Chat."
+              subtitle="Here's what happens when an engineer submits a request through FEUS Copilot."
             />
           </AnimatedSection>
 
@@ -301,7 +300,7 @@ export default function HowItWorksPage() {
 
                 <div className="text-center">
                   <div className="inline-block px-6 py-3 bg-violet-500/10 border border-violet-500/30 rounded-xl">
-                    <span className="text-violet-400 font-semibold">VS CODE + GITHUB COPILOT CHAT</span>
+                    <span className="text-violet-400 font-semibold">FEUS COPILOT CHAT INTERFACE</span>
                     <span className="block text-xs text-gray-500 mt-1">Interaction Layer · Natural Language Interface</span>
                   </div>
                 </div>
