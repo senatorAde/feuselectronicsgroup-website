@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-16T07:43:59.944640+00:00",
+  "generated_at": "2026-05-17T08:04:01.338443+00:00",
   "source": "FEUS.ai Assurance Suite v5.2.1",
   "assurance": {
     "data_source": "logs/assurance_evidence/evidence_ASR-*.json",
