@@ -108,10 +108,7 @@ export default function MediaSalesLandingPage() {
             <AnimatedSection>
               <div className="glass-card overflow-hidden grid lg:grid-cols-2 gap-0">
                 <div className="relative aspect-[4/3] lg:aspect-auto bg-navy-900 overflow-hidden">
-                  <ImageSlideshow
-                    images={getSlideshowImagePaths(featured)}
-                    className="absolute inset-0"
-                  />
+                  <ImageSlideshow images={getSlideshowImagePaths(featured)} />
                   <div className="absolute inset-0 bg-gradient-to-r from-navy-950/60 via-transparent to-transparent lg:from-transparent lg:via-transparent pointer-events-none" />
                   <span className="absolute top-4 left-4 inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-accent-500/20 text-accent-300 border border-accent-500/30 pointer-events-none">
                     <CheckCircle2 className="w-3 h-3" />

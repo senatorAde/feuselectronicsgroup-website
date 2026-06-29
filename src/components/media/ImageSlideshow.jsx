@@ -42,7 +42,7 @@ export default function ImageSlideshow({
 
   return (
     <div
-      className={`relative overflow-hidden bg-navy-900 ${className}`}
+      className={`relative w-full h-full overflow-hidden bg-navy-900 ${className}`}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}

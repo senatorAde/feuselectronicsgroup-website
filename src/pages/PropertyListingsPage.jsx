@@ -56,7 +56,6 @@ export default function PropertyListingsPage() {
                         {slides.length > 0 && (
                           <ImageSlideshow
                             images={slides}
-                            className="absolute inset-0"
                             showDots={slides.length > 1}
                           />
                         )}

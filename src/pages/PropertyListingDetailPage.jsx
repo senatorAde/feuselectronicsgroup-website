@@ -112,10 +112,7 @@ export default function PropertyListingDetailPage() {
             <div className="lg:col-span-2">
               {slides.length > 0 && (
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl">
-                  <ImageSlideshow
-                    images={slides}
-                    className="absolute inset-0"
-                  />
+                  <ImageSlideshow images={slides} />
                 </div>
               )}
             </div>
