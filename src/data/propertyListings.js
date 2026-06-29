@@ -46,11 +46,15 @@ export const propertyListings = [
     // without reordering the gallery array.
     coverImage: 'Exterior/DSC_4806.JPG',
     // Curated set rotated by the ImageSlideshow on listing cards and
-    // the detail-page hero. Falls back to the entire Exterior gallery
-    // when this array is empty/absent.
+    // the detail-page hero. Alternates front-elevation shots with
+    // interior "wow" shots for a curb-appeal → inside-reveal cadence.
+    // Falls back to the entire Exterior gallery when this array is
+    // empty/absent.
     slideshowImages: [
       'Exterior/DSC_4806.JPG', // front, face-on (cleanest)
+      'interior/DSC_4660.JPG', // open-concept great room (living + dining + kitchen)
       'Exterior/DSC_4805.JPG', // front, 3/4 angle from left
+      'interior/DSC_4712.JPG', // formal living room (bright, neutral, staged)
       'Exterior/DSC_4807.JPG', // front, with vehicle for scale
     ],
     summary:
