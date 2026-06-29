@@ -12,6 +12,9 @@ import InsightsPage from './pages/InsightsPage'
 import TrustPage from './pages/TrustPage'
 import PricingPage from './pages/PricingPage'
 import AssuranceDashboardPage from './pages/AssuranceDashboardPage'
+import MediaSalesLandingPage from './pages/MediaSalesLandingPage'
+import PropertyListingsPage from './pages/PropertyListingsPage'
+import PropertyListingDetailPage from './pages/PropertyListingDetailPage'
 
 export default function App() {
   return (
@@ -29,6 +32,9 @@ export default function App() {
         <Route path="/trust" element={<TrustPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/assurance" element={<AssuranceDashboardPage />} />
+        <Route path="/sales" element={<MediaSalesLandingPage />} />
+        <Route path="/sales/listings" element={<PropertyListingsPage />} />
+        <Route path="/sales/listings/:slug" element={<PropertyListingDetailPage />} />
       </Route>
     </Routes>
   )

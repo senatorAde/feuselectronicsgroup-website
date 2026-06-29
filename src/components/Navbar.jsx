@@ -10,6 +10,7 @@ const navigation = [
   { name: 'How It Works', href: '/how-it-works' },
   { name: 'Services', href: '/services' },
   { name: 'Solutions', href: '/solutions' },
+  { name: 'Sales', href: '/sales' },
   { name: 'Trust & Security', href: '/trust' },
   { name: 'Insights', href: '/insights' },
   { name: 'Contact', href: '/contact' },

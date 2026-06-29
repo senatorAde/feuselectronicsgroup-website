@@ -21,6 +21,12 @@ const footerLinks = {
     { name: 'AI Enablement', href: '/solutions#enablement' },
     { name: 'Analytics & BI', href: '/solutions#analytics' },
   ],
+  Sales: [
+    { name: 'Sales Overview', href: '/sales' },
+    { name: 'Property Listings', href: '/sales/listings' },
+    { name: 'Featured Property', href: '/sales/listings/1903-woodsley-ct' },
+    { name: 'Request Showcase', href: '/contact' },
+  ],
   Resources: [
     { name: 'Insights & Blog', href: '/insights' },
     { name: 'Trust & Security', href: '/trust' },
@@ -53,9 +59,9 @@ export default function Footer() {
 
       {/* Links Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
           {/* Brand Column */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-1 mb-8 lg:mb-0">
+          <div className="col-span-2 md:col-span-3 lg:col-span-1 mb-8 lg:mb-0">
             <Link to="/" className="flex items-center space-x-3">
               <img 
                 src="/feus-logo.jpg" 
