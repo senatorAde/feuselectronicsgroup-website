@@ -13,8 +13,9 @@ import Gallery from '../components/media/Gallery'
 import AssetCard from '../components/media/AssetCard'
 import SaleOptionCard from '../components/media/SaleOptionCard'
 import PropertyInquiryForm from '../components/media/PropertyInquiryForm'
+import ImageSlideshow from '../components/media/ImageSlideshow'
 import {
-  getListingBySlug, buildAssetImagePath, getCoverImagePath, getTotalImageCount,
+  getListingBySlug, buildAssetImagePath, getCoverImagePath, getSlideshowImagePaths, getTotalImageCount,
 } from '../data/propertyListings'
 
 export default function PropertyListingDetailPage() {
@@ -40,6 +41,7 @@ export default function PropertyListingDetailPage() {
   }
 
   const heroImage = getCoverImagePath(listing)
+  const slides = getSlideshowImagePaths(listing)
 
   return (
     <>
@@ -108,12 +110,11 @@ export default function PropertyListingDetailPage() {
             </div>
 
             <div className="lg:col-span-2">
-              {heroImage && (
+              {slides.length > 0 && (
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl">
-                  <img
-                    src={heroImage}
-                    alt={`${listing.title} — primary view`}
-                    className="absolute inset-0 w-full h-full object-cover"
+                  <ImageSlideshow
+                    images={slides}
+                    className="absolute inset-0"
                   />
                 </div>
               )}

@@ -3,8 +3,9 @@ import { ArrowRight, MapPin, CheckCircle2, ImageIcon, Boxes } from 'lucide-react
 import AnimatedSection from '../components/AnimatedSection'
 import { PageHero, SectionLabel, GlowDivider } from '../components/ui'
 import SEO from '../components/SEO'
+import ImageSlideshow from '../components/media/ImageSlideshow'
 import {
-  propertyListings, getCoverImagePath, getTotalImageCount,
+  propertyListings, getSlideshowImagePaths, getTotalImageCount,
 } from '../data/propertyListings'
 
 export default function PropertyListingsPage() {
@@ -44,7 +45,7 @@ export default function PropertyListingsPage() {
           ) : (
             <div className="grid md:grid-cols-2 gap-8">
               {propertyListings.map((listing, i) => {
-                const cover = getCoverImagePath(listing)
+                const slides = getSlideshowImagePaths(listing)
                 return (
                   <AnimatedSection key={listing.slug} delay={i * 80}>
                     <Link
@@ -52,16 +53,15 @@ export default function PropertyListingsPage() {
                       className="glass-card overflow-hidden block h-full group"
                     >
                       <div className="relative aspect-[16/10] bg-navy-900 overflow-hidden">
-                        {cover && (
-                          <img
-                            src={cover}
-                            alt={`${listing.title} — cover`}
-                            loading="lazy"
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        {slides.length > 0 && (
+                          <ImageSlideshow
+                            images={slides}
+                            className="absolute inset-0"
+                            showDots={slides.length > 1}
                           />
                         )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent" />
-                        <span className="absolute top-4 left-4 inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-accent-500/20 text-accent-300 border border-accent-500/30">
+                        <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent pointer-events-none" />
+                        <span className="absolute top-4 left-4 inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-accent-500/20 text-accent-300 border border-accent-500/30 pointer-events-none">
                           <CheckCircle2 className="w-3 h-3" />
                           {listing.status}
                         </span>

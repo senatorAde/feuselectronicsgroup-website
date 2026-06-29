@@ -39,16 +39,29 @@ export const propertyListings = [
     title: '1903 Woodsley Ct — Property & Contents Sale',
     headline:
       'A Move-In-Ready Residence and Its Curated Contents — Available Individually or Together As-Is',
-    location: 'Atlanta Metro Area, GA', // TODO: confirm exact city / ZIP
+    location: 'Loganville, GA 30052',
+    // Front-elevation shot used as the listing cover (hero, list
+    // card, and OG/SEO image). Path is "<gallery folder>/<filename>"
+    // relative to the listing folder. Swap this to change the cover
+    // without reordering the gallery array.
+    coverImage: 'Exterior/DSC_4806.JPG',
+    // Curated set rotated by the ImageSlideshow on listing cards and
+    // the detail-page hero. Falls back to the entire Exterior gallery
+    // when this array is empty/absent.
+    slideshowImages: [
+      'Exterior/DSC_4806.JPG', // front, face-on (cleanest)
+      'Exterior/DSC_4805.JPG', // front, 3/4 angle from left
+      'Exterior/DSC_4807.JPG', // front, with vehicle for scale
+    ],
     summary:
       'A well-maintained residential property offered with all interior furnishings and contents. Buyers may purchase select items individually, build a multi-item bundle, or acquire the entire home and its contents together in a single as-is transaction. Every transaction is presented and documented through FEUS Media for clarity, trust, and a clean handover.',
 
     // ── Pricing (placeholders) ────────────────────────────────────
     // TODO: replace placeholders with actual asking prices.
-    askingPrice: 'Contact for pricing',
-    bundlePrice: 'Contact for bundle pricing',
+    askingPrice: '$425,000 – $445,000',
+    bundlePrice: '$445,000 – $470,000',
     pricingNote:
-      'Asking pricing is indicative. All figures are subject to final confirmation in writing.',
+      'Pricing shown is an indicative range based on the recent Zillow Zestimate (~$436,500) for 1903 Woodsley Ct. Final figures are subject to confirmation in writing following inspection and negotiation.',
 
     // ── Property + contents overview ──────────────────────────────
     overview: {
@@ -232,7 +245,7 @@ export const propertyListings = [
       title: '1903 Woodsley Ct — Property & Contents for Sale in Loganville, GA',
       description:
         'A residential property in Loganville, Georgia and its complete contents, available individually or together as-is. Showcased by FEUS Media — high-quality photography, transparent listings, and a direct inquiry channel.',
-      image: '/media/Sales/property-sales/1903 Woodsley Ct/Exterior/DSC_4805.JPG',
+      image: '/media/Sales/property-sales/1903 Woodsley Ct/Exterior/DSC_4806.JPG',
     },
   },
 ]
@@ -277,6 +290,27 @@ export function getCoverImagePath(listing) {
     return buildMediaPath(listing, firstGroup.folder, firstFile)
   }
   return null
+}
+
+/**
+ * Returns a curated set of {src, alt} entries for the listing
+ * slideshow. Uses listing.slideshowImages when provided, otherwise
+ * falls back to every photo in the first gallery group (typically
+ * the Exterior set).
+ */
+export function getSlideshowImagePaths(listing) {
+  if (listing.slideshowImages?.length) {
+    return listing.slideshowImages.map((relativePath, i) => ({
+      src: buildAssetImagePath(listing, relativePath),
+      alt: `${listing.title} — view ${i + 1}`,
+    }))
+  }
+  const firstGroup = listing.gallery?.[0]
+  if (!firstGroup?.images?.length) return []
+  return firstGroup.images.map((filename, i) => ({
+    src: buildMediaPath(listing, firstGroup.folder, filename),
+    alt: `${listing.title} — ${firstGroup.title} ${i + 1}`,
+  }))
 }
 
 /**

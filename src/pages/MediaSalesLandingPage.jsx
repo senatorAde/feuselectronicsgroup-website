@@ -9,7 +9,8 @@ import {
 } from '../components/ui'
 import { CalendlyButton } from '../components/CalendlyEmbed'
 import SEO from '../components/SEO'
-import { propertyListings, getCoverImagePath, getTotalImageCount } from '../data/propertyListings'
+import ImageSlideshow from '../components/media/ImageSlideshow'
+import { propertyListings, getSlideshowImagePaths, getTotalImageCount } from '../data/propertyListings'
 import { mediaServices, mediaSalesHighlights } from '../data/mediaServices'
 
 const ICONS = { Camera, Building2, Tag, Home, Boxes, MessageSquare }
@@ -107,14 +108,12 @@ export default function MediaSalesLandingPage() {
             <AnimatedSection>
               <div className="glass-card overflow-hidden grid lg:grid-cols-2 gap-0">
                 <div className="relative aspect-[4/3] lg:aspect-auto bg-navy-900 overflow-hidden">
-                  <img
-                    src={getCoverImagePath(featured)}
-                    alt={`${featured.title} — front elevation`}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover"
+                  <ImageSlideshow
+                    images={getSlideshowImagePaths(featured)}
+                    className="absolute inset-0"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-navy-950/60 via-transparent to-transparent lg:from-transparent lg:via-transparent" />
-                  <span className="absolute top-4 left-4 inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-accent-500/20 text-accent-300 border border-accent-500/30">
+                  <div className="absolute inset-0 bg-gradient-to-r from-navy-950/60 via-transparent to-transparent lg:from-transparent lg:via-transparent pointer-events-none" />
+                  <span className="absolute top-4 left-4 inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-accent-500/20 text-accent-300 border border-accent-500/30 pointer-events-none">
                     <CheckCircle2 className="w-3 h-3" />
                     {featured.status}
                   </span>
