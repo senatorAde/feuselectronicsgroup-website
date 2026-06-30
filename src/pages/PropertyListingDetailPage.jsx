@@ -15,7 +15,7 @@ import SaleOptionCard from '../components/media/SaleOptionCard'
 import PropertyInquiryForm from '../components/media/PropertyInquiryForm'
 import ImageSlideshow from '../components/media/ImageSlideshow'
 import {
-  getListingBySlug, buildAssetImagePath, getCoverImagePath, getSlideshowImagePaths, getTotalImageCount,
+  getListingBySlug, buildAssetImagePath, getCoverImagePath, getSlideshowImagePaths, getTotalImageCount, buildInquireHref,
 } from '../data/propertyListings'
 
 export default function PropertyListingDetailPage() {
@@ -96,7 +96,12 @@ export default function PropertyListingDetailPage() {
                 {listing.summary}
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <a href="#inquiry" className="btn-primary group">
+                <a
+                  href={buildInquireHref({ listing })}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary group"
+                >
                   Request Details
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
@@ -174,7 +179,8 @@ export default function PropertyListingDetailPage() {
               description={listing.saleOptions.individual.description}
               price={listing.askingPrice}
               ctaLabel={listing.saleOptions.individual.cta}
-              ctaHref="#inquiry"
+              ctaHref={buildInquireHref({ listing, interest: 'individual-item' })}
+              newTab
             />
             <SaleOptionCard
               variant="asIs"
@@ -182,7 +188,8 @@ export default function PropertyListingDetailPage() {
               description={listing.saleOptions.asIs.description}
               price={listing.bundlePrice}
               ctaLabel={listing.saleOptions.asIs.cta}
-              ctaHref="#inquiry"
+              ctaHref={buildInquireHref({ listing, interest: 'entire-property' })}
+              newTab
             />
           </div>
           {listing.pricingNote && (
@@ -245,7 +252,7 @@ export default function PropertyListingDetailPage() {
                         condition={asset.condition}
                         availability={asset.availability}
                         price={asset.price}
-                        assetId={asset.id}
+                        inquireHref={buildInquireHref({ listing, asset: asset.id })}
                       />
                     </AnimatedSection>
                   ))}

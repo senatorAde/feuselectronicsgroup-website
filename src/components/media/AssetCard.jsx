@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom'
-import { ArrowRight, CheckCircle2, Tag } from 'lucide-react'
+import { ArrowUpRight, CheckCircle2, Tag } from 'lucide-react'
 
 /**
  * Reusable card for a single asset/item.
@@ -9,8 +8,9 @@ import { ArrowRight, CheckCircle2, Tag } from 'lucide-react'
  * - condition:     "New", "Like New", "Good", "Fair"...
  * - availability:  "Available", "Reserved", "Sold"
  * - price:         string ("$1,200" or "Contact for pricing")
- * - assetId:       passed via ?asset=<id> so the inquiry form pre-fills
- * - inquiryHash:   hash target on the same page (default "#inquiry")
+ * - inquireHref:   URL of the inquiry page; opened in a new tab so
+ *                  the buyer can fill the form without losing the
+ *                  listing's place in the parent tab.
  */
 export default function AssetCard({
   image,
@@ -20,8 +20,7 @@ export default function AssetCard({
   condition,
   availability = 'Available',
   price,
-  assetId,
-  inquiryHash = '#inquiry',
+  inquireHref,
 }) {
   const isAvailable = availability?.toLowerCase() === 'available'
 
@@ -79,17 +78,16 @@ export default function AssetCard({
           </div>
         </dl>
 
-        {(assetId || inquiryHash) && (
-          <Link
-            to={{
-              search: assetId ? `?asset=${encodeURIComponent(assetId)}` : '',
-              hash: inquiryHash,
-            }}
+        {inquireHref && (
+          <a
+            href={inquireHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-5 inline-flex items-center justify-center gap-1.5 text-sm font-medium text-feus-300 hover:text-feus-200 transition-colors group/btn"
           >
             Inquire about this item
-            <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
-          </Link>
+            <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+          </a>
         )}
       </div>
     </article>

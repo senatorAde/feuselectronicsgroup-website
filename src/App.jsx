@@ -15,6 +15,7 @@ import AssuranceDashboardPage from './pages/AssuranceDashboardPage'
 import MediaSalesLandingPage from './pages/MediaSalesLandingPage'
 import PropertyListingsPage from './pages/PropertyListingsPage'
 import PropertyListingDetailPage from './pages/PropertyListingDetailPage'
+import PropertyInquirePage from './pages/PropertyInquirePage'
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/sales" element={<MediaSalesLandingPage />} />
         <Route path="/sales/listings" element={<PropertyListingsPage />} />
         <Route path="/sales/listings/:slug" element={<PropertyListingDetailPage />} />
+        <Route path="/sales/inquire" element={<PropertyInquirePage />} />
       </Route>
     </Routes>
   )

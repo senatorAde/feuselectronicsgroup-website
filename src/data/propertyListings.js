@@ -836,6 +836,23 @@ export function buildAssetImagePath(listing, relativePath) {
 }
 
 /**
+ * Build a URL for the standalone inquiry page.
+ *   buildInquireHref({ listing, asset, interest })
+ *
+ * - listing  (required) — listing object (uses listing.slug)
+ * - asset    (optional) — asset id (`assets[].id`); prefills the form
+ * - interest (optional) — one of 'entire-property' | 'individual-item' |
+ *                         'multiple-items' | 'media-services' | 'other'
+ */
+export function buildInquireHref({ listing, asset, interest } = {}) {
+  if (!listing) return '/sales/inquire'
+  const params = new URLSearchParams({ listing: listing.slug })
+  if (asset) params.set('asset', asset)
+  if (interest) params.set('interest', interest)
+  return `/sales/inquire?${params.toString()}`
+}
+
+/**
  * Returns the URL of the listing's cover/hero image. Falls back to
  * the first photo of the first gallery group when `coverImage` is
  * not set.

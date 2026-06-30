@@ -1,4 +1,4 @@
-import { ArrowRight, Boxes, Package } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Boxes, Package } from 'lucide-react'
 
 /**
  * Twin cards rendered side-by-side on the listing detail page:
@@ -6,7 +6,9 @@ import { ArrowRight, Boxes, Package } from 'lucide-react'
  *   • "Buy Together As-Is" — links to bundle inquiry
  *
  * Both cards share styling but use different accents to make the
- * two paths visually distinct.
+ * two paths visually distinct. When `newTab` is true, the CTA
+ * opens in a new browser tab (handy when the form lives on a
+ * separate page so the buyer doesn't lose their place).
  */
 export default function SaleOptionCard({
   variant = 'individual', // 'individual' | 'asIs'
@@ -15,6 +17,7 @@ export default function SaleOptionCard({
   price,
   ctaLabel,
   ctaHref,
+  newTab = false,
 }) {
   const isAsIs = variant === 'asIs'
   const Icon = isAsIs ? Boxes : Package
@@ -42,6 +45,8 @@ export default function SaleOptionCard({
 
       <a
         href={ctaHref}
+        target={newTab ? '_blank' : undefined}
+        rel={newTab ? 'noopener noreferrer' : undefined}
         className={`mt-6 inline-flex items-center justify-center gap-2 text-sm font-semibold rounded-lg px-5 py-2.5 transition-all duration-300 group ${
           isAsIs
             ? 'bg-accent-600 text-white hover:bg-accent-500 shadow-lg shadow-accent-600/25'
@@ -49,7 +54,11 @@ export default function SaleOptionCard({
         }`}
       >
         {ctaLabel}
-        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        {newTab ? (
+          <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+        ) : (
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        )}
       </a>
     </div>
   )
