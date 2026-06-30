@@ -33,6 +33,13 @@ const FALLBACK_EMAIL = 'info@feuselectronicsgroup.com'
 export default function PropertyInquiryForm({ listing }) {
   const [searchParams] = useSearchParams()
   const presetAssetId = searchParams.get('asset') || ''
+  // Resolve the friendly title for the asset id so the prefilled
+  // message and the email body carry the readable name (e.g.
+  // "Marble-Top Coffee Table") instead of the slug.
+  const presetAsset = presetAssetId
+    ? listing.assets?.find((a) => a.id === presetAssetId)
+    : null
+  const presetAssetLabel = presetAsset?.title || presetAssetId
   const presetInterestParam = searchParams.get('interest')
   const presetInterest = INTEREST_OPTIONS.find((o) => o.value === presetInterestParam)?.value
     || (presetAssetId ? 'individual-item' : '')
@@ -44,7 +51,7 @@ export default function PropertyInquiryForm({ listing }) {
     interest: presetInterest,
     preferredContact: 'email',
     message: presetAssetId
-      ? `I'm interested in featured item "${presetAssetId}" from ${listing.title}.\n\n`
+      ? `I'm interested in "${presetAssetLabel}" from ${listing.title}.\n\n`
       : '',
     assetId: presetAssetId,
   })
@@ -59,11 +66,11 @@ export default function PropertyInquiryForm({ listing }) {
         assetId: presetAssetId,
         interest: presetInterest || prev.interest,
         message: presetAssetId
-          ? `I'm interested in featured item "${presetAssetId}" from ${listing.title}.\n\n`
+          ? `I'm interested in "${presetAssetLabel}" from ${listing.title}.\n\n`
           : prev.message,
       }))
     }
-  }, [presetAssetId, presetInterest, listing.title])
+  }, [presetAssetId, presetInterest, presetAssetLabel, listing.title])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
