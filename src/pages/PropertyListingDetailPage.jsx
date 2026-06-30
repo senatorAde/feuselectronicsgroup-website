@@ -5,7 +5,7 @@ import {
 } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import {
-  PageHero, SectionLabel, SectionHeader, GlowDivider, CTAButton,
+  PageHero, SectionLabel, SectionHeader, GlowDivider,
 } from '../components/ui'
 import { CalendlyButton } from '../components/CalendlyEmbed'
 import SEO from '../components/SEO'
@@ -210,35 +210,54 @@ export default function PropertyListingDetailPage() {
 
       <GlowDivider />
 
-      {/* ─── FEATURED ITEMS ─── */}
-      {listing.featuredAssets.length > 0 && (
+      {/* ─── ITEMS & FURNISHINGS — FULL INVENTORY ─── */}
+      {listing.assets.length > 0 && (
         <section id="featured-items" className="section-dark py-24 scroll-mt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeader
-              label="Featured Items"
-              title="Selected Items From the Listing"
-              subtitle="A curated set from the contents. Inquire about any item — full inventory available on request."
+              label="Items & Furnishings"
+              title={<>Full Inventory <span className="gradient-text">— {listing.assets.length} Items</span></>}
+              subtitle="Every item in this listing, organised by room and category. Each piece is offered subject to availability — inquire about any single item or a bundle."
             />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {listing.featuredAssets.map((asset, i) => (
-                <AnimatedSection key={asset.id} delay={i * 50}>
-                  <AssetCard
-                    image={buildAssetImagePath(listing, asset.image)}
-                    alt={asset.title}
-                    title={asset.title}
-                    description={asset.description}
-                    condition={asset.condition}
-                    availability={asset.availability}
-                    price={asset.price}
-                    assetId={asset.id}
-                  />
-                </AnimatedSection>
-              ))}
-            </div>
+
+            {Object.entries(
+              listing.assets.reduce((acc, asset) => {
+                const cat = asset.category || 'Other'
+                ;(acc[cat] = acc[cat] || []).push(asset)
+                return acc
+              }, {})
+            ).map(([category, items]) => (
+              <div key={category} className="mb-14 last:mb-0">
+                <div className="flex items-baseline justify-between mb-6 pb-3 border-b border-white/[0.06]">
+                  <h3 className="text-xl md:text-2xl font-semibold text-white">{category}</h3>
+                  <span className="text-xs text-gray-500 uppercase tracking-wider">
+                    {items.length} {items.length === 1 ? 'item' : 'items'}
+                  </span>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {items.map((asset, i) => (
+                    <AnimatedSection key={asset.id} delay={i * 40}>
+                      <AssetCard
+                        image={buildAssetImagePath(listing, asset.image)}
+                        alt={asset.title}
+                        title={asset.title}
+                        description={asset.description}
+                        condition={asset.condition}
+                        availability={asset.availability}
+                        price={asset.price}
+                        assetId={asset.id}
+                      />
+                    </AnimatedSection>
+                  ))}
+                </div>
+              </div>
+            ))}
+
             <div className="mt-10 text-center">
-              <CTAButton to={`/sales/listings/${listing.slug}#inquiry`} variant="secondary">
-                Request the Full Item List
-              </CTAButton>
+              <a href="#inquiry" className="btn-secondary inline-flex items-center">
+                Inquire About Any Item Above
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </a>
             </div>
           </div>
         </section>

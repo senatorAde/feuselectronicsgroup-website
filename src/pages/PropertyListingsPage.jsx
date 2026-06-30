@@ -84,7 +84,7 @@ export default function PropertyListingsPage() {
                           </span>
                           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium bg-white/[0.05] text-gray-300">
                             <Boxes className="w-3 h-3 text-accent-400" />
-                            {listing.featuredAssets.length} featured items
+                            {listing.assets.length} items
                           </span>
                         </div>
                         <div className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-feus-300 group-hover:text-feus-200 transition-colors">

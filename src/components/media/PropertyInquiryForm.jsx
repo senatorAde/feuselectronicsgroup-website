@@ -85,7 +85,7 @@ export default function PropertyInquiryForm({ listing }) {
         '── Inquiry details ──',
         `Listing: ${listing.title} (${listing.slug})`,
         `Interest: ${interestLabel()}`,
-        formData.assetId ? `Asset of interest: ${formData.assetId}` : null,
+        formData.assetId ? `Asset of interest: ${presetAssetLabel} (${formData.assetId})` : null,
         `Phone: ${formData.phone || '(not provided)'}`,
         `Preferred contact: ${
           CONTACT_METHODS.find((c) => c.value === formData.preferredContact)?.label || 'Email'
@@ -250,8 +250,8 @@ export default function PropertyInquiryForm({ listing }) {
         </select>
         {formData.assetId && (
           <p className="mt-2 text-xs text-gray-500">
-            Referring to featured item:{' '}
-            <span className="text-feus-300 font-medium">{formData.assetId}</span>
+            Referring to item:{' '}
+            <span className="text-feus-300 font-medium">{presetAssetLabel}</span>
           </p>
         )}
       </div>

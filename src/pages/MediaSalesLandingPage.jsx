@@ -132,7 +132,7 @@ export default function MediaSalesLandingPage() {
                     </span>
                     <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-medium bg-white/[0.05] text-gray-300">
                       <Boxes className="w-3.5 h-3.5 text-accent-400" />
-                      {featured.featuredAssets.length} featured items
+                      {featured.assets.length} items inventoried
                     </span>
                   </div>
                   <div className="mt-8 flex flex-wrap gap-3">

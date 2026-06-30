@@ -41,12 +41,12 @@ export default function AssetCard({
             No image
           </div>
         )}
-        {/* Availability badge */}
+        {/* Availability badge — high-contrast for legibility on any photo */}
         <span
-          className={`absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide ${
+          className={`absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide shadow-md backdrop-blur-sm ${
             isAvailable
-              ? 'bg-accent-500/20 text-accent-300 border border-accent-500/30'
-              : 'bg-gray-500/20 text-gray-300 border border-gray-500/30'
+              ? 'bg-accent-500 text-white border border-accent-400/60'
+              : 'bg-gray-700 text-gray-100 border border-gray-500/60'
           }`}
         >
           {isAvailable && <CheckCircle2 className="w-3 h-3" />}
