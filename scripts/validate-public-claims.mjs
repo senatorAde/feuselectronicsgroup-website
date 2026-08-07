@@ -194,6 +194,21 @@ if (indexHtml.includes('feus-preview.png')) {
   errors.push('index.html: broken/unapproved OG image reference present')
 }
 
+/* Quarantined public assets must never reappear in the web root. */
+const QUARANTINED_PUBLIC = [
+  'public/data/roi-stats.json',
+  'public/feus-hero-banner.jpg',
+  'public/FEUS_AIIA_Walkthrough.pdf',
+]
+for (const q of QUARANTINED_PUBLIC) {
+  try {
+    statSync(join(root, ...q.split('/')))
+    errors.push(`${q}: quarantined asset present in the public web root (Session 13A claims baseline)`)
+  } catch {
+    /* absent — correct */
+  }
+}
+
 /* Report. */
 if (errors.length) {
   console.error(`\nPUBLIC CLAIMS VALIDATION FAILED — ${errors.length} violation(s):\n`)
