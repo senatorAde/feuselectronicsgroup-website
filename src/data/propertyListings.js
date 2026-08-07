@@ -19,7 +19,7 @@
 //      `images` array, and reference the same relative paths from
 //      `assets[].image`.
 //
-// TODO markers below have been resolved — location, pricing, cover
+// Open items below have been resolved — location, pricing, cover
 // image, slideshow images, and full item inventory are populated
 // for 1903 Woodsley Ct. Refine copy as the listing evolves.
 // ─────────────────────────────────────────────────────────────────

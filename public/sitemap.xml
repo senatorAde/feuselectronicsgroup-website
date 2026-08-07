@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Approved indexable routes only (Session 13A claims baseline).
+     noindex routes (/copilot, /pricing, /demo) are intentionally omitted. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://feuselectronicsgroup.com/</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/about</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/services</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/solutions</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/feus-ai</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/architecture</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/sqlops</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/requestops</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/control-plane</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/integrations</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/status</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/trust</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/trust/security</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/trust/compliance</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/faq</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/release-notes</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/assurance</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/insights</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/contact</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/sales</loc></url>
+  <url><loc>https://feuselectronicsgroup.com/sales/listings</loc></url>
+</urlset>

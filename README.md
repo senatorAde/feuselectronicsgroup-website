@@ -1,10 +1,13 @@
 # FEUS Electronics Group — Enterprise Website
 
-> **[www.feuselectronicsgroup.com](https://www.feuselectronicsgroup.com)** — AI-Powered Enterprise Technology
+> **[www.feuselectronicsgroup.com](https://www.feuselectronicsgroup.com)** — Enterprise Data & AI Governance Services
 
 | | |
 |---|---|
-| **Status** | ✅ Live in Production |
+| **Website hosting status** | ✅ Website is live (hosting status only — see note below) |
+| **FEUS.ai platform status** | ⚠️ Pre-release. Not production approved. Release decision: NO-GO (2026-08-07). See `/status` on the site. |
+| **Claims baseline** | Session 13A approved docs — `FEUS-Enterprise-Distribution/docs/branding/vnext/` |
+| **Claims gate** | `npm test` / `prebuild` runs `scripts/validate-public-claims.mjs` — the build fails on prohibited claims |
 | **URL** | [feuselectronicsgroup.com](https://www.feuselectronicsgroup.com) |
 | **GitHub** | [senatorAde/feuselectronicsgroup-website](https://github.com/senatorAde/feuselectronicsgroup-website) |
 | **Hosting** | Vercel (auto-deploy on push) |
@@ -12,7 +15,9 @@
 | **SSL** | Auto-provisioned by Vercel |
 | **CDN** | Vercel Edge Network (global) |
 
-A modern, premium, enterprise-ready website for **FEUS Electronics Group** and its flagship AI-powered managed services platform **FEUS.ai**.
+> **Important:** "Live" above refers to the marketing website's hosting only. It is **not** a statement about the FEUS.ai platform, which is pre-release and not approved for production deployment. All public platform claims must trace to the Session 13A claims register; do not add or strengthen claims without updating the register and passing `npm test`.
+
+A modern, enterprise website for **FEUS Electronics Group** — covering its practitioner-delivered services and the **pre-release FEUS.ai** governed data-operations platform.
 
 ---
 

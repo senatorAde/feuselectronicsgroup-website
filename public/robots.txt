@@ -1,0 +1,12 @@
+# robots.txt — FEUS Electronics Group
+# Routes below are intentionally excluded from indexing per the
+# Session 13A approved claims baseline (noindex routes and quarantined assets).
+
+User-agent: *
+Disallow: /copilot
+Disallow: /pricing
+Disallow: /demo
+Disallow: /FEUS_AIIA_Walkthrough.pdf
+Allow: /
+
+Sitemap: https://feuselectronicsgroup.com/sitemap.xml

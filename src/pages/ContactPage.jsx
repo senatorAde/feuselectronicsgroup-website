@@ -11,7 +11,7 @@ import { PageHero, SectionLabel, CTAButton, GlowDivider } from '../components/ui
 import { CalendlyButton } from '../components/CalendlyEmbed'
 
 const inquiryTypes = [
-  'Request a Demo of FEUS.ai',
+  'Request a Controlled Demonstration of FEUS.ai',
   'Managed Database Operations',
   'Data Architecture & Engineering',
   'Cloud & Platform Operations',
@@ -94,12 +94,12 @@ export default function ContactPage() {
       <PageHero
         label={isReviewMode ? 'Share Your Experience' : 'Contact Us'}
         title={isReviewMode
-          ? <>Tell Us About Your<br /><span className="gradient-text">FEUS.ai Experience</span></>
+          ? <>Tell Us About Your<br /><span className="gradient-text">FEUS Experience</span></>
           : <>Let's Start a<br /><span className="gradient-text">Conversation</span></>
         }
         subtitle={isReviewMode
-          ? 'Your feedback helps us improve and helps other teams evaluate governed AI operations. It takes less than two minutes.'
-          : 'Book a consultation to explore how FEUS.ai can transform your operations — or send us a message and we\'ll respond within one business day.'
+          ? 'Your feedback helps us improve and helps other teams evaluate governed data operations. It takes less than two minutes.'
+          : 'Book a consultation about our services, request an architecture briefing on the pre-release FEUS.ai platform — or send us a message and we\'ll respond within one business day.'
         }
       />
 
@@ -315,7 +315,7 @@ export default function ContactPage() {
 
                             <div>
                               <label className="block text-sm font-medium text-gray-300 mb-1.5">
-                                Would you recommend FEUS.ai to other teams?
+                                Would you recommend FEUS Electronics Group to other teams?
                               </label>
                               <div className="flex gap-3">
                                 {['Yes', 'Not yet — needs more time', 'No'].map((opt) => (
@@ -346,7 +346,7 @@ export default function ContactPage() {
                             value={formData.message} onChange={handleChange}
                             className="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-feus-500/50 focus:ring-1 focus:ring-feus-500/30 transition-all resize-none"
                             placeholder={isReviewMode
-                              ? 'What stood out during your demo? How could we improve? What would you tell a peer considering FEUS.ai?'
+                              ? 'What stood out during your demonstration or engagement? How could we improve? What would you tell a peer considering FEUS Electronics Group?'
                               : 'Tell us about your current challenges and what you\'re looking to accomplish...'
                             }
                           />
@@ -403,7 +403,7 @@ export default function ContactPage() {
                 Prefer a Live Conversation?
               </h2>
               <p className="text-gray-400 max-w-2xl mx-auto mb-8">
-                Book a free 30-minute discovery call. We'll discuss your environment, your challenges, and how FEUS.ai can help — no obligation, no pressure.
+                Book a free 30-minute discovery call. We'll discuss your environment, your challenges, and how our services can help — no obligation, no pressure.
               </p>
               <CalendlyButton className="btn-accent group text-lg px-8 py-4" icon={ArrowRight}>
                 Schedule a Discovery Call

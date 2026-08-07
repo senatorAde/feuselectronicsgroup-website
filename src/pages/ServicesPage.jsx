@@ -15,8 +15,8 @@ const serviceCategories = [
     iconColor: 'text-blue-400',
     bgColor: 'bg-blue-500/10',
     title: 'Database Operations',
-    tagline: 'AI-Augmented DBA Services',
-    description: 'Enterprise database operations powered by AI — continuous monitoring, performance optimization, governance enforcement, and proactive maintenance across SQL Server, Azure SQL, and modern data platforms.',
+    tagline: 'Practitioner-Led DBA Services',
+    description: 'Enterprise database operations delivered by experienced engineers — continuous monitoring, performance optimization, governance enforcement, and proactive maintenance across SQL Server, Azure SQL, and modern data platforms.',
     offerings: [
       'Database health monitoring & intelligent alerting',
       'Query performance analysis & optimization',
@@ -75,17 +75,17 @@ const serviceCategories = [
     iconColor: 'text-emerald-400',
     bgColor: 'bg-emerald-500/10',
     title: 'Enterprise AI Solutions',
-    tagline: 'Governed AI That\'s Safe to Deploy',
-    description: 'AI enablement for the enterprise — from copilot deployment and custom AI agents to synthetic data generation and RAG systems — all with built-in PII protection, policy enforcement, and audit compliance.',
+    tagline: 'Governance Before AI Touches Data',
+    description: 'AI enablement consulting for the enterprise — readiness assessment, governance framework design, PII-protection guardrails, and implementation support for AI agents, RAG systems, and vendor assistant tooling on your stack.',
     offerings: [
       'AI strategy & readiness assessment',
+      'AI governance framework design',
+      'PII detection & guardrail design',
       'Custom AI agent development',
       'RAG system design & implementation',
-      'PII detection & guardrail deployment',
-      'Synthetic data generation',
-      'AI governance framework setup',
-      'Copilot & assistant deployment',
-      'Model evaluation & monitoring',
+      'Synthetic data generation for dev/test',
+      'Vendor AI assistant rollout support',
+      'Model evaluation & monitoring design',
     ],
   },
   {
@@ -135,8 +135,8 @@ export default function ServicesPage() {
     <>
       <PageHero
         label="Our Services"
-        title={<>Enterprise Managed Services,<br /><span className="gradient-text">Powered by AI</span></>}
-        subtitle="Six core service domains covering the full spectrum of enterprise data, platform, and AI operations — all delivered with governance, automation, and intelligence built in."
+        title={<>Enterprise Managed Services,<br /><span className="gradient-text">Delivered by Practitioners</span></>}
+        subtitle="Six core service domains covering enterprise data, platform, and AI operations — delivered by experienced engineers with governance built in. These services are performed by people; the FEUS.ai platform is pre-release and does not deliver them."
       >
         <CalendlyButton className="btn-accent group" icon={ArrowRight}>
           Discuss Your Needs

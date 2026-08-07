@@ -6,12 +6,12 @@ import { CalendlyButton } from './CalendlyEmbed'
 const navigation = [
   { name: 'About', href: '/about' },
   { name: 'FEUS.ai', href: '/feus-ai' },
-  { name: 'Pricing', href: '/pricing' },
-  { name: 'How It Works', href: '/how-it-works' },
+  { name: 'Architecture', href: '/architecture' },
+  { name: 'Status', href: '/status' },
   { name: 'Services', href: '/services' },
   { name: 'Solutions', href: '/solutions' },
   { name: 'Sales', href: '/sales' },
-  { name: 'Trust & Security', href: '/trust' },
+  { name: 'Trust Center', href: '/trust' },
   { name: 'Insights', href: '/insights' },
   { name: 'Contact', href: '/contact' },
 ]

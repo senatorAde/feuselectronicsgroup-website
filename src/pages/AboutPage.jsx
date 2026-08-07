@@ -15,8 +15,8 @@ const values = [
   },
   {
     icon: Zap,
-    title: 'Execution Over Hype',
-    desc: 'We ship production systems, not slide decks. Every engagement produces working, measurable outcomes.',
+    title: 'Evidence Over Hype',
+    desc: 'We make claims we can support with evidence. When something is pre-release or unproven, we say so plainly — in our engagements and about our own platform.',
   },
   {
     icon: Users,
@@ -43,8 +43,8 @@ const values = [
 const milestones = [
   { year: 'Foundation', title: 'Enterprise Data Roots', desc: 'Founded on deep expertise in SQL Server, data platform engineering, and enterprise database operations.' },
   { year: 'Growth', title: 'Managed Services Expansion', desc: 'Expanded into full-service managed database operations, cloud infrastructure, and data architecture.' },
-  { year: 'Innovation', title: 'FEUS.ai Launch', desc: 'Launched FEUS.ai as the AI-powered managed services platform — combining automation, governance, and intelligence.' },
-  { year: 'Future', title: 'Enterprise AI at Scale', desc: 'Scaling AI-governed operations across industries, expanding service domains, and deepening platform capabilities.' },
+  { year: 'Innovation', title: 'FEUS.ai Development', desc: 'Began developing FEUS.ai — a governed data-operations platform, currently pre-release and under controlled evaluation.' },
+  { year: 'Future', title: 'Enterprise AI at Scale', desc: 'Working toward evidence-backed, governed AI operations — with production claims made only after independent verification.' },
 ]
 
 export default function AboutPage() {
@@ -53,8 +53,7 @@ export default function AboutPage() {
       <PageHero
         label="About Us"
         title={<>Enterprise Technology Leadership.<br /><span className="gradient-text">Founder-Led. Practitioner-Driven.</span></>}
-        subtitle="FEUS Electronics Group is a founder-led enterprise technology company. 15+ years managing databases, data platforms, and cloud infrastructure at CDO/CTO level — across healthcare, financial services, aviation, and SaaS."
-        backgroundImage="/feus-hero-banner.jpg"
+        subtitle="FEUS Electronics Group is a founder-led enterprise technology company with deep experience managing databases, data platforms, and cloud infrastructure — across healthcare, financial services, aviation, and SaaS."
       />
 
       {/* Brand Architecture */}
@@ -72,7 +71,7 @@ export default function AboutPage() {
                   <strong className="text-white">FEUS Electronics Group</strong> is the parent enterprise technology company. We are the business entity, the leadership team, and the strategic vision behind everything we build and deliver.
                 </p>
                 <p className="mt-4 text-gray-400 leading-relaxed">
-                  <strong className="text-feus-300">FEUS.ai</strong> is our innovation and delivery platform — the AI-powered managed services engine that brings our expertise to market. It's the technology, the methodology, and the service brand that enterprises engage with.
+                  <strong className="text-feus-300">FEUS.ai</strong> is the platform we are building — a governed data-operations architecture, currently pre-release and under controlled evaluation. It is not yet approved for production deployment, and we publish its status honestly.
                 </p>
               </div>
               <div className="grid gap-4">
@@ -98,10 +97,10 @@ export default function AboutPage() {
                       </div>
                       <div>
                         <h4 className="text-lg font-bold gradient-text">FEUS.ai</h4>
-                        <p className="text-sm text-gray-500">AI Platform & Services</p>
+                        <p className="text-sm text-gray-500">Platform · Pre-release</p>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-400">AI-powered managed services, technology delivery, and governed enterprise AI solutions.</p>
+                    <p className="text-sm text-gray-400">A governed data-operations platform under controlled evaluation. Not approved for production deployment.</p>
                   </div>
                 </AnimatedSection>
               </div>
@@ -130,7 +129,7 @@ export default function AboutPage() {
                   The pattern was the same everywhere: talented engineers drowning in manual operations, governance bolted on after incidents, AI tools deployed without guardrails, and executives waiting weeks for audit evidence that should be automatic. That’s the problem FEUS.ai was built to solve.
                 </p>
                 <p>
-                  <strong className="text-white">FEUS.ai</strong> is the result of that operational experience — an AI-powered managed services platform that embeds governance, PII protection, and auditable decision-making into every operation. Not as a feature roadmap. As the architecture itself. Today, the platform has 30+ verified production modules, a complete synthetic data provisioning suite, and an 8-component governance layer.
+                  <strong className="text-white">FEUS.ai</strong> is the result of that operational experience — a governed data-operations platform designed so that governance, PII inspection, and auditable decision-making are the architecture itself, not a feature roadmap. The platform is pre-release: its implementation properties are validated by automated tests in LOCAL and test environments, and we publish its current status — including what does not work yet — on our <Link to="/status" className="text-feus-300 underline underline-offset-2">status page</Link>.
                 </p>
                 <p>
                   Dr. Adeniyi is a <strong className="text-white">Microsoft MVP for Data Platform & AI (2024/2025)</strong>, Azure Solutions Architect Expert, AWS Solutions Architect Professional, CISSP, PMP, and CDMP. He holds a Ph.D. in Leadership & Business, an MBA from Coventry University, and a B.Eng. in Electrical & Electronics Engineering. He has operated in healthcare (HIPAA), financial services, aviation (Emirates Group), telecom (Alcatel-Lucent), and direct-to-consumer SaaS.
@@ -224,7 +223,7 @@ export default function AboutPage() {
                   </div>
                 </div>
                 <p className="text-gray-400 leading-relaxed">
-                  Dr. Adeniyi is a data and AI transformation executive with 15+ years of experience across healthcare, financial services, aviation, telecom, and SaaS. He has served as Chief Data Officer (HyCite, 60-person org, $3.2M budget), Chief Technology Officer (FEUS Group clients: Microsoft, iPipeline; Fortified Data: 3,150+ SQL instances), and Director of Infrastructure (DocuTAP/Experity). He is an Azure Solutions Architect Expert, AWS Solutions Architect Professional, and a recognized Microsoft MVP for Data Platform & AI.
+                  Dr. Adeniyi is a data and AI transformation executive with 15+ years of experience across healthcare, financial services, aviation, telecom, and SaaS. He has served as Chief Data Officer (HyCite, 60-person org, $3.2M budget), Chief Technology Officer (Fortified Data: 3,150+ SQL instances), and Director of Infrastructure (DocuTAP/Experity). He is an Azure Solutions Architect Expert, AWS Solutions Architect Professional, and a recognized Microsoft MVP for Data Platform & AI.
                 </p>
                 <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <div className="text-center p-3 rounded-xl bg-white/[0.03]">
@@ -258,10 +257,10 @@ export default function AboutPage() {
           <AnimatedSection>
             <div className="text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Ready to See How This Works in Your Environment?
+                Want to Talk Through Your Data Operations?
               </h2>
               <p className="mt-4 text-lg text-gray-400">
-                30 minutes. Your environment. Our governed approach.
+                30 minutes with a practitioner — a services conversation or an architecture briefing on FEUS.ai.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <CalendlyButton className="btn-accent group" icon={ArrowRight}>

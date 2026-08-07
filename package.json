@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/validate-public-claims.mjs",
     "build": "vite build",
     "preview": "vite preview",
+    "test": "node scripts/validate-public-claims.mjs",
     "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {

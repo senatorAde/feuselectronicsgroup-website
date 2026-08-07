@@ -5,31 +5,30 @@ import { CalendlyButton } from './CalendlyEmbed'
 const footerLinks = {
   Company: [
     { name: 'About Us', href: '/about' },
-    { name: 'FEUS.ai Platform', href: '/feus-ai' },
-    { name: 'How It Works', href: '/how-it-works' },
-    { name: 'Leadership', href: '/about#leadership' },
+    { name: 'Services', href: '/services' },
+    { name: 'Solutions', href: '/solutions' },
+    { name: 'Engagements', href: '/pricing' },
   ],
-  Services: [
-    { name: 'Database Operations', href: '/services#database' },
-    { name: 'Data Architecture', href: '/services#architecture' },
-    { name: 'Cloud & Platform', href: '/services#cloud' },
-    { name: 'Enterprise AI', href: '/services#ai' },
+  Platform: [
+    { name: 'FEUS.ai Overview', href: '/feus-ai' },
+    { name: 'Architecture', href: '/architecture' },
+    { name: 'Integrations', href: '/integrations' },
+    { name: 'Platform FAQ', href: '/faq' },
   ],
-  Solutions: [
-    { name: 'Governed DBA Assistant', href: '/solutions#dba' },
-    { name: 'Data Modernization', href: '/solutions#modernization' },
-    { name: 'AI Enablement', href: '/solutions#enablement' },
-    { name: 'Analytics & BI', href: '/solutions#analytics' },
+  'Trust Center': [
+    { name: 'Platform Status', href: '/status' },
+    { name: 'Security Posture', href: '/trust/security' },
+    { name: 'Compliance Posture', href: '/trust/compliance' },
+    { name: 'Posture History', href: '/release-notes' },
   ],
   Sales: [
     { name: 'Sales Overview', href: '/sales' },
     { name: 'Property Listings', href: '/sales/listings' },
-    { name: 'Featured Property', href: '/sales/listings/1903-woodsley-ct' },
     { name: 'Request Showcase', href: '/contact' },
   ],
   Resources: [
     { name: 'Insights & Blog', href: '/insights' },
-    { name: 'Trust & Security', href: '/trust' },
+    { name: 'Trust Center', href: '/trust' },
     { name: 'Leave a Review', href: '/contact?type=review' },
     { name: 'Contact Us', href: '/contact' },
   ],
@@ -44,10 +43,10 @@ export default function Footer() {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div>
               <h3 className="text-2xl md:text-3xl font-bold text-white">
-                Ready to modernize your operations?
+                Let&rsquo;s talk about your data operations
               </h3>
               <p className="mt-2 text-gray-400 text-lg">
-                Let's discuss how FEUS.ai can transform your enterprise.
+                Discuss a services engagement or request an architecture briefing on the FEUS.ai platform.
               </p>
             </div>
             <CalendlyButton className="btn-primary whitespace-nowrap group" icon={ArrowRight}>
@@ -74,7 +73,8 @@ export default function Footer() {
               </div>
             </Link>
             <p className="mt-4 text-sm text-gray-500 leading-relaxed">
-              Enterprise technology company powering AI-enabled managed services and governed enterprise AI solutions.
+              Enterprise technology company delivering database, cloud, and AI-governance
+              services — and developing the pre-release FEUS.ai platform.
             </p>
             <div className="mt-4 flex items-start gap-2 text-sm text-gray-500">
               <MapPin className="w-4 h-4 text-gray-600 mt-0.5 flex-shrink-0" />
@@ -122,14 +122,23 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-white/[0.04]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <p className="text-xs text-gray-600 mb-4">
+            FEUS.ai platform: Pre-release. Not production approved.{' '}
+            <Link to="/status" className="underline underline-offset-2 hover:text-gray-400">
+              Current status
+            </Link>
+          </p>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-gray-600">
               © {new Date().getFullYear()} FEUS Electronics Group. All rights reserved.
             </p>
-            <div className="flex items-center space-x-6">
-              <a href="#" className="text-sm text-gray-600 hover:text-gray-400 transition-colors">Privacy Policy</a>
-              <a href="#" className="text-sm text-gray-600 hover:text-gray-400 transition-colors">Terms of Service</a>
-              <a href="#" className="text-sm text-gray-600 hover:text-gray-400 transition-colors">Security</a>
+            <div className="flex items-center flex-wrap gap-x-6 gap-y-2">
+              <span className="text-sm text-gray-600">
+                Privacy Policy and Terms of Service are in legal review and will be published here.
+              </span>
+              <Link to="/trust/security" className="text-sm text-gray-600 hover:text-gray-400 transition-colors">
+                Security
+              </Link>
             </div>
           </div>
         </div>

@@ -16,11 +16,29 @@ function setMeta(name, content, useProperty = false) {
   el.setAttribute('content', content)
 }
 
+function setLink(rel, href) {
+  let el = document.head.querySelector(`link[rel="${rel}"][data-seo]`)
+  if (!href) {
+    if (el) el.remove()
+    return
+  }
+  if (!el) {
+    el = document.createElement('link')
+    el.setAttribute('rel', rel)
+    el.setAttribute('data-seo', '')
+    document.head.appendChild(el)
+  }
+  el.setAttribute('href', href)
+}
+
 /**
  * Imperatively sets <title> and meta tags on mount and route change.
  * Keeps SEO per-page without adding react-helmet as a dependency.
+ *
+ * noindex: set true on routes that must not be indexed (approved claims
+ * baseline — e.g. /copilot, /pricing, /demo).
  */
-export default function SEO({ title, description, image, type = 'website' }) {
+export default function SEO({ title, description, image, type = 'website', noindex = false }) {
   const { pathname } = useLocation()
 
   useEffect(() => {
@@ -28,6 +46,8 @@ export default function SEO({ title, description, image, type = 'website' }) {
     document.title = fullTitle
 
     setMeta('description', description)
+    setMeta('robots', noindex ? 'noindex, nofollow' : 'index, follow')
+    setLink('canonical', noindex ? null : `${ORIGIN}${pathname}`)
     setMeta('og:title', fullTitle, true)
     setMeta('og:description', description, true)
     setMeta('og:type', type, true)
@@ -46,7 +66,7 @@ export default function SEO({ title, description, image, type = 'website' }) {
     }
     setMeta('twitter:title', fullTitle)
     setMeta('twitter:description', description)
-  }, [title, description, image, type, pathname])
+  }, [title, description, image, type, noindex, pathname])
 
   return null
 }
