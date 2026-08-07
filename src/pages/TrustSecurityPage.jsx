@@ -116,8 +116,8 @@ export default function TrustSecurityPage() {
             <h2 className="text-2xl font-bold text-white mb-4">Reporting a security concern</h2>
             <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed">
               <p>
-                Vulnerability-management process details are being formalized for the
-                pre-release platform. Security concerns should use the monitored
+                Vulnerability-management process details are being formalized. Security
+                concerns should use the monitored
                 responsible-disclosure channel once published. Until then, use the{' '}
                 <Link to="/contact" className="text-feus-300 underline underline-offset-2">contact form</Link>{' '}
                 and mark the inquiry as security-related without including sensitive details.

@@ -3,7 +3,8 @@ import SEO from '../components/SEO'
 import { SectionLabel } from '../components/ui'
 import {
   ReleaseDecision, PostureSummary, ControlStatusTable,
-  IntegrationStatusTable, KnownLimitationList, EvidenceCallout,
+  CapabilityLifecycleTable, IntegrationStatusTable,
+  KnownLimitationList, EvidenceCallout,
 } from '../components/statusComponents'
 import { POSTURE, CAPABILITY_SUMMARY, MODEL_PROVIDER_STATEMENT } from '../data/publicStatus'
 
@@ -18,7 +19,7 @@ export default function StatusPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="Platform Status"
-        description="Current FEUS.ai release posture: pre-release, NO-GO, zero of 45 capabilities production verified. Revision-bound status, control counts, and known limitations."
+        description="Current FEUS.ai product posture: operationally validated core, capability-specific preview boundaries, and an exact-revision NO-GO for the assessed vNext release."
       />
 
       <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
@@ -46,9 +47,23 @@ export default function StatusPage() {
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-white mb-3">Capability status counts</h2>
+            <h2 className="text-2xl font-bold text-white mb-3">Capability lifecycle</h2>
             <p className="text-gray-400 text-sm mb-6">
-              Session 12D assessed {POSTURE.totalCapabilities} capabilities.{' '}
+              Product lifecycle status is separate from the exact-revision release
+              matrix. It identifies how each core capability or extension may be
+              adopted or evaluated today.
+            </p>
+            <div className="glass-card rounded-2xl p-6">
+              <CapabilityLifecycleTable />
+            </div>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-white mb-3">Session 12D release-matrix counts</h2>
+            <p className="text-gray-400 text-sm mb-6">
+              Session 12D assessed {POSTURE.totalCapabilities} rows for the named
+              vNext revision and release scope. These counts are retained exactly;
+              they are not a platform-lifetime operational usage measure.{' '}
               {CAPABILITY_SUMMARY.internalNote}
             </p>
             <div className="glass-card rounded-2xl p-6">
@@ -74,7 +89,7 @@ export default function StatusPage() {
                     </tr>
                   ))}
                   <tr>
-                    <th scope="row" className="py-2 pr-4 text-gray-400 font-medium text-left">Production verified</th>
+                    <th scope="row" className="py-2 pr-4 text-gray-400 font-medium text-left">Production verified in Session 12D matrix</th>
                     <td className="py-2 text-white font-semibold tabular-nums">0</td>
                   </tr>
                 </tbody>

@@ -3,7 +3,8 @@ import { FileSearch, ShieldAlert, Scale, MessageCircleQuestion, History, Network
 import SEO from '../components/SEO'
 import { SectionLabel } from '../components/ui'
 import {
-  ReleaseDecision, PostureSummary, KnownLimitationList, EvidenceCallout,
+  ReleaseDecision, PostureSummary, CapabilityLifecycleTable,
+  KnownLimitationList, EvidenceCallout,
 } from '../components/statusComponents'
 import { POSTURE, AUTHORIZED_USE } from '../data/publicStatus'
 
@@ -17,7 +18,7 @@ const sections = [
     icon: FileSearch,
     title: 'Platform status',
     to: '/status',
-    desc: 'Revision-bound posture: release decision, capability counts, dependency status, and known limitations.',
+    desc: 'Platform maturity, capability lifecycle, exact-revision release status, dependencies, and limitations.',
   },
   {
     icon: ShieldAlert,
@@ -56,23 +57,43 @@ export default function TrustPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="Trust Center"
-        description="The FEUS.ai Trust Center publishes the platform's independently assessed release posture: current NO-GO decision, 38-control security assessment, and all known limitations."
+        description="The FEUS.ai Trust Center reports an operationally validated core, capability-specific preview boundaries, exact-revision release decisions, security controls, and limitations."
       />
 
       <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <SectionLabel>Trust Center</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">
-            Evidence, not promises
+            Operational evidence, scoped assurance
           </h1>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            This Trust Center publishes the independently assessed release posture
-            of the FEUS.ai platform. It reports the current decision, the exact
-            security-control results, and every known limitation — without
-            summarizing them into a score, grade, or seal.
+            FEUS.ai has an operationally validated core and a capability-scoped
+            roadmap of expanding agents and integrations. This Trust Center reports
+            operational evidence, lifecycle status, exact-revision release decisions,
+            security-control results, and known limitations without collapsing them
+            into a single score, grade, or seal.
+          </p>
+          <p className="mt-4 text-gray-400 leading-relaxed">
+            The Session 12D NO-GO below remains binding for the assessed vNext
+            revision and deployment scope. It is not a verdict on the complete
+            operational history of the core platform.
           </p>
           <div className="mt-10">
             <ReleaseDecision />
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-3">Capability lifecycle</h2>
+          <p className="text-sm text-gray-400 max-w-4xl mb-6">
+            Core maturity and extension readiness are assessed by capability. Every
+            status below includes its evidence boundary, environment, restriction,
+            and next maturity milestone.
+          </p>
+          <div className="glass-card rounded-2xl p-6">
+            <CapabilityLifecycleTable />
           </div>
         </div>
       </section>
@@ -130,8 +151,8 @@ export default function TrustPage() {
             <h2 className="text-2xl font-bold text-white mb-4">Reporting a security concern</h2>
             <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed">
               <p>
-                Vulnerability-management process details are being formalized for the
-                pre-release platform. Security concerns should use the monitored
+                Vulnerability-management process details are being formalized. Security
+                concerns should use the monitored
                 responsible-disclosure channel once published. Until then, please use
                 the <Link to="/contact" className="text-feus-300 underline underline-offset-2">contact form</Link>,
                 mark the inquiry as security-related, and do not include sensitive
@@ -141,9 +162,10 @@ export default function TrustPage() {
           </div>
 
           <p className="text-xs text-gray-500">
-            Trust Center content is bound to revision{' '}
+            Exact-release evidence is bound to revision{' '}
             <span className="font-mono break-all">{POSTURE.certifiedRevision}</span>{' '}
-            and was last reviewed {POSTURE.lastReviewed}. {POSTURE.supersessionRule}
+            and was last reviewed {POSTURE.lastReviewed}. Product maturity is
+            capability-scoped. {POSTURE.supersessionRule}
           </p>
         </div>
       </section>

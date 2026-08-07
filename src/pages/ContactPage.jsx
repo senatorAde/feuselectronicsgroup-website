@@ -99,7 +99,7 @@ export default function ContactPage() {
         }
         subtitle={isReviewMode
           ? 'Your feedback helps us improve and helps other teams evaluate governed data operations. It takes less than two minutes.'
-          : 'Book a consultation about our services, request an architecture briefing on the pre-release FEUS.ai platform — or send us a message and we\'ll respond within one business day.'
+          : 'Book a consultation about our services, request a capability-scoped architecture briefing on FEUS.ai — or send us a message and we\'ll respond within one business day.'
         }
       />
 

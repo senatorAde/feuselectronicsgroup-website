@@ -27,9 +27,25 @@ const STYLE = {
     icon: TriangleAlert,
     classes: 'text-orange-300 bg-orange-500/10 border-orange-500/40',
   },
+  OPERATIONALLY_VALIDATED: {
+    icon: CircleCheck,
+    classes: 'text-emerald-300 bg-emerald-500/10 border-emerald-500/40',
+  },
+  CONTROLLED_ENTERPRISE_ADOPTION: {
+    icon: CircleCheck,
+    classes: 'text-teal-300 bg-teal-500/10 border-teal-500/40',
+  },
   CONTROLLED_PREVIEW: {
     icon: FlaskConical,
     classes: 'text-amber-300 bg-amber-500/10 border-amber-500/40',
+  },
+  PREVIEW: {
+    icon: FlaskConical,
+    classes: 'text-amber-300 bg-amber-500/10 border-amber-500/40',
+  },
+  EARLY_ACCESS: {
+    icon: CalendarClock,
+    classes: 'text-sky-300 bg-sky-500/10 border-sky-500/40',
   },
   INTEGRATION_READY: {
     icon: PlugZap,

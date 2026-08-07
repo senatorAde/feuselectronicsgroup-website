@@ -136,7 +136,7 @@ export default function ServicesPage() {
       <PageHero
         label="Our Services"
         title={<>Enterprise Managed Services,<br /><span className="gradient-text">Delivered by Practitioners</span></>}
-        subtitle="Six core service domains covering enterprise data, platform, and AI operations — delivered by experienced engineers with governance built in. These services are performed by people; the FEUS.ai platform is pre-release and does not deliver them."
+        subtitle="Six core service domains covering enterprise data, platform, and AI operations — delivered by experienced engineers with governance built in. These practitioner-led services are scoped separately from FEUS.ai software adoption."
       >
         <CalendlyButton className="btn-accent group" icon={ArrowRight}>
           Discuss Your Needs

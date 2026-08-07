@@ -13,7 +13,7 @@ export default function CopilotLandingPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="FEUS Copilot (Not Available)"
-        description="The FEUS Copilot chat interface is not available. FEUS.ai is pre-release and not approved for production deployment."
+        description="The public FEUS Copilot chat interface is not available. FEUS.ai's authenticated operator workflows and public capability status are documented separately."
         noindex
       />
 
@@ -26,14 +26,16 @@ export default function CopilotLandingPage() {
           </div>
           <div className="mt-8 glass-card rounded-2xl p-6 text-gray-300 leading-relaxed space-y-4 text-sm">
             <p>
-              &ldquo;FEUS Copilot&rdquo; is a legacy name for a chat-style interface concept
+              &ldquo;FEUS Copilot&rdquo; describes an authenticated governed operator experience
               associated with the FEUS.ai platform. No working chat assistant is
-              available on this website, and no AI capability may be exercised here.
+              available on this public website, and no AI capability may be
+              exercised here.
             </p>
             <p>
-              FEUS.ai itself is pre-release, under controlled evaluation, and not
-              approved for production deployment. Zero of 45 capabilities are
-              production verified.
+              FEUS.ai has an operationally validated core. Access to enterprise
+              operator workflows is capability and environment specific, while the
+              assessed vNext release remains NO-GO above LOCAL and new agents and
+              integrations retain their published preview boundaries.
             </p>
             <p className="text-xs text-gray-500">
               The &ldquo;Copilot&rdquo; name is retained for historical reference only and

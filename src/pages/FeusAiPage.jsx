@@ -3,7 +3,8 @@ import { ArrowRight } from 'lucide-react'
 import SEO from '../components/SEO'
 import { SectionLabel, CTAButton, GlowDivider } from '../components/ui'
 import {
-  ReleaseDecision, CapabilityStatusTable, KnownLimitationList, EvidenceCallout,
+  ReleaseDecision, CapabilityStatusTable, CapabilityLifecycleTable,
+  KnownLimitationList, EvidenceCallout,
 } from '../components/statusComponents'
 import { POSTURE, PRODUCT_FAMILIES } from '../data/publicStatus'
 
@@ -17,24 +18,26 @@ export default function FeusAiPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="FEUS.ai Platform"
-        description="FEUS.ai is a pre-release governed data-operations architecture under controlled evaluation. It is not approved for production deployment."
+        description="FEUS.ai is a governed AI Data Operations platform with an operationally validated core and capability-specific preview boundaries for new agents and integrations."
       />
 
-      {/* Hero — approved messaging §1 */}
+      {/* Hero — capability-scoped product posture */}
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <SectionLabel>Pre-release · Controlled evaluation</SectionLabel>
+          <SectionLabel>Operationally validated core</SectionLabel>
           <h1 className="section-heading text-5xl sm:text-6xl mt-4">FEUS.ai</h1>
           <p className="mt-6 text-xl text-gray-300 leading-relaxed">
-            A governed data-operations architecture with implementation properties
-            validated in LOCAL and test environments.
+            A governed AI Data Operations platform built for accountable enterprise
+            workflows, controlled execution, and evidence-producing operations.
           </p>
           <p className="mt-4 text-gray-400">
-            Not approved for production deployment. Zero of 45 capabilities are
-            production verified.
+            Core capabilities are available for controlled enterprise adoption after
+            target qualification. New agents and integrations retain capability-specific
+            preview limits. The assessed vNext release remains NO-GO above LOCAL.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <CTAButton to="/status">Review the public posture</CTAButton>
+            <CTAButton to="/agents">Explore the agent portfolio</CTAButton>
+            <CTAButton to="/status" variant="secondary">Review the public posture</CTAButton>
             <CTAButton to="/contact" variant="secondary">
               Request an architecture briefing
             </CTAButton>
@@ -46,18 +49,16 @@ export default function FeusAiPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white">
-            Governance architecture first. Production claims only after evidence.
+            Operational maturity with governance intact
           </h2>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            FEUS.ai is built around a fail-closed principle: operations that cannot
-            complete their governance path do not execute. At the certified revision,
-            typed work orders, deny-by-default routing, approval binding, policy
-            checks before side effects, and pre-execution governance gates are
-            implemented and covered by {POSTURE.testsPassedAtRevision.toLocaleString()}{' '}
-            automated tests. End-to-end governed database execution is not yet
-            available: the execution dispatcher does not exist and no SQL executor
-            is bound, so the platform stops — by design — at a verdict rather than
-            performing an unproven operation.
+            The core GovernedExecutionGateway path has documented real-world FEUS
+            SQL Server usage: 48 of 48 provisioning batches passed all seven gates
+            and the recorded audit chain verified. Separately, the assessed vNext
+            revision completed {POSTURE.testsPassedAtRevision.toLocaleString()}{' '}
+            automated tests and established meaningful policy, routing, approval,
+            handoff, and execution-truth properties. Its new dispatcher and SQL
+            executor are not bound, so that extension remains Controlled Preview.
           </p>
           <div className="mt-8">
             <EvidenceCallout />
@@ -65,18 +66,21 @@ export default function FeusAiPage() {
         </div>
       </section>
 
-      {/* Product families — approved messaging §4 */}
+      {/* Product families */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-6xl mx-auto">
-          <SectionLabel>Product families</SectionLabel>
+          <SectionLabel>Capability portfolio</SectionLabel>
           <h2 className="text-3xl font-bold text-white mt-4 mb-4">
-            Reserved families and architecture components
+            Mature core and controlled expansion
           </h2>
           <p className="text-gray-400 max-w-3xl mb-10">
-            FEUS SQLOps, FEUS RequestOps, and FEUS Assurance are reserved product
-            family names. Family names describe intended scope; the status label on
-            each family — not the name — describes what exists today.
+            Each family carries its own lifecycle. A preview extension does not make
+            the entire platform preview, and core maturity does not promote an
+            unvalidated integration.
           </p>
+          <div className="mb-10">
+            <CTAButton to="/agents" variant="secondary">Agent and integration portfolio</CTAButton>
+          </div>
           <div className="grid md:grid-cols-2 gap-6">
             {PRODUCT_FAMILIES.map((fam) => (
               <Link
@@ -92,7 +96,7 @@ export default function FeusAiPage() {
                   {fam.statusLine}
                 </p>
                 <p className="mt-3 text-gray-300 text-sm leading-relaxed">{fam.description}</p>
-                <p className="mt-3 text-xs text-gray-500">Implementation evidence only · Not production approved</p>
+                <p className="mt-3 text-xs text-gray-500">See the capability lifecycle and exact restrictions below.</p>
               </Link>
             ))}
           </div>
@@ -101,17 +105,35 @@ export default function FeusAiPage() {
 
       <GlowDivider />
 
-      {/* Capability table */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <SectionLabel>Capability evidence</SectionLabel>
+        <div className="max-w-7xl mx-auto">
+          <SectionLabel>Lifecycle and adoption</SectionLabel>
           <h2 className="text-3xl font-bold text-white mt-4 mb-4">
-            Publicly representable capabilities
+            Capability-specific status
           </h2>
           <p className="text-gray-400 max-w-3xl mb-8">
-            Every capability below carries the status and qualification assigned by
-            the independent Session 12D assessment. No capability may be displayed
-            with a stronger status than this table.
+            Operational usage, release certification, public availability,
+            environment scope, and next maturity milestone are reported separately.
+          </p>
+          <div className="glass-card rounded-2xl p-6">
+            <CapabilityLifecycleTable />
+          </div>
+        </div>
+      </section>
+
+      <GlowDivider />
+
+      {/* Exact-revision capability evidence table */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <SectionLabel>Session 12D release evidence</SectionLabel>
+          <h2 className="text-3xl font-bold text-white mt-4 mb-4">
+            Exact-revision capability matrix
+          </h2>
+          <p className="text-gray-400 max-w-3xl mb-8">
+            These rows retain the status and qualification assigned by Session 12D
+            for the assessed vNext revision. They do not replace the product lifecycle
+            table or erase separate core operational evidence.
           </p>
           <div className="glass-card rounded-2xl p-6">
             <CapabilityStatusTable />

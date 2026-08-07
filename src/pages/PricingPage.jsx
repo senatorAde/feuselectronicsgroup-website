@@ -3,8 +3,8 @@ import { SectionLabel, CTAButton } from '../components/ui'
 
 /**
  * /pricing — replaced platform pricing with a professional-services
- * engagement page (IMPL-011). No platform tiers may be sold while the
- * platform is pre-release; page is noindex and removed from navigation.
+ * engagement page. Platform adoption is scoped through a capability and
+ * target qualification; no public self-service tiers are offered here.
  */
 
 const engagements = [
@@ -27,7 +27,7 @@ export default function PricingPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="Engagements"
-        description="FEUS Electronics Group professional-services engagements are scoped and priced individually. The FEUS.ai platform is pre-release and is not sold."
+        description="FEUS Electronics Group professional-services engagements are scoped and priced individually. FEUS.ai adoption is capability and target specific; public self-service pricing is not offered."
         noindex
       />
 
@@ -39,8 +39,10 @@ export default function PricingPage() {
           </h1>
           <p className="mt-6 text-gray-300 leading-relaxed">
             Our professional services are scoped and priced per engagement. The
-            FEUS.ai platform is pre-release, under controlled evaluation, and is
-            not sold or licensed for production use.
+            FEUS.ai core is considered for controlled enterprise adoption through
+            capability, target, governance, and support qualification. Public
+            self-service plans and blanket platform licensing terms are not offered
+            on this page.
           </p>
         </div>
       </section>

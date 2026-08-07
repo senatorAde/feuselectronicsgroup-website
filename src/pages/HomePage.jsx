@@ -3,16 +3,21 @@ import {
   Database, Cloud, Brain, LineChart, ShieldCheck, Wrench, ArrowRight, Building2,
 } from 'lucide-react'
 import SEO from '../components/SEO'
+import StatusBadge from '../components/StatusBadge'
 import AnimatedSection from '../components/AnimatedSection'
 import { SectionLabel, SectionHeader, CTAButton, GlowDivider } from '../components/ui'
-import { POSTURE, PRODUCT_FAMILIES } from '../data/publicStatus'
+import { AGENT_PORTFOLIO, POSTURE, PRODUCT_FAMILIES } from '../data/publicStatus'
+
+const featuredAgents = AGENT_PORTFOLIO.filter((agent) =>
+  ['oracleops', 'requestops', 'itsm-connect'].includes(agent.id)
+)
 
 /**
  * Homepage — rebuilt against the Session 13A approved messaging (§1–§2).
  * Two clearly separated narratives:
  *   1. FEUS Electronics Group — human-delivered consulting and managed services.
- *   2. FEUS.ai — pre-release platform under controlled evaluation.
- * No production claims, no fabricated metrics, no live-operations statements.
+ *   2. FEUS.ai — operationally validated core plus capability-scoped extensions.
+ * No blanket availability claims, fabricated metrics, or unqualified integrations.
  */
 
 const services = [
@@ -63,9 +68,9 @@ function Hero() {
         </h1>
         <p className="mt-8 text-xl text-gray-300 leading-relaxed max-w-3xl">
           FEUS Electronics Group delivers database, cloud, and AI-governance
-          consulting and managed services — and is developing FEUS.ai, a
-          pre-release governed data-operations platform currently under
-          controlled evaluation.
+          consulting and managed services — and develops FEUS.ai, a governed AI
+          Data Operations platform with an operationally validated core and a
+          controlled roadmap of expanding agents and integrations.
         </p>
         <div className="mt-10 flex flex-wrap gap-4">
           <CTAButton to="/services">Explore our services</CTAButton>
@@ -85,7 +90,7 @@ function ServicesSection() {
         <SectionHeader
           label="What we do"
           title="Professional services delivered by people"
-          subtitle="Our consulting and managed-service engagements are delivered by engineers — not by the FEUS.ai platform, which remains pre-release."
+          subtitle="Our consulting and managed-service engagements are delivered by engineers. FEUS.ai software adoption is scoped separately by capability, target environment, and governance requirements."
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {services.map(({ icon: Icon, title, desc }) => (
@@ -115,18 +120,16 @@ function PlatformSection() {
         <div className="max-w-3xl">
           <SectionLabel>The FEUS.ai platform</SectionLabel>
           <h2 className="section-heading text-4xl mt-4">
-            Governance architecture first. Production claims only after evidence.
+            Operationally validated governance, controlled expansion
           </h2>
-          {/* Approved homepage paragraph — verbatim (approved messaging §2) */}
           <p className="mt-6 text-gray-300 leading-relaxed">
-            FEUS.ai vNext is a pre-release governed data-operations platform under
-            controlled evaluation. Its architecture is built so that operations
-            which cannot complete their governance path do not execute. At the
-            current certified revision, implementation properties are validated by{' '}
-            {POSTURE.testsPassedAtRevision.toLocaleString()} automated tests, and
-            zero of {POSTURE.totalCapabilities} capabilities are production
-            verified. We publish our status honestly — including what does not
-            work yet.
+            FEUS.ai combines a documented operational core with capability-specific
+            assurance. The core GovernedExecutionGateway SQL Server path has a
+            retained FEUS workflow record in which 48 of 48 batches passed all seven
+            gates. The assessed vNext revision also completed{' '}
+            {POSTURE.testsPassedAtRevision.toLocaleString()} automated tests, while
+            its new dispatcher, Oracle, ITSM, and provider integrations retain clear
+            preview boundaries. We publish both the evidence and the limitations.
           </p>
           <div className="mt-6 flex flex-wrap gap-4">
             <CTAButton to="/feus-ai">Platform overview</CTAButton>
@@ -152,9 +155,37 @@ function PlatformSection() {
             </Link>
           ))}
         </div>
+        <div className="mt-16 flex flex-col md:flex-row md:items-end md:justify-between gap-5">
+          <div>
+            <SectionLabel>Expanding agent portfolio</SectionLabel>
+            <h3 className="text-2xl font-bold text-white">Specialists with explicit preview boundaries</h3>
+            <p className="mt-3 text-sm text-gray-400 max-w-2xl leading-relaxed">
+              Oracle operations, service-request coordination, and ITSM connectors
+              are visible roadmap products with evidence, restrictions, and
+              promotion milestones published by capability.
+            </p>
+          </div>
+          <CTAButton to="/agents" variant="secondary">Explore all agents</CTAButton>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6 mt-8">
+          {featuredAgents.map((agent) => (
+            <Link
+              key={agent.id}
+              to={agent.route}
+              className="glass-card rounded-lg p-5 block hover:border-feus-500/40 transition-colors group"
+            >
+              <StatusBadge status={agent.status} />
+              <h3 className="mt-5 text-lg font-semibold text-white">{agent.name}</h3>
+              <p className="mt-2 text-sm text-gray-400 leading-relaxed">{agent.summary}</p>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-feus-300">
+                View capability <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+              </span>
+            </Link>
+          ))}
+        </div>
         <p className="mt-6 text-xs text-gray-500">
-          {POSTURE.shortStatement} Zero of {POSTURE.totalCapabilities} capabilities
-          are production verified.{' '}
+          {POSTURE.shortStatement} The Session 12D NO-GO remains binding for the
+          assessed vNext revision and deployment scope.{' '}
           <Link to="/status" className="text-feus-300 underline underline-offset-2">
             Full posture
           </Link>
@@ -173,10 +204,10 @@ function TrustSection() {
           We publish evidence, not promises
         </h2>
         <p className="mt-6 text-gray-300 leading-relaxed">
-          The FEUS.ai Trust Center documents the platform&rsquo;s independently
-          assessed release posture — including the current NO-GO decision, the
-          full security-control breakdown, and every known limitation. If a
-          capability is not verified, we say so.
+          The FEUS.ai Trust Center documents operational evidence, capability
+          lifecycle, exact-revision release decisions, security-control results,
+          and known limitations. Core maturity does not promote an unvalidated
+          extension, and a preview module does not downgrade the whole platform.
         </p>
         <div className="mt-8 flex flex-wrap gap-4 justify-center">
           <CTAButton to="/trust">Visit the Trust Center</CTAButton>
@@ -220,7 +251,7 @@ export default function HomePage() {
   return (
     <div className="bg-navy-950 min-h-screen">
       <SEO
-        description="FEUS Electronics Group delivers database, cloud, and AI-governance consulting and managed services, and develops FEUS.ai — a pre-release governed data-operations platform under controlled evaluation."
+        description="FEUS Electronics Group delivers database, cloud, and AI-governance services and develops FEUS.ai, a governed AI Data Operations platform with an operationally validated core."
       />
       <Hero />
       <GlowDivider />

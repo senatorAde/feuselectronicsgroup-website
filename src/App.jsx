@@ -13,10 +13,13 @@ import TrustSecurityPage from './pages/TrustSecurityPage'
 import TrustCompliancePage from './pages/TrustCompliancePage'
 import StatusPage from './pages/StatusPage'
 import ArchitecturePage from './pages/ArchitecturePage'
+import AgentsPage from './pages/AgentsPage'
+import OracleOpsPage from './pages/OracleOpsPage'
 import SqlOpsPage from './pages/SqlOpsPage'
 import RequestOpsPage from './pages/RequestOpsPage'
 import ControlPlanePage from './pages/ControlPlanePage'
 import IntegrationsPage from './pages/IntegrationsPage'
+import ItsmConnectPage from './pages/ItsmConnectPage'
 import FaqPage from './pages/FaqPage'
 import DemoPage from './pages/DemoPage'
 import ReleaseNotesPage from './pages/ReleaseNotesPage'
@@ -37,12 +40,15 @@ export default function App() {
         <Route path="/copilot" element={<CopilotLandingPage />} />
         <Route path="/status" element={<StatusPage />} />
         <Route path="/architecture" element={<ArchitecturePage />} />
+        <Route path="/agents" element={<AgentsPage />} />
+        <Route path="/agents/oracle" element={<OracleOpsPage />} />
         {/* Legacy route: /how-it-works overstated the pipeline; superseded by /architecture */}
         <Route path="/how-it-works" element={<Navigate to="/architecture" replace />} />
         <Route path="/sqlops" element={<SqlOpsPage />} />
         <Route path="/requestops" element={<RequestOpsPage />} />
         <Route path="/control-plane" element={<ControlPlanePage />} />
         <Route path="/integrations" element={<IntegrationsPage />} />
+        <Route path="/integrations/itsm" element={<ItsmConnectPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/demo" element={<DemoPage />} />
         <Route path="/release-notes" element={<ReleaseNotesPage />} />

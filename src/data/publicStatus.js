@@ -1,18 +1,21 @@
 /**
  * FEUS.ai public posture and capability status — single source of truth.
  *
- * Derived from the Session 13A approved claims baseline:
- *   docs/branding/vnext/FEUS_VNEXT_PUBLIC_CAPABILITY_MATRIX.csv
- *   docs/branding/vnext/FEUS_VNEXT_PUBLIC_CLAIMS_REGISTER.csv
- *   docs/branding/vnext/FEUS_VNEXT_APPROVED_MESSAGING.md
- *   docs/branding/vnext/FEUS_VNEXT_PUBLIC_POSTURE_STATEMENT.md
- *   docs/branding/vnext/FEUS_VNEXT_TRUST_CENTER_CONTENT_PLAN.md
+ * Product-level posture is governed by:
+ *   docs/product-posture/FEUS_PRODUCT_OPERATIONAL_POSTURE.md
+ *   docs/product-posture/FEUS_CAPABILITY_LIFECYCLE_MATRIX.csv
+ *   docs/product-posture/FEUS_PUBLIC_PRODUCT_POSITIONING_GUIDE.md
+ *
+ * Exact-revision release evidence remains derived from the Session 12D
+ * certification and Session 13A claims baseline. The two scopes must not be
+ * collapsed into one another.
  *
  * RULES (do not weaken):
- *  - No capability may display a stronger status than the public capability matrix.
+ *  - Product maturity, operational validation, certification, and availability
+ *    are separate fields.
+ *  - No capability may display a stronger status than its lifecycle evidence.
  *  - Every public capability must carry its required qualification.
- *  - Oracle capability is excluded from public product representation.
- *  - Internal-only and must-not-be-marketed capabilities appear only as counts.
+ *  - Preview extensions must display their restrictions and next milestone.
  *  - Model invocation is DISABLED and must be described exactly that way.
  *  - Every ROI value is an Estimate with disclosed assumptions.
  *
@@ -23,29 +26,33 @@
 export const POSTURE = {
   platform: 'FEUS.ai',
   company: 'FEUS Electronics Group',
+  productMaturity: 'Operationally validated core',
+  publicAvailability: 'Controlled enterprise adoption by capability scope',
   decision: 'NO-GO',
+  decisionScope: 'FEUS.ai vNext 5.2.0-enterprise.1 external release assessment',
   decisionDate: '2026-08-07',
   lastReviewed: '2026-08-07',
   certifiedRevision: '3c401504aef201b510c8695bac7c31ad424c2274',
   versionAssessed: '5.2.0-enterprise.1',
   assessment: 'Session 12D final independent release certification',
-  shortStatement: 'Pre-release. Not production approved.',
+  shortStatement: 'Operationally validated core. Capability-specific limits apply.',
   statement:
-    'FEUS.ai vNext is a pre-release governed data-operations platform under controlled evaluation. ' +
-    'It is not approved for production deployment or for any environment above LOCAL. ' +
-    'Session 12D found zero of 45 capabilities production verified and no product-facing external integration live verified.',
+    'FEUS.ai is a governed AI Data Operations platform with core capabilities validated through FEUS enterprise engineering workflows and controlled operational use. ' +
+    'Formal release certification applies to named revisions, deployment configurations, environments, and capability scopes. ' +
+    'The Session 12D NO-GO decision remains binding for the assessed vNext revision and does not erase the platform\'s documented operational history.',
   trustBanner:
-    'Current posture: NO-GO. FEUS.ai vNext is pre-release and not approved for production deployment. ' +
-    'Zero of 45 capabilities are production verified.',
+    'FEUS.ai has an operationally validated core. The assessed vNext release remains NO-GO for external deployment above LOCAL, and newer agents and integrations retain capability-specific preview limits.',
+  operationalEvidence:
+    'The core GovernedExecutionGateway SQL Server path is documented through a controlled FEUS provisioning workflow in which 48 of 48 batches passed all seven governance gates and the recorded audit hash chain verified successfully.',
   productionVerifiedCapabilities: 0,
   totalCapabilities: 45,
   liveVerifiedIntegrations: 0,
   testsPassedAtRevision: 2320,
   testsQualification:
-    'Test passage is not deployment or live-integration evidence.',
+    'Test passage is revision evidence, not by itself deployment or live-integration evidence. Operational-use claims require separate workflow records.',
   superseded: false,
   supersessionRule:
-    'This posture remains controlling until a later exact-revision independent assessment explicitly supersedes it.',
+    'Session 12D remains controlling for the assessed vNext revision. Product-level claims are governed separately by capability lifecycle, environment, configuration, and evidence scope.',
 }
 
 /** Security controls assessed in Session 12D (exact counts — do not soften). */
@@ -59,13 +66,9 @@ export const CONTROL_COUNTS = {
 }
 
 /**
- * Reusable status vocabulary.
- * Evidence classes come from the public capability matrix; product statuses
- * define visual grammar for current and future states. "AVAILABLE" and
- * "CONTROLLED_PREVIEW" are currently unused: zero capabilities are production
- * verified and no preview program exists. "INTEGRATION_READY" is prohibited
- * for current connectors and is retained only so the component can render the
- * label if a future assessment authorizes it.
+ * Reusable status vocabulary. Evidence classes describe what was verified;
+ * lifecycle statuses describe how a capability may be adopted. A lifecycle
+ * status never overrides an exact-revision release restriction.
  */
 export const STATUS_DEFS = {
   // Evidence classifications (from the public capability matrix)
@@ -96,7 +99,7 @@ export const STATUS_DEFS = {
     label: 'Available',
     kind: 'status',
     definition:
-      'Production use explicitly approved for a named scope and revision. Unused: zero capabilities are production verified at this revision.',
+      'Available within a named, approved capability, environment, configuration, and support scope.',
   },
   AVAILABLE_WITH_CONSTRAINTS: {
     label: 'Available with constraints',
@@ -104,17 +107,41 @@ export const STATUS_DEFS = {
     definition:
       'Evidence exists with material limitations or dependencies that must be read together with the status.',
   },
+  OPERATIONALLY_VALIDATED: {
+    label: 'Operationally validated',
+    kind: 'status',
+    definition:
+      'Documented real-world FEUS engineering usage exists for the named capability and operating conditions. This is not blanket release certification.',
+  },
+  CONTROLLED_ENTERPRISE_ADOPTION: {
+    label: 'Controlled enterprise adoption',
+    kind: 'status',
+    definition:
+      'Available for governed adoption after target-specific scope, identity, environment, control, and support qualification.',
+  },
   CONTROLLED_PREVIEW: {
     label: 'Controlled preview',
     kind: 'status',
     definition:
-      'A written, time-bounded preview program for named participants. Unused: FEUS.ai does not currently operate a preview program.',
+      'Limited evaluation for named participants under documented restrictions; it is not general availability.',
+  },
+  PREVIEW: {
+    label: 'Preview',
+    kind: 'status',
+    definition:
+      'A bounded capability may be evaluated, but live integration or release qualification remains incomplete.',
+  },
+  EARLY_ACCESS: {
+    label: 'Early access',
+    kind: 'status',
+    definition:
+      'Invitation-only access for a named scope with explicit acceptance criteria and no general availability claim.',
   },
   INTEGRATION_READY: {
     label: 'Integration ready',
     kind: 'status',
     definition:
-      'Reserved future state. Not approved for any current connector: current connectors are contract-tested against mock transports only.',
+      'The adapter boundary and safety controls are ready for target-specific sandbox qualification; live compatibility is not implied.',
   },
   REQUIRES_CONFIGURATION: {
     label: 'Requires configuration',
@@ -154,10 +181,199 @@ export const CAPABILITY_SUMMARY = {
   internalOnly: 12,
   notPubliclyRepresented: 11,
   oracleNote:
-    'Oracle capability is not available and is excluded from public product representation at this revision.',
+    'The Oracle Operations Agent is a separately classified Controlled Preview extension. It is not one of the publicly available rows in the Session 12D release matrix.',
   internalNote:
-    'Internal-only capabilities and capabilities not approved for public representation are counted here but not itemized.',
+    'Session 12D internal-only and non-public matrix rows are counted here but not itemized. Product lifecycle status is reported separately.',
 }
+
+/**
+ * Product lifecycle view. This complements, but does not replace, the 45-row
+ * exact-revision certification matrix below.
+ */
+export const CAPABILITY_LIFECYCLE = [
+  {
+    capability: 'Governance engine and seven-gate execution gateway',
+    productArea: 'Core platform',
+    validation:
+      'Documented operational use in a controlled FEUS SQL Server provisioning workflow: 48 of 48 batches passed all seven gates and the recorded audit chain verified.',
+    certification:
+      'Core-path operational record; vNext pre-execution controls are implementation-verified, while vNext dispatch remains outside the certified operating path.',
+    publicStatus: 'CONTROLLED_ENTERPRISE_ADOPTION',
+    environment: 'Named FEUS or customer-controlled scope after environment qualification',
+    restrictions:
+      'Every database operation must use a fully wired GEG, approved service identity, policy scope, PII inspection, approval path, and audit sink.',
+    nextMilestone: 'Repeatable target-environment qualification and current-version release evidence.',
+  },
+  {
+    capability: 'FEUS Copilot governed operator workflow',
+    productArea: 'Core platform',
+    validation:
+      'Enterprise operator workflow and fail-closed CLI path are implemented and documented for authenticated FEUS usage.',
+    certification:
+      'Governance bootstrap and routing properties are tested; the public website chat interface is not part of the operational scope.',
+    publicStatus: 'CONTROLLED_ENTERPRISE_ADOPTION',
+    environment: 'Authenticated operator interface in an approved enterprise scope',
+    restrictions:
+      'No public browser assistant is offered. Database actions remain subject to the full governed execution path and target authorization.',
+    nextMilestone: 'Package an approved enterprise interface with deployment-specific identity and support evidence.',
+  },
+  {
+    capability: 'SQL Server governed operational workflows',
+    productArea: 'Core platform',
+    validation:
+      'Legacy/core pyodbc execution path and governed provisioning pattern are documented against a real FEUS SQL Server workflow.',
+    certification:
+      'Session 12D partially confirmed the legacy path and separately found the new vNext dispatcher and executor unbound.',
+    publicStatus: 'CONTROLLED_ENTERPRISE_ADOPTION',
+    environment: 'Qualified SQL Server targets with approved identities and entity allowlists',
+    restrictions:
+      'The operational core path must not be represented as proof that the separate vNext Control Plane/PES path is live.',
+    nextMilestone: 'Bind and independently validate the vNext dispatcher and executor against a real target.',
+  },
+  {
+    capability: 'Policy, PII, approval, and identity controls',
+    productArea: 'Core platform',
+    validation:
+      'Controls are exercised in the documented core workflow and covered by targeted automated suites.',
+    certification:
+      'Multiple control properties are verified or verified with constraints; non-LOCAL key custody and durable approval backends remain revision-specific gaps.',
+    publicStatus: 'AVAILABLE_WITH_CONSTRAINTS',
+    environment: 'Capability and target specific',
+    restrictions:
+      'Critical PII remains blocked; outbound ITSM redaction is not approved; non-LOCAL activation requires authorized keys and durable stores.',
+    nextMilestone: 'Attested key custody, durable approval storage, and independent negative-path validation.',
+  },
+  {
+    capability: 'Audit and evidence framework',
+    productArea: 'Core platform',
+    validation:
+      'The core workflow recorded 288 audit events and a valid local hash chain; release evidence and provenance gates are also established.',
+    certification:
+      'Local integrity behavior is verified, but adversary-resistant anchoring and a deployed durable sink were not established for the assessed vNext release.',
+    publicStatus: 'AVAILABLE_WITH_CONSTRAINTS',
+    environment: 'Approved local or enterprise evidence stores',
+    restrictions:
+      'Do not describe the hash chain as immutable or externally anchored. Retention and sink durability are deployment responsibilities until qualified.',
+    nextMilestone: 'Keyed or signed external anchoring plus durable sink and recovery evidence.',
+  },
+  {
+    capability: 'Synthetic data capabilities',
+    productArea: 'Core platform',
+    validation:
+      'Schema-driven generation, referential-integrity handling, environment guards, and no-production-row-copy controls are implemented and tested.',
+    certification:
+      'Engineering validation exists; customer-specific scale, resemblance, and target-schema qualification are not established by Session 12D.',
+    publicStatus: 'AVAILABLE_WITH_CONSTRAINTS',
+    environment: 'LOCAL and TST only unless a narrower deployment approval states otherwise',
+    restrictions:
+      'No production-row sampling; schema-specific validation and approved synthetic-data policy are required.',
+    nextMilestone: 'Scale and statistical-resemblance validation on an approved representative schema.',
+  },
+  {
+    capability: 'FEUS Recommendation Assurance',
+    productArea: 'Core platform',
+    validation:
+      'Risk thresholds, required assurance metadata, and fail-closed behavior when assurance is disabled are implemented and tested.',
+    certification:
+      'The assurance gate was independently verified; live model confidence signals and provider invocation are not established.',
+    publicStatus: 'AVAILABLE_WITH_CONSTRAINTS',
+    environment: 'Approved recommendation workflows',
+    restrictions:
+      'No recommendation becomes executable below threshold; no live model-provider claim is implied.',
+    nextMilestone: 'Validate confidence calibration and provenance against an approved model integration.',
+  },
+  {
+    capability: 'ROI tracking and estimate framework',
+    productArea: 'Core platform',
+    validation:
+      'Audit-derived metric handling and fail-closed insufficient-data/source-error states are implemented and tested.',
+    certification:
+      'Session 12D confirmed estimate-only behavior and found no provider token/cost reconciliation or measured customer outcome.',
+    publicStatus: 'AVAILABLE_WITH_CONSTRAINTS',
+    environment: 'Controlled reporting with disclosed assumptions',
+    restrictions:
+      'All values must be labeled Estimate; no measured savings, prevented loss, or customer result may be inferred.',
+    nextMilestone: 'Customer-approved baseline methodology and reconciled actual-cost evidence.',
+  },
+  {
+    capability: 'vNext Control Plane and Protected Execution dispatch',
+    productArea: 'New extension',
+    validation:
+      'Typed work orders, routing, handoffs, and fail-closed execution truth are verified in process.',
+    certification:
+      'Session 12D found no dispatcher and no bound SQL executor; shared safety state is incomplete.',
+    publicStatus: 'CONTROLLED_PREVIEW',
+    environment: 'In-process evaluation only',
+    restrictions:
+      'No claim of live end-to-end execution, durable multi-replica safety, or deployment authorization.',
+    nextMilestone: 'Real dispatcher/executor receipt plus durable multi-replica control validation.',
+  },
+  {
+    capability: 'Oracle Operations Agent',
+    productArea: 'New extension',
+    validation:
+      'Tier 1 read-only policy, registered templates, identity continuity, and failure behavior are tested against deterministic fakes.',
+    certification:
+      'Read-only policy is verified with constraints; no Oracle driver, concrete live port, or database compatibility evidence exists.',
+    publicStatus: 'CONTROLLED_PREVIEW',
+    environment: 'Offline and fixture-based evaluation only',
+    restrictions:
+      'No live Oracle operation; Tier 2 is not implemented and Tier 3 remains hard-disabled.',
+    nextMilestone: 'Pinned driver, concrete read-only adapter, and approved live Tier 1 smoke test.',
+  },
+  {
+    capability: 'Service Request Agent and governed handoffs',
+    productArea: 'New extension',
+    validation:
+      'Intake, classification, authorization, handoff, result verification, and failure paths are covered by end-to-end fixture tests.',
+    certification:
+      'In-process properties are implementation-verified; no live ticket source or downstream execution path is established.',
+    publicStatus: 'CONTROLLED_PREVIEW',
+    environment: 'Synthetic or approved non-customer workflows',
+    restrictions:
+      'In-memory adapter only in the certified path; no live ticket lifecycle or database side effect.',
+    nextMilestone: 'Approved sandbox connector smoke test and bound governed specialist execution.',
+  },
+  {
+    capability: 'ITSM automation connectors',
+    productArea: 'New extension',
+    validation:
+      'ServiceNow, Jira Service Management, and Azure DevOps connector contracts are tested against mock transports with dry-run defaults.',
+    certification:
+      'Contract evidence only; outbound disclosure did not meet the Session 12D release threshold.',
+    publicStatus: 'PREVIEW',
+    environment: 'Mock transport or approved sandbox with writes disabled',
+    restrictions:
+      'No live production tenant, write path, or unrestricted free-text egress.',
+    nextMilestone: 'Structured-field disclosure control and live sandbox lifecycle validation.',
+  },
+  {
+    capability: 'Model-provider integrations',
+    productArea: 'New extension',
+    validation:
+      'Provider-neutral contracts and fail-closed selection concepts are tested in isolation.',
+    certification:
+      'No invocation gateway, approved model pin, provider SDK, or network call exists; runtime invocation remains disabled.',
+    publicStatus: 'PREVIEW',
+    environment: 'Architecture evaluation only',
+    restrictions:
+      'No provider support, compatibility, fallback, safety, cost, or availability claim.',
+    nextMilestone: 'Approved provider adapter through a mandatory invocation gateway with telemetry and safety validation.',
+  },
+  {
+    capability: 'Additional database engines and deployment integrations',
+    productArea: 'New extension',
+    validation:
+      'Architecture and infrastructure concepts exist for selected future integrations.',
+    certification:
+      'No additional live engine or complete deployed topology was established in Session 12D.',
+    publicStatus: 'EARLY_ACCESS',
+    environment: 'Design-partner discovery and non-operational qualification',
+    restrictions:
+      'Invitation does not include live execution or a committed release date.',
+    nextMilestone: 'Name a target, implement its adapter, and complete sandbox plus release qualification.',
+  },
+]
 
 /**
  * Publicly representable capability rows (22 of 45).
@@ -171,9 +387,9 @@ export const PUBLIC_CAPABILITIES = [
     name: 'Legacy SQL Server governed execution',
     status: 'IMPLEMENTATION_VERIFIED',
     description:
-      'A legacy SQL Server gateway contains a real hash-pinned pyodbc path and is covered by automated tests.',
+      'The core SQL Server gateway contains a real hash-pinned pyodbc path, is covered by automated tests, and has a separate documented FEUS operational workflow record.',
     qualification:
-      'No live database operation was initiated at the certified revision; the vNext path has no dispatcher or bound executor.',
+      'Session 12D initiated no database operation and the separate vNext path has no dispatcher or bound executor. The core operational record does not certify that vNext path.',
   },
   {
     id: 'CAP-03',
@@ -384,36 +600,42 @@ export const PUBLIC_CAPABILITIES = [
 /** External dependency treatment (Session 12D Phase 6). */
 export const INTEGRATION_STATUS = [
   {
-    dependency: 'SQL Server (legacy path)',
-    status: 'EXTERNALLY_UNVERIFIED',
+    dependency: 'SQL Server (core GEG path)',
+    status: 'OPERATIONALLY_VALIDATED',
     treatment:
-      'Implementation exists; no live operation was initiated at the assessed revision.',
+      'Documented real FEUS provisioning workflow: 48 of 48 batches passed all seven gates. Customer targets require separate qualification.',
   },
   {
     dependency: 'SQL Server (vNext path)',
-    status: 'UNAVAILABLE',
-    treatment: 'Unavailable; no dispatcher or bound executor.',
+    status: 'CONTROLLED_PREVIEW',
+    treatment: 'In-process governance evidence only; no dispatcher or bound executor.',
+  },
+  {
+    dependency: 'Oracle Operations Agent',
+    status: 'CONTROLLED_PREVIEW',
+    treatment:
+      'Tier 1 read-only policy and observer behavior are tested against deterministic fakes; no live driver or adapter exists.',
   },
   {
     dependency: 'ServiceNow',
-    status: 'DEMONSTRATION_ONLY',
-    treatment: 'Contract tested against a mock transport; demonstration only.',
+    status: 'PREVIEW',
+    treatment: 'Connector contract tested against a mock transport with dry-run controls; no live tenant lifecycle.',
   },
   {
     dependency: 'Jira Service Management',
-    status: 'DEMONSTRATION_ONLY',
-    treatment: 'Contract tested against a mock transport; demonstration only.',
+    status: 'PREVIEW',
+    treatment: 'Connector contract tested against a mock transport with dry-run controls; no live tenant lifecycle.',
   },
   {
     dependency: 'Azure DevOps work items',
-    status: 'DEMONSTRATION_ONLY',
-    treatment: 'Contract tested against a mock transport; demonstration only.',
+    status: 'PREVIEW',
+    treatment: 'Connector contract tested against a mock transport with dry-run controls; no live organization lifecycle.',
   },
   {
     dependency: 'Model providers',
-    status: 'DISABLED',
+    status: 'PREVIEW',
     treatment:
-      'Model invocation is disabled. No invocation gateway, approved model pin, production importer, or provider network path exists.',
+      'Provider-neutral contracts are in Preview. Runtime invocation is disabled; no gateway, approved model pin, production importer, or network path exists.',
   },
   {
     dependency: 'Identity provider (Entra ID)',
@@ -429,25 +651,25 @@ export const INTEGRATION_STATUS = [
   },
   {
     dependency: 'Azure deployment',
-    status: 'UNAVAILABLE',
+    status: 'PREVIEW',
     treatment:
-      'Unavailable; templates are incomplete and were never compiled, what-if analyzed, or deployed.',
+      'The assessed vNext topology is incomplete and was never compiled, what-if analyzed, or deployed.',
   },
 ]
 
 /** Known limitations (Trust Center Content Plan §25). */
 export const KNOWN_LIMITATIONS = [
-  'No production-approved capability or environment.',
-  'No vNext execution dispatcher or bound SQL executor.',
-  'No live product-facing integration.',
-  'Model invocation disabled.',
-  'Oracle excluded from public product representation.',
-  'Production signing-key custody and authorization absent.',
+  'The Session 12D vNext release remains NO-GO for external deployment above LOCAL.',
+  'The vNext execution path has no dispatcher or bound SQL executor; the documented core GEG path is separate.',
+  'No Oracle, ITSM, identity-provider, model-provider, or Azure integration was live-verified by Session 12D.',
+  'Model-provider invocation remains disabled.',
+  'The Oracle Operations Agent is Controlled Preview with fixture evidence only and no live adapter.',
+  'Target-tier signing-key custody and authorization remain absent for the assessed vNext release.',
   'Runtime evidence is not adversary-resistant.',
   'Outbound data redaction did not meet the release threshold.',
-  'Shared durable state for safety and replay controls is not established.',
-  'No compensating rollback executor.',
-  'Infrastructure is incomplete and undeployed.',
+  'Shared durable state for vNext safety and replay controls is not established.',
+  'The assessed vNext path has no compensating rollback executor.',
+  'The assessed vNext Azure infrastructure is incomplete and undeployed.',
   'No availability, recovery, performance, or ROI actuals.',
 ]
 
@@ -456,18 +678,18 @@ export const PRODUCT_FAMILIES = [
   {
     name: 'FEUS SQLOps',
     route: '/sqlops',
-    role: 'Reserved product family',
+    role: 'Core product family',
     description:
-      'The reserved name for FEUS.ai\u2019s SQL Server-focused governance and operations family; vNext end-to-end execution is not currently available.',
-    statusLine: 'Reserved family · vNext execution unavailable',
+      'FEUS.ai\u2019s SQL Server governance and operations family: the core GEG path has documented operational validation, while vNext dispatch remains Controlled Preview.',
+    statusLine: 'Controlled enterprise adoption · vNext dispatch in preview',
   },
   {
     name: 'FEUS RequestOps',
     route: '/requestops',
-    role: 'Reserved product family',
+    role: 'Extension product family',
     description:
-      'The reserved name for governed service-request intake and routing; current vendor connectors are contract-tested against mocks and are not live-integrated.',
-    statusLine: 'Reserved family · live ITSM unavailable',
+      'Governed service-request intake, routing, and handoffs in Controlled Preview; current vendor connectors are Preview against mock transports.',
+    statusLine: 'Controlled preview · ITSM connectors in preview',
   },
   {
     name: 'FEUS Assurance',
@@ -475,21 +697,160 @@ export const PRODUCT_FAMILIES = [
     role: 'Reserved product family',
     description:
       'The reserved family for internal assurance evaluation and release evidence; it is not a formal certification or compliance attestation.',
-    statusLine: 'Reserved family · not formal certification',
+    statusLine: 'Available with constraints · not formal certification',
   },
   {
     name: 'FEUS Control Plane',
     route: '/control-plane',
     role: 'Architecture component',
     description:
-      'The implemented in-process coordination layer for typed work orders, routing, approvals, policy checks, and agent handovers. It has no execution dispatcher and is not a separately available product.',
-    statusLine: 'Architecture component · implementation verified in-process only',
+      'The in-process coordination layer for typed work orders, routing, approvals, policy checks, and agent handovers. It remains Controlled Preview because it has no execution dispatcher.',
+    statusLine: 'Controlled preview · in-process only',
+  },
+]
+
+/** Branded agent and governed-capability portfolio. */
+export const AGENT_PORTFOLIO = [
+  {
+    id: 'sqlops',
+    name: 'FEUS SQLOps',
+    capability: 'SQL Server governed operations',
+    status: 'CONTROLLED_ENTERPRISE_ADOPTION',
+    route: '/sqlops',
+    summary:
+      'Governed SQL Server operations through mandatory policy, identity, PII, approval, execution, and audit controls.',
+    evidence:
+      'The core GEG path has a documented FEUS workflow in which 48 of 48 provisioning batches passed all seven gates.',
+    environment: 'Named enterprise scope after target qualification',
+    restriction:
+      'The separate vNext dispatcher and Protected Execution Service path remains unbound.',
+    nextMilestone: 'Bind and validate the vNext dispatcher and executor against an approved target.',
+  },
+  {
+    id: 'copilot',
+    name: 'FEUS Copilot',
+    capability: 'Governed operator experience',
+    status: 'AVAILABLE_WITH_CONSTRAINTS',
+    route: '/copilot',
+    summary:
+      'An authenticated operator experience for governed analysis and approved operational workflows.',
+    evidence:
+      'Core conversational workflows are documented in FEUS engineering usage; database actions remain governed separately.',
+    environment: 'Authenticated FEUS or customer-controlled operator context',
+    restriction:
+      'The public website does not expose a working assistant, and model-provider invocation remains disabled in the assessed vNext path.',
+    nextMilestone: 'Qualify an approved model-provider gateway and customer-specific identity boundary.',
+  },
+  {
+    id: 'oracleops',
+    name: 'FEUS OracleOps',
+    capability: 'Oracle Operations Agent',
+    status: 'CONTROLLED_PREVIEW',
+    route: '/agents/oracle',
+    summary:
+      'Oracle-native knowledge and observe-only workflows governed by registered templates, target identity checks, and fail-closed policy.',
+    evidence:
+      'A 29-operation catalog and Tier 1 observer behavior are tested against deterministic fixtures.',
+    environment: 'Offline and fixture-based evaluation',
+    restriction:
+      'No live Oracle driver, adapter, connection, or compatibility result exists; Tier 3 remains hard-disabled.',
+    nextMilestone: 'Pin a driver, bind a read-only adapter, and complete an approved live Tier 1 smoke test.',
+  },
+  {
+    id: 'requestops',
+    name: 'FEUS RequestOps',
+    capability: 'Service Request Agent',
+    status: 'CONTROLLED_PREVIEW',
+    route: '/requestops',
+    summary:
+      'Governed service-request intake, deterministic classification, authorization, handoff, and result verification.',
+    evidence:
+      'End-to-end intake, routing, verification, and failure behavior are exercised with fixtures and in-memory adapters.',
+    environment: 'Synthetic or approved non-customer workflows',
+    restriction:
+      'No live ticket source or bound downstream execution is established in the assessed path.',
+    nextMilestone: 'Complete an approved sandbox connector smoke test and bind governed specialist execution.',
+  },
+  {
+    id: 'control-plane',
+    name: 'FEUS Agent Control Plane',
+    capability: 'Governed multi-agent coordination',
+    status: 'CONTROLLED_PREVIEW',
+    route: '/control-plane',
+    summary:
+      'Typed work orders, policy-aware routing, specialist handoffs, and fail-closed execution truth for coordinated agents.',
+    evidence:
+      'In-process workflow, routing, approval binding, identity rebinding, and handoff behavior are implementation-verified.',
+    environment: 'In-process evaluation',
+    restriction:
+      'No dispatcher, bound executor, or durable multi-replica safety state is established.',
+    nextMilestone: 'Validate distributed state, dispatcher receipts, and restart behavior across replicas.',
+  },
+  {
+    id: 'itsm-connect',
+    name: 'FEUS ITSM Connect',
+    capability: 'ServiceNow, Jira Service Management, and Azure DevOps connectors',
+    status: 'PREVIEW',
+    route: '/integrations/itsm',
+    summary:
+      'Governed ITSM connector contracts with dry-run defaults, closed operations, least-privilege configuration, and audit evidence.',
+    evidence:
+      'Vendor-specific contracts are tested against mock transports; writes default to disabled and dry-run.',
+    environment: 'Mock transport or approved sandbox with writes disabled',
+    restriction:
+      'No live production tenant, qualified write lifecycle, or unrestricted free-text egress is claimed.',
+    nextMilestone: 'Close structured disclosure controls and complete an approved live sandbox lifecycle.',
+  },
+  {
+    id: 'recommendation-assurance',
+    name: 'FEUS Recommendation Assurance',
+    capability: 'Recommendation evidence and execution thresholding',
+    status: 'AVAILABLE_WITH_CONSTRAINTS',
+    route: '/assurance',
+    summary:
+      'Structured assurance metadata and fail-closed thresholds for recommendations entering governed workflows.',
+    evidence:
+      'Assurance metadata and below-threshold blocking are implementation-verified in engineering workflows.',
+    environment: 'Approved recommendation workflows',
+    restriction:
+      'No correctness guarantee, live model confidence calibration, or formal certification is implied.',
+    nextMilestone: 'Validate confidence calibration and provenance through an approved model integration.',
+  },
+  {
+    id: 'provider-gateway',
+    name: 'FEUS Provider Gateway',
+    capability: 'Model-provider governance boundary',
+    status: 'PREVIEW',
+    route: '/integrations',
+    summary:
+      'A provider-neutral control boundary for future model selection, policy, telemetry, safety, and cost governance.',
+    evidence:
+      'Provider-neutral contracts and fail-closed selection behavior are tested in isolation.',
+    environment: 'Architecture evaluation',
+    restriction:
+      'Runtime model invocation is disabled; no provider support, compatibility, or availability is claimed.',
+    nextMilestone: 'Validate an approved adapter through a mandatory invocation gateway with telemetry and safety controls.',
+  },
+  {
+    id: 'engine-expansion',
+    name: 'FEUS Engine Expansion',
+    capability: 'Additional governed data-engine agents',
+    status: 'EARLY_ACCESS',
+    route: '/contact',
+    summary:
+      'Design-partner discovery for additional governed database and data-platform targets.',
+    evidence:
+      'Architecture concepts support target qualification; no additional live engine is established.',
+    environment: 'Invitation-only design-partner discovery',
+    restriction:
+      'Participation does not include live execution, production support, or a committed release date.',
+    nextMilestone: 'Select a target, implement its adapter, and complete sandbox plus release qualification.',
   },
 ]
 
 /** Model-provider statement (approved messaging §14). */
 export const MODEL_PROVIDER_STATEMENT = {
-  headline: 'Model invocation is disabled',
+  headline: 'Provider integrations are in Preview; invocation is disabled',
   statement:
     'FEUS.ai has no runtime invocation gateway, approved model pin, production importer of the provider-policy contract, or provider network-invocation path at this revision.',
   designNote:
@@ -520,9 +881,9 @@ export const DEMO_DISCLAIMER = {
 /** Authorized use (product-posture draft; Legal approval pending for binding terms). */
 export const AUTHORIZED_USE = {
   text:
-    'FEUS.ai is intended for use only by authorized users, service identities, environments, and systems within the permissions and operating conditions established by the deploying organization. At the assessed revision, authorized use is limited to internal LOCAL development, testing, evidence review, and controlled demonstrations using synthetic or approved non-customer data. Attempts to bypass FEUS security, governance, approval, licensing, tenant, or access controls are prohibited. Capabilities used outside their documented configuration, authorization, or supported operating conditions are outside the assessed FEUS operating envelope.',
+    'FEUS.ai is intended for authorized users, service identities, environments, and systems operating within a named capability scope. Core enterprise adoption requires target-specific identity, governance, policy, PII, approval, audit, support, and customer authorization. Preview extensions are limited to their published environment, data, participant, and operation boundaries. Attempts to bypass FEUS security, governance, approval, licensing, tenant, or access controls are prohibited.',
   qualification:
-    'The assessed FEUS operating envelope is not a production-certified envelope. No use above LOCAL and no customer-system operation is authorized by Session 12D.',
+    'Session 12D authorizes no use of the assessed vNext 5.2.0-enterprise.1 release above LOCAL. That exact-revision decision does not itself grant or revoke a separately documented core capability deployment; each deployment requires its own authorization.',
   legalStatus:
     'Product-posture language. Legal counsel must approve this language before it appears in binding terms.',
 }
@@ -531,7 +892,7 @@ export const AUTHORIZED_USE = {
 export const FAQ_ITEMS = [
   {
     q: 'Is FEUS.ai production ready?',
-    a: 'No. FEUS.ai vNext is pre-release and not approved for production deployment. Session 12D found zero of 45 capabilities production verified.',
+    a: 'Production readiness is capability, version, environment, and configuration specific. The core GEG SQL Server workflow has documented operational validation and is available for controlled enterprise adoption after target qualification. The assessed vNext 5.2.0-enterprise.1 release is not authorized above LOCAL, and newer extensions retain the statuses shown in the lifecycle matrix.',
   },
   {
     q: 'Is FEUS.ai formally certified?',
@@ -543,19 +904,19 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'Does FEUS.ai connect to a live database?',
-    a: 'Not through the vNext path at this revision. The Control Plane has no execution dispatcher and the Protected Execution Service has no bound SQL executor; the boundary fails closed.',
+    a: 'The documented core GEG path has executed a real FEUS SQL Server provisioning workflow. The separate vNext Control Plane/PES path assessed by Session 12D has no dispatcher or bound SQL executor and remains Controlled Preview.',
   },
   {
     q: 'Does FEUS.ai support Oracle?',
-    a: 'No public Oracle capability is represented at this revision.',
+    a: 'The Oracle Operations Agent is in Controlled Preview. Tier 1 read-only policy and observer behavior are tested against deterministic fakes. No live Oracle driver, adapter, compatibility result, or production support claim exists.',
   },
   {
     q: 'Which ITSM integrations are available?',
-    a: 'None live. Three connector contracts (ServiceNow, Jira Service Management, Azure DevOps work items) are contract-tested against mock transports for demonstrations only.',
+    a: 'Three connector contracts (ServiceNow, Jira Service Management, and Azure DevOps work items) are in Preview against mock transports with dry-run defaults. No live production tenant lifecycle is qualified.',
   },
   {
     q: 'Which model providers are supported?',
-    a: 'Model invocation is disabled. FEUS.ai has no runtime invocation gateway, approved model pin, production importer, or provider network-invocation path at this revision.',
+    a: 'No runtime model provider is currently supported. Provider-neutral contracts are in Preview, model invocation is disabled, and the approved model set is empty.',
   },
   {
     q: 'Is the audit trail immutable?',
@@ -571,20 +932,31 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'Can FEUS.ai be deployed on-premises or in Azure?',
-    a: 'No deployment model is currently available. Infrastructure templates are incomplete and were never compiled, what-if analyzed, or deployed.',
+    a: 'Deployment is capability and target specific. The assessed vNext Azure topology remains Preview: its templates are incomplete and were never compiled, what-if analyzed, or deployed. Core adoption requires a separate deployment qualification.',
   },
   {
     q: 'How do I report a security concern?',
-    a: 'Vulnerability-management process details are being formalized for the pre-release platform. Security concerns should use the monitored responsible-disclosure channel once published; until then, use the general contact form and mark the inquiry as security-related without including sensitive details.',
+    a: 'The formal vulnerability-management and responsible-disclosure process is being completed. Until a monitored channel is published, use the general contact form, mark the inquiry as security-related, and do not include sensitive technical details.',
   },
   {
     q: 'Who is authorized to use FEUS.ai?',
-    a: 'At this revision, only authorized internal users and service identities operating in LOCAL for approved development, testing, evidence review, or controlled demonstrations with synthetic or approved non-customer data.',
+    a: 'Authorization is capability and environment specific. Core use requires an approved enterprise scope and controls. Session 12D restricts the assessed vNext release to authorized internal LOCAL development, testing, evidence review, and controlled demonstrations.',
   },
 ]
 
 /** Public release-posture history (release notes page). */
 export const POSTURE_HISTORY = [
+  {
+    date: '2026-08-07',
+    revision: 'product-level, capability scoped',
+    version: 'FEUS.ai platform posture',
+    authority: 'Product, Governance, Trust Center, and Release Assurance',
+    decision: 'PRODUCT POSTURE CORRECTED WITH PREVIEW LIMITATIONS',
+    scope:
+      'Separates documented core operational validation from exact-revision release certification and assigns lifecycle statuses to new extensions.',
+    current: true,
+    controllingLabel: 'Current product posture',
+  },
   {
     date: '2026-08-07',
     revision: '3c401504aef201b510c8695bac7c31ad424c2274',
@@ -594,6 +966,7 @@ export const POSTURE_HISTORY = [
     scope:
       'Exact-revision assessment: 45 capabilities, 38 security controls, release-artifact evidence, and dependency posture.',
     current: true,
+    controllingLabel: 'Current vNext release decision',
   },
   {
     date: '2026-04-25',
@@ -604,6 +977,7 @@ export const POSTURE_HISTORY = [
     scope:
       'Internal assurance and certification engine runs. Superseded as public authority by the Session 12D exact-revision assessment.',
     current: false,
+    controllingLabel: 'Superseded',
   },
 ]
 

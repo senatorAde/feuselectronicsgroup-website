@@ -3,7 +3,7 @@ import { Info } from 'lucide-react'
 import StatusBadge from './StatusBadge'
 import {
   POSTURE, CONTROL_COUNTS, CAPABILITY_SUMMARY, PUBLIC_CAPABILITIES,
-  INTEGRATION_STATUS, KNOWN_LIMITATIONS,
+  CAPABILITY_LIFECYCLE, INTEGRATION_STATUS, KNOWN_LIMITATIONS,
 } from '../data/publicStatus'
 
 /**
@@ -11,7 +11,7 @@ import {
  * Neutral evidence treatment only — no success badges, scores, or seals.
  */
 
-/** Persistent pre-release strip for every FEUS.ai product route. */
+/** Persistent capability-scoped posture strip for every FEUS.ai product route. */
 export function ReleaseStatusBanner() {
   return (
     <div
@@ -23,7 +23,7 @@ export function ReleaseStatusBanner() {
         <Info className="w-4 h-4 text-rose-400 flex-shrink-0" aria-hidden="true" />
         <span className="font-semibold text-white">{POSTURE.shortStatement}</span>
         <span className="text-gray-400">
-          Zero of {POSTURE.totalCapabilities} capabilities are production verified.
+          Core maturity and extension release status are assessed separately.
         </span>
         <Link to="/status" className="text-feus-300 underline underline-offset-2 hover:text-feus-200">
           Current status and limitations
@@ -33,13 +33,16 @@ export function ReleaseStatusBanner() {
   )
 }
 
-/** Release decision block — strong red left border, plain text, no decoration. */
+/** Exact-revision release decision block — plain text, no certification symbolism. */
 export function ReleaseDecision({ compact = false }) {
   return (
     <div className="border-l-4 border-rose-500 bg-white/[0.03] rounded-r-xl p-6">
-      <p className="text-2xl font-bold text-white">{POSTURE.decision}</p>
+      <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">
+        Assessed vNext release decision
+      </p>
+      <p className="mt-1 text-2xl font-bold text-white">{POSTURE.decision}</p>
       <p className="mt-1 text-gray-300">
-        Pre-release · Not approved for production deployment
+        Exact revision · External release above LOCAL not authorized
       </p>
       <p className="mt-2 text-xs text-gray-500 font-mono break-all">
         Revision {POSTURE.certifiedRevision}
@@ -49,6 +52,10 @@ export function ReleaseDecision({ compact = false }) {
           <p className="mt-2 text-xs text-gray-500">
             Version assessed {POSTURE.versionAssessed} · Decision date {POSTURE.decisionDate} ·
             Last reviewed {POSTURE.lastReviewed} · Authority: {POSTURE.assessment}
+          </p>
+          <p className="mt-3 text-sm text-gray-400">
+            This decision applies to the named release scope. It is not a verdict on
+            FEUS.ai&rsquo;s complete operational history or every core capability.
           </p>
           {POSTURE.superseded && (
             <p className="mt-2 text-xs font-semibold text-amber-300">SUPERSEDED</p>
@@ -62,18 +69,20 @@ export function ReleaseDecision({ compact = false }) {
 /** At-a-glance posture table (Trust Center Content Plan §4.2). */
 export function PostureSummary() {
   const rows = [
-    ['Release decision', POSTURE.decision],
-    ['Production-verified capabilities', `${POSTURE.productionVerifiedCapabilities} of ${POSTURE.totalCapabilities}`],
-    ['Product-facing live-verified integrations', String(POSTURE.liveVerifiedIntegrations)],
+    ['Platform maturity', POSTURE.productMaturity],
+    ['Public availability', POSTURE.publicAvailability],
+    ['Assessed vNext release decision', POSTURE.decision],
+    ['Session 12D production-verified rows', `${POSTURE.productionVerifiedCapabilities} of ${POSTURE.totalCapabilities}`],
+    ['Session 12D live-verified integrations', String(POSTURE.liveVerifiedIntegrations)],
     ['Security controls assessed', String(CONTROL_COUNTS.assessed)],
     ['Verified', String(CONTROL_COUNTS.verified)],
     ['Verified with constraints', String(CONTROL_COUNTS.verifiedWithConstraints)],
     ['Partial', String(CONTROL_COUNTS.partial)],
     ['Failed', String(CONTROL_COUNTS.failed)],
     ['Not established', String(CONTROL_COUNTS.notEstablished)],
-    ['Production deployment', 'Not approved'],
+    ['Assessed vNext deployment', 'Not authorized above LOCAL'],
     ['Model invocation', 'Disabled'],
-    ['Oracle marketing', 'Prohibited'],
+    ['Oracle Operations Agent', 'Controlled Preview'],
     ['ROI', 'Estimate only'],
   ]
   return (
@@ -175,6 +184,53 @@ export function CapabilityStatusTable({ family }) {
       </table>
       <p className="mt-4 text-xs text-gray-500">{CAPABILITY_SUMMARY.internalNote}</p>
       <p className="mt-1 text-xs text-gray-500">{CAPABILITY_SUMMARY.oracleNote}</p>
+    </div>
+  )
+}
+
+/** Product lifecycle table — separate from exact-revision certification rows. */
+export function CapabilityLifecycleTable() {
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm border-collapse min-w-[960px]">
+        <caption className="sr-only">
+          FEUS.ai core and extension capability lifecycle, evidence, restrictions, and milestones
+        </caption>
+        <thead>
+          <tr className="border-b border-white/10 text-left">
+            <th scope="col" className="py-3 pr-4 text-gray-400 font-medium">Capability</th>
+            <th scope="col" className="py-3 pr-4 text-gray-400 font-medium">Public status</th>
+            <th scope="col" className="py-3 pr-4 text-gray-400 font-medium">Validation and certification scope</th>
+            <th scope="col" className="py-3 text-gray-400 font-medium">Restrictions and next milestone</th>
+          </tr>
+        </thead>
+        <tbody>
+          {CAPABILITY_LIFECYCLE.map((row) => (
+            <tr key={row.capability} className="border-b border-white/[0.06] align-top">
+              <th scope="row" className="py-4 pr-4 text-white font-medium text-left">
+                {row.capability}
+                <span className="block mt-1 text-xs text-gray-500 font-normal">{row.productArea}</span>
+              </th>
+              <td className="py-4 pr-4">
+                <StatusBadge status={row.publicStatus} />
+                <span className="block mt-2 text-xs text-gray-500">{row.environment}</span>
+              </td>
+              <td className="py-4 pr-4 text-gray-300 leading-relaxed">
+                {row.validation}
+                <span className="block mt-2 text-xs text-gray-400">
+                  Certification: {row.certification}
+                </span>
+              </td>
+              <td className="py-4 text-gray-300 leading-relaxed">
+                {row.restrictions}
+                <span className="block mt-2 text-xs text-amber-200/80">
+                  Next milestone: {row.nextMilestone}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }

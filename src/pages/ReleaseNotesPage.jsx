@@ -4,15 +4,14 @@ import { SectionLabel } from '../components/ui'
 import { POSTURE_HISTORY, POSTURE } from '../data/publicStatus'
 
 /**
- * /release-notes — public posture history. Shows which assessment currently
- * controls the public posture and what it superseded.
+ * /release-notes — product-posture and exact-revision release history.
  */
 export default function ReleaseNotesPage() {
   return (
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="Posture History"
-        description="FEUS.ai public posture history: which independent assessment currently controls the public status and what it superseded."
+        description="FEUS.ai posture history: product maturity decisions and exact-revision release assessments, each retained with its governing scope."
       />
 
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
@@ -22,8 +21,8 @@ export default function ReleaseNotesPage() {
             How the public posture has changed
           </h1>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            FEUS.ai&rsquo;s public status is controlled by exact-revision independent
-            assessments. {POSTURE.supersessionRule}
+            FEUS.ai records product maturity and exact-revision release decisions
+            separately. {POSTURE.supersessionRule}
           </p>
         </div>
       </section>
@@ -32,7 +31,7 @@ export default function ReleaseNotesPage() {
         <div className="max-w-3xl mx-auto space-y-6">
           {POSTURE_HISTORY.map((entry) => (
             <article
-              key={entry.date}
+              key={`${entry.date}-${entry.decision}`}
               className={`glass-card rounded-2xl p-6 ${entry.current ? 'border-l-4 border-l-rose-500' : 'opacity-80'}`}
             >
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
@@ -40,9 +39,13 @@ export default function ReleaseNotesPage() {
                 <span className="font-mono break-all">{entry.revision}</span>
                 <span>{entry.version}</span>
                 {entry.current ? (
-                  <span className="font-semibold text-amber-300/90 uppercase tracking-wide">Controlling</span>
+                  <span className="font-semibold text-amber-300/90 uppercase tracking-wide">
+                    {entry.controllingLabel ?? 'Current'}
+                  </span>
                 ) : (
-                  <span className="font-semibold text-gray-400 uppercase tracking-wide">Superseded</span>
+                  <span className="font-semibold text-gray-400 uppercase tracking-wide">
+                    {entry.controllingLabel ?? 'Superseded'}
+                  </span>
                 )}
               </div>
               <h2 className="mt-3 text-xl font-semibold text-white">

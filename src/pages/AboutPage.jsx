@@ -16,7 +16,7 @@ const values = [
   {
     icon: Zap,
     title: 'Evidence Over Hype',
-    desc: 'We make claims we can support with evidence. When something is pre-release or unproven, we say so plainly — in our engagements and about our own platform.',
+    desc: 'We make claims we can support with evidence. When a capability is preview, constrained, or not yet integrated, we say so plainly.',
   },
   {
     icon: Users,
@@ -43,7 +43,7 @@ const values = [
 const milestones = [
   { year: 'Foundation', title: 'Enterprise Data Roots', desc: 'Founded on deep expertise in SQL Server, data platform engineering, and enterprise database operations.' },
   { year: 'Growth', title: 'Managed Services Expansion', desc: 'Expanded into full-service managed database operations, cloud infrastructure, and data architecture.' },
-  { year: 'Innovation', title: 'FEUS.ai Development', desc: 'Began developing FEUS.ai — a governed data-operations platform, currently pre-release and under controlled evaluation.' },
+  { year: 'Innovation', title: 'FEUS.ai Development', desc: 'Developed and operationally validated the FEUS.ai governed data-operations core through real FEUS engineering workflows.' },
   { year: 'Future', title: 'Enterprise AI at Scale', desc: 'Working toward evidence-backed, governed AI operations — with production claims made only after independent verification.' },
 ]
 
@@ -71,7 +71,7 @@ export default function AboutPage() {
                   <strong className="text-white">FEUS Electronics Group</strong> is the parent enterprise technology company. We are the business entity, the leadership team, and the strategic vision behind everything we build and deliver.
                 </p>
                 <p className="mt-4 text-gray-400 leading-relaxed">
-                  <strong className="text-feus-300">FEUS.ai</strong> is the platform we are building — a governed data-operations architecture, currently pre-release and under controlled evaluation. It is not yet approved for production deployment, and we publish its status honestly.
+                  <strong className="text-feus-300">FEUS.ai</strong> is the governed AI Data Operations platform we operate and continue to expand. Its core has documented operational validation; newer agents and integrations carry their own preview status and restrictions.
                 </p>
               </div>
               <div className="grid gap-4">
@@ -97,10 +97,10 @@ export default function AboutPage() {
                       </div>
                       <div>
                         <h4 className="text-lg font-bold gradient-text">FEUS.ai</h4>
-                        <p className="text-sm text-gray-500">Platform · Pre-release</p>
+                        <p className="text-sm text-gray-500">Platform · Operationally validated core</p>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-400">A governed data-operations platform under controlled evaluation. Not approved for production deployment.</p>
+                    <p className="text-sm text-gray-400">A governed AI Data Operations platform available for controlled enterprise adoption by capability scope.</p>
                   </div>
                 </AnimatedSection>
               </div>
@@ -129,7 +129,7 @@ export default function AboutPage() {
                   The pattern was the same everywhere: talented engineers drowning in manual operations, governance bolted on after incidents, AI tools deployed without guardrails, and executives waiting weeks for audit evidence that should be automatic. That’s the problem FEUS.ai was built to solve.
                 </p>
                 <p>
-                  <strong className="text-white">FEUS.ai</strong> is the result of that operational experience — a governed data-operations platform designed so that governance, PII inspection, and auditable decision-making are the architecture itself, not a feature roadmap. The platform is pre-release: its implementation properties are validated by automated tests in LOCAL and test environments, and we publish its current status — including what does not work yet — on our <Link to="/status" className="text-feus-300 underline underline-offset-2">status page</Link>.
+                  <strong className="text-white">FEUS.ai</strong> is the result of that operational experience — a governed data-operations platform designed so that governance, PII inspection, and auditable decision-making are the architecture itself, not a feature roadmap. Its core has documented operational validation, its assessed vNext revision has extensive automated evidence, and every expansion capability publishes its current status and limitations on our <Link to="/status" className="text-feus-300 underline underline-offset-2">status page</Link>.
                 </p>
                 <p>
                   Dr. Adeniyi is a <strong className="text-white">Microsoft MVP for Data Platform & AI (2024/2025)</strong>, Azure Solutions Architect Expert, AWS Solutions Architect Professional, CISSP, PMP, and CDMP. He holds a Ph.D. in Leadership & Business, an MBA from Coventry University, and a B.Eng. in Electrical & Electronics Engineering. He has operated in healthcare (HIPAA), financial services, aviation (Emirates Group), telecom (Alcatel-Lucent), and direct-to-consumer SaaS.

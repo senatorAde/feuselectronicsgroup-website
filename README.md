@@ -5,8 +5,9 @@
 | | |
 |---|---|
 | **Website hosting status** | ✅ Website is live (hosting status only — see note below) |
-| **FEUS.ai platform status** | ⚠️ Pre-release. Not production approved. Release decision: NO-GO (2026-08-07). See `/status` on the site. |
-| **Claims baseline** | Session 13A approved docs — `FEUS-Enterprise-Distribution/docs/branding/vnext/` |
+| **FEUS.ai platform status** | Operationally validated core. Capability-specific limits apply. The assessed vNext release remains NO-GO above LOCAL. See `/status`. |
+| **Product-posture authority** | `FEUS-Enterprise-Distribution/docs/product-posture/` |
+| **Exact-release evidence** | Session 12D/13A artifacts in `FEUS-Enterprise-Distribution/docs/branding/vnext/` remain authoritative for their assessed revision. |
 | **Claims gate** | `npm test` / `prebuild` runs `scripts/validate-public-claims.mjs` — the build fails on prohibited claims |
 | **URL** | [feuselectronicsgroup.com](https://www.feuselectronicsgroup.com) |
 | **GitHub** | [senatorAde/feuselectronicsgroup-website](https://github.com/senatorAde/feuselectronicsgroup-website) |
@@ -15,9 +16,9 @@
 | **SSL** | Auto-provisioned by Vercel |
 | **CDN** | Vercel Edge Network (global) |
 
-> **Important:** "Live" above refers to the marketing website's hosting only. It is **not** a statement about the FEUS.ai platform, which is pre-release and not approved for production deployment. All public platform claims must trace to the Session 13A claims register; do not add or strengthen claims without updating the register and passing `npm test`.
+> **Important:** "Live" above refers only to website hosting. It does not grant FEUS.ai capability availability, environment authorization, integration compatibility, or customer deployment approval. Public product claims must trace to the product-posture lifecycle matrix and applicable exact-revision evidence; do not add or strengthen claims without updating the source of truth and passing `npm test`.
 
-A modern, enterprise website for **FEUS Electronics Group** — covering its practitioner-delivered services and the **pre-release FEUS.ai** governed data-operations platform.
+A modern enterprise website for **FEUS Electronics Group** — covering its practitioner-delivered services and **FEUS.ai**, a governed AI Data Operations platform with an operationally validated core and capability-specific expansion roadmap.
 
 ---
 
@@ -87,7 +88,7 @@ C:\feuswebsite/                        ← Primary working directory
 │   └── feus-logo.jpg                  # Official FEUS logo (90KB)
 └── src/
     ├── main.jsx                       # React entry point
-    ├── App.jsx                        # Router configuration (7 routes)
+    ├── App.jsx                        # Router configuration
     ├── index.css                      # Global styles & Tailwind layers
     ├── components/
     │   ├── Layout.jsx                 # Page layout wrapper
@@ -160,6 +161,15 @@ C:\feuswebsite/                        ← Primary working directory
 | `/` | Homepage | Hero, services, differentiators, flagship, industries, trust |
 | `/about` | About | Brand architecture, story, values, leadership |
 | `/feus-ai` | FEUS.ai | Platform capabilities, tech stack, differentiators |
+| `/agents` | Agent Portfolio | Capability-scoped agent and integration portfolio |
+| `/agents/oracle` | FEUS OracleOps | Controlled Preview Oracle Operations Agent |
+| `/sqlops` | FEUS SQLOps | Core SQL Server governance and vNext boundary |
+| `/requestops` | FEUS RequestOps | Controlled Preview Service Request Agent |
+| `/control-plane` | Agent Control Plane | Governed multi-agent coordination boundary |
+| `/integrations` | Integration Status | External dependency lifecycle and qualifications |
+| `/integrations/itsm` | FEUS ITSM Connect | Preview ITSM connector program |
+| `/status` | Platform Status | Product lifecycle and exact-revision evidence |
+| `/trust` | Trust Center | Governance, limitations, and assurance posture |
 | `/services` | Services | 6 service domains with detail |
 | `/solutions` | Solutions | Flagship DBA assistant + enterprise solutions |
 | `/contact` | Contact | Lead capture form + company info |

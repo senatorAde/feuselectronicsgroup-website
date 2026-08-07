@@ -5,13 +5,13 @@ import ScrollToTop from './ScrollToTop'
 import { ReleaseStatusBanner } from './statusComponents'
 
 /**
- * Routes describing the FEUS.ai platform carry a persistent pre-release
- * status strip (approved claims baseline IMPL-019). Company-services and
+ * Routes describing the FEUS.ai platform carry a persistent capability-scoped
+ * status strip. Company-services and
  * media-sales routes do not, because they describe human-delivered services,
  * not the platform.
  */
 const PLATFORM_ROUTE_PREFIXES = [
-  '/feus-ai', '/sqlops', '/requestops', '/control-plane', '/architecture',
+  '/feus-ai', '/agents', '/sqlops', '/requestops', '/control-plane', '/architecture',
   '/integrations', '/assurance', '/demo', '/copilot', '/faq', '/release-notes',
 ]
 

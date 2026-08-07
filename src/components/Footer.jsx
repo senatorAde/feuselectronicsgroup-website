@@ -11,9 +11,11 @@ const footerLinks = {
   ],
   Platform: [
     { name: 'FEUS.ai Overview', href: '/feus-ai' },
+    { name: 'Agent Portfolio', href: '/agents' },
+    { name: 'OracleOps — Preview', href: '/agents/oracle' },
+    { name: 'ITSM Connect — Preview', href: '/integrations/itsm' },
     { name: 'Architecture', href: '/architecture' },
     { name: 'Integrations', href: '/integrations' },
-    { name: 'Platform FAQ', href: '/faq' },
   ],
   'Trust Center': [
     { name: 'Platform Status', href: '/status' },
@@ -74,7 +76,8 @@ export default function Footer() {
             </Link>
             <p className="mt-4 text-sm text-gray-500 leading-relaxed">
               Enterprise technology company delivering database, cloud, and AI-governance
-              services — and developing the pre-release FEUS.ai platform.
+              services — and developing FEUS.ai, a governed AI Data Operations platform
+              with an operationally validated core.
             </p>
             <div className="mt-4 flex items-start gap-2 text-sm text-gray-500">
               <MapPin className="w-4 h-4 text-gray-600 mt-0.5 flex-shrink-0" />
@@ -123,7 +126,7 @@ export default function Footer() {
       <div className="border-t border-white/[0.04]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <p className="text-xs text-gray-600 mb-4">
-            FEUS.ai platform: Pre-release. Not production approved.{' '}
+            FEUS.ai: Operationally validated core. Capability-specific limits apply.{' '}
             <Link to="/status" className="underline underline-offset-2 hover:text-gray-400">
               Current status
             </Link>

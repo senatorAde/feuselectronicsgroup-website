@@ -10,9 +10,8 @@ import { POSTURE } from '../data/publicStatus'
 
 /*
  * Solutions — consulting and delivery engagements performed by FEUS
- * Electronics Group engineers. The FEUS.ai platform is referenced only
- * with its approved pre-release framing (Session 13A claims baseline);
- * the former "Governed DBA Assistant" flagship pitch was retired.
+ * Electronics Group engineers. FEUS.ai software adoption is scoped
+ * separately from these practitioner-delivered engagements.
  */
 
 const solutions = [
@@ -109,21 +108,21 @@ export default function SolutionsPage() {
 
       <GlowDivider />
 
-      {/* FEUS.ai cross-reference — approved pre-release framing only */}
+      {/* FEUS.ai cross-reference */}
       <section className="section-gradient py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="glass-card p-8 md:p-10">
-              <SectionLabel>Pre-release · Controlled evaluation</SectionLabel>
+              <SectionLabel>Operationally validated core</SectionLabel>
               <h2 className="mt-4 text-2xl md:text-3xl font-bold text-white">
                 The FEUS.ai platform
               </h2>
               <p className="mt-4 text-gray-400 leading-relaxed">
-                Alongside our services, we are developing FEUS.ai — a governed
-                data-operations architecture with implementation properties validated
-                in LOCAL and test environments. It is not approved for production
-                deployment: zero of {POSTURE.totalCapabilities} capabilities are
-                production verified. We publish its current status, evidence, and
+                Alongside our services, we develop FEUS.ai — a governed AI Data
+                Operations platform with a documented operational core and
+                capability-specific preview extensions. The Session 12D NO-GO
+                remains binding for its assessed vNext revision and deployment
+                scope. We publish the product lifecycle, release evidence, and
                 limitations openly.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">

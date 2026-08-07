@@ -2,12 +2,13 @@
 /**
  * validate-public-claims.mjs — public claims compliance gate.
  *
- * Enforces the Session 13A approved claims baseline against the website
- * source before every build (wired as `prebuild` and `npm test`).
+ * Enforces the capability-scoped product posture and the Session 12D
+ * exact-revision evidence against the website source before every build
+ * (wired as `prebuild` and `npm test`).
  *
  * Checks:
  *  1. Prohibited claim phrases (naming register + approved messaging).
- *  2. Oracle public-representation prohibition.
+ *  2. Capability-specific preview and external-integration restrictions.
  *  3. publicStatus.js integrity: counts reconcile to 45, every public
  *     capability has an approved status and a required qualification.
  *  4. Required posture strings present (NO-GO, revision, approved OG text).
@@ -15,7 +16,7 @@
  *  6. Basic secret scan.
  *
  * Exit code 1 on any violation. Do not weaken these checks without a
- * superseding independent assessment.
+ * superseding product-posture or exact-revision evidence.
  */
 
 import { readFileSync, readdirSync, statSync } from 'node:fs'
@@ -62,7 +63,7 @@ const PROHIBITED = [
   { re: /world[- ]class|industry[- ]leading|best[- ]in[- ]class|cutting[- ]edge|revolutionary/i, why: 'Prohibited superlative' },
   { re: /ROI Intelligence/i, why: 'Prohibited name: use "FEUS ROI Estimate"' },
   { re: /Recommendations Assurance Engine/i, why: 'Deprecated name: use "FEUS Recommendation Assurance"' },
-  { re: /\boracle\b/i, why: 'Oracle is excluded from public product representation' },
+  { re: /Oracle (operations?|integration|support) (is |are )?(available|live|production[- ]ready|production[- ]grade)/i, why: 'Oracle preview may not be represented as available or live' },
   { re: /zero unprotected/i, why: 'WEB-003: unverifiable protection claim' },
   { re: /\$53[Kk,5]/, why: 'DATA-001: demo-constant ROI figure' },
   { re: /live evidence stream/i, why: 'WEB-041: live-evidence framing prohibited' },
@@ -100,7 +101,7 @@ for (const file of scanFiles) {
   const isVocab = file === VOCAB_FILE
 
   const rules = [
-    ...PROHIBITED.filter((r) => !(isVocab && /oracle/i.source === r.re.source)),
+    ...PROHIBITED,
     ...(isVocab ? [] : PROHIBITED_OUTSIDE_VOCAB),
     ...PLACEHOLDERS,
     ...SECRETS,
@@ -130,7 +131,8 @@ for (const file of scanFiles) {
 /* 3. publicStatus.js integrity. */
 const status = await import(pathToFileURL(VOCAB_FILE).href)
 const {
-  POSTURE, CAPABILITY_SUMMARY, PUBLIC_CAPABILITIES, CONTROL_COUNTS, STATUS_DEFS,
+  POSTURE, CAPABILITY_SUMMARY, CAPABILITY_LIFECYCLE, PUBLIC_CAPABILITIES,
+  AGENT_PORTFOLIO, CONTROL_COUNTS, STATUS_DEFS,
 } = status
 
 if (POSTURE.decision !== 'NO-GO') {
@@ -183,10 +185,98 @@ for (const cap of PUBLIC_CAPABILITIES) {
   }
 }
 
+const ALLOWED_CORE_LIFECYCLE_STATUSES = new Set([
+  'OPERATIONALLY_VALIDATED', 'CONTROLLED_ENTERPRISE_ADOPTION',
+  'AVAILABLE_WITH_CONSTRAINTS',
+])
+const ALLOWED_EXTENSION_LIFECYCLE_STATUSES = new Set([
+  'CONTROLLED_PREVIEW', 'PREVIEW', 'EARLY_ACCESS', 'INTEGRATION_READY',
+  'PLANNED', 'DISABLED', 'UNAVAILABLE',
+])
+
+for (const row of CAPABILITY_LIFECYCLE) {
+  const allowed = row.productArea === 'Core platform'
+    ? ALLOWED_CORE_LIFECYCLE_STATUSES
+    : ALLOWED_EXTENSION_LIFECYCLE_STATUSES
+  if (!allowed.has(row.publicStatus)) {
+    errors.push(`${row.capability}: lifecycle status "${row.publicStatus}" is not allowed for ${row.productArea}`)
+  }
+  if (!STATUS_DEFS[row.publicStatus]) {
+    errors.push(`${row.capability}: lifecycle status "${row.publicStatus}" missing from STATUS_DEFS`)
+  }
+  for (const field of ['validation', 'certification', 'environment', 'restrictions', 'nextMilestone']) {
+    if (!row[field] || row[field].length < 20) {
+      errors.push(`${row.capability}: missing or incomplete lifecycle field "${field}"`)
+    }
+  }
+}
+
+const oracleLifecycle = CAPABILITY_LIFECYCLE.find((row) => /Oracle Operations Agent/i.test(row.capability))
+if (!oracleLifecycle || !['CONTROLLED_PREVIEW', 'PREVIEW', 'UNAVAILABLE'].includes(oracleLifecycle.publicStatus)) {
+  errors.push('Oracle Operations Agent must remain preview or unavailable until live adapter evidence exists')
+} else if (!/no Oracle driver|no live Oracle operation/i.test(
+  `${oracleLifecycle.certification} ${oracleLifecycle.restrictions}`
+)) {
+  errors.push('Oracle Operations Agent must disclose the missing live driver/operation boundary')
+}
+
+const itsmLifecycle = CAPABILITY_LIFECYCLE.find((row) => row.capability === 'ITSM automation connectors')
+if (!itsmLifecycle || itsmLifecycle.publicStatus === 'INTEGRATION_READY') {
+  errors.push('ITSM automation connectors cannot be integration ready while disclosure and live-tenant evidence remain open')
+}
+
+const providerLifecycle = CAPABILITY_LIFECYCLE.find((row) => row.capability === 'Model-provider integrations')
+if (!providerLifecycle || !/invocation remains disabled/i.test(providerLifecycle.certification)) {
+  errors.push('Model-provider lifecycle row must disclose that runtime invocation remains disabled')
+}
+
+const REQUIRED_PORTFOLIO_IDS = new Set([
+  'sqlops', 'copilot', 'oracleops', 'requestops', 'control-plane',
+  'itsm-connect', 'recommendation-assurance', 'provider-gateway',
+  'engine-expansion',
+])
+for (const id of REQUIRED_PORTFOLIO_IDS) {
+  if (!AGENT_PORTFOLIO.some((agent) => agent.id === id)) {
+    errors.push(`publicStatus.js: required agent portfolio entry missing: ${id}`)
+  }
+}
+for (const agent of AGENT_PORTFOLIO) {
+  if (!STATUS_DEFS[agent.status]) {
+    errors.push(`${agent.name}: portfolio status "${agent.status}" missing from STATUS_DEFS`)
+  }
+  for (const field of ['name', 'capability', 'route']) {
+    if (!agent[field] || agent[field].length < 2) {
+      errors.push(`${agent.id}: missing or incomplete portfolio field "${field}"`)
+    }
+  }
+  for (const field of ['summary', 'evidence', 'environment', 'restriction', 'nextMilestone']) {
+    if (!agent[field] || agent[field].length < 12) {
+      errors.push(`${agent.id}: missing or incomplete portfolio field "${field}"`)
+    }
+  }
+}
+
+const oraclePortfolio = AGENT_PORTFOLIO.find((agent) => agent.id === 'oracleops')
+if (oraclePortfolio?.status !== 'CONTROLLED_PREVIEW' ||
+    !/no live Oracle driver, adapter/i.test(oraclePortfolio?.restriction ?? '')) {
+  errors.push('FEUS OracleOps must remain Controlled Preview and disclose its missing live driver and adapter')
+}
+const itsmPortfolio = AGENT_PORTFOLIO.find((agent) => agent.id === 'itsm-connect')
+if (itsmPortfolio?.status !== 'PREVIEW' ||
+    !/mock transports/i.test(itsmPortfolio?.evidence ?? '') ||
+    !/no live production tenant/i.test(itsmPortfolio?.restriction ?? '')) {
+  errors.push('FEUS ITSM Connect must remain Preview with mock-transport and live-tenant qualifications')
+}
+const providerPortfolio = AGENT_PORTFOLIO.find((agent) => agent.id === 'provider-gateway')
+if (providerPortfolio?.status !== 'PREVIEW' ||
+    !/runtime model invocation is disabled/i.test(providerPortfolio?.restriction ?? '')) {
+  errors.push('FEUS Provider Gateway must remain Preview and disclose disabled runtime invocation')
+}
+
 /* 4. Required verbatim strings. */
 const indexHtml = readFileSync(join(root, 'index.html'), 'utf8')
 const APPROVED_OG =
-  'FEUS.ai is a pre-release governed data-operations architecture under controlled evaluation. It is not approved for production deployment.'
+  'FEUS.ai is a governed AI Data Operations platform with an operationally validated core and capability-specific preview boundaries for new agents and integrations.'
 if (!indexHtml.includes(APPROVED_OG)) {
   errors.push('index.html: approved OG description missing or altered')
 }
