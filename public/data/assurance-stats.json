@@ -2,7 +2,7 @@
   "generated_at": "2026-08-07T06:19:49.133071+00:00",
   "source": "FEUS.ai Assurance Suite v5.2.1",
   "assurance": {
-    "data_source": "logs/assurance_evidence/evidence_ASR-*.json",
+    "data_source": "platform assurance evidence records",
     "total_runs": 409,
     "finalized_runs": 409,
     "earliest_run_at": "2026-04-11T02:14:02.861448+00:00",
@@ -19,12 +19,11 @@
     }
   },
   "certification": {
-    "data_source": "logs/certification/*/certification_summary.json",
+    "data_source": "platform certification run summaries",
     "total_runs": 25,
     "highest_state_achieved": "CERTIFICATION_FAILED",
     "latest_verdict": "REPO_VERSION_COMPLIANT",
     "latest_run_at": "2026-04-25T18:16:56Z",
-    "latest_run_id": "CERT_20260425T181649Z_88C3E7",
     "verdict_distribution": {
       "CERTIFICATION_FAILED": 10,
       "REPO_VERSION_COMPLIANT": 14,
@@ -38,8 +37,6 @@
     "broken_links": 0
   },
   "data_provenance": {
-    "evidence_dir": "logs/assurance_evidence/",
-    "certification_dir": "logs/certification/",
-    "audit_dir": "logs/audit/"
+    "description": "Aggregated from internal FEUS platform run records. Source locations and run identifiers are withheld from public publication."
   }
 }

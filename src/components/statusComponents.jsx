@@ -22,9 +22,7 @@ export function ReleaseStatusBanner() {
       <div className="max-w-7xl mx-auto flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
         <Info className="w-4 h-4 text-rose-400 flex-shrink-0" aria-hidden="true" />
         <span className="font-semibold text-white">{POSTURE.shortStatement}</span>
-        <span className="text-gray-400">
-          Core maturity and extension release status are assessed separately.
-        </span>
+        <span className="text-gray-400">{POSTURE.trustBanner}</span>
         <Link to="/status" className="text-feus-300 underline underline-offset-2 hover:text-feus-200">
           Current status and limitations
         </Link>

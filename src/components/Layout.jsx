@@ -13,6 +13,7 @@ import { ReleaseStatusBanner } from './statusComponents'
 const PLATFORM_ROUTE_PREFIXES = [
   '/feus-ai', '/agents', '/sqlops', '/requestops', '/control-plane', '/architecture',
   '/integrations', '/assurance', '/demo', '/copilot', '/faq', '/release-notes',
+  '/trust', '/status',
 ]
 
 export default function Layout() {

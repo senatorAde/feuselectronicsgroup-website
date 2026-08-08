@@ -56,7 +56,7 @@ const serviceCategories = [
     bgColor: 'bg-cyan-500/10',
     title: 'Cloud & Platform Operations',
     tagline: 'Infrastructure That Runs Itself',
-    description: 'End-to-end cloud and platform managed services — infrastructure provisioning, security configuration, cost optimization, monitoring, and 24/7 operational support across Azure and hybrid environments.',
+    description: 'End-to-end cloud and platform managed services — infrastructure provisioning, security configuration, cost optimization, monitoring, and managed operational support across Azure and hybrid environments, with coverage defined in each customer agreement.',
     offerings: [
       'Azure infrastructure design & deployment',
       'Infrastructure as Code (Bicep, Terraform)',
@@ -204,8 +204,8 @@ export default function ServicesPage() {
             {[
               {
                 title: 'Managed Operations',
-                desc: 'Ongoing, 24/7 managed services with dedicated teams, SLA-backed delivery, and continuous optimization.',
-                features: ['Dedicated operations team', 'SLA-backed response times', 'Continuous monitoring', 'Regular reporting'],
+                desc: 'Ongoing managed services with dedicated teams and continuous optimization. Coverage hours and service levels are defined in each executed customer agreement.',
+                features: ['Dedicated operations team', 'Service levels defined per agreement', 'Continuous monitoring', 'Regular reporting'],
               },
               {
                 title: 'Project Delivery',

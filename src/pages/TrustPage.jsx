@@ -139,6 +139,35 @@ export default function TrustPage() {
           </div>
 
           <div>
+            <h2 className="text-2xl font-bold text-white mb-4">Customer responsibilities</h2>
+            <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed space-y-3">
+              <p>
+                FEUS.ai does not replace accountable human operators, DBAs, security
+                teams, privacy teams, legal counsel, or auditors. For any future
+                approved evaluation or deployment, the deploying organization remains
+                responsible for:
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-gray-400">
+                <li>authorization to assess each target system;</li>
+                <li>data classification and lawful basis for processing;</li>
+                <li>identity governance, role assignment, privileged access management, and access reviews;</li>
+                <li>network and endpoint controls;</li>
+                <li>database backup, restore, and change-management controls;</li>
+                <li>approval ownership and separation of duties;</li>
+                <li>validation of recommendations and outputs before acting on them;</li>
+                <li>retention and deletion policy;</li>
+                <li>monitoring, incident response, and business continuity;</li>
+                <li>vendor, model, and subprocessor approval;</li>
+                <li>compliance determination with counsel and auditors.</li>
+              </ul>
+              <p className="text-xs text-gray-500">
+                No production deployment is currently authorized, so these
+                responsibilities describe future approved use, not a current offering.
+              </p>
+            </div>
+          </div>
+
+          <div>
             <h2 className="text-2xl font-bold text-white mb-4">Authorized use</h2>
             <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed space-y-3">
               <p>{AUTHORIZED_USE.text}</p>

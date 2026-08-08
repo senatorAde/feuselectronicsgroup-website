@@ -378,7 +378,7 @@ export default function ContactPage() {
                         )}
 
                         <p className="text-xs text-gray-600 text-center">
-                          By submitting this form, you agree to our privacy policy. We will never share your information with third parties.
+                          By submitting this form, you consent to FEUS Electronics Group using the details you provide to respond to your inquiry. Messages are delivered through our form-delivery provider. A formal privacy policy is in legal review and will be published on this site.
                         </p>
                       </form>
                     </>

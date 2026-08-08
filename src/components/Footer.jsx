@@ -7,7 +7,6 @@ const footerLinks = {
     { name: 'About Us', href: '/about' },
     { name: 'Services', href: '/services' },
     { name: 'Solutions', href: '/solutions' },
-    { name: 'Engagements', href: '/pricing' },
   ],
   Platform: [
     { name: 'FEUS.ai Overview', href: '/feus-ai' },

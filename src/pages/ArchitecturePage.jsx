@@ -25,14 +25,15 @@ const implementedStages = [
   {
     n: '3',
     title: 'Routing, policy, and approval',
-    body: 'Deny-by-default routing selects a specialist; policy checks run before any side effect; approvals bind request, target, action, environment, plan, expiry, and separation of duties.',
-  },
-  {
-    n: '4',
-    title: 'Pre-execution governance gates (stages 0–5)',
-    body: 'The Protected Execution Service evaluates identity, environment, policy, approval, and evidence gates. Each gate fails closed under its tested conditions.',
+    body: 'Deny-by-default routing selects a specialist; policy checks run before any side effect; approvals bind request, target, action, environment, plan, expiry, and separation of duties. The Control Plane records a policy verdict — it has no execution dispatcher.',
   },
 ]
+
+const gateStage = {
+  n: '4',
+  title: 'Pre-execution governance gates (stages 0–5)',
+  body: 'The Protected Execution Service evaluates identity, environment, policy, approval, and evidence gates. Each gate fails closed under its tested conditions. At this revision the PES is exercised in-process by tests — it is not invoked by the Control Plane.',
+}
 
 export default function ArchitecturePage() {
   return (
@@ -67,16 +68,18 @@ export default function ArchitecturePage() {
             aria-label={
               'Current-state diagram of the assessed FEUS.ai vNext governed request path. ' +
               'Implemented and tested: a typed service request enters FEUS RequestOps, becomes a governed work order, ' +
-              'passes through Control Plane routing, policy, and approval, then through pre-execution governance gates stages zero through five. ' +
-              'The path then reaches a fail-closed execution boundary: stage six execution is unavailable because no dispatcher or SQL executor exists, ' +
-              'so the request stops at a recorded verdict with local evidence. ' +
+              'and passes through Control Plane routing, policy, and approval, which record a policy verdict. ' +
+              'First fail-closed discontinuity: the Control Plane has no execution dispatcher, so nothing is dispatched onward from its verdict. ' +
+              'Separately implemented and tested in-process: pre-execution governance gates stages zero through five in the Protected Execution Service. ' +
+              'Second fail-closed discontinuity: stage six execution is unavailable because no SQL executor is bound, ' +
+              'so any governed request stops at a recorded verdict with local evidence. ' +
               'Not implemented or mock in this vNext path: live ITSM connectors, sanitized outbound ticket updates, model invocation, live database execution, and rollback. The diagram does not describe the operational core GEG path.'
             }
             className="glass-card rounded-2xl p-6 sm:p-8"
           >
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500 border-b border-white/[0.08] pb-4 mb-6">
               <span className="font-semibold text-amber-300/90 uppercase tracking-wide">Assessed vNext current state</span>
-              <span>Diagram FEUS-ARCH-PUB-001 · v1.0</span>
+              <span>Diagram FEUS-ARCH-PUB-001 · v1.1</span>
               <span className="font-mono break-all">Revision {POSTURE.certifiedRevision}</span>
               <span>Assessed environment: LOCAL / test evidence only</span>
             </div>
@@ -98,7 +101,39 @@ export default function ArchitecturePage() {
                 </li>
               ))}
 
-              {/* Fail-closed boundary — the flow stops here */}
+              {/* First fail-closed discontinuity — no dispatch from the Control Plane */}
+              <li className="relative pl-12 pb-8">
+                <span
+                  className="absolute left-0 top-0 w-8 h-8 rounded-full border-2 border-dashed border-rose-500 bg-navy-900 text-rose-300 text-sm font-bold flex items-center justify-center"
+                  aria-hidden="true"
+                >
+                  ✕
+                </span>
+                <div className="border-l-4 border-rose-500 bg-rose-500/5 rounded-r-xl p-4">
+                  <h3 className="text-white font-semibold">
+                    Fail-closed discontinuity — no execution dispatch
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-300 leading-relaxed">
+                    The Control Plane has no execution dispatcher. Its output is a
+                    recorded policy verdict; nothing is dispatched onward from that
+                    verdict at this revision.
+                  </p>
+                </div>
+              </li>
+
+              {/* Stage 4 — implemented and tested in-process, not reached from stage 3 */}
+              <li className="relative pl-12 pb-8">
+                <span
+                  className="absolute left-0 top-0 w-8 h-8 rounded-full border-2 border-feus-500/70 bg-navy-900 text-feus-300 text-sm font-bold flex items-center justify-center"
+                  aria-hidden="true"
+                >
+                  {gateStage.n}
+                </span>
+                <h3 className="text-white font-semibold">{gateStage.title}</h3>
+                <p className="mt-1 text-sm text-gray-400 leading-relaxed">{gateStage.body}</p>
+              </li>
+
+              {/* Second fail-closed discontinuity — the flow stops here */}
               <li className="relative pl-12">
                 <span
                   className="absolute left-0 top-0 w-8 h-8 rounded-full border-2 border-dashed border-rose-500 bg-navy-900 text-rose-300 text-sm font-bold flex items-center justify-center"
@@ -111,7 +146,7 @@ export default function ArchitecturePage() {
                     Fail-closed execution boundary — stage 6 execution unavailable
                   </h3>
                   <p className="mt-1 text-sm text-gray-300 leading-relaxed">
-                    No execution dispatcher exists and no SQL executor is bound. The
+                    No SQL executor is bound to the Protected Execution Service. Any
                     governed request stops here at a recorded verdict with local
                     evidence. No database is reached through the vNext path.
                   </p>
@@ -146,8 +181,8 @@ export default function ArchitecturePage() {
               </span>
             </div>
             <p className="mt-3 text-xs text-gray-600">
-              Security review: SEC-REV-13B-ARCH-001 · This diagram intentionally shows no
-              connected database, vendor tenant, or model provider.
+              This diagram intentionally shows no connected database, vendor tenant, or
+              model provider.
             </p>
           </div>
 

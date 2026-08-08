@@ -123,7 +123,7 @@ export default function AboutPage() {
               </h2>
               <div className="mt-8 space-y-6 text-gray-400 leading-relaxed">
                 <p>
-                  FEUS Electronics Group was founded by <strong className="text-white">Dr. Tolu Adeniyi</strong> — a data and AI transformation executive with 15+ years of experience modernizing enterprise technology ecosystems. Before starting FEUS, Dr. Adeniyi served as Chief Data Officer at HyCite Enterprises (leading a 60-person org with a $3.2M budget), Chief Technology Officer at Fortified Data (managing 3,150+ SQL instances across 32+ clients), and Director of IT Infrastructure at DocuTAP/Experity.
+                  FEUS Electronics Group was founded by <strong className="text-white">Dr. Tolu Adeniyi</strong> — a data and AI transformation executive whose leadership experience spans enterprise data and technology roles, including Chief Data Officer at HyCite Enterprises, Chief Technology Officer at Fortified Data, and Director of IT Infrastructure at DocuTAP/Experity. Details of engagement history are available on request.
                 </p>
                 <p>
                   The pattern was the same everywhere: talented engineers drowning in manual operations, governance bolted on after incidents, AI tools deployed without guardrails, and executives waiting weeks for audit evidence that should be automatic. That’s the problem FEUS.ai was built to solve.
@@ -132,7 +132,7 @@ export default function AboutPage() {
                   <strong className="text-white">FEUS.ai</strong> is the result of that operational experience — a governed data-operations platform designed so that governance, PII inspection, and auditable decision-making are the architecture itself, not a feature roadmap. Its core has documented operational validation, its assessed vNext revision has extensive automated evidence, and every expansion capability publishes its current status and limitations on our <Link to="/status" className="text-feus-300 underline underline-offset-2">status page</Link>.
                 </p>
                 <p>
-                  Dr. Adeniyi is a <strong className="text-white">Microsoft MVP for Data Platform & AI (2024/2025)</strong>, Azure Solutions Architect Expert, AWS Solutions Architect Professional, CISSP, PMP, and CDMP. He holds a Ph.D. in Leadership & Business, an MBA from Coventry University, and a B.Eng. in Electrical & Electronics Engineering. He has operated in healthcare (HIPAA), financial services, aviation (Emirates Group), telecom (Alcatel-Lucent), and direct-to-consumer SaaS.
+                  Dr. Adeniyi is an <strong className="text-white">Azure Solutions Architect Expert</strong>, AWS Solutions Architect Professional, CISSP, PMP, and CDMP. He holds a Ph.D. in Leadership & Business, an MBA from Coventry University, and a B.Eng. in Electrical & Electronics Engineering. He has operated in healthcare, financial services, aviation, telecom, and direct-to-consumer SaaS.
                 </p>
               </div>
             </div>
@@ -214,35 +214,16 @@ export default function AboutPage() {
                   <div className="text-center sm:text-left">
                     <h4 className="text-xl font-bold text-white">Dr. Tolu Adeniyi</h4>
                     <p className="text-sm text-feus-400">Founder & CEO, FEUS Electronics Group</p>
-                    <p className="text-xs text-gray-500 mt-1">Ph.D. · MBA · CISSP · PMP · CDMP · Microsoft MVP 2024/2025</p>
+                    <p className="text-xs text-gray-500 mt-1">Ph.D. · MBA · CISSP · PMP · CDMP</p>
                     <div className="mt-3 flex flex-wrap gap-2 justify-center sm:justify-start">
                       <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-feus-500/10 border border-feus-500/20 text-xs text-feus-300">Azure Solutions Architect Expert</span>
                       <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-feus-500/10 border border-feus-500/20 text-xs text-feus-300">AWS SA Professional</span>
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-accent-500/10 border border-accent-500/20 text-xs text-accent-300">Microsoft MVP</span>
                     </div>
                   </div>
                 </div>
                 <p className="text-gray-400 leading-relaxed">
-                  Dr. Adeniyi is a data and AI transformation executive with 15+ years of experience across healthcare, financial services, aviation, telecom, and SaaS. He has served as Chief Data Officer (HyCite, 60-person org, $3.2M budget), Chief Technology Officer (Fortified Data: 3,150+ SQL instances), and Director of Infrastructure (DocuTAP/Experity). He is an Azure Solutions Architect Expert, AWS Solutions Architect Professional, and a recognized Microsoft MVP for Data Platform & AI.
+                  Dr. Adeniyi is a data and AI transformation executive whose experience spans healthcare, financial services, aviation, telecom, and SaaS. His leadership roles include Chief Data Officer (HyCite Enterprises), Chief Technology Officer (Fortified Data), and Director of Infrastructure (DocuTAP/Experity). He is an Azure Solutions Architect Expert and an AWS Solutions Architect Professional. Details of engagement history are available on request.
                 </p>
-                <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  <div className="text-center p-3 rounded-xl bg-white/[0.03]">
-                    <div className="text-lg font-bold gradient-text">3,150+</div>
-                    <div className="text-xs text-gray-500 mt-1">SQL Instances</div>
-                  </div>
-                  <div className="text-center p-3 rounded-xl bg-white/[0.03]">
-                    <div className="text-lg font-bold gradient-text">60</div>
-                    <div className="text-xs text-gray-500 mt-1">Team Size Led</div>
-                  </div>
-                  <div className="text-center p-3 rounded-xl bg-white/[0.03]">
-                    <div className="text-lg font-bold gradient-text">$3.2M</div>
-                    <div className="text-xs text-gray-500 mt-1">Budget Owned</div>
-                  </div>
-                  <div className="text-center p-3 rounded-xl bg-white/[0.03]">
-                    <div className="text-lg font-bold gradient-text">MVP</div>
-                    <div className="text-xs text-gray-500 mt-1">Microsoft 2024/25</div>
-                  </div>
-                </div>
               </div>
             </div>
           </AnimatedSection>
