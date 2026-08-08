@@ -43,7 +43,7 @@ export const POSTURE = {
   trustBanner:
     'FEUS.ai has an operationally validated core. The assessed vNext release remains NO-GO for external deployment above LOCAL, and newer agents and integrations retain capability-specific preview limits.',
   operationalEvidence:
-    'The core GovernedExecutionGateway SQL Server path is documented through a controlled FEUS provisioning workflow in which 48 of 48 batches passed all seven governance gates and the recorded audit hash chain verified successfully.',
+    'The core GovernedExecutionGateway SQL Server path is documented through a controlled FEUS provisioning workflow in which 48 of 48 batches passed all seven governance gates and the recorded audit hash chain verified successfully. The dated JSONL audit file is not retained in this checkout, so this is documented operational validation rather than independent re-attestation.',
   productionVerifiedCapabilities: 0,
   totalCapabilities: 45,
   liveVerifiedIntegrations: 0,
@@ -195,7 +195,7 @@ export const CAPABILITY_LIFECYCLE = [
     capability: 'Governance engine and seven-gate execution gateway',
     productArea: 'Core platform',
     validation:
-      'Documented operational use in a controlled FEUS SQL Server provisioning workflow: 48 of 48 batches passed all seven gates and the recorded audit chain verified.',
+      'Documented operational use in a controlled FEUS SQL Server provisioning workflow: the retained record reports 48 of 48 batches passed all seven gates and a valid audit chain; its dated JSONL file is not present in this checkout.',
     certification:
       'Core-path operational record; vNext pre-execution controls are implementation-verified, while vNext dispatch remains outside the certified operating path.',
     publicStatus: 'CONTROLLED_ENTERPRISE_ADOPTION',
@@ -221,7 +221,7 @@ export const CAPABILITY_LIFECYCLE = [
     capability: 'SQL Server governed operational workflows',
     productArea: 'Core platform',
     validation:
-      'Legacy/core pyodbc execution path and governed provisioning pattern are documented against a real FEUS SQL Server workflow.',
+      'The legacy/core pyodbc execution path and a real FEUS SQL Server workflow are documented; the historical run record is retained, but its dated JSONL audit file is not present in this checkout.',
     certification:
       'Session 12D partially confirmed the legacy path and separately found the new vNext dispatcher and executor unbound.',
     publicStatus: 'CONTROLLED_ENTERPRISE_ADOPTION',
@@ -247,7 +247,7 @@ export const CAPABILITY_LIFECYCLE = [
     capability: 'Audit and evidence framework',
     productArea: 'Core platform',
     validation:
-      'The core workflow recorded 288 audit events and a valid local hash chain; release evidence and provenance gates are also established.',
+      'The retained core-workflow record reports 288 audit events and a valid local hash chain; its dated JSONL file is not present in this checkout; release evidence and provenance gates are established separately.',
     certification:
       'Local integrity behavior is verified, but adversary-resistant anchoring and a deployed durable sink were not established for the assessed vNext release.',
     publicStatus: 'AVAILABLE_WITH_CONSTRAINTS',
@@ -262,7 +262,7 @@ export const CAPABILITY_LIFECYCLE = [
     validation:
       'Schema-driven generation, referential-integrity handling, environment guards, and no-production-row-copy controls are implemented and tested.',
     certification:
-      'Engineering validation exists; customer-specific scale, resemblance, and target-schema qualification are not established by Session 12D.',
+      'Engineering validation exists outside the Session 12D 45-row vNext capability certification scope; customer-specific scale, resemblance, and target-schema qualification are not established.',
     publicStatus: 'AVAILABLE_WITH_CONSTRAINTS',
     environment: 'LOCAL and TST only unless a narrower deployment approval states otherwise',
     restrictions:
@@ -275,7 +275,7 @@ export const CAPABILITY_LIFECYCLE = [
     validation:
       'Risk thresholds, required assurance metadata, and fail-closed behavior when assurance is disabled are implemented and tested.',
     certification:
-      'The assurance gate was independently verified; live model confidence signals and provider invocation are not established.',
+      'The release assurance gate is implementation-verified outside the Session 12D 45-row vNext capability certification scope; live model confidence signals and provider invocation are not established.',
     publicStatus: 'AVAILABLE_WITH_CONSTRAINTS',
     environment: 'Approved recommendation workflows',
     restrictions:

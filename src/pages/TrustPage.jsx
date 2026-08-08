@@ -143,8 +143,8 @@ export default function TrustPage() {
             <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed space-y-3">
               <p>
                 FEUS.ai does not replace accountable human operators, DBAs, security
-                teams, privacy teams, legal counsel, or auditors. For any future
-                approved evaluation or deployment, the deploying organization remains
+                teams, privacy teams, legal counsel, or auditors. For any approved
+                evaluation or deployment, the deploying organization remains
                 responsible for:
               </p>
               <ul className="list-disc pl-5 space-y-1 text-gray-400">
@@ -161,8 +161,9 @@ export default function TrustPage() {
                 <li>compliance determination with counsel and auditors.</li>
               </ul>
               <p className="text-xs text-gray-500">
-                No production deployment is currently authorized, so these
-                responsibilities describe future approved use, not a current offering.
+                The assessed vNext release is not authorized above LOCAL. Any core
+                deployment requires separate capability, target, environment, and
+                customer authorization before use.
               </p>
             </div>
           </div>

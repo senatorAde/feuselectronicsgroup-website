@@ -23,7 +23,7 @@ const verifiedThemes = [
 
 const constrainedThemes = [
   'Approval persistence can silently degrade to process memory; no deployed approval authority exercised',
-  'Policy verification is authorized for LOCAL only, pending an attested key-custody ceremony',
+  'The assessed vNext policy key authorizes verification for LOCAL only, pending an attested key-custody ceremony',
   'Evidence and audit chains are unkeyed and externally unanchored (detects naive edits only)',
   'Identity controls verified against test tokens, not a live identity provider',
 ]
