@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-08-08T06:10:47.609043+00:00",
+  "source": "FEUS.ai ROI Engine v5.2.1",
+  "data_provenance": {
+    "roi_data_source": "demo_constants",
+    "ops_data_source": "empty"
+  },
+  "session_metrics": {
+    "time_saved_hours": "14+",
+    "time_saved_hours_raw": 14.36,
+    "risk_cost_avoided": "$53K",
+    "risk_cost_avoided_raw": 53500.0,
+    "governance_compliance_pct": "97%",
+    "governance_compliance_raw": 97.6,
+    "time_to_first_roi": "<5 min",
+    "time_to_first_roi_raw": 5,
+    "compliance_grade": "A",
+    "operations_governed": 42,
+    "pii_columns_protected": 5,
+    "dba_cost_saved_usd": 1974.5,
+    "session_duration_min": 8.2,
+    "speedup_factor": "99.1%"
+  },
+  "platform_metrics": {
+    "sql_instances_managed": "3,150+",
+    "enterprise_clients": "32+",
+    "years_experience": "15+",
+    "technology_budget": "$3.2M",
+    "governance_gates": 7,
+    "production_modules": "30+",
+    "governance_components": 8
+  },
+  "operational_metrics": {
+    "total_operations": 0,
+    "successful_operations": 0,
+    "blocked_operations": 0,
+    "warned_operations": 0,
+    "errored_operations": 0,
+    "operations_with_approval": 0,
+    "unique_sessions": 0,
+    "audit_chain_verified": false,
+    "audit_files_verified": 0,
+    "audit_chain_broken_links": 0,
+    "first_event_at": null,
+    "latest_event_at": null,
+    "execution_time_p50_ms": 0,
+    "execution_time_p95_ms": 0,
+    "blocks_by_stage": {}
+  },
+  "benchmarks": {
+    "dba_hourly_rate_usd": 137.5,
+    "incident_cost_usd": 15000,
+    "pii_exposure_cost_usd": 8500,
+    "unapproved_change_cost_usd": 12000
+  }
+}
