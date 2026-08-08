@@ -95,7 +95,7 @@ export default function OracleOpsPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="FEUS OracleOps | Controlled Preview"
-        description="FEUS OracleOps is the Controlled Preview Oracle Operations Agent: a 29-operation governed catalog with fixture-validated Tier 1 observe-only controls and no live Oracle adapter claim."
+        description="FEUS OracleOps brings governed intelligence to Oracle operational workflows, with capability-specific controls and an accountable adoption path."
       />
 
       <section className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -103,23 +103,23 @@ export default function OracleOpsPage() {
         <div className="relative max-w-6xl mx-auto grid lg:grid-cols-[1fr_22rem] gap-12 items-end">
           <div>
             <SectionLabel>Oracle Operations Agent</SectionLabel>
-            <div className="mt-2"><StatusBadge status="CONTROLLED_PREVIEW" showDefinition /></div>
+            <div className="mt-2"><StatusBadge status="CONTROLLED_PREVIEW" /></div>
             <h1 className="section-heading text-4xl sm:text-6xl mt-5">FEUS OracleOps</h1>
             <p className="mt-6 text-lg text-gray-300 leading-relaxed max-w-3xl">
-              A governed Oracle operations program designed to keep knowledge,
-              observation, controlled action, and high-risk work inside explicit
-              capability tiers. The current preview centers on read-only policy,
-              target attestation, registered statements, and truthful evidence.
+              Governed intelligence for Oracle operations teams. FEUS OracleOps
+              helps organizations bring structure to health, configuration,
+              performance, resilience, and operational decision-making while
+              preserving accountable human authority.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <CTAButton to="/contact">Request preview qualification</CTAButton>
-              <CTAButton to="/status" variant="secondary">Review evidence status</CTAButton>
+              <CTAButton to="/contact">Discuss your Oracle operating model</CTAButton>
+              <CTAButton to="/status" variant="secondary">Explore adoption options</CTAButton>
             </div>
           </div>
           <div className="border-l-2 border-emerald-400/40 pl-6 py-2">
-            <p className="text-sm text-gray-400">Capability catalog</p>
+            <p className="text-sm text-gray-400">Governed capability map</p>
             <p className="mt-2 text-6xl font-bold text-white tabular-nums">29</p>
-            <p className="mt-2 text-sm text-gray-300">Oracle-native operations classified before execution is considered.</p>
+            <p className="mt-2 text-sm text-gray-300">Operational scenarios organized by risk, authority, and evidence expectations.</p>
           </div>
         </div>
       </section>
@@ -127,7 +127,7 @@ export default function OracleOpsPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-6xl mx-auto">
           <SectionLabel>Capability tiers</SectionLabel>
-          <h2 className="text-3xl font-bold text-white mt-3">Risk determines the operating boundary</h2>
+          <h2 className="text-3xl font-bold text-white mt-3">The right level of authority for every task</h2>
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5 mt-10">
             {tiers.map(({ tier, title, count, status, icon: Icon, detail }) => (
               <article key={tier} className="glass-card-static rounded-lg p-5 border-t-2 border-t-emerald-400/40">
@@ -149,11 +149,12 @@ export default function OracleOpsPage() {
         <div className="max-w-6xl mx-auto grid lg:grid-cols-[0.8fr_1.2fr] gap-12">
           <div>
             <SectionLabel>Tier 1 scope</SectionLabel>
-            <h2 className="text-3xl font-bold text-white mt-3">Observe before acting</h2>
+            <h2 className="text-3xl font-bold text-white mt-3">Operational insight, structured for review</h2>
             <p className="mt-5 text-gray-300 leading-relaxed">
-              Thirteen Oracle observation domains are represented by typed,
-              read-only contracts. Tests use deterministic fakes, so this list
-              describes the governed preview scope rather than live compatibility.
+              The OracleOps capability map covers the operational signals teams
+              use to understand database health, resilience, configuration, and
+              performance. Each workflow is designed to keep the right context,
+              authority, and evidence together.
             </p>
           </div>
           <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm text-gray-300">
@@ -188,15 +189,15 @@ export default function OracleOpsPage() {
       <section className="py-14 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 text-sm">
           <div>
-            <p className="font-semibold text-white">Current environment</p>
+            <p className="font-semibold text-white">Evaluation scope</p>
             <p className="mt-2 text-gray-400 leading-relaxed">{lifecycle.environment}</p>
           </div>
           <div>
-            <p className="font-semibold text-white">Preview restriction</p>
+            <p className="font-semibold text-white">Current capability boundary</p>
             <p className="mt-2 text-gray-400 leading-relaxed">{lifecycle.restrictions}</p>
           </div>
           <div>
-            <p className="font-semibold text-white">Next maturity milestone</p>
+            <p className="font-semibold text-white">Adoption path</p>
             <p className="mt-2 text-amber-200/80 leading-relaxed">{lifecycle.nextMilestone}</p>
           </div>
         </div>

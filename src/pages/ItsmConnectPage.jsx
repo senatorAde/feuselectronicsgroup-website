@@ -49,7 +49,7 @@ export default function ItsmConnectPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="FEUS ITSM Connect | Preview"
-        description="FEUS ITSM Connect is the Preview connector program for ServiceNow, Jira Service Management, and Azure DevOps work items, contract-tested against mock transports with dry-run defaults."
+        description="FEUS ITSM Connect brings governed coordination to service-management workflows across ServiceNow, Jira Service Management, and Azure DevOps."
       />
 
       <section className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -57,23 +57,22 @@ export default function ItsmConnectPage() {
         <div className="relative max-w-6xl mx-auto grid lg:grid-cols-[1fr_21rem] gap-12 items-end">
           <div>
             <SectionLabel>ITSM automation connectors</SectionLabel>
-            <div className="mt-2"><StatusBadge status="PREVIEW" showDefinition /></div>
+            <div className="mt-2"><StatusBadge status="PREVIEW" /></div>
             <h1 className="section-heading text-4xl sm:text-6xl mt-5">FEUS ITSM Connect</h1>
             <p className="mt-6 text-lg text-gray-300 leading-relaxed max-w-3xl">
-              Governed connector contracts that bring service-management work into
-              FEUS RequestOps without giving an agent an open-ended API surface.
-              Every provider begins with dry-run, deny-all writes, bounded
-              operations, and explicit identity configuration.
+              Bring service-management workflows into a governed operating model.
+              FEUS ITSM Connect is designed to coordinate intake, routing, updates,
+              and accountability across the systems enterprise teams already use.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <CTAButton to="/contact">Plan a sandbox qualification</CTAButton>
+              <CTAButton to="/contact">Discuss your service workflow</CTAButton>
               <CTAButton to="/requestops" variant="secondary">Explore RequestOps</CTAButton>
             </div>
           </div>
           <div className="border-l-2 border-cyan-400/40 pl-6 py-2">
-            <p className="text-sm text-gray-400">Connector contract suite</p>
-            <p className="mt-2 text-6xl font-bold text-white tabular-nums">109</p>
-            <p className="mt-2 text-sm text-gray-300">Tests across mapping, paging, retries, concurrency, authorization, redaction, and dry-run interception.</p>
+            <p className="text-sm text-gray-400">Enterprise workflow targets</p>
+            <p className="mt-2 text-4xl font-bold text-white">3 systems</p>
+            <p className="mt-2 text-sm text-gray-300">ServiceNow, Jira Service Management, and Azure DevOps work items.</p>
           </div>
         </div>
       </section>
@@ -81,7 +80,7 @@ export default function ItsmConnectPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-6xl mx-auto">
           <SectionLabel>Connector portfolio</SectionLabel>
-          <h2 className="text-3xl font-bold text-white mt-3">Three vendor contracts, one governed boundary</h2>
+          <h2 className="text-3xl font-bold text-white mt-3">One governed experience across your service landscape</h2>
           <p className="mt-4 text-sm text-gray-500 max-w-3xl">
             Vendor names identify technical contract targets only. They do not imply partnership, certification, live compatibility, or support availability.
           </p>
@@ -92,7 +91,7 @@ export default function ItsmConnectPage() {
                 <h3 className="mt-5 text-xl font-semibold text-white">{connector.name}</h3>
                 <p className="mt-2 text-sm font-medium text-cyan-200">{connector.contract}</p>
                 <p className="mt-4 text-sm text-gray-400 leading-relaxed">{connector.control}</p>
-                <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-amber-200/80">Mock transport · Dry-run</p>
+                <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-cyan-200/80">Governed connector program</p>
               </article>
             ))}
           </div>
@@ -102,7 +101,7 @@ export default function ItsmConnectPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white/[0.02] border-y border-white/[0.06]">
         <div className="max-w-6xl mx-auto">
           <SectionLabel>Shared controls</SectionLabel>
-          <h2 className="text-3xl font-bold text-white mt-3">The connector cannot choose its own authority</h2>
+          <h2 className="text-3xl font-bold text-white mt-3">Controls that keep service work accountable</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 mt-10">
             {controls.map(({ icon: Icon, title, body }) => (
               <div key={title} className="border-t border-white/[0.1] pt-5">
@@ -119,19 +118,19 @@ export default function ItsmConnectPage() {
         <div className="max-w-6xl mx-auto grid lg:grid-cols-[0.8fr_1.2fr] gap-12 items-start">
           <div>
             <Workflow className="w-10 h-10 text-cyan-300" aria-hidden="true" />
-            <h2 className="text-3xl font-bold text-white mt-5">Preview-to-adoption path</h2>
+            <h2 className="text-3xl font-bold text-white mt-5">A deliberate path to adoption</h2>
             <p className="mt-4 text-gray-400 leading-relaxed">
-              Qualification advances one customer-controlled environment at a
-              time. Preview does not authorize unrestricted writes or a production
-              tenant connection.
+              Start with the workflow, controls, and ownership model that fit your
+              organization. Adoption advances through a defined, customer-led
+              qualification path.
             </p>
           </div>
           <ol className="space-y-5">
             {[
-              ['1', 'Read-only sandbox', 'Provision least-privileged identity, retain dry-run, and validate health plus bounded reads.'],
-              ['2', 'Governed dry-run writes', 'Exercise the intended field and transition allowlists without sending provider changes.'],
-              ['3', 'Disclosure control closure', 'Replace open free-text egress with approved structured-field or allowlist controls.'],
-              ['4', 'Sandbox lifecycle evidence', 'Validate idempotency, concurrency, rollback, audit, and incident ownership end to end.'],
+              ['1', 'Workflow discovery', 'Map the requests, teams, decisions, and evidence that define a successful operating model.'],
+              ['2', 'Governed configuration', 'Align identity, authority, routing, and service controls with your environment.'],
+              ['3', 'Collaborative evaluation', 'Exercise the selected workflow with clear ownership and observable outcomes.'],
+              ['4', 'Adoption review', 'Confirm the controls, evidence, operating responsibilities, and next capability scope together.'],
             ].map(([number, title, body]) => (
               <li key={number} className="grid grid-cols-[2.5rem_1fr] gap-4 border-b border-white/[0.08] pb-5">
                 <span className="w-10 h-10 rounded-full border border-cyan-400/40 text-cyan-300 flex items-center justify-center font-semibold tabular-nums">{number}</span>
@@ -148,15 +147,15 @@ export default function ItsmConnectPage() {
       <section className="py-14 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 text-sm">
           <div>
-            <p className="font-semibold text-white">Current environment</p>
+            <p className="font-semibold text-white">Evaluation scope</p>
             <p className="mt-2 text-gray-400 leading-relaxed">{lifecycle.environment}</p>
           </div>
           <div>
-            <p className="font-semibold text-white">Preview restriction</p>
+            <p className="font-semibold text-white">Current capability boundary</p>
             <p className="mt-2 text-gray-400 leading-relaxed">{lifecycle.restrictions}</p>
           </div>
           <div>
-            <p className="font-semibold text-white">Next maturity milestone</p>
+            <p className="font-semibold text-white">Adoption path</p>
             <p className="mt-2 text-amber-200/80 leading-relaxed">{lifecycle.nextMilestone}</p>
           </div>
         </div>

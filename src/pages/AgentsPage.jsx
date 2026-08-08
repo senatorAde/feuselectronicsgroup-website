@@ -31,7 +31,7 @@ export default function AgentsPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="FEUS.ai Agent Portfolio"
-        description="Explore the FEUS.ai agent portfolio: an operationally validated governed core with Controlled Preview Oracle and service-request agents, Preview ITSM connectors, and bounded expansion programs."
+        description="Explore the FEUS.ai agent portfolio: governed specialists for data operations, service requests, integration planning, and accountable enterprise workflows."
       />
 
       <section className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -39,16 +39,17 @@ export default function AgentsPage() {
         <div className="relative max-w-6xl mx-auto">
           <SectionLabel>FEUS.ai agent portfolio</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-6xl mt-4 max-w-4xl">
-            Governed agents, qualified by capability
+            Intelligence for operations. Governance by design.
           </h1>
           <p className="mt-6 text-lg text-gray-300 leading-relaxed max-w-3xl">
-            FEUS.ai extends its operational governance core through specialist
-            agents and integration programs. Each offering carries its own
-            lifecycle status, evidence boundary, and promotion milestone.
+            FEUS.ai brings specialist intelligence to the operational work that
+            matters most: data platforms, service requests, recommendations, and
+            enterprise integrations. Every capability is built around accountable
+            workflows, human authority, and evidence that stands up to review.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <CTAButton to="/contact">Discuss a controlled evaluation</CTAButton>
-            <CTAButton to="/status" variant="secondary">Review lifecycle evidence</CTAButton>
+            <CTAButton to="/contact">Discuss your operating model</CTAButton>
+            <CTAButton to="/status" variant="secondary">Explore adoption options</CTAButton>
           </div>
         </div>
       </section>
@@ -73,22 +74,28 @@ export default function AgentsPage() {
                 </p>
                 <h2 className="mt-2 text-xl font-semibold text-white">{agent.name}</h2>
                 <p className="mt-3 text-sm text-gray-300 leading-relaxed">{agent.summary}</p>
-                <p className="mt-4 text-xs text-gray-500 leading-relaxed">{agent.evidence}</p>
-                <p className="mt-3 text-xs text-amber-200/80 leading-relaxed">
-                  Scope: {agent.restriction}
-                </p>
-                <p className="mt-3 text-xs text-gray-500 leading-relaxed">
-                  Environment: {agent.environment}
-                </p>
-                <p className="mt-3 text-xs text-gray-400 leading-relaxed">
-                  Next: {agent.nextMilestone}
-                </p>
                 <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-feus-300">
-                  View capability <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                  Explore {agent.name} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                 </span>
               </Link>
               )
             })}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 px-4 sm:px-6 lg:px-8 bg-white/[0.02] border-t border-white/[0.06]">
+        <div className="max-w-4xl mx-auto text-center">
+          <SectionLabel>Adoption with clarity</SectionLabel>
+          <h2 className="text-3xl font-bold text-white mt-3">A portfolio built to earn trust</h2>
+          <p className="mt-5 text-gray-400 leading-relaxed">
+            Availability is intentionally capability-specific. Status labels show
+            where each offering is in its adoption lifecycle; technical evidence,
+            evaluation boundaries, and maturity milestones are available in the
+            Trust Center for teams conducting due diligence.
+          </p>
+          <div className="mt-7">
+            <CTAButton to="/trust" variant="secondary">Visit the Trust Center</CTAButton>
           </div>
         </div>
       </section>
