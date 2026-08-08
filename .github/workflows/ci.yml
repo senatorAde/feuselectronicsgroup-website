@@ -51,7 +51,7 @@ jobs:
           node -e "
             const fs = require('fs');
             const data = JSON.parse(fs.readFileSync('public/data/assurance-stats.json', 'utf8'));
-            for (const key of ['assurance', 'certification', 'audit_integrity', 'data_provenance']) {
+            for (const key of ['assurance', 'certification', 'audit_chain', 'data_provenance']) {
               if (!data[key]) {
                 console.error('Missing required key:', key);
                 process.exit(1);
