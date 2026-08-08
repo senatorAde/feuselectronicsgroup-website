@@ -2,7 +2,9 @@
 # FEUS-Web — CI/CD Pipeline (Vercel)
 # ============================================================================
 # Verifies build on every push. Vercel handles deployment automatically.
-# Also validates ROI stats data integrity.
+# Validates public assurance data and enforces the Session 13A claims
+# baseline: quarantined roi-stats.json must NOT exist (demo-constant ROI
+# figures are prohibited public claims).
 # ============================================================================
 
 name: FEUS-Web CI/CD
@@ -35,28 +37,32 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate ROI stats data
+      - name: Public claims gate
+        run: npm test
+
+      - name: Validate public data (Session 13A claims baseline)
         run: |
-          echo "Validating ROI stats JSON..."
+          echo "Checking quarantined files are absent..."
+          if [ -f public/data/roi-stats.json ]; then
+            echo "::error title=Quarantined file present::public/data/roi-stats.json must not exist (Session 13A claims baseline)"
+            exit 1
+          fi
+          echo "Validating assurance-stats.json..."
           node -e "
             const fs = require('fs');
-            const data = JSON.parse(fs.readFileSync('public/data/roi-stats.json', 'utf8'));
-            const required = ['session_metrics', 'platform_metrics', 'benchmarks'];
-            for (const key of required) {
+            const data = JSON.parse(fs.readFileSync('public/data/assurance-stats.json', 'utf8'));
+            for (const key of ['assurance', 'certification', 'audit_integrity', 'data_provenance']) {
               if (!data[key]) {
                 console.error('Missing required key:', key);
                 process.exit(1);
               }
             }
-            const sm = data.session_metrics;
-            if (!sm.time_saved_hours || !sm.risk_cost_avoided || !sm.governance_compliance_pct) {
-              console.error('Missing required session metrics');
+            const text = JSON.stringify(data);
+            if (/logs\//.test(text) || text.includes('latest_run_id')) {
+              console.error('Internal paths or run identifiers must not be published (DATA-006)');
               process.exit(1);
             }
-            console.log('✅ ROI stats valid');
-            console.log('   Time saved:', sm.time_saved_hours);
-            console.log('   Risk avoided:', sm.risk_cost_avoided);
-            console.log('   Compliance:', sm.governance_compliance_pct);
+            console.log('assurance-stats.json valid');
           "
 
       - name: Build production bundle
@@ -68,8 +74,12 @@ jobs:
             echo "❌ Build output directory 'dist' not found"
             exit 1
           fi
-          if [ ! -f "dist/data/roi-stats.json" ]; then
-            echo "❌ ROI stats not found in build output"
+          if [ -f "dist/data/roi-stats.json" ]; then
+            echo "❌ Quarantined roi-stats.json found in build output (Session 13A claims baseline)"
+            exit 1
+          fi
+          if [ ! -f "dist/data/assurance-stats.json" ]; then
+            echo "❌ assurance-stats.json not found in build output"
             exit 1
           fi
           echo "✅ Build output verified"
