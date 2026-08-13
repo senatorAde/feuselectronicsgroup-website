@@ -119,20 +119,21 @@ export default function SolutionsPage() {
               </h2>
               <p className="mt-4 text-gray-400 leading-relaxed">
                 Alongside our services, we develop FEUS.ai — a governed AI Data
-                Operations platform with a documented operational core and
-                capability-specific preview extensions. The Session 12D NO-GO
-                remains binding for its assessed vNext revision and deployment
-                scope. We publish the product lifecycle, release evidence, and
-                limitations openly.
+                Operations platform that combines AI orchestration, database
+                operations, assurance, evidence, and automation behind policy
+                enforcement, least privilege, approvals, and auditability. Core
+                capabilities are available for controlled enterprise adoption;
+                newer agents and integrations follow a published validation
+                lifecycle.
               </p>
               <div className="mt-6 flex flex-wrap gap-4">
-                <CTAButton to="/feus-ai" variant="secondary">Platform overview</CTAButton>
-                <CTAButton to="/demo" variant="secondary">Request a controlled demonstration</CTAButton>
+                <CTAButton to="/feus-ai" variant="secondary">Explore FEUS.ai</CTAButton>
+                <CTAButton to="/demo" variant="secondary">Request a demo</CTAButton>
                 <Link
                   to="/status"
                   className="inline-flex items-center px-4 py-2 text-sm text-feus-300 underline underline-offset-2 hover:text-feus-200"
                 >
-                  Current status
+                  Capability status
                 </Link>
               </div>
             </div>

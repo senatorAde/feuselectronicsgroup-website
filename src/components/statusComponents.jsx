@@ -3,104 +3,43 @@ import { Info } from 'lucide-react'
 import StatusBadge from './StatusBadge'
 import {
   POSTURE, CONTROL_COUNTS, CAPABILITY_SUMMARY, PUBLIC_CAPABILITIES,
-  CAPABILITY_LIFECYCLE, INTEGRATION_STATUS, KNOWN_LIMITATIONS,
+  CAPABILITY_LIFECYCLE, INTEGRATION_STATUS,
 } from '../data/publicStatus'
 
 /**
- * Status presentation components (Session 13A visual requirements §9, §12).
- * Neutral evidence treatment only — no success badges, scores, or seals.
+ * Status presentation components.
+ * Neutral evidence treatment only — no success badges, scores, or seals, and
+ * no warning/error styling for normal capability lifecycle states. Red/rose
+ * treatment is reserved for active incidents, outages, and security
+ * emergencies, which this component set does not render.
+ *
+ * SCOPE BOUNDARY — this module is imported by Layout and marketing pages and
+ * therefore ships in the main bundle. Exact-revision release components
+ * (ReleaseDecision, PostureSummary, KnownLimitationList) live in
+ * releaseComponents.jsx and must not be re-added here.
  */
 
-/** Persistent capability-scoped posture strip for every FEUS.ai product route. */
-export function ReleaseStatusBanner() {
+/**
+ * Neutral, subtle capability-status strip for FEUS.ai platform routes.
+ * Informational only: it points to per-capability status and never advertises
+ * release-gate outcomes, environment restrictions, or product-wide preview.
+ */
+export function PlatformStatusStrip() {
   return (
     <div
       role="note"
-      aria-label="Current release posture"
-      className="relative z-40 bg-navy-950 border-b border-l-4 border-white/[0.08] border-l-rose-500 px-4 py-2.5 mt-20"
+      aria-label="FEUS.ai capability status"
+      className="relative z-40 bg-navy-950 border-b border-white/[0.08] px-4 py-2.5 mt-20"
     >
       <div className="max-w-7xl mx-auto flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-        <Info className="w-4 h-4 text-rose-400 flex-shrink-0" aria-hidden="true" />
+        <Info className="w-4 h-4 text-feus-400 flex-shrink-0" aria-hidden="true" />
         <span className="font-semibold text-white">{POSTURE.shortStatement}</span>
-        <span className="text-gray-400">{POSTURE.trustBanner}</span>
+        <span className="text-gray-400">{POSTURE.statusStripNote}</span>
         <Link to="/status" className="text-feus-300 underline underline-offset-2 hover:text-feus-200">
-          Current status and limitations
+          Capability status
         </Link>
       </div>
     </div>
-  )
-}
-
-/** Exact-revision release decision block — plain text, no certification symbolism. */
-export function ReleaseDecision({ compact = false }) {
-  return (
-    <div className="border-l-4 border-rose-500 bg-white/[0.03] rounded-r-xl p-6">
-      <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">
-        Assessed vNext release decision
-      </p>
-      <p className="mt-1 text-2xl font-bold text-white">{POSTURE.decision}</p>
-      <p className="mt-1 text-gray-300">
-        Exact revision · External release above LOCAL not authorized
-      </p>
-      <p className="mt-2 text-xs text-gray-500 font-mono break-all">
-        Revision {POSTURE.certifiedRevision}
-      </p>
-      {!compact && (
-        <>
-          <p className="mt-2 text-xs text-gray-500">
-            Version assessed {POSTURE.versionAssessed} · Decision date {POSTURE.decisionDate} ·
-            Last reviewed {POSTURE.lastReviewed} · Authority: {POSTURE.assessment}
-          </p>
-          <p className="mt-3 text-sm text-gray-400">
-            This decision applies to the named release scope. It is not a verdict on
-            FEUS.ai&rsquo;s complete operational history or every core capability.
-          </p>
-          {POSTURE.superseded && (
-            <p className="mt-2 text-xs font-semibold text-amber-300">SUPERSEDED</p>
-          )}
-        </>
-      )}
-    </div>
-  )
-}
-
-/** At-a-glance posture table (Trust Center Content Plan §4.2). */
-export function PostureSummary() {
-  const rows = [
-    ['Platform maturity', POSTURE.productMaturity],
-    ['Public availability', POSTURE.publicAvailability],
-    ['Assessed vNext release decision', POSTURE.decision],
-    ['Session 12D production-verified rows', `${POSTURE.productionVerifiedCapabilities} of ${POSTURE.totalCapabilities}`],
-    ['Session 12D live-verified integrations', String(POSTURE.liveVerifiedIntegrations)],
-    ['Security controls assessed', String(CONTROL_COUNTS.assessed)],
-    ['Verified', String(CONTROL_COUNTS.verified)],
-    ['Verified with constraints', String(CONTROL_COUNTS.verifiedWithConstraints)],
-    ['Partial', String(CONTROL_COUNTS.partial)],
-    ['Failed', String(CONTROL_COUNTS.failed)],
-    ['Not established', String(CONTROL_COUNTS.notEstablished)],
-    ['Assessed vNext deployment', 'Not authorized above LOCAL'],
-    ['Model invocation', 'Disabled'],
-    ['Oracle Operations Agent', 'Controlled Preview'],
-    ['ROI', 'Estimate only'],
-  ]
-  return (
-    <table className="w-full text-sm border-collapse">
-      <caption className="sr-only">FEUS.ai release posture at a glance</caption>
-      <thead>
-        <tr className="border-b border-white/10 text-left">
-          <th scope="col" className="py-2 pr-4 text-gray-400 font-medium">Item</th>
-          <th scope="col" className="py-2 text-gray-400 font-medium">Public value</th>
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map(([k, v]) => (
-          <tr key={k} className="border-b border-white/[0.06]">
-            <th scope="row" className="py-2 pr-4 text-gray-300 font-normal text-left">{k}</th>
-            <td className="py-2 text-white font-medium">{v}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
   )
 }
 
@@ -221,7 +160,7 @@ export function CapabilityLifecycleTable() {
               </td>
               <td className="py-4 text-gray-300 leading-relaxed">
                 {row.restrictions}
-                <span className="block mt-2 text-xs text-amber-200/80">
+                <span className="block mt-2 text-xs text-gray-400">
                   Next milestone: {row.nextMilestone}
                 </span>
               </td>
@@ -262,16 +201,7 @@ export function IntegrationStatusTable() {
   )
 }
 
-/** Known limitations list (Trust Center Content Plan §25). */
-export function KnownLimitationList() {
-  return (
-    <ol className="space-y-2 list-decimal list-inside text-gray-300 text-sm leading-relaxed">
-      {KNOWN_LIMITATIONS.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ol>
-  )
-}
+/** Known limitations list moved to releaseComponents.jsx (Trust Center scope). */
 
 /** Evidence callout (approved messaging §3). */
 export function EvidenceCallout() {

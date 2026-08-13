@@ -2,7 +2,8 @@ import { useState, useId } from 'react'
 import { ChevronDown } from 'lucide-react'
 import SEO from '../components/SEO'
 import { SectionLabel, CTAButton } from '../components/ui'
-import { FAQ_ITEMS, POSTURE } from '../data/publicStatus'
+import { POSTURE } from '../data/publicStatus'
+import { FAQ_ITEMS, RELEASE_ASSESSMENT } from '../data/releaseAssessment'
 
 /**
  * /faq — platform FAQ (Trust Center content plan §31).
@@ -51,9 +52,9 @@ export default function FaqPage() {
             Direct answers about FEUS.ai
           </h1>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            These are the questions evaluators ask most, answered against the
-            independently assessed posture of revision{' '}
-            <span className="font-mono text-sm break-all">{POSTURE.certifiedRevision}</span>.
+            These are the questions evaluators ask most. {POSTURE.availabilityQualifier}{' '}
+            Exact-revision answers below are assessed against revision{' '}
+            <span className="font-mono text-sm break-all">{RELEASE_ASSESSMENT.certifiedRevision}</span>.
           </p>
         </div>
       </section>

@@ -15,7 +15,7 @@ export default function DemoPage() {
         noindex
       />
 
-      <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+      <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Controlled demonstrations</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">

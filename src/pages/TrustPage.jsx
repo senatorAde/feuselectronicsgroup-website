@@ -3,10 +3,13 @@ import { FileSearch, ShieldAlert, Scale, MessageCircleQuestion, History, Network
 import SEO from '../components/SEO'
 import { SectionLabel } from '../components/ui'
 import {
-  ReleaseDecision, PostureSummary, CapabilityLifecycleTable,
-  KnownLimitationList, EvidenceCallout,
+  CapabilityLifecycleTable, EvidenceCallout,
 } from '../components/statusComponents'
-import { POSTURE, AUTHORIZED_USE } from '../data/publicStatus'
+import {
+  ReleaseDecision, PostureSummary, KnownLimitationList,
+} from '../components/releaseComponents'
+import { POSTURE } from '../data/publicStatus'
+import { RELEASE_ASSESSMENT, AUTHORIZED_USE } from '../data/releaseAssessment'
 
 /**
  * /trust — Trust Center landing, rebuilt per the Session 13A Trust Center
@@ -67,16 +70,16 @@ export default function TrustPage() {
             Operational evidence, scoped assurance
           </h1>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            FEUS.ai has an operationally validated core and a capability-scoped
-            roadmap of expanding agents and integrations. This Trust Center reports
-            operational evidence, lifecycle status, exact-revision release decisions,
-            security-control results, and known limitations without collapsing them
-            into a single score, grade, or seal.
+            {POSTURE.publicPostureStatement} This Trust Center reports product
+            posture, security architecture, governance controls, capability status,
+            preview capabilities, known limitations, assessment scope, deployment
+            responsibilities, and historical assurance evidence without collapsing
+            them into a single score, grade, or seal.
           </p>
           <p className="mt-4 text-gray-400 leading-relaxed">
-            The Session 12D NO-GO below remains binding for the assessed vNext
-            revision and deployment scope. It is not a verdict on the complete
-            operational history of the core platform.
+            {RELEASE_ASSESSMENT.disclosureBoundary} The release assessment recorded
+            below is scoped to one named revision and deployment configuration; it is
+            not a characterization of the platform or of every core capability.
           </p>
           <div className="mt-10">
             <ReleaseDecision />
@@ -161,9 +164,9 @@ export default function TrustPage() {
                 <li>compliance determination with counsel and auditors.</li>
               </ul>
               <p className="text-xs text-gray-500">
-                The assessed vNext release is not authorized above LOCAL. Any core
-                deployment requires separate capability, target, environment, and
-                customer authorization before use.
+                The vNext release assessed by Session 12D is scoped to internal
+                evaluation environments. Any core deployment requires separate
+                capability, target, environment, and customer authorization before use.
               </p>
             </div>
           </div>
@@ -193,9 +196,9 @@ export default function TrustPage() {
 
           <p className="text-xs text-gray-500">
             Exact-release evidence is bound to revision{' '}
-            <span className="font-mono break-all">{POSTURE.certifiedRevision}</span>{' '}
+            <span className="font-mono break-all">{RELEASE_ASSESSMENT.certifiedRevision}</span>{' '}
             and was last reviewed {POSTURE.lastReviewed}. Product maturity is
-            capability-scoped. {POSTURE.supersessionRule}
+            capability-scoped. {RELEASE_ASSESSMENT.supersessionRule}
           </p>
         </div>
       </section>

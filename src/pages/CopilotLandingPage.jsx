@@ -17,7 +17,7 @@ export default function CopilotLandingPage() {
         noindex
       />
 
-      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Legacy interface name</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">FEUS Copilot</h1>
@@ -32,10 +32,9 @@ export default function CopilotLandingPage() {
               exercised here.
             </p>
             <p>
-              FEUS.ai has an operationally validated core. Access to enterprise
-              operator workflows is capability and environment specific, while the
-              assessed vNext release remains NO-GO above LOCAL and new agents and
-              integrations retain their published preview boundaries.
+              Access to enterprise operator workflows is capability and environment
+              specific. Capability availability may vary by deployment, environment,
+              integration, and customer configuration.
             </p>
             <p className="text-xs text-gray-500">
               The &ldquo;Copilot&rdquo; name is retained for historical reference only and

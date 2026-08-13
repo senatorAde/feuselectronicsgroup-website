@@ -2,30 +2,32 @@ import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import ScrollToTop from './ScrollToTop'
-import { ReleaseStatusBanner } from './statusComponents'
+import { PlatformStatusStrip } from './statusComponents'
 
 /**
- * Routes describing the FEUS.ai platform carry a persistent capability-scoped
- * status strip. Company-services and
- * media-sales routes do not, because they describe human-delivered services,
- * not the platform.
+ * FEUS.ai platform routes carry a subtle, neutral capability-status strip that
+ * points to per-capability status. It is informational, never a warning.
+ *
+ * Adoption surfaces (homepage, solutions, contact, consultation, demo, sales,
+ * and company-services routes) deliberately do NOT carry it, so that product
+ * positioning and adoption CTAs are not framed by status chrome.
  */
 const PLATFORM_ROUTE_PREFIXES = [
-  '/feus-ai', '/agents', '/sqlops', '/requestops', '/control-plane', '/architecture',
-  '/integrations', '/assurance', '/demo', '/copilot', '/faq', '/release-notes',
+  '/agents', '/sqlops', '/requestops', '/control-plane', '/architecture',
+  '/integrations', '/assurance', '/faq', '/release-notes',
   '/trust', '/status',
 ]
 
 export default function Layout() {
   const { pathname } = useLocation()
-  const showBanner = PLATFORM_ROUTE_PREFIXES.some(
+  const showStatusStrip = PLATFORM_ROUTE_PREFIXES.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`)
   )
   return (
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
       <Navbar />
-      {showBanner && <ReleaseStatusBanner />}
+      {showStatusStrip && <PlatformStatusStrip />}
       <main className="flex-1">
         <Outlet />
       </main>

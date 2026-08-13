@@ -5,9 +5,9 @@
 | | |
 |---|---|
 | **Website hosting status** | ✅ Website is live (hosting status only — see note below) |
-| **FEUS.ai platform status** | Operationally validated core. Capability-specific limits apply. The assessed vNext release remains NO-GO above LOCAL. See `/status`. |
+| **FEUS.ai platform status** | Operationally validated, governance-first AI Data Operations platform. Availability varies by capability, environment, integration, and customer configuration. See `/status`. |
 | **Product-posture authority** | `FEUS-Enterprise-Distribution/docs/product-posture/` |
-| **Exact-release evidence** | Session 12D/13A artifacts in `FEUS-Enterprise-Distribution/docs/branding/vnext/` remain authoritative for their assessed revision. |
+| **Exact-release evidence** | Session 12D/13A artifacts in `FEUS-Enterprise-Distribution/docs/branding/vnext/` remain authoritative for their assessed revision. Release-gate outcomes are Trust Center content (`RELEASE_ASSESSMENT` in `src/data/publicStatus.js`) and must not appear on marketing or adoption surfaces. |
 | **Claims gate** | `npm test` / `prebuild` runs `scripts/validate-public-claims.mjs` — the build fails on prohibited claims |
 | **URL** | [feuselectronicsgroup.com](https://www.feuselectronicsgroup.com) |
 | **GitHub** | [senatorAde/feuselectronicsgroup-website](https://github.com/senatorAde/feuselectronicsgroup-website) |

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Mail, MapPin, Phone, Linkedin, Facebook, Instagram } from 'lucide-react'
 import { CalendlyButton } from './CalendlyEmbed'
+import { POSTURE } from '../data/publicStatus'
 
 const footerLinks = {
   Company: [
@@ -125,9 +126,9 @@ export default function Footer() {
       <div className="border-t border-white/[0.04]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <p className="text-xs text-gray-600 mb-4">
-            FEUS.ai: Operationally validated core. Capability-specific limits apply.{' '}
+            FEUS.ai: {POSTURE.shortStatement} {POSTURE.availabilityQualifier}{' '}
             <Link to="/status" className="underline underline-offset-2 hover:text-gray-400">
-              Current status
+              Capability status
             </Link>
           </p>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">

@@ -49,6 +49,9 @@ const scanFiles = [
 // The controlled vocabulary file may legitimately contain status labels
 // (e.g. the reserved "Integration ready" definition marked prohibited).
 const VOCAB_FILE = join(root, 'src', 'data', 'publicStatus.js')
+// The controlled release-evidence file holds exact-revision Trust Center
+// content (release decision, limitations, FAQ, posture history).
+const RELEASE_FILE = join(root, 'src', 'data', 'releaseAssessment.js')
 
 /* 1 + 2. Prohibited phrases (case-insensitive). */
 const PROHIBITED = [
@@ -87,6 +90,44 @@ const PROHIBITED_OUTSIDE_VOCAB = [
   { re: /integration[- ]ready/i, why: 'Status "Integration ready" not approved for any current connector' },
 ]
 
+/*
+ * 2b. Release-gate / internal-engineering language containment.
+ *
+ * Historical release decisions, environment restrictions, and remediation
+ * history are legitimate Trust Center content. They are NOT product-marketing
+ * or adoption messaging. These phrases may appear only in the controlled
+ * release-evidence module and the lazy-loaded Trust Center surfaces below.
+ * publicStatus.js and statusComponents.jsx ship in the marketing bundle and
+ * are deliberately NOT allowlisted — release-gate language there fails the
+ * build, which keeps the marketing payload physically free of it.
+ */
+const TRUST_SURFACE_FILES = new Set(
+  [
+    ['src', 'data', 'releaseAssessment.js'],
+    ['src', 'components', 'releaseComponents.jsx'],
+    ['src', 'pages', 'TrustPage.jsx'],
+    ['src', 'pages', 'TrustSecurityPage.jsx'],
+    ['src', 'pages', 'TrustCompliancePage.jsx'],
+    ['src', 'pages', 'StatusPage.jsx'],
+    ['src', 'pages', 'ReleaseNotesPage.jsx'],
+    ['src', 'pages', 'ArchitecturePage.jsx'],
+    ['src', 'pages', 'AssuranceDashboardPage.jsx'],
+    ['src', 'pages', 'FaqPage.jsx'],
+    ['src', 'pages', 'DemoPage.jsx'],
+  ].map((parts) => join(root, ...parts))
+)
+
+const RELEASE_GATE_LANGUAGE = [
+  { re: /\bNO[- ]GO\b/i, why: 'Release-gate decision language outside the Trust Center' },
+  { re: /above LOCAL|LOCAL[- ]only|LOCAL only/i, why: 'Environment restriction stated outside the Trust Center' },
+  { re: /not approved for production|not authorized for production/i, why: 'Release-gate language outside the Trust Center' },
+  { re: /pre[- ]release platform|experimental platform|untested platform/i, why: 'Product-wide pre-release characterization' },
+  { re: /zero capabilities|zero of 45|0 of 45/i, why: 'Release-matrix count used as product positioning' },
+  { re: /current status and limitations/i, why: 'Warning-style status framing on a product surface' },
+  { re: /remediation round|certification failure|failed release validation/i, why: 'Internal remediation history outside the Trust Center' },
+  { re: /preview limits\b/i, why: 'Product-wide preview framing (label individual capabilities instead)' },
+].map((r) => ({ ...r, noNegationEscape: true }))
+
 /* 5. Placeholders. */
 const PLACEHOLDERS = [
   { re: /\bTODO\b|\bFIXME\b|\bXXX\b/, why: 'Placeholder marker' },
@@ -104,11 +145,14 @@ for (const file of scanFiles) {
   const rel = relative(root, file)
   const text = readFileSync(file, 'utf8')
   const lines = text.split(/\r?\n/)
-  const isVocab = file === VOCAB_FILE
+  // Both controlled data modules carry approved verbatim vocabulary.
+  const isVocab = file === VOCAB_FILE || file === RELEASE_FILE
+  const isTrustSurface = TRUST_SURFACE_FILES.has(file)
 
   const rules = [
     ...PROHIBITED,
     ...(isVocab ? [] : PROHIBITED_OUTSIDE_VOCAB),
+    ...(isTrustSurface ? [] : RELEASE_GATE_LANGUAGE),
     ...PLACEHOLDERS,
     ...SECRETS,
   ]
@@ -120,7 +164,8 @@ for (const file of scanFiles) {
         // "we do not claim X" language is required by the claims baseline.
         // Context window: the matching line and the preceding line.
         const ctx = `${lines[i - 1] ?? ''} ${line}`
-        if (/\b(not|no|never|none|nor|without|prohibited|excluded|do(es)? not|don'?t|isn'?t|are not|denied|removed|retired|deprecated name|instead of)\b/i.test(ctx)) {
+        if (!rule.noNegationEscape &&
+            /\b(not|no|never|none|nor|without|prohibited|excluded|do(es)? not|don'?t|isn'?t|are not|denied|removed|retired|deprecated name|instead of)\b/i.test(ctx)) {
           continue
         }
         // FAQ questions in the controlled vocabulary file are approved verbatim
@@ -134,18 +179,60 @@ for (const file of scanFiles) {
   })
 }
 
-/* 3. publicStatus.js integrity. */
+/* 3. Controlled data-module integrity. */
 const status = await import(pathToFileURL(VOCAB_FILE).href)
 const {
-  POSTURE, CAPABILITY_SUMMARY, CAPABILITY_LIFECYCLE, PUBLIC_CAPABILITIES,
-  AGENT_PORTFOLIO, CONTROL_COUNTS, STATUS_DEFS,
+  POSTURE, CAPABILITY_SUMMARY, CAPABILITY_LIFECYCLE,
+  PUBLIC_CAPABILITIES, AGENT_PORTFOLIO, CONTROL_COUNTS, STATUS_DEFS,
 } = status
+const release = await import(pathToFileURL(RELEASE_FILE).href)
+const { RELEASE_ASSESSMENT, KNOWN_LIMITATIONS, FAQ_ITEMS, POSTURE_HISTORY } = release
 
-if (POSTURE.decision !== 'NO-GO') {
-  errors.push('publicStatus.js: decision must be NO-GO until a superseding assessment exists')
+/* 3a. Exact-revision release evidence is preserved, not softened. */
+if (RELEASE_ASSESSMENT?.decision !== 'NO-GO') {
+  errors.push('releaseAssessment.js: RELEASE_ASSESSMENT.decision must be NO-GO until a superseding assessment exists')
 }
-if (POSTURE.certifiedRevision !== '3c401504aef201b510c8695bac7c31ad424c2274') {
-  errors.push('publicStatus.js: certified revision changed without authorization')
+if (RELEASE_ASSESSMENT?.certifiedRevision !== '3c401504aef201b510c8695bac7c31ad424c2274') {
+  errors.push('releaseAssessment.js: certified revision changed without authorization')
+}
+for (const field of ['decisionScope', 'decisionDate', 'versionAssessed', 'assessment', 'trustCenterSummary', 'scopeRule', 'supersessionRule']) {
+  if (!RELEASE_ASSESSMENT?.[field]) {
+    errors.push(`releaseAssessment.js: RELEASE_ASSESSMENT.${field} is required release evidence`)
+  }
+}
+if (!Array.isArray(KNOWN_LIMITATIONS) || KNOWN_LIMITATIONS.length < 12) {
+  errors.push('releaseAssessment.js: KNOWN_LIMITATIONS must retain all disclosed limitations')
+}
+if (!Array.isArray(FAQ_ITEMS) || FAQ_ITEMS.length < 13) {
+  errors.push('releaseAssessment.js: FAQ_ITEMS must retain all approved questions and answers')
+}
+if (!Array.isArray(POSTURE_HISTORY) || !POSTURE_HISTORY.some((h) => h.decision === 'NO-GO')) {
+  errors.push('releaseAssessment.js: POSTURE_HISTORY must retain the controlling vNext release decision')
+}
+
+/* 3b. Customer-facing posture must not carry release-gate language. */
+const POSTURE_MARKETING_FIELDS = [
+  'headline', 'shortStatement', 'publicPostureStatement', 'valueStatement',
+  'architectureStatement', 'validationStatement', 'lifecycleStatement',
+  'availabilityQualifier', 'statusStripNote',
+]
+for (const field of POSTURE_MARKETING_FIELDS) {
+  const value = POSTURE?.[field]
+  if (!value || value.length < 12) {
+    errors.push(`publicStatus.js: POSTURE.${field} is required public positioning copy`)
+    continue
+  }
+  for (const rule of RELEASE_GATE_LANGUAGE) {
+    if (rule.re.test(value)) {
+      errors.push(`publicStatus.js: POSTURE.${field} contains release-gate language — ${rule.why}`)
+    }
+  }
+}
+if (POSTURE?.decision || POSTURE?.certifiedRevision || POSTURE?.trustBanner) {
+  errors.push('publicStatus.js: exact-revision release fields must live on RELEASE_ASSESSMENT, not POSTURE')
+}
+if (status.RELEASE_ASSESSMENT || status.KNOWN_LIMITATIONS || status.FAQ_ITEMS || status.POSTURE_HISTORY || status.AUTHORIZED_USE) {
+  errors.push('publicStatus.js: release-evidence exports must live in releaseAssessment.js (Trust Center chunk), not the marketing data module')
 }
 if (POSTURE.productionVerifiedCapabilities !== 0 || POSTURE.totalCapabilities !== 45) {
   errors.push('publicStatus.js: capability totals do not match the certified assessment (0 of 45)')
@@ -282,7 +369,7 @@ if (providerPortfolio?.status !== 'PREVIEW' ||
 /* 4. Required verbatim strings. */
 const indexHtml = readFileSync(join(root, 'index.html'), 'utf8')
 const APPROVED_OG =
-  'FEUS.ai is a governed AI Data Operations platform with an operationally validated core and capability-specific preview boundaries for new agents and integrations.'
+  'FEUS.ai is an operationally validated, governance-first AI Data Operations platform: governed AI orchestration, database operations, assurance, and automation. Availability varies by capability.'
 if (!indexHtml.includes(APPROVED_OG)) {
   errors.push('index.html: approved OG description missing or altered')
 }

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
@@ -8,11 +9,6 @@ import ServicesPage from './pages/ServicesPage'
 import SolutionsPage from './pages/SolutionsPage'
 import ContactPage from './pages/ContactPage'
 import InsightsPage from './pages/InsightsPage'
-import TrustPage from './pages/TrustPage'
-import TrustSecurityPage from './pages/TrustSecurityPage'
-import TrustCompliancePage from './pages/TrustCompliancePage'
-import StatusPage from './pages/StatusPage'
-import ArchitecturePage from './pages/ArchitecturePage'
 import AgentsPage from './pages/AgentsPage'
 import OracleOpsPage from './pages/OracleOpsPage'
 import SqlOpsPage from './pages/SqlOpsPage'
@@ -20,19 +16,31 @@ import RequestOpsPage from './pages/RequestOpsPage'
 import ControlPlanePage from './pages/ControlPlanePage'
 import IntegrationsPage from './pages/IntegrationsPage'
 import ItsmConnectPage from './pages/ItsmConnectPage'
-import FaqPage from './pages/FaqPage'
 import DemoPage from './pages/DemoPage'
-import ReleaseNotesPage from './pages/ReleaseNotesPage'
 import PricingPage from './pages/PricingPage'
-import AssuranceDashboardPage from './pages/AssuranceDashboardPage'
 import MediaSalesLandingPage from './pages/MediaSalesLandingPage'
 import PropertyListingsPage from './pages/PropertyListingsPage'
 import PropertyListingDetailPage from './pages/PropertyListingDetailPage'
 import PropertyInquirePage from './pages/PropertyInquirePage'
 
+/*
+ * Trust Center / assurance surfaces are lazy-loaded so exact-revision release
+ * evidence (data/releaseAssessment.js) ships in its own chunk and is absent
+ * from the marketing bundle.
+ */
+const TrustPage = lazy(() => import('./pages/TrustPage'))
+const TrustSecurityPage = lazy(() => import('./pages/TrustSecurityPage'))
+const TrustCompliancePage = lazy(() => import('./pages/TrustCompliancePage'))
+const StatusPage = lazy(() => import('./pages/StatusPage'))
+const ArchitecturePage = lazy(() => import('./pages/ArchitecturePage'))
+const FaqPage = lazy(() => import('./pages/FaqPage'))
+const ReleaseNotesPage = lazy(() => import('./pages/ReleaseNotesPage'))
+const AssuranceDashboardPage = lazy(() => import('./pages/AssuranceDashboardPage'))
+
 export default function App() {
   return (
-    <Routes>
+    <Suspense fallback={null}>
+      <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -66,6 +74,7 @@ export default function App() {
         <Route path="/sales/listings/:slug" element={<PropertyListingDetailPage />} />
         <Route path="/sales/inquire" element={<PropertyInquirePage />} />
       </Route>
-    </Routes>
+      </Routes>
+    </Suspense>
   )
 }

@@ -48,8 +48,8 @@ export default function RequestOpsPage() {
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-white mb-4">What does not exist yet</h2>
-            <ul className="glass-card rounded-2xl p-6 border-l-4 border-rose-500 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">
+            <h2 className="text-2xl font-bold text-white mb-4">Preview boundaries</h2>
+            <ul className="glass-card rounded-2xl p-6 border-l-4 border-slate-500/60 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">
               <li>Any live ITSM integration — no tenant, credentials, field mapping, or network route has been exercised.</li>
               <li>Sanitized outbound ticket updates that meet the release threshold (four residual leak classes identified).</li>
               <li>A production-qualified ITSM adapter; current vendor connectors remain mock-tested with dry-run defaults.</li>

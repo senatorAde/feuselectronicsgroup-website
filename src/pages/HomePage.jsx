@@ -123,17 +123,16 @@ function PlatformSection() {
             Operationally validated governance, controlled expansion
           </h2>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            FEUS.ai combines a documented operational core with capability-specific
-            assurance. The core GovernedExecutionGateway SQL Server path has a
-            retained FEUS workflow record in which 48 of 48 batches passed all seven
-            gates. The assessed vNext revision also completed{' '}
-            {POSTURE.testsPassedAtRevision.toLocaleString()} automated tests, while
-            its new dispatcher, Oracle, ITSM, and provider integrations retain clear
-            preview boundaries. We publish both the evidence and the limitations.
+            {POSTURE.valueStatement} {POSTURE.architectureStatement} The core
+            GovernedExecutionGateway SQL Server path has a retained FEUS workflow
+            record in which 48 of 48 batches passed all seven gates, and the vNext
+            revision completed{' '}
+            {POSTURE.testsPassedAtRevision.toLocaleString()} automated tests.{' '}
+            {POSTURE.lifecycleStatement}
           </p>
           <div className="mt-6 flex flex-wrap gap-4">
-            <CTAButton to="/feus-ai">Platform overview</CTAButton>
-            <CTAButton to="/status" variant="secondary">Current status</CTAButton>
+            <CTAButton to="/feus-ai">Explore FEUS.ai</CTAButton>
+            <CTAButton to="/contact" variant="secondary">Book a consultation</CTAButton>
           </div>
         </div>
 
@@ -148,7 +147,7 @@ function PlatformSection() {
                 <h3 className="text-lg font-semibold text-white">{fam.name}</h3>
                 <ArrowRight className="w-5 h-5 text-gray-500 group-hover:text-feus-300 flex-shrink-0 mt-1" aria-hidden="true" />
               </div>
-              <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-amber-300/90">
+              <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-feus-300/90">
                 {fam.statusLine}
               </p>
               <p className="mt-3 text-sm text-gray-400 leading-relaxed">{fam.description}</p>
@@ -184,10 +183,9 @@ function PlatformSection() {
           ))}
         </div>
         <p className="mt-6 text-xs text-gray-500">
-          {POSTURE.shortStatement} The Session 12D NO-GO remains binding for the
-          assessed vNext revision and deployment scope.{' '}
+          {POSTURE.availabilityQualifier}{' '}
           <Link to="/status" className="text-feus-300 underline underline-offset-2">
-            Full posture
+            Capability status
           </Link>
         </p>
       </div>
@@ -205,14 +203,14 @@ function TrustSection() {
         </h2>
         <p className="mt-6 text-gray-300 leading-relaxed">
           The FEUS.ai Trust Center documents operational evidence, capability
-          lifecycle, exact-revision release decisions, security-control results,
-          and known limitations. Core maturity does not promote an unvalidated
+          lifecycle, release assessment scope, security-control results, and
+          deployment responsibilities. Core maturity does not promote an unvalidated
           extension, and a preview module does not downgrade the whole platform.
         </p>
         <div className="mt-8 flex flex-wrap gap-4 justify-center">
-          <CTAButton to="/trust">Visit the Trust Center</CTAButton>
-          <CTAButton to="/contact" variant="secondary">
-            Request an architecture briefing
+          <CTAButton to="/contact">Book a consultation</CTAButton>
+          <CTAButton to="/trust" variant="secondary">
+            Visit the Trust Center
           </CTAButton>
         </div>
       </div>

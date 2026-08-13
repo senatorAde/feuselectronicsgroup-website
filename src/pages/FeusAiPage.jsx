@@ -3,15 +3,18 @@ import { ArrowRight } from 'lucide-react'
 import SEO from '../components/SEO'
 import { SectionLabel, CTAButton, GlowDivider } from '../components/ui'
 import {
-  ReleaseDecision, CapabilityStatusTable, CapabilityLifecycleTable,
-  KnownLimitationList, EvidenceCallout,
+  CapabilityLifecycleTable, EvidenceCallout,
 } from '../components/statusComponents'
 import { POSTURE, PRODUCT_FAMILIES } from '../data/publicStatus'
 
 /**
- * /feus-ai — platform overview rebuilt against the Session 13A approved
- * messaging (§3–§4). Copy marked "approved" is verbatim from
- * FEUS_VNEXT_APPROVED_MESSAGING.md and must not be reworded.
+ * /feus-ai — primary FEUS.ai product page.
+ *
+ * Leads with business outcome, governed automation, operational maturity,
+ * platform capabilities, and an adoption CTA. Exact-revision release-gate
+ * detail, the Session 12D capability matrix, and known limitations live in the
+ * Trust Center (/trust, /status) and are linked from here, never used as the
+ * product headline.
  */
 export default function FeusAiPage() {
   return (
@@ -21,27 +24,33 @@ export default function FeusAiPage() {
         description="FEUS.ai is a governed AI Data Operations platform with an operationally validated core and capability-specific preview boundaries for new agents and integrations."
       />
 
-      {/* Hero — capability-scoped product posture */}
-      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+      {/* Hero — business outcome first */}
+      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <SectionLabel>Operationally validated core</SectionLabel>
+          <SectionLabel>{POSTURE.headline}</SectionLabel>
           <h1 className="section-heading text-5xl sm:text-6xl mt-4">FEUS.ai</h1>
           <p className="mt-6 text-xl text-gray-300 leading-relaxed">
-            A governed AI Data Operations platform built for accountable enterprise
-            workflows, controlled execution, and evidence-producing operations.
+            FEUS.ai brings policy-aware AI orchestration, database operations,
+            assurance, and automation into one governed experience.
           </p>
-          <p className="mt-4 text-gray-400">
-            Core capabilities are available for controlled enterprise adoption after
-            target qualification. New agents and integrations retain capability-specific
-            preview limits. The assessed vNext release remains NO-GO above LOCAL.
+          <p className="mt-4 text-gray-300 leading-relaxed">
+            From Hello FEUS onboarding to day-to-day operational workflows, FEUS
+            coordinates the right agents, tools, policies, approvals, and evidence
+            behind a unified chat-first experience. {POSTURE.architectureStatement}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <CTAButton to="/agents">Explore the agent portfolio</CTAButton>
-            <CTAButton to="/status" variant="secondary">Review the public posture</CTAButton>
-            <CTAButton to="/contact" variant="secondary">
-              Request an architecture briefing
+            <CTAButton to="/contact">Discuss enterprise adoption</CTAButton>
+            <CTAButton to="/demo" variant="secondary">Request a demo</CTAButton>
+            <CTAButton to="/agents" variant="secondary">
+              Explore the agent portfolio
             </CTAButton>
           </div>
+          <p className="mt-6 text-sm text-gray-500">
+            {POSTURE.availabilityQualifier}{' '}
+            <Link to="/status" className="text-feus-300 underline underline-offset-2">
+              Capability status
+            </Link>
+          </p>
         </div>
       </section>
 
@@ -52,13 +61,13 @@ export default function FeusAiPage() {
             Operational maturity with governance intact
           </h2>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            The core GovernedExecutionGateway path has documented real-world FEUS
-            SQL Server usage: 48 of 48 provisioning batches passed all seven gates
-            and the recorded audit chain verified. Separately, the assessed vNext
-            revision completed {POSTURE.testsPassedAtRevision.toLocaleString()}{' '}
-            automated tests and established meaningful policy, routing, approval,
-            handoff, and execution-truth properties. Its new dispatcher and SQL
-            executor are not bound, so that extension remains Controlled Preview.
+            {POSTURE.validationStatement} The core GovernedExecutionGateway path has
+            documented real-world FEUS SQL Server usage: 48 of 48 provisioning batches
+            passed all seven gates and the recorded audit chain verified. The vNext
+            revision additionally completed{' '}
+            {POSTURE.testsPassedAtRevision.toLocaleString()} automated tests and
+            established policy, routing, approval, handoff, and execution-truth
+            properties. {POSTURE.lifecycleStatement}
           </p>
           <div className="mt-8">
             <EvidenceCallout />
@@ -92,7 +101,7 @@ export default function FeusAiPage() {
                   <h3 className="text-xl font-semibold text-white">{fam.name}</h3>
                   <ArrowRight className="w-5 h-5 text-gray-500 group-hover:text-feus-300 flex-shrink-0 mt-1" aria-hidden="true" />
                 </div>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-amber-300/90">
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-feus-300/90">
                   {fam.statusLine}
                 </p>
                 <p className="mt-3 text-gray-300 text-sm leading-relaxed">{fam.description}</p>
@@ -123,39 +132,33 @@ export default function FeusAiPage() {
 
       <GlowDivider />
 
-      {/* Exact-revision capability evidence table */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <SectionLabel>Session 12D release evidence</SectionLabel>
-          <h2 className="text-3xl font-bold text-white mt-4 mb-4">
-            Exact-revision capability matrix
-          </h2>
-          <p className="text-gray-400 max-w-3xl mb-8">
-            These rows retain the status and qualification assigned by Session 12D
-            for the assessed vNext revision. They do not replace the product lifecycle
-            table or erase separate core operational evidence.
-          </p>
-          <div className="glass-card rounded-2xl p-6">
-            <CapabilityStatusTable />
-          </div>
-        </div>
-      </section>
-
-      {/* Limitations + posture */}
+      {/* Adoption CTA + Trust Center pointer */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
-        <div className="max-w-4xl mx-auto grid gap-10">
-          <div>
-            <h2 className="text-2xl font-bold text-white mb-6">Known limitations</h2>
-            <div className="glass-card rounded-2xl p-6">
-              <KnownLimitationList />
-            </div>
-          </div>
-          <ReleaseDecision />
-          <div className="flex flex-wrap gap-4">
+        <div className="max-w-4xl mx-auto">
+          <SectionLabel>Adoption</SectionLabel>
+          <h2 className="text-3xl font-bold text-white mt-4">
+            Evaluate FEUS.ai for your environment
+          </h2>
+          <p className="mt-4 text-gray-300 leading-relaxed">
+            Enterprise adoption is scoped by capability, target environment, identity
+            model, and governance requirements. Our team will map your estate to the
+            capabilities that fit it today and the ones on a controlled validation path.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <CTAButton to="/contact">Book a consultation</CTAButton>
+            <CTAButton to="/demo" variant="secondary">Request a demo</CTAButton>
             <CTAButton to="/architecture" variant="secondary">Current-state architecture</CTAButton>
-            <CTAButton to="/trust" variant="secondary">Trust Center</CTAButton>
-            <CTAButton to="/faq" variant="secondary">Platform FAQ</CTAButton>
           </div>
+          <p className="mt-8 text-sm text-gray-400">
+            Detailed assurance evidence — the exact-revision capability matrix,
+            security-control results, release assessment scope, and known
+            limitations — is published in the{' '}
+            <Link to="/trust" className="text-feus-300 underline underline-offset-2">Trust Center</Link>,
+            with per-capability detail on the{' '}
+            <Link to="/status" className="text-feus-300 underline underline-offset-2">status page</Link>{' '}
+            and answers in the{' '}
+            <Link to="/faq" className="text-feus-300 underline underline-offset-2">platform FAQ</Link>.
+          </p>
         </div>
       </section>
     </div>

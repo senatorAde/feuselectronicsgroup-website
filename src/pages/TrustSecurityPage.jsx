@@ -3,6 +3,7 @@ import SEO from '../components/SEO'
 import { SectionLabel } from '../components/ui'
 import { ControlStatusTable } from '../components/statusComponents'
 import { POSTURE, CONTROL_COUNTS } from '../data/publicStatus'
+import { RELEASE_ASSESSMENT } from '../data/releaseAssessment'
 
 /**
  * /trust/security — security posture page (Trust Center content plan §13–§24).
@@ -49,7 +50,7 @@ export default function TrustSecurityPage() {
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">Security posture</h1>
           <p className="mt-6 text-gray-300 leading-relaxed">
             In the Session 12D independent assessment of revision{' '}
-            <span className="font-mono text-sm break-all">{POSTURE.certifiedRevision}</span>,{' '}
+            <span className="font-mono text-sm break-all">{RELEASE_ASSESSMENT.certifiedRevision}</span>,{' '}
             {CONTROL_COUNTS.assessed} security controls were assessed. The results
             are published exactly as assessed. FEUS.ai does not reduce control
             posture to a single score, grade, percentage, or seal.
@@ -89,11 +90,11 @@ export default function TrustSecurityPage() {
               Controls that did not meet the release threshold
             </h2>
             <p className="text-sm text-gray-400 mb-4">
-              These findings are among the reasons the current release decision is{' '}
-              {POSTURE.decision}. They are disclosed as posture facts; exploit-level
+              These findings are among the reasons the exact-revision release decision is{' '}
+              {RELEASE_ASSESSMENT.decision}. They are disclosed as posture facts; exploit-level
               detail is not published.
             </p>
-            <ul className="glass-card rounded-2xl p-6 border-l-4 border-rose-500 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">
+            <ul className="glass-card rounded-2xl p-6 border-l-4 border-slate-500/60 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">
               {notMetThemes.map((t) => <li key={t}>{t}</li>)}
             </ul>
           </div>
@@ -126,7 +127,7 @@ export default function TrustSecurityPage() {
           </div>
 
           <p className="text-xs text-gray-500">
-            Bound to revision <span className="font-mono break-all">{POSTURE.certifiedRevision}</span> ·
+            Bound to revision <span className="font-mono break-all">{RELEASE_ASSESSMENT.certifiedRevision}</span> ·
             Last reviewed {POSTURE.lastReviewed} ·{' '}
             <Link to="/status" className="text-feus-300 underline underline-offset-2">Platform status</Link>
           </p>

@@ -3,6 +3,7 @@ import SEO from '../components/SEO'
 import { SectionLabel } from '../components/ui'
 import { useAssuranceStats } from '../hooks/useAssuranceStats'
 import { POSTURE } from '../data/publicStatus'
+import { RELEASE_ASSESSMENT } from '../data/releaseAssessment'
 
 /**
  * /assurance — FEUS Assurance evidence snapshot (IMPL-012).
@@ -133,7 +134,7 @@ export default function AssuranceDashboardPage() {
 
               <p className="text-xs text-gray-500">
                 Snapshot generated {generatedAt || 'date not recorded'} · Platform posture bound to
-                revision <span className="font-mono break-all">{POSTURE.certifiedRevision}</span> ·{' '}
+                revision <span className="font-mono break-all">{RELEASE_ASSESSMENT.certifiedRevision}</span> ·{' '}
                 <Link to="/trust/compliance" className="text-feus-300 underline underline-offset-2">
                   What this evidence is and is not
                 </Link>

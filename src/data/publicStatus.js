@@ -28,20 +28,33 @@ export const POSTURE = {
   company: 'FEUS Electronics Group',
   productMaturity: 'Operationally validated core',
   publicAvailability: 'Controlled enterprise adoption by capability scope',
-  decision: 'NO-GO',
-  decisionScope: 'FEUS.ai vNext 5.2.0-enterprise.1 external release assessment',
-  decisionDate: '2026-08-07',
-  lastReviewed: '2026-08-07',
-  certifiedRevision: '3c401504aef201b510c8695bac7c31ad424c2274',
-  versionAssessed: '5.2.0-enterprise.1',
-  assessment: 'Session 12D final independent release certification',
-  shortStatement: 'Operationally validated core. Capability-specific limits apply.',
+  lastReviewed: '2026-08-13',
+
+  /* ---- Customer-facing positioning (public marketing surfaces) ---- */
+  headline: 'Governed AI for Data Operations',
+  shortStatement: 'Operationally validated, governance-first AI Data Operations platform.',
+  publicPostureStatement:
+    'FEUS.ai is an operationally validated, governance-first AI Data Operations platform. ' +
+    'Core capabilities are designed for controlled enterprise adoption, while newly introduced ' +
+    'agents and integrations may follow preview or configuration-specific availability.',
+  valueStatement:
+    'FEUS.ai combines governed AI orchestration, database operations, assurance, evidence, and automation in a unified enterprise platform.',
+  architectureStatement:
+    'Built around policy enforcement, least privilege, approvals, auditability, and evidence-backed operations.',
+  validationStatement:
+    'Operationally validated through real engineering and enterprise workflow usage.',
+  lifecycleStatement:
+    'New capabilities follow a controlled validation lifecycle before broader availability.',
+  availabilityQualifier:
+    'Capability availability may vary by deployment, environment, integration, and customer configuration.',
+  /* Neutral strip text for platform routes — never a warning. */
+  statusStripNote:
+    'FEUS.ai publishes per-capability status, environment scope, and supporting evidence.',
+
   statement:
     'FEUS.ai is a governed AI Data Operations platform with core capabilities validated through FEUS enterprise engineering workflows and controlled operational use. ' +
-    'Formal release certification applies to named revisions, deployment configurations, environments, and capability scopes. ' +
-    'The Session 12D NO-GO decision remains binding for the assessed vNext revision and does not erase the platform\'s documented operational history.',
-  trustBanner:
-    'FEUS.ai has an operationally validated core. The assessed vNext release remains NO-GO for external deployment above LOCAL, and newer agents and integrations retain capability-specific preview limits.',
+    'Availability is reported per capability, environment, integration, and customer configuration. ' +
+    'Formal release certification is issued against named revisions and deployment scopes and is reported separately below.',
   operationalEvidence:
     'The core GovernedExecutionGateway SQL Server path is documented through a controlled FEUS provisioning workflow in which 48 of 48 batches passed all seven governance gates and the recorded audit hash chain verified successfully. The dated JSONL audit file is not retained in this checkout, so this is documented operational validation rather than independent re-attestation.',
   productionVerifiedCapabilities: 0,
@@ -50,10 +63,14 @@ export const POSTURE = {
   testsPassedAtRevision: 2320,
   testsQualification:
     'Test passage is revision evidence, not by itself deployment or live-integration evidence. Operational-use claims require separate workflow records.',
-  superseded: false,
-  supersessionRule:
-    'Session 12D remains controlling for the assessed vNext revision. Product-level claims are governed separately by capability lifecycle, environment, configuration, and evidence scope.',
 }
+
+/*
+ * Exact-revision release assessment, known limitations, authorized use,
+ * Trust Center FAQ, and posture history live in ./releaseAssessment.js.
+ * That module is Trust Center scope only and is intentionally excluded from
+ * the marketing bundle. Do not re-import it here.
+ */
 
 /** Security controls assessed in Session 12D (exact counts — do not soften). */
 export const CONTROL_COUNTS = {
@@ -657,22 +674,6 @@ export const INTEGRATION_STATUS = [
   },
 ]
 
-/** Known limitations (Trust Center Content Plan §25). */
-export const KNOWN_LIMITATIONS = [
-  'The Session 12D vNext release remains NO-GO for external deployment above LOCAL.',
-  'The vNext execution path has no dispatcher or bound SQL executor; the documented core GEG path is separate.',
-  'No Oracle, ITSM, identity-provider, model-provider, or Azure integration was live-verified by Session 12D.',
-  'Model-provider invocation remains disabled.',
-  'The Oracle Operations Agent is Controlled Preview with fixture evidence only and no live adapter.',
-  'Target-tier signing-key custody and authorization remain absent for the assessed vNext release.',
-  'Runtime evidence is not adversary-resistant.',
-  'Outbound data redaction did not meet the release threshold.',
-  'Shared durable state for vNext safety and replay controls is not established.',
-  'The assessed vNext path has no compensating rollback executor.',
-  'The assessed vNext Azure infrastructure is incomplete and undeployed.',
-  'No availability, recovery, performance, or ROI actuals.',
-]
-
 /** Product families (approved naming register, one-sentence descriptions). */
 export const PRODUCT_FAMILIES = [
   {
@@ -877,108 +878,5 @@ export const DEMO_DISCLAIMER = {
     'Demonstration only. This session uses synthetic or fixture inputs in a LOCAL environment. It does not connect to a customer database, ITSM tenant, identity provider, model provider, secret store, or cloud resource. Outputs, performance figures, and ROI values are illustrative estimates and are not production results.',
   compact: 'DEMO · LOCAL · SYNTHETIC INPUTS · NOT PRODUCTION',
 }
-
-/** Authorized use (product-posture draft; Legal approval pending for binding terms). */
-export const AUTHORIZED_USE = {
-  text:
-    'FEUS.ai is intended for authorized users, service identities, environments, and systems operating within a named capability scope. Core enterprise adoption requires target-specific identity, governance, policy, PII, approval, audit, support, and customer authorization. Preview extensions are limited to their published environment, data, participant, and operation boundaries. Attempts to bypass FEUS security, governance, approval, licensing, tenant, or access controls are prohibited.',
-  qualification:
-    'Session 12D authorizes no use of the assessed vNext 5.2.0-enterprise.1 release above LOCAL. That exact-revision decision does not itself grant or revoke a separately documented core capability deployment; each deployment requires its own authorization.',
-  legalStatus:
-    'Product-posture language. Legal counsel must approve this language before it appears in binding terms.',
-}
-
-/** Trust Center FAQ (Trust Center Content Plan §31). */
-export const FAQ_ITEMS = [
-  {
-    q: 'Is FEUS.ai production ready?',
-    a: 'Production readiness is capability, version, environment, and configuration specific. The core GEG SQL Server workflow has documented operational validation and is available for controlled enterprise adoption after target qualification. The assessed vNext 5.2.0-enterprise.1 release is not authorized above LOCAL, and newer extensions retain the statuses shown in the lifecycle matrix.',
-  },
-  {
-    q: 'Is FEUS.ai formally certified?',
-    a: 'No formal certification is asserted. Session 12D was an independent exact-revision release assessment performed within the development environment; it is not a SOC 2 examination, ISO/IEC 27001 certification audit, penetration-test attestation, or regulatory opinion.',
-  },
-  {
-    q: 'What was independently assessed?',
-    a: 'A named revision (3c401504aef201b510c8695bac7c31ad424c2274) and its implementation and release-artifact evidence, including 2,320 automated tests, source provenance, dependency checks, and 38 security controls.',
-  },
-  {
-    q: 'Does FEUS.ai connect to a live database?',
-    a: 'The documented core GEG path has executed a real FEUS SQL Server provisioning workflow. The separate vNext Control Plane/PES path assessed by Session 12D has no dispatcher or bound SQL executor and remains Controlled Preview.',
-  },
-  {
-    q: 'Does FEUS.ai support Oracle?',
-    a: 'The Oracle Operations Agent is in Controlled Preview. Tier 1 read-only policy and observer behavior are tested against deterministic fakes. No live Oracle driver, adapter, compatibility result, or production support claim exists.',
-  },
-  {
-    q: 'Which ITSM integrations are available?',
-    a: 'Three connector contracts (ServiceNow, Jira Service Management, and Azure DevOps work items) are in Preview against mock transports with dry-run defaults. No live production tenant lifecycle is qualified.',
-  },
-  {
-    q: 'Which model providers are supported?',
-    a: 'No runtime model provider is currently supported. Provider-neutral contracts are in Preview, model invocation is disabled, and the approved model set is empty.',
-  },
-  {
-    q: 'Is the audit trail immutable?',
-    a: 'No. Local hash-chain behavior can detect naive edits in tests, but the chain is unkeyed and externally unanchored, and evidence integrity failed the Session 12D release threshold.',
-  },
-  {
-    q: 'Does FEUS.ai guarantee PII protection?',
-    a: 'No. PII inspection and disclosure controls exist in tested code paths, but outbound data redaction did not meet the Session 12D release threshold.',
-  },
-  {
-    q: 'Are ROI figures measured?',
-    a: 'No. Controlled demonstrations may show illustrative estimates only, with disclosed assumptions and zero governed operations.',
-  },
-  {
-    q: 'Can FEUS.ai be deployed on-premises or in Azure?',
-    a: 'Deployment is capability and target specific. The assessed vNext Azure topology remains Preview: its templates are incomplete and were never compiled, what-if analyzed, or deployed. Core adoption requires a separate deployment qualification.',
-  },
-  {
-    q: 'How do I report a security concern?',
-    a: 'The formal vulnerability-management and responsible-disclosure process is being completed. Until a monitored channel is published, use the general contact form, mark the inquiry as security-related, and do not include sensitive technical details.',
-  },
-  {
-    q: 'Who is authorized to use FEUS.ai?',
-    a: 'Authorization is capability and environment specific. Core use requires an approved enterprise scope and controls. Session 12D restricts the assessed vNext release to authorized internal LOCAL development, testing, evidence review, and controlled demonstrations.',
-  },
-]
-
-/** Public release-posture history (release notes page). */
-export const POSTURE_HISTORY = [
-  {
-    date: '2026-08-07',
-    revision: 'product-level, capability scoped',
-    version: 'FEUS.ai platform posture',
-    authority: 'Product, Governance, Trust Center, and Release Assurance',
-    decision: 'PRODUCT POSTURE CORRECTED WITH PREVIEW LIMITATIONS',
-    scope:
-      'Separates documented core operational validation from exact-revision release certification and assigns lifecycle statuses to new extensions.',
-    current: true,
-    controllingLabel: 'Current product posture',
-  },
-  {
-    date: '2026-08-07',
-    revision: '3c401504aef201b510c8695bac7c31ad424c2274',
-    version: '5.2.0-enterprise.1',
-    authority: 'Session 12D final independent release certification',
-    decision: 'NO-GO',
-    scope:
-      'Exact-revision assessment: 45 capabilities, 38 security controls, release-artifact evidence, and dependency posture.',
-    current: true,
-    controllingLabel: 'Current vNext release decision',
-  },
-  {
-    date: '2026-04-25',
-    revision: 'internal (superseded)',
-    version: '5.2.x internal',
-    authority: 'Internal certification engine runs',
-    decision: 'CERTIFICATION_FAILED',
-    scope:
-      'Internal assurance and certification engine runs. Superseded as public authority by the Session 12D exact-revision assessment.',
-    current: false,
-    controllingLabel: 'Superseded',
-  },
-]
 
 export default POSTURE

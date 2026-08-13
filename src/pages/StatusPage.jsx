@@ -2,11 +2,17 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import { SectionLabel } from '../components/ui'
 import {
-  ReleaseDecision, PostureSummary, ControlStatusTable,
-  CapabilityLifecycleTable, IntegrationStatusTable,
-  KnownLimitationList, EvidenceCallout,
+  ControlStatusTable,
+  CapabilityLifecycleTable, IntegrationStatusTable, CapabilityStatusTable,
+  EvidenceCallout,
 } from '../components/statusComponents'
-import { POSTURE, CAPABILITY_SUMMARY, MODEL_PROVIDER_STATEMENT } from '../data/publicStatus'
+import {
+  ReleaseDecision, PostureSummary, KnownLimitationList,
+} from '../components/releaseComponents'
+import {
+  POSTURE, CAPABILITY_SUMMARY, MODEL_PROVIDER_STATEMENT,
+} from '../data/publicStatus'
+import { RELEASE_ASSESSMENT } from '../data/releaseAssessment'
 
 /**
  * /status — machine-readable-adjacent public posture page.
@@ -19,7 +25,7 @@ export default function StatusPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="Platform Status"
-        description="Current FEUS.ai product posture: operationally validated core, capability-specific preview boundaries, and an exact-revision NO-GO for the assessed vNext release."
+        description="Current FEUS.ai capability status: platform posture, per-capability lifecycle, environment scope, dependency status, security-control results, and assessment scope."
       />
 
       <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
@@ -28,8 +34,9 @@ export default function StatusPage() {
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">
             FEUS.ai current posture
           </h1>
-          <p className="mt-6 text-gray-300 leading-relaxed">{POSTURE.statement}</p>
-          <p className="mt-3 text-sm text-gray-500">{POSTURE.supersessionRule}</p>
+          <p className="mt-6 text-gray-300 leading-relaxed">{POSTURE.publicPostureStatement}</p>
+          <p className="mt-4 text-gray-300 leading-relaxed">{POSTURE.statement}</p>
+          <p className="mt-3 text-sm text-gray-500">{RELEASE_ASSESSMENT.supersessionRule}</p>
 
           <div className="mt-10">
             <ReleaseDecision />
@@ -95,11 +102,19 @@ export default function StatusPage() {
                 </tbody>
               </table>
               <p className="mt-4 text-xs text-gray-500">{CAPABILITY_SUMMARY.oracleNote}</p>
-              <p className="mt-3 text-sm">
-                <Link to="/feus-ai" className="text-feus-300 underline underline-offset-2">
-                  Full public capability table
-                </Link>
-              </p>
+            </div>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-white mb-3">Exact-revision capability matrix</h2>
+            <p className="text-gray-400 text-sm mb-6">
+              These rows retain the status and qualification assigned by Session 12D
+              for the assessed vNext revision. They do not replace the product
+              lifecycle table above or the separately documented core operational
+              evidence.
+            </p>
+            <div className="glass-card rounded-2xl p-6">
+              <CapabilityStatusTable />
             </div>
           </div>
 

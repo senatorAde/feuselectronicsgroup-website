@@ -1,6 +1,7 @@
 import SEO from '../components/SEO'
 import { SectionLabel, CTAButton } from '../components/ui'
 import { POSTURE, MODEL_PROVIDER_STATEMENT } from '../data/publicStatus'
+import { RELEASE_ASSESSMENT } from '../data/releaseAssessment'
 
 /**
  * /architecture — assessed vNext current-state architecture page.
@@ -80,7 +81,7 @@ export default function ArchitecturePage() {
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500 border-b border-white/[0.08] pb-4 mb-6">
               <span className="font-semibold text-amber-300/90 uppercase tracking-wide">Assessed vNext current state</span>
               <span>Diagram FEUS-ARCH-PUB-001 · v1.1</span>
-              <span className="font-mono break-all">Revision {POSTURE.certifiedRevision}</span>
+              <span className="font-mono break-all">Revision {RELEASE_ASSESSMENT.certifiedRevision}</span>
               <span>Assessed environment: LOCAL / test evidence only</span>
             </div>
 

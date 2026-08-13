@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import { SectionLabel } from '../components/ui'
-import { POSTURE_HISTORY, POSTURE } from '../data/publicStatus'
+import { POSTURE_HISTORY, RELEASE_ASSESSMENT } from '../data/releaseAssessment'
 
 /**
  * /release-notes — product-posture and exact-revision release history.
@@ -22,7 +22,7 @@ export default function ReleaseNotesPage() {
           </h1>
           <p className="mt-6 text-gray-300 leading-relaxed">
             FEUS.ai records product maturity and exact-revision release decisions
-            separately. {POSTURE.supersessionRule}
+            separately. {RELEASE_ASSESSMENT.supersessionRule}
           </p>
         </div>
       </section>
@@ -32,7 +32,7 @@ export default function ReleaseNotesPage() {
           {POSTURE_HISTORY.map((entry) => (
             <article
               key={`${entry.date}-${entry.decision}`}
-              className={`glass-card rounded-2xl p-6 ${entry.current ? 'border-l-4 border-l-rose-500' : 'opacity-80'}`}
+              className={`glass-card rounded-2xl p-6 ${entry.current ? 'border-l-4 border-l-feus-500/70' : 'opacity-80'}`}
             >
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
                 <span>{entry.date}</span>
