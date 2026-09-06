@@ -53,7 +53,7 @@ The implementation preserves the existing public-claims controls, capability-sta
 - Added verified Organization JSON-LD with name, site URL, logo, public email, and LinkedIn URL.
 - Updated favicon, Open Graph, Twitter, and route-level social-image defaults.
 - Reconciled the sitemap with indexable static routes; noindex routes remain intentionally omitted.
-- Added immutable caching for versioned `/brand/*` assets.
+- Added explicit one-day caching with stale revalidation for `/brand/*` assets across Vercel and Azure Static Web Apps.
 - Lazy loaded every secondary route while keeping the homepage eager.
 - Preserved separate Trust Center chunks for exact-revision release evidence.
 - Reduced the main JavaScript entry from approximately 563 KB to 264.91 KB (80.09 KB gzip).

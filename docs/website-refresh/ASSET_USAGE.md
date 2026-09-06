@@ -45,7 +45,7 @@ The script uses Sharp to:
 - The founder portrait has explicit width and height, uses `loading="lazy"`, and has a descriptive alt attribute naming Dr. Tolu Adeniyi and his role.
 - Decorative hero imagery uses empty alternative text because the page heading carries the meaning.
 - Logo meaning is supplied by the surrounding home-link label and visible wordmark.
-- Generated brand files use versioned names and receive immutable one-year caching through `staticwebapp.config.json`.
+- Generated brand files receive one-day browser caching with a seven-day stale-revalidation window through both hosting configurations.
 
 ## Usage Boundaries
 
