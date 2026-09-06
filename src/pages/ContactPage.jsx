@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
 import {
-  Mail, Phone, MapPin, ArrowRight, Send, Building2,
+  Mail, MapPin, ArrowRight, Send, BrainCircuit, BriefcaseBusiness,
   Clock, Globe, MessageSquare, CheckCircle2, Calendar,
-  AlertCircle, Loader2, Star
+  AlertCircle, Loader2, Star, Film
 } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import { PageHero, SectionLabel, CTAButton, GlowDivider } from '../components/ui'
 import { CalendlyButton } from '../components/CalendlyEmbed'
+import SEO from '../components/SEO'
 
 const inquiryTypes = [
   'Request a Controlled Demonstration of FEUS.ai',
@@ -16,14 +17,69 @@ const inquiryTypes = [
   'Data Architecture & Engineering',
   'Cloud & Platform Operations',
   'Enterprise AI Solutions',
+  'Governance & Security',
   'Analytics & Business Intelligence',
   'Automation & Integration',
+  'Digital Platforms & Web',
+  'Media, Photo & Video',
+  'Strategy & Implementation Advisory',
   'General Inquiry',
 ]
 
+const queryInquiryTypes = {
+  demo: inquiryTypes[0],
+  database: inquiryTypes[1],
+  data: inquiryTypes[2],
+  modernization: inquiryTypes[2],
+  cloud: inquiryTypes[3],
+  'cloud-ops': inquiryTypes[3],
+  ai: inquiryTypes[4],
+  enablement: inquiryTypes[4],
+  governance: inquiryTypes[5],
+  analytics: inquiryTypes[6],
+  automation: inquiryTypes[7],
+  workflow: inquiryTypes[7],
+  digital: inquiryTypes[8],
+  'digital-experience': inquiryTypes[8],
+  media: inquiryTypes[9],
+  'visual-story': inquiryTypes[9],
+  strategy: inquiryTypes[10],
+  services: inquiryTypes[11],
+}
+
+const contactPaths = [
+  {
+    icon: BriefcaseBusiness,
+    title: 'Plan a consultation',
+    description: 'Discuss a business challenge, assessment, transformation, or delivery engagement.',
+    type: 'services',
+  },
+  {
+    icon: BrainCircuit,
+    title: 'Explore FEUS.ai',
+    description: 'Request a capability-scoped platform demonstration or architecture briefing.',
+    type: 'demo',
+  },
+  {
+    icon: MessageSquare,
+    title: 'Ask about a service',
+    description: 'Tell us which technical, strategic, or digital capability you need.',
+    type: 'strategy',
+  },
+  {
+    icon: Film,
+    title: 'Start a media project',
+    description: 'Discuss photography, video, showcase, or campaign content needs.',
+    type: 'media',
+  },
+]
+
+const fieldClass = 'w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-ink placeholder-slate-400 transition-colors focus:border-feus-600 focus:ring-2 focus:ring-feus-200'
+
 export default function ContactPage() {
   const [searchParams] = useSearchParams()
-  const isReviewMode = searchParams.get('type') === 'review'
+  const requestedType = searchParams.get('type')
+  const isReviewMode = requestedType === 'review'
 
   const [formData, setFormData] = useState({
     firstName: '', lastName: '', email: '', company: '',
@@ -38,7 +94,6 @@ export default function ContactPage() {
   const [error, setError] = useState(null)
   const [hoverRating, setHoverRating] = useState(0)
 
-  // Pre-fill form for review mode
   useEffect(() => {
     if (isReviewMode) {
       setFormData((prev) => ({
@@ -46,8 +101,18 @@ export default function ContactPage() {
         inquiryType: 'Demo Feedback / Review',
         formType: 'demo_feedback',
       }))
+      return
     }
-  }, [isReviewMode])
+
+    const inquiryType = queryInquiryTypes[requestedType]
+    if (inquiryType) {
+      setFormData((prev) => ({
+        ...prev,
+        inquiryType,
+        formType: 'contact',
+      }))
+    }
+  }, [isReviewMode, requestedType])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -81,9 +146,7 @@ export default function ContactPage() {
       setSubmitted(true)
     } catch (err) {
       console.error('Contact form error:', err)
-      setError(
-        err.message || 'Something went wrong. Please try again or email us directly at info@feuselectronicsgroup.com'
-      )
+      setError('We could not send your message through the form')
     } finally {
       setSubmitting(false)
     }
@@ -91,29 +154,53 @@ export default function ContactPage() {
 
   return (
     <>
+      <SEO
+        title={isReviewMode ? 'Share Feedback' : 'Contact FEUS'}
+        description="Contact FEUS to discuss enterprise technology services, request a FEUS.ai capability briefing, or start a digital or media engagement."
+        noindex={isReviewMode}
+      />
       <PageHero
         label={isReviewMode ? 'Share Your Experience' : 'Contact Us'}
         title={isReviewMode
           ? <>Tell Us About Your<br /><span className="gradient-text">FEUS Experience</span></>
-          : <>Let's Start a<br /><span className="gradient-text">Conversation</span></>
+          : <>Bring us the challenge.<br /><span className="text-feus-300">We will shape the next step.</span></>
         }
         subtitle={isReviewMode
           ? 'Your feedback helps us improve and helps other teams evaluate governed data operations. It takes less than two minutes.'
-          : 'Book a consultation about our services, request a capability-scoped architecture briefing on FEUS.ai — or send us a message and we\'ll respond within one business day.'
+          : 'Book a consultation, request a capability-scoped FEUS.ai briefing, or send a written inquiry. We will respond within one business day.'
         }
+        backgroundImage="/brand/feus-hero-system.webp"
+        imagePosition="70% center"
       />
 
-      {/* ─── CONTACT FORM (PRIMARY) ─── */}
-      <section className="section-gradient py-24">
+      {!isReviewMode && (
+        <section className="section-light py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+              {contactPaths.map(({ icon: Icon, title, description, type }) => (
+                <Link key={title} to={`/contact?type=${type}#contact-form`} className="surface-card group p-6">
+                  <Icon className="h-6 w-6 text-feus-700" aria-hidden="true" />
+                  <h2 className="mt-5 text-lg font-bold text-ink">{title}</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{description}</p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-feus-800">
+                    Choose this path <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section id="contact-form" className="section-mist scroll-mt-24 py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <SectionLabel>Get in Touch</SectionLabel>
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              Let's Talk About Your<br />
-              <span className="gradient-text">Data Operations</span>
+            <SectionLabel tone="light">Get in touch</SectionLabel>
+            <h2 className="text-3xl md:text-4xl font-bold text-ink">
+              Tell us what you want to change.
             </h2>
-            <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
-              Fill out the form below and we'll respond within one business day — or book a call at a time that works for you.
+            <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
+              Share enough context for us to route your inquiry well. We will respond within one business day.
             </p>
           </div>
           <div className="grid lg:grid-cols-5 gap-12">
@@ -122,58 +209,58 @@ export default function ContactPage() {
               <AnimatedSection>
                 <div className="space-y-8">
                   <div>
-                    <h3 className="text-2xl font-bold text-white mb-4">Get in Touch</h3>
-                    <p className="text-gray-400 leading-relaxed">
-                      We respond to every inquiry within one business day. For urgent matters, reach out directly via email.
+                    <h3 className="text-2xl font-bold text-ink mb-4">Direct contact</h3>
+                    <p className="text-slate-600 leading-relaxed">
+                      Prefer email or need to include supporting context? Reach us directly and we will route the conversation.
                     </p>
                   </div>
 
                   <div className="space-y-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-feus-500/10 flex items-center justify-center flex-shrink-0">
-                        <Mail className="w-5 h-5 text-feus-400" />
+                      <div className="w-10 h-10 rounded-lg bg-feus-50 flex items-center justify-center flex-shrink-0">
+                        <Mail className="w-5 h-5 text-feus-800" aria-hidden="true" />
                       </div>
                       <div>
-                        <h4 className="text-sm font-semibold text-white">Email</h4>
-                        <a href="mailto:info@feuselectronicsgroup.com" className="text-sm text-feus-400 hover:text-feus-300 transition-colors">
+                        <h4 className="text-sm font-semibold text-ink">Email</h4>
+                        <a href="mailto:info@feuselectronicsgroup.com" className="text-sm font-semibold text-feus-800 hover:text-feus-600 transition-colors">
                           info@feuselectronicsgroup.com
                         </a>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-feus-500/10 flex items-center justify-center flex-shrink-0">
-                        <MapPin className="w-5 h-5 text-feus-400" />
+                      <div className="w-10 h-10 rounded-lg bg-feus-50 flex items-center justify-center flex-shrink-0">
+                        <MapPin className="w-5 h-5 text-feus-800" aria-hidden="true" />
                       </div>
                       <div>
-                        <h4 className="text-sm font-semibold text-white">Office</h4>
-                        <span className="text-sm text-gray-400">2208 Hanfred Lane, Suite 104<br />Tucker, GA 30084</span>
+                        <h4 className="text-sm font-semibold text-ink">Office</h4>
+                        <span className="text-sm text-slate-600">2208 Hanfred Lane, Suite 104<br />Tucker, GA 30084</span>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-feus-500/10 flex items-center justify-center flex-shrink-0">
-                        <Globe className="w-5 h-5 text-feus-400" />
+                      <div className="w-10 h-10 rounded-lg bg-feus-50 flex items-center justify-center flex-shrink-0">
+                        <Globe className="w-5 h-5 text-feus-800" aria-hidden="true" />
                       </div>
                       <div>
-                        <h4 className="text-sm font-semibold text-white">Website</h4>
-                        <span className="text-sm text-gray-400">www.feuselectronicsgroup.com</span>
+                        <h4 className="text-sm font-semibold text-ink">Website</h4>
+                        <span className="text-sm text-slate-600">www.feuselectronicsgroup.com</span>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-feus-500/10 flex items-center justify-center flex-shrink-0">
-                        <Clock className="w-5 h-5 text-feus-400" />
+                      <div className="w-10 h-10 rounded-lg bg-feus-50 flex items-center justify-center flex-shrink-0">
+                        <Clock className="w-5 h-5 text-feus-800" aria-hidden="true" />
                       </div>
                       <div>
-                        <h4 className="text-sm font-semibold text-white">Response Time</h4>
-                        <span className="text-sm text-gray-400">Within 1 business day</span>
+                        <h4 className="text-sm font-semibold text-ink">Response time</h4>
+                        <span className="text-sm text-slate-600">Within 1 business day</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="glass-card-static p-6">
-                    <h4 className="text-sm font-semibold text-white mb-3">What to Expect</h4>
+                  <div className="signal-panel p-6">
+                    <h4 className="text-sm font-semibold text-ink mb-3">What to expect</h4>
                     <div className="space-y-3">
                       {[
                         'Initial response within 1 business day',
@@ -182,8 +269,8 @@ export default function ContactPage() {
                         'No obligation, no pressure',
                       ].map((item) => (
                         <div key={item} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-accent-400 mt-0.5 flex-shrink-0" />
-                          <span className="text-xs text-gray-400">{item}</span>
+                          <CheckCircle2 className="w-4 h-4 text-accent-700 mt-0.5 flex-shrink-0" aria-hidden="true" />
+                          <span className="text-xs text-slate-600">{item}</span>
                         </div>
                       ))}
                     </div>
@@ -195,20 +282,20 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div className="lg:col-span-3">
               <AnimatedSection delay={100}>
-                <div className="glass-card-static p-8 md:p-10">
+                <div className="surface-card p-8 md:p-10">
                   {submitted ? (
-                    <div className="text-center py-12">
-                      <div className="w-16 h-16 rounded-full bg-accent-500/20 flex items-center justify-center mx-auto mb-6">
-                        <CheckCircle2 className="w-8 h-8 text-accent-400" />
+                    <div className="text-center py-12" role="status" aria-live="polite">
+                      <div className="w-16 h-16 rounded-full bg-accent-100 flex items-center justify-center mx-auto mb-6">
+                        <CheckCircle2 className="w-8 h-8 text-accent-700" aria-hidden="true" />
                       </div>
-                      <h3 className="text-2xl font-bold text-white mb-3">Thank You</h3>
-                      <p className="text-gray-400 max-w-md mx-auto">
+                      <h3 className="text-2xl font-bold text-ink mb-3">Thank you</h3>
+                      <p className="text-slate-600 max-w-md mx-auto">
                         We've received your message and will get back to you within one business day.
                       </p>
                     </div>
                   ) : (
                     <>
-                      <h3 className="text-xl font-bold text-white mb-6">
+                      <h3 className="text-xl font-bold text-ink mb-6">
                         {isReviewMode ? 'Tell Us About Your Experience' : 'Send Us a Message'}
                       </h3>
                       {/* Hidden field for form type */}
@@ -216,66 +303,66 @@ export default function ContactPage() {
                       <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-1.5">First Name *</label>
+                            <label htmlFor="firstName" className="block text-sm font-semibold text-slate-700 mb-1.5">First name *</label>
                             <input
-                              type="text" name="firstName" required
+                              id="firstName" type="text" name="firstName" autoComplete="given-name" required
                               value={formData.firstName} onChange={handleChange}
-                              className="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-feus-500/50 focus:ring-1 focus:ring-feus-500/30 transition-all"
+                              className={fieldClass}
                               placeholder="Your first name"
                             />
                           </div>
                           <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-1.5">Last Name *</label>
+                            <label htmlFor="lastName" className="block text-sm font-semibold text-slate-700 mb-1.5">Last name *</label>
                             <input
-                              type="text" name="lastName" required
+                              id="lastName" type="text" name="lastName" autoComplete="family-name" required
                               value={formData.lastName} onChange={handleChange}
-                              className="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-feus-500/50 focus:ring-1 focus:ring-feus-500/30 transition-all"
+                              className={fieldClass}
                               placeholder="Your last name"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-1.5">Work Email *</label>
+                          <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-1.5">Work email *</label>
                           <input
-                            type="email" name="email" required
+                            id="email" type="email" name="email" autoComplete="email" required
                             value={formData.email} onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-feus-500/50 focus:ring-1 focus:ring-feus-500/30 transition-all"
+                            className={fieldClass}
                             placeholder="you@company.com"
                           />
                         </div>
 
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-1.5">Company *</label>
+                            <label htmlFor="company" className="block text-sm font-semibold text-slate-700 mb-1.5">Company *</label>
                             <input
-                              type="text" name="company" required
+                              id="company" type="text" name="company" autoComplete="organization" required
                               value={formData.company} onChange={handleChange}
-                              className="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-feus-500/50 focus:ring-1 focus:ring-feus-500/30 transition-all"
+                              className={fieldClass}
                               placeholder="Company name"
                             />
                           </div>
                           <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-1.5">Job Title</label>
+                            <label htmlFor="jobTitle" className="block text-sm font-semibold text-slate-700 mb-1.5">Job title</label>
                             <input
-                              type="text" name="jobTitle"
+                              id="jobTitle" type="text" name="jobTitle" autoComplete="organization-title"
                               value={formData.jobTitle} onChange={handleChange}
-                              className="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-feus-500/50 focus:ring-1 focus:ring-feus-500/30 transition-all"
+                              className={fieldClass}
                               placeholder="Your role"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-1.5">Area of Interest *</label>
+                          <label htmlFor="inquiryType" className="block text-sm font-semibold text-slate-700 mb-1.5">Area of interest *</label>
                           <select
-                            name="inquiryType" required
+                            id="inquiryType" name="inquiryType" required
                             value={formData.inquiryType} onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white focus:outline-none focus:border-feus-500/50 focus:ring-1 focus:ring-feus-500/30 transition-all appearance-none"
+                            className={`${fieldClass} appearance-none`}
                           >
-                            <option value="" className="bg-navy-900">Select an area...</option>
+                            <option value="">Select an area...</option>
                             {inquiryTypes.map((type) => (
-                              <option key={type} value={type} className="bg-navy-900">{type}</option>
+                              <option key={type} value={type}>{type}</option>
                             ))}
                           </select>
                         </div>
@@ -284,7 +371,7 @@ export default function ContactPage() {
                         {isReviewMode && (
                           <>
                             <div>
-                              <label className="block text-sm font-medium text-gray-300 mb-2">Your Rating *</label>
+                              <span className="block text-sm font-semibold text-slate-700 mb-2">Your rating *</span>
                               <div className="flex items-center gap-1" role="radiogroup" aria-label="Rating">
                                 {[1, 2, 3, 4, 5].map((star) => (
                                   <button
@@ -294,7 +381,7 @@ export default function ContactPage() {
                                     onMouseEnter={() => setHoverRating(star)}
                                     onMouseLeave={() => setHoverRating(0)}
                                     aria-label={`${star} star${star > 1 ? 's' : ''}`}
-                                    className="p-1 rounded transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-feus-500/50 focus:ring-offset-1 focus:ring-offset-transparent"
+                                    className="p-1 rounded transition-transform hover:scale-110"
                                   >
                                     <Star
                                       className={`w-7 h-7 transition-colors duration-150 ${
@@ -306,7 +393,7 @@ export default function ContactPage() {
                                   </button>
                                 ))}
                                 {formData.rating > 0 && (
-                                  <span className="ml-3 text-sm text-gray-400">
+                                  <span className="ml-3 text-sm text-slate-600">
                                     {formData.rating}/5
                                   </span>
                                 )}
@@ -314,10 +401,10 @@ export default function ContactPage() {
                             </div>
 
                             <div>
-                              <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                              <span className="block text-sm font-semibold text-slate-700 mb-1.5">
                                 Would you recommend FEUS Electronics Group to other teams?
-                              </label>
-                              <div className="flex gap-3">
+                              </span>
+                              <div className="flex flex-wrap gap-3">
                                 {['Yes', 'Not yet — needs more time', 'No'].map((opt) => (
                                   <button
                                     key={opt}
@@ -325,8 +412,8 @@ export default function ContactPage() {
                                     onClick={() => setFormData({ ...formData, wouldRecommend: opt })}
                                     className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all duration-200 ${
                                       formData.wouldRecommend === opt
-                                        ? 'bg-feus-500/20 border-feus-500/40 text-feus-300'
-                                        : 'bg-white/[0.04] border-white/[0.08] text-gray-400 hover:bg-white/[0.08] hover:text-white'
+                                        ? 'bg-feus-50 border-feus-500 text-feus-900'
+                                        : 'bg-white border-slate-300 text-slate-600 hover:border-feus-500 hover:text-ink'
                                     }`}
                                   >
                                     {opt}
@@ -338,13 +425,13 @@ export default function ContactPage() {
                         )}
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                          <label htmlFor="message" className="block text-sm font-semibold text-slate-700 mb-1.5">
                             {isReviewMode ? 'Your Feedback *' : 'Message *'}
                           </label>
                           <textarea
-                            name="message" required rows={4}
+                            id="message" name="message" required rows={5}
                             value={formData.message} onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-feus-500/50 focus:ring-1 focus:ring-feus-500/30 transition-all resize-none"
+                            className={`${fieldClass} resize-y`}
                             placeholder={isReviewMode
                               ? 'What stood out during your demonstration or engagement? How could we improve? What would you tell a peer considering FEUS Electronics Group?'
                               : 'Tell us about your current challenges and what you\'re looking to accomplish...'
@@ -371,13 +458,16 @@ export default function ContactPage() {
                         </button>
 
                         {error && (
-                          <div className="flex items-start gap-2 p-4 rounded-lg bg-rose-500/10 border border-rose-500/20">
-                            <AlertCircle className="w-4 h-4 text-rose-400 mt-0.5 flex-shrink-0" />
-                            <p className="text-sm text-rose-300">{error}</p>
+                          <div className="flex items-start gap-2 p-4 rounded-lg bg-rose-50 border border-rose-200" role="alert" aria-live="assertive">
+                            <AlertCircle className="w-4 h-4 text-rose-700 mt-0.5 flex-shrink-0" aria-hidden="true" />
+                            <p className="text-sm text-rose-800">
+                              {error}. You can also email{' '}
+                              <a href="mailto:info@feuselectronicsgroup.com" className="font-bold underline underline-offset-2">info@feuselectronicsgroup.com</a>.
+                            </p>
                           </div>
                         )}
 
-                        <p className="text-xs text-gray-600 text-center">
+                        <p className="text-xs text-slate-500 text-center">
                           By submitting this form, you consent to FEUS Electronics Group using the details you provide to respond to your inquiry. Messages are delivered through our form-delivery provider. A formal privacy policy is in legal review and will be published on this site.
                         </p>
                       </form>
@@ -390,56 +480,55 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ─── SCHEDULE A CALL (SECONDARY) ─── */}
       <GlowDivider />
-      <section className="section-dark py-24">
+      <section className="section-ink py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <div className="glass-card-static p-8 md:p-12 text-center">
-              <div className="w-16 h-16 rounded-full bg-accent-500/10 flex items-center justify-center mx-auto mb-6">
-                <Calendar className="w-8 h-8 text-accent-400" />
+            <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
+              <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-accent-400/10">
+                <Calendar className="h-8 w-8 text-accent-300" aria-hidden="true" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Prefer a Live Conversation?
-              </h2>
-              <p className="text-gray-400 max-w-2xl mx-auto mb-8">
-                Book a free 30-minute discovery call. We'll discuss your environment, your challenges, and how our services can help — no obligation, no pressure.
-              </p>
-              <CalendlyButton className="btn-accent group text-lg px-8 py-4" icon={ArrowRight}>
-                Schedule a Discovery Call
-              </CalendlyButton>
+              <div>
+                <SectionLabel>Prefer a live conversation?</SectionLabel>
+                <h2 className="mt-5 text-3xl font-bold text-white md:text-4xl">Put 30 minutes on the calendar.</h2>
+                <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-300">
+                  We will discuss the outcome, current environment, and constraints, then identify a useful next step without forcing a preset package.
+                </p>
+                <div className="mt-7">
+                  <CalendlyButton className="btn-primary" icon={ArrowRight}>Schedule a discovery call</CalendlyButton>
+                </div>
+              </div>
             </div>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* ─── WHAT TO EXPECT ─── */}
       <GlowDivider />
-      <section className="section-gradient py-24">
+      <section className="section-light py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center max-w-3xl mx-auto">
-              <SectionLabel>What Happens Next</SectionLabel>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Our Engagement Process
+              <SectionLabel tone="light">What happens next</SectionLabel>
+              <h2 className="mt-5 text-3xl md:text-4xl font-bold text-ink">
+                A clear engagement process
               </h2>
               <div className="mt-12 grid md:grid-cols-4 gap-6">
                 {[
-                  { step: '1', title: 'Discovery Call', desc: 'A 30-minute conversation to understand your environment, challenges, and goals.' },
-                  { step: '2', title: 'Assessment', desc: 'We review your current state and identify opportunities for governed AI operations.' },
-                  { step: '3', title: 'Proposal', desc: 'A tailored plan with scope, timeline, and expected outcomes — no generic pitches.' },
-                  { step: '4', title: 'Engagement', desc: 'Implementation begins with clear milestones, weekly updates, and measurable results.' },
+                  { step: '1', title: 'Discover', desc: 'Understand the outcome, current environment, stakeholders, and constraints.' },
+                  { step: '2', title: 'Assess', desc: 'Review the relevant systems, experience, risks, and opportunities.' },
+                  { step: '3', title: 'Shape', desc: 'Define the scope, sequence, responsibilities, and ways to assess progress.' },
+                  { step: '4', title: 'Deliver', desc: 'Begin with clear milestones, agreed communication, and accountable decisions.' },
                 ].map((s, i) => (
-                  <div key={s.step} className="glass-card p-6 text-center">
-                    <span className="text-3xl font-extrabold text-feus-500/20">{s.step}</span>
-                    <h4 className="mt-2 text-base font-semibold text-white">{s.title}</h4>
-                    <p className="mt-2 text-xs text-gray-500">{s.desc}</p>
+                  <div key={s.step} className="border-t-2 border-feus-300 pt-6 text-left">
+                    <span className="text-sm font-bold text-feus-700">0{s.step}</span>
+                    <h3 className="mt-2 text-lg font-bold text-ink">{s.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.desc}</p>
                   </div>
                 ))}
               </div>
               <div className="mt-10">
-                <CalendlyButton className="btn-accent group" icon={ArrowRight}>
-                  Start with Step 1
+                <CalendlyButton className="btn-dark" icon={ArrowRight}>
+                  Start with discovery
                 </CalendlyButton>
               </div>
             </div>

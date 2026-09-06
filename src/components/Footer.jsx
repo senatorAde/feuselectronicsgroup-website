@@ -1,145 +1,129 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Mail, MapPin, Phone, Linkedin, Facebook, Instagram } from 'lucide-react'
+import { ArrowRight, Mail, MapPin, Linkedin, Facebook, Instagram } from 'lucide-react'
 import { CalendlyButton } from './CalendlyEmbed'
 import { POSTURE } from '../data/publicStatus'
+import BrandMark from './BrandMark'
 
 const footerLinks = {
-  Company: [
-    { name: 'About Us', href: '/about' },
+  Explore: [
     { name: 'Services', href: '/services' },
     { name: 'Solutions', href: '/solutions' },
+    { name: 'About FEUS', href: '/about' },
+    { name: 'Insights', href: '/insights' },
+    { name: 'Sales & Media', href: '/sales' },
   ],
-  Platform: [
+  'FEUS.ai': [
     { name: 'FEUS.ai Overview', href: '/feus-ai' },
     { name: 'Agent Portfolio', href: '/agents' },
-    { name: 'OracleOps — Preview', href: '/agents/oracle' },
-    { name: 'ITSM Connect — Preview', href: '/integrations/itsm' },
     { name: 'Architecture', href: '/architecture' },
-    { name: 'Integrations', href: '/integrations' },
+    { name: 'Capability Status', href: '/status' },
+    { name: 'Platform FAQ', href: '/faq' },
   ],
-  'Trust Center': [
-    { name: 'Platform Status', href: '/status' },
-    { name: 'Security Posture', href: '/trust/security' },
-    { name: 'Compliance Posture', href: '/trust/compliance' },
+  Trust: [
+    { name: 'Trust Center', href: '/trust' },
+    { name: 'Security', href: '/trust/security' },
+    { name: 'Compliance', href: '/trust/compliance' },
     { name: 'Posture History', href: '/release-notes' },
   ],
-  Sales: [
-    { name: 'Sales Overview', href: '/sales' },
-    { name: 'Property Listings', href: '/sales/listings' },
-    { name: 'Request Showcase', href: '/contact' },
-  ],
-  Resources: [
-    { name: 'Insights & Blog', href: '/insights' },
-    { name: 'Trust Center', href: '/trust' },
-    { name: 'Leave a Review', href: '/contact?type=review' },
-    { name: 'Contact Us', href: '/contact' },
+  Connect: [
+    { name: 'Contact FEUS', href: '/contact' },
+    { name: 'Request a Demo', href: '/contact?type=demo' },
+    { name: 'Service Inquiry', href: '/contact?type=services' },
+    { name: 'Media Inquiry', href: '/contact?type=media' },
   ],
 }
 
 export default function Footer() {
   return (
-    <footer className="bg-navy-950 border-t border-white/[0.06]">
-      {/* CTA Band */}
-      <div className="border-b border-white/[0.06]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-white">
-                Let&rsquo;s talk about your data operations
-              </h3>
-              <p className="mt-2 text-gray-400 text-lg">
-                Discuss a services engagement or request an architecture briefing on the FEUS.ai platform.
-              </p>
-            </div>
-            <CalendlyButton className="btn-primary whitespace-nowrap group" icon={ArrowRight}>
-              Schedule a Consultation
+    <footer className="border-t border-white/10 bg-navy-950 text-white">
+      <div className="border-b border-white/10 bg-feus-950/40">
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-14 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <div className="max-w-2xl">
+            <p className="text-xs font-bold uppercase text-accent-300">Start with the outcome</p>
+            <h2 className="mt-3 font-display text-2xl font-bold text-white sm:text-3xl">
+              Build the next system with clarity and control.
+            </h2>
+            <p className="mt-3 text-base leading-relaxed text-slate-300">
+              Bring us the business challenge. We will help shape the right services engagement or a capability-scoped FEUS.ai evaluation.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <CalendlyButton className="btn-primary whitespace-nowrap" icon={ArrowRight}>
+              Book a consultation
             </CalendlyButton>
+            <Link to="/contact" className="btn-secondary whitespace-nowrap">Send a message</Link>
           </div>
         </div>
       </div>
 
-      {/* Links Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-          {/* Brand Column */}
-          <div className="col-span-2 md:col-span-3 lg:col-span-1 mb-8 lg:mb-0">
-            <Link to="/" className="flex items-center space-x-3">
-              <img 
-                src="/feus-logo.jpg" 
-                alt="FEUS Electronics Group" 
-                className="w-10 h-10 rounded-xl object-cover"
-              />
-              <div className="flex flex-col">
-                <span className="text-base font-bold text-white leading-tight">FEUS Electronics</span>
-                <span className="text-[10px] font-medium text-feus-400 uppercase tracking-[0.2em]">Group</span>
-              </div>
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[1.45fr_2fr]">
+          <div className="max-w-md">
+            <Link to="/" aria-label="FEUS Electronics Group home" className="inline-flex rounded-lg">
+              <BrandMark imageClassName="!h-16 !w-16" />
             </Link>
-            <p className="mt-4 text-sm text-gray-500 leading-relaxed">
-              Enterprise technology company delivering database, cloud, and AI-governance
-              services — and developing FEUS.ai, a governed AI Data Operations platform
-              with an operationally validated core.
+            <p className="mt-5 text-sm leading-relaxed text-slate-400">
+              Enterprise technology services and governed intelligence for organizations that need progress without losing control.
             </p>
-            <div className="mt-4 flex items-start gap-2 text-sm text-gray-500">
-              <MapPin className="w-4 h-4 text-gray-600 mt-0.5 flex-shrink-0" />
+            <div className="mt-5 flex items-start gap-3 text-sm text-slate-400">
+              <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-feus-300" aria-hidden="true" />
               <span>2208 Hanfred Lane, Suite 104<br />Tucker, GA 30084</span>
             </div>
-            <div className="mt-6 flex items-center flex-wrap gap-2">
-              <a href="https://www.linkedin.com/company/feus-electronics-group" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-gray-400 hover:text-feus-400 transition-all" aria-label="LinkedIn">
-                <Linkedin className="w-4 h-4" />
+            <p className="mt-4 flex items-center gap-3 text-sm text-slate-400">
+              <Mail className="h-4 w-4 flex-shrink-0 text-feus-300" aria-hidden="true" />
+              <a href="mailto:info@feuselectronicsgroup.com" className="hover:text-white">
+                info@feuselectronicsgroup.com
               </a>
-              <a href="https://www.facebook.com/FEUSElectro" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-gray-400 hover:text-feus-400 transition-all" aria-label="Facebook">
-                <Facebook className="w-4 h-4" />
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-2">
+              <a href="https://www.linkedin.com/company/feus-electronics-group" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-white/10 p-3 text-slate-400 transition-colors hover:border-feus-300/40 hover:text-feus-200" aria-label="FEUS on LinkedIn">
+                <Linkedin className="h-4 w-4" aria-hidden="true" />
               </a>
-              <a href="https://www.instagram.com/feuselect" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-gray-400 hover:text-feus-400 transition-all" aria-label="Instagram">
-                <Instagram className="w-4 h-4" />
+              <a href="https://www.facebook.com/FEUSElectro" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-white/10 p-3 text-slate-400 transition-colors hover:border-feus-300/40 hover:text-feus-200" aria-label="FEUS on Facebook">
+                <Facebook className="h-4 w-4" aria-hidden="true" />
               </a>
-              <a href="mailto:info@feuselectronicsgroup.com" className="p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-gray-400 hover:text-feus-400 transition-all" aria-label="Email">
-                <Mail className="w-4 h-4" />
+              <a href="https://www.instagram.com/feuselect" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-white/10 p-3 text-slate-400 transition-colors hover:border-feus-300/40 hover:text-feus-200" aria-label="FEUS on Instagram">
+                <Instagram className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
           </div>
 
-          {/* Link Columns */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-                {category}
-              </h4>
-              <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      to={link.href}
-                      className="text-sm text-gray-500 hover:text-feus-400 transition-colors duration-200"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+            {Object.entries(footerLinks).map(([category, links]) => (
+              <div key={category}>
+                <h3 className="text-xs font-bold uppercase text-white">{category}</h3>
+                <ul className="mt-5 space-y-3">
+                  {links.map((link) => (
+                    <li key={link.name}>
+                      <Link to={link.href} className="text-sm text-slate-400 transition-colors hover:text-feus-200">
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-white/[0.04]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-xs text-gray-600 mb-4">
+      <div className="border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-4 py-7 sm:px-6 lg:px-8">
+          <p className="mb-5 max-w-4xl text-xs leading-relaxed text-slate-500">
             FEUS.ai: {POSTURE.shortStatement} {POSTURE.availabilityQualifier}{' '}
-            <Link to="/status" className="underline underline-offset-2 hover:text-gray-400">
+            <Link to="/status" className="underline underline-offset-2 hover:text-slate-300">
               Capability status
             </Link>
           </p>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-gray-600">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <p className="text-sm text-slate-500">
               © {new Date().getFullYear()} FEUS Electronics Group. All rights reserved.
             </p>
-            <div className="flex items-center flex-wrap gap-x-6 gap-y-2">
-              <span className="text-sm text-gray-600">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              <span className="text-sm text-slate-500">
                 Privacy Policy and Terms of Service are in legal review and will be published here.
               </span>
-              <Link to="/trust/security" className="text-sm text-gray-600 hover:text-gray-400 transition-colors">
+              <Link to="/trust/security" className="text-sm text-slate-500 transition-colors hover:text-slate-300">
                 Security
               </Link>
             </div>

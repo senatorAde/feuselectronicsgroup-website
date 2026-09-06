@@ -42,7 +42,7 @@ export function CalendlyInline({ url = CALENDLY_URL, height = '700px', className
     <div className={className}>
       <div
         className="calendly-inline-widget"
-        data-url={`${url}?hide_gdpr_banner=1&background_color=0a0c1a&text_color=e5e7eb&primary_color=6366f1`}
+        data-url={`${url}?hide_gdpr_banner=1&background_color=061326&text_color=e2e8f0&primary_color=16a8f4`}
         style={{ minWidth: '320px', height }}
       />
     </div>
@@ -73,7 +73,7 @@ export function CalendlyButton({
 
     if (window.Calendly) {
       window.Calendly.initPopupWidget({
-        url: `${url}?hide_gdpr_banner=1&background_color=0a0c1a&text_color=e5e7eb&primary_color=6366f1`,
+        url: `${url}?hide_gdpr_banner=1&background_color=061326&text_color=e2e8f0&primary_color=16a8f4`,
       })
     } else {
       window.open(url, '_blank')

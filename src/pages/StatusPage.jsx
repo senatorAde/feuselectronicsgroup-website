@@ -45,7 +45,7 @@ export default function StatusPage() {
       </section>
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
-        <div className="max-w-4xl mx-auto grid gap-12">
+        <div className="max-w-4xl mx-auto grid grid-cols-[minmax(0,1fr)] gap-12">
           <div>
             <h2 className="text-2xl font-bold text-white mb-6">At a glance</h2>
             <div className="glass-card rounded-2xl p-6">

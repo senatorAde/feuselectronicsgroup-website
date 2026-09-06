@@ -2,13 +2,22 @@ import { useEffect, useRef, useState } from 'react'
 
 export default function AnimatedSection({ children, className = '', delay = 0 }) {
   const ref = useRef(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(() => (
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ))
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      setIsVisible(true)
+      return undefined
+    }
+
+    let revealTimer
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), delay)
+          revealTimer = window.setTimeout(() => setIsVisible(true), delay)
           observer.unobserve(entry.target)
         }
       },
@@ -16,7 +25,10 @@ export default function AnimatedSection({ children, className = '', delay = 0 })
     )
 
     if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      window.clearTimeout(revealTimer)
+    }
   }, [delay])
 
   return (

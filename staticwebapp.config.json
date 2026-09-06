@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/staticwebapp.config.json",
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/assets/*", "/media/*", "/feus-logo.jpg", "/feus-favicon.svg"]
+    "exclude": ["/assets/*", "/brand/*", "/media/*"]
   },
   "globalHeaders": {
     "X-Frame-Options": "DENY",
@@ -30,9 +30,9 @@
       }
     },
     {
-      "route": "/feus-logo.jpg",
+      "route": "/brand/*",
       "headers": {
-        "Cache-Control": "public, max-age=86400"
+        "Cache-Control": "public, max-age=31536000, immutable"
       }
     }
   ]

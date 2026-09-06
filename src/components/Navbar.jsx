@@ -1,29 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react'
 import { CalendlyButton } from './CalendlyEmbed'
+import BrandMark from './BrandMark'
 
-const platformNavigation = [
-  { name: 'Platform Overview', href: '/feus-ai' },
-  { name: 'Agent Portfolio', href: '/agents' },
-  { name: 'Architecture', href: '/architecture' },
-  { name: 'Platform Status', href: '/status' },
-]
-
-const navigation = [
-  { name: 'About', href: '/about' },
+const primaryNavigation = [
   { name: 'Services', href: '/services' },
   { name: 'Solutions', href: '/solutions' },
-  { name: 'Sales', href: '/sales' },
-  { name: 'Trust Center', href: '/trust' },
+  { name: 'FEUS.ai', href: '/feus-ai' },
+]
+
+const companyNavigation = [
+  { name: 'About', href: '/about' },
   { name: 'Insights', href: '/insights' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Sales & Media', href: '/sales' },
 ]
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
-  const [isPlatformOpen, setIsPlatformOpen] = useState(false)
+  const [isCompanyOpen, setIsCompanyOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const companyMenuRef = useRef(null)
   const location = useLocation()
   const isActive = (href) =>
     location.pathname === href || location.pathname.startsWith(`${href}/`)
@@ -36,73 +33,101 @@ export default function Navbar() {
 
   useEffect(() => {
     setIsOpen(false)
-    setIsPlatformOpen(false)
+    setIsCompanyOpen(false)
   }, [location])
+
+  useEffect(() => {
+    const handlePointerDown = (event) => {
+      if (companyMenuRef.current && !companyMenuRef.current.contains(event.target)) {
+        setIsCompanyOpen(false)
+      }
+    }
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsCompanyOpen(false)
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isOpen) return undefined
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [isOpen])
 
   return (
     <nav
+      aria-label="Primary navigation"
       className={`fixed top-0 left-0 right-0 z-50 ${
           scrolled || isOpen
-          ? 'bg-navy-950/90 backdrop-blur-xl border-b border-white/[0.06] shadow-2xl shadow-black/20'
+          ? 'border-b border-white/10 bg-navy-950/95 shadow-xl shadow-black/15 backdrop-blur-xl'
           : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 group">
-            <div className="relative">
-              <img 
-                src="/feus-logo.jpg" 
-                alt="FEUS Electronics Group" 
-                className="w-10 h-10 rounded-xl object-cover shadow-lg shadow-feus-500/20 group-hover:shadow-feus-500/40 transition-shadow duration-300"
-              />
-              <div className="absolute -inset-1 bg-gradient-to-br from-feus-500/20 to-accent-500/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-bold text-white leading-tight tracking-tight">
-                FEUS Electronics
-              </span>
-              <span className="text-[10px] font-medium text-feus-400 uppercase tracking-[0.2em] leading-tight">
-                Group
-              </span>
-            </div>
+        <div className="flex h-[84px] items-center justify-between">
+          <Link to="/" aria-label="FEUS Electronics Group home" className="rounded-lg">
+            <BrandMark />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => setIsPlatformOpen((value) => !value)}
-                aria-haspopup="menu"
-                aria-expanded={isPlatformOpen}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 inline-flex items-center gap-1.5 ${
-                  platformNavigation.some((item) => isActive(item.href))
-                    ? 'text-feus-300 bg-feus-500/10'
-                    : 'text-gray-300 hover:text-white hover:bg-white/[0.05]'
+          <div className="hidden items-center gap-1 lg:flex">
+            {primaryNavigation.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                className={`rounded-lg px-3 py-2 text-sm font-bold transition-colors ${
+                  isActive(item.href)
+                    ? 'bg-feus-400/10 text-feus-200'
+                    : 'text-slate-300 hover:bg-white/5 hover:text-white'
                 }`}
               >
-                Platform
+                {item.name}
+              </Link>
+            ))}
+            <div className="relative" ref={companyMenuRef}>
+              <button
+                type="button"
+                onClick={() => setIsCompanyOpen((value) => !value)}
+                aria-haspopup="menu"
+                aria-expanded={isCompanyOpen}
+                className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-bold transition-colors ${
+                  companyNavigation.some((item) => isActive(item.href))
+                    ? 'bg-feus-400/10 text-feus-200'
+                    : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                }`}
+              >
+                Company
                 <ChevronDown
-                  className={`w-4 h-4 transition-transform ${isPlatformOpen ? 'rotate-180' : ''}`}
+                  className={`h-4 w-4 transition-transform ${isCompanyOpen ? 'rotate-180' : ''}`}
                   aria-hidden="true"
                 />
               </button>
-              {isPlatformOpen && (
+              {isCompanyOpen && (
                 <div
                   role="menu"
-                  className="absolute left-0 top-full mt-2 w-56 rounded-lg border border-white/[0.1] bg-navy-950/95 p-2 shadow-2xl shadow-black/40 backdrop-blur-xl"
+                  className="absolute left-0 top-full mt-2 w-56 rounded-lg border border-white/10 bg-navy-950/95 p-2 shadow-2xl shadow-black/30 backdrop-blur-xl"
                 >
-                  {platformNavigation.map((item) => (
+                  {companyNavigation.map((item) => (
                     <Link
                       key={item.name}
                       to={item.href}
                       role="menuitem"
-                      className={`block rounded-md px-3 py-2.5 text-sm transition-colors ${
+                      className={`block rounded-md px-3 py-2.5 text-sm font-semibold transition-colors ${
                         isActive(item.href)
-                          ? 'text-feus-300 bg-feus-500/10'
-                          : 'text-gray-300 hover:text-white hover:bg-white/[0.05]'
+                          ? 'bg-feus-400/10 text-feus-200'
+                          : 'text-slate-300 hover:bg-white/5 hover:text-white'
                       }`}
                     >
                       {item.name}
@@ -111,85 +136,83 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                  isActive(item.href)
-                    ? 'text-feus-300 bg-feus-500/10'
-                    : 'text-gray-300 hover:text-white hover:bg-white/[0.05]'
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+            <Link
+              to="/trust"
+              aria-current={isActive('/trust') ? 'page' : undefined}
+              className={`rounded-lg px-3 py-2 text-sm font-bold transition-colors ${
+                isActive('/trust')
+                  ? 'bg-feus-400/10 text-feus-200'
+                  : 'text-slate-300 hover:bg-white/5 hover:text-white'
+              }`}
+            >
+              Trust Center
+            </Link>
             <CalendlyButton
-              className="ml-4 btn-accent text-sm !px-6 !py-2.5"
+              className="btn-primary ml-3 !min-h-11 !px-5 !py-2.5"
               icon={ArrowRight}
             >
-              Book a Consultation
+              Talk to FEUS
             </CalendlyButton>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
+            type="button"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={isOpen}
             aria-controls="mobile-navigation"
-            className="lg:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/[0.05] transition-all"
+            className="rounded-lg p-3 text-slate-200 transition-colors hover:bg-white/10 hover:text-white lg:hidden"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
         <div
           id="mobile-navigation"
           className={`lg:hidden ${
-            isOpen ? 'block max-h-[80vh] overflow-y-auto pb-6' : 'hidden'
+            isOpen ? 'block max-h-[calc(100svh-84px)] overflow-y-auto pb-8' : 'hidden'
           }`}
         >
-          <div className="space-y-1 pt-2">
-            <p className="px-4 pt-2 pb-1 text-xs font-semibold uppercase tracking-wide text-gray-500">
-              Platform
-            </p>
-            {platformNavigation.map((item) => (
+          <div className="space-y-1 border-t border-white/10 pt-4">
+            <p className="px-3 pb-2 text-xs font-bold uppercase text-slate-500">Explore</p>
+            {[...primaryNavigation, { name: 'Trust Center', href: '/trust' }].map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`block px-4 py-3 rounded-lg text-base font-medium transition-all ${
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                className={`block rounded-lg px-3 py-3 text-base font-bold transition-colors ${
                   isActive(item.href)
-                    ? 'text-feus-300 bg-feus-500/10'
-                    : 'text-gray-300 hover:text-white hover:bg-white/[0.05]'
+                    ? 'bg-feus-400/10 text-feus-200'
+                    : 'text-slate-200 hover:bg-white/5 hover:text-white'
                 }`}
               >
                 {item.name}
               </Link>
             ))}
-            <p className="px-4 pt-4 pb-1 text-xs font-semibold uppercase tracking-wide text-gray-500">
+            <p className="px-3 pb-2 pt-5 text-xs font-bold uppercase text-slate-500">
               Company
             </p>
-            {navigation.map((item) => (
+            {companyNavigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`block px-4 py-3 rounded-lg text-base font-medium transition-all ${
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                className={`block rounded-lg px-3 py-3 text-base font-bold transition-colors ${
                   isActive(item.href)
-                    ? 'text-feus-300 bg-feus-500/10'
-                    : 'text-gray-300 hover:text-white hover:bg-white/[0.05]'
+                    ? 'bg-feus-400/10 text-feus-200'
+                    : 'text-slate-200 hover:bg-white/5 hover:text-white'
                 }`}
               >
                 {item.name}
               </Link>
             ))}
             <CalendlyButton
-              className="block mt-4 btn-accent text-center w-full"
+              className="btn-primary mt-5 w-full"
               icon={ArrowRight}
             >
-              Book a Consultation
+              Talk to FEUS
             </CalendlyButton>
+            <Link to="/contact" className="btn-secondary mt-3 w-full">Send a message</Link>
           </div>
         </div>
       </div>

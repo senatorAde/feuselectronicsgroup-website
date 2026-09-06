@@ -9,6 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "node scripts/validate-public-claims.mjs",
+    "brand:assets": "node scripts/generate-brand-assets.mjs",
     "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {

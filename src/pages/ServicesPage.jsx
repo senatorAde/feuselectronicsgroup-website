@@ -1,196 +1,182 @@
 import {
   Database, Workflow, Cloud, Brain, BarChart3, Zap,
-  CheckCircle2, ArrowRight, Server, Shield, Lock, Cpu,
-  MonitorDot, FileCode2, Cog, GitBranch, Activity, LineChart
+  CheckCircle2, ArrowRight, ShieldCheck, Code2, Film, Compass
 } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import { PageHero, SectionHeader, SectionLabel, CTAButton, GlowDivider } from '../components/ui'
 import { CalendlyButton } from '../components/CalendlyEmbed'
+import SEO from '../components/SEO'
 
 const serviceCategories = [
   {
     id: 'database',
     icon: Database,
-    color: 'from-blue-500 to-blue-700',
-    iconColor: 'text-blue-400',
-    bgColor: 'bg-blue-500/10',
-    title: 'Database Operations',
-    tagline: 'Practitioner-Led DBA Services',
-    description: 'Enterprise database operations delivered by experienced engineers — continuous monitoring, performance optimization, governance enforcement, and proactive maintenance across SQL Server, Azure SQL, and modern data platforms.',
-    offerings: [
-      'Database health monitoring & intelligent alerting',
-      'Query performance analysis & optimization',
-      'Automated index management & maintenance',
-      'Backup, recovery & disaster recovery operations',
-      'Security auditing & compliance reporting',
-      'Capacity planning & growth forecasting',
-      'Migration planning & execution',
-      'High availability & failover management',
-    ],
+    title: 'Database operations',
+    tagline: 'Protect the systems the business depends on',
+    description: 'Practitioner-led administration, performance, migration, resilience, and operational support across SQL Server, Azure SQL, and modern data estates.',
+    benefit: 'More stable, visible, and supportable database operations.',
+    outcomes: ['Health and performance baseline', 'Recovery and resilience plan', 'Prioritized optimization roadmap'],
+    type: 'database',
   },
   {
     id: 'architecture',
     icon: Workflow,
-    color: 'from-violet-500 to-violet-700',
-    iconColor: 'text-violet-400',
-    bgColor: 'bg-violet-500/10',
-    title: 'Data Architecture & Engineering',
-    tagline: 'Modern Data Platforms Built to Scale',
-    description: 'Design and implementation of modern data architectures — from lakehouse patterns and data mesh to real-time pipelines and governed data platforms that serve both operational and analytical workloads.',
-    offerings: [
-      'Data platform strategy & architecture',
-      'Lakehouse & data mesh design',
-      'ETL/ELT pipeline development & automation',
-      'Data governance framework implementation',
-      'Data quality validation & monitoring',
-      'Master data management',
-      'Schema evolution & lifecycle management',
-      'Data catalog & lineage implementation',
-    ],
+    title: 'Data architecture & engineering',
+    tagline: 'Create a foundation people can use and trust',
+    description: 'Architecture and implementation for governed data platforms, pipelines, quality practices, catalogs, and analytical workloads.',
+    benefit: 'A coherent data foundation aligned to operating and decision needs.',
+    outcomes: ['Target-state architecture', 'Pipeline and quality design', 'Governance and lineage model'],
+    type: 'data',
   },
   {
     id: 'cloud',
     icon: Cloud,
-    color: 'from-cyan-500 to-cyan-700',
-    iconColor: 'text-cyan-400',
-    bgColor: 'bg-cyan-500/10',
-    title: 'Cloud & Platform Operations',
-    tagline: 'Infrastructure That Runs Itself',
-    description: 'End-to-end cloud and platform managed services — infrastructure provisioning, security configuration, cost optimization, monitoring, and managed operational support across Azure and hybrid environments, with coverage defined in each customer agreement.',
-    offerings: [
-      'Azure infrastructure design & deployment',
-      'Infrastructure as Code (Bicep, Terraform)',
-      'Cost governance & optimization',
-      'Security posture management',
-      'Monitoring, alerting & incident response',
-      'Hybrid & multi-cloud architecture',
-      'Container & Kubernetes operations',
-      'Network design & management',
-    ],
+    title: 'Cloud & infrastructure',
+    tagline: 'Scale without losing operational discipline',
+    description: 'Azure and hybrid architecture, infrastructure automation, observability, security posture, migration, and cost-governance support.',
+    benefit: 'Cloud environments shaped for resilience, control, and sustainable operation.',
+    outcomes: ['Cloud architecture and migration plan', 'Infrastructure-as-code foundation', 'Observability and cost controls'],
+    type: 'cloud',
   },
   {
     id: 'ai',
     icon: Brain,
-    color: 'from-emerald-500 to-emerald-700',
-    iconColor: 'text-emerald-400',
-    bgColor: 'bg-emerald-500/10',
-    title: 'Enterprise AI Solutions',
-    tagline: 'Governance Before AI Touches Data',
-    description: 'AI enablement consulting for the enterprise — readiness assessment, governance framework design, PII-protection guardrails, and implementation support for AI agents, RAG systems, and vendor assistant tooling on your stack.',
-    offerings: [
-      'AI strategy & readiness assessment',
-      'AI governance framework design',
-      'PII detection & guardrail design',
-      'Custom AI agent development',
-      'RAG system design & implementation',
-      'Synthetic data generation for dev/test',
-      'Vendor AI assistant rollout support',
-      'Model evaluation & monitoring design',
-    ],
+    title: 'Enterprise AI solutions',
+    tagline: 'Move from possibility to responsible use',
+    description: 'AI readiness, use-case design, governance, agent and retrieval workflows, evaluation, and implementation support for enterprise teams.',
+    benefit: 'A practical path to AI value with boundaries teams can understand.',
+    outcomes: ['Prioritized AI use-case portfolio', 'Governance and evaluation approach', 'Capability prototype or implementation plan'],
+    type: 'ai',
+  },
+  {
+    id: 'governance',
+    icon: ShieldCheck,
+    title: 'Governance & security',
+    tagline: 'Make trust part of the operating model',
+    description: 'Data protection, identity, access, policy, assurance, and responsible-AI advisory tailored to the systems and risks in scope.',
+    benefit: 'Controls that support adoption instead of arriving after it.',
+    outcomes: ['Risk and control assessment', 'Policy and responsibility model', 'Evidence and remediation roadmap'],
+    type: 'governance',
   },
   {
     id: 'analytics',
     icon: BarChart3,
-    color: 'from-amber-500 to-amber-700',
-    iconColor: 'text-amber-400',
-    bgColor: 'bg-amber-500/10',
-    title: 'Analytics & Business Intelligence',
-    tagline: 'Intelligence That Drives Decisions',
-    description: 'Operational and executive analytics built on clean, governed data — from real-time dashboards and KPI tracking to predictive insights and automated reporting.',
-    offerings: [
-      'Executive dashboard design & development',
-      'Operational KPI monitoring',
-      'Self-service BI enablement',
-      'Predictive analytics & forecasting',
-      'Data visualization & storytelling',
-      'Automated report generation',
-      'Real-time streaming analytics',
-      'Business context translation',
-    ],
+    title: 'Analytics & business intelligence',
+    tagline: 'Turn trusted information into clearer decisions',
+    description: 'Executive and operational reporting, KPI frameworks, self-service analytics, forecasting, and data storytelling.',
+    benefit: 'Shared visibility into performance, priorities, and emerging signals.',
+    outcomes: ['Decision and KPI framework', 'Dashboard or reporting experience', 'Data adoption plan'],
+    type: 'analytics',
   },
   {
     id: 'automation',
     icon: Zap,
-    color: 'from-rose-500 to-rose-700',
-    iconColor: 'text-rose-400',
-    bgColor: 'bg-rose-500/10',
-    title: 'Automation & Integration',
-    tagline: 'Less Manual. More Governed.',
-    description: 'Intelligent workflow automation, approval orchestration, and system integration — reducing manual effort, enforcing governance, and connecting your enterprise technology ecosystem.',
-    offerings: [
-      'Workflow automation design & implementation',
-      'Approval chain orchestration',
-      'API integration & gateway management',
-      'Event-driven architecture',
-      'Scheduled task management',
-      'DevOps pipeline automation',
-      'Notification & escalation systems',
-      'Process mining & optimization',
-    ],
+    title: 'Automation & integration',
+    tagline: 'Remove friction without removing accountability',
+    description: 'Workflow orchestration, approvals, APIs, event-driven integration, delivery pipelines, notifications, and process improvement.',
+    benefit: 'More consistent work with fewer fragile handoffs and manual steps.',
+    outcomes: ['Workflow and handoff map', 'Prioritized automation backlog', 'Integrated operating workflow'],
+    type: 'automation',
+  },
+  {
+    id: 'digital',
+    icon: Code2,
+    title: 'Digital platforms & web',
+    tagline: 'Make the digital experience match the business',
+    description: 'Web strategy, UX, content architecture, application delivery, and digital-presence modernization for client and employee experiences.',
+    benefit: 'A clearer, faster, and more credible digital journey.',
+    outcomes: ['Experience and content strategy', 'Responsive platform implementation', 'Conversion and measurement plan'],
+    type: 'digital',
+  },
+  {
+    id: 'media',
+    icon: Film,
+    title: 'Media, photo & video',
+    tagline: 'Show the value with clarity and craft',
+    description: 'Photography, video, showcase experiences, and campaign content for brands, properties, products, and business stories.',
+    benefit: 'Professional visual assets designed for engagement across channels.',
+    outcomes: ['Creative direction and shot plan', 'Optimized photo or video assets', 'Channel-ready showcase content'],
+    type: 'media',
+  },
+  {
+    id: 'advisory',
+    icon: Compass,
+    title: 'Strategy & implementation advisory',
+    tagline: 'Translate ambition into a sequenced plan',
+    description: 'Executive advisory, assessments, roadmaps, architecture decisions, vendor evaluation, and implementation leadership across FEUS capabilities.',
+    benefit: 'A defensible path from decision to delivery.',
+    outcomes: ['Current-state assessment', 'Prioritized transformation roadmap', 'Delivery governance model'],
+    type: 'strategy',
   },
 ]
 
 export default function ServicesPage() {
   return (
     <>
+      <SEO
+        title="Technology, AI & Media Services"
+        description="Explore FEUS services across enterprise AI, automation, data, cloud, governance, analytics, digital platforms, media, and implementation strategy."
+      />
       <PageHero
         label="Our Services"
-        title={<>Enterprise Managed Services,<br /><span className="gradient-text">Delivered by Practitioners</span></>}
-        subtitle="Six core service domains covering enterprise data, platform, and AI operations — delivered by experienced engineers with governance built in. These practitioner-led services are scoped separately from FEUS.ai software adoption."
+        title={<>Expertise that connects.<br /><span className="text-feus-300">Delivery that holds together.</span></>}
+        subtitle="From enterprise AI and data platforms to digital experiences and media, FEUS brings the disciplines needed to move a business challenge from strategy into operation."
+        backgroundImage="/brand/feus-hero-system.webp"
+        imagePosition="70% center"
       >
         <CalendlyButton className="btn-accent group" icon={ArrowRight}>
-          Discuss Your Needs
+          Discuss your priorities
         </CalendlyButton>
       </PageHero>
 
-      {/* Service Categories */}
-      {serviceCategories.map((svc, i) => (
-        <div key={svc.id}>
-          {i > 0 && <GlowDivider />}
-          <section id={svc.id} className={i % 2 === 0 ? 'section-gradient py-24' : 'section-dark py-24'}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <AnimatedSection>
-                <div className="grid lg:grid-cols-2 gap-12 items-start">
-                  <div>
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${svc.color} flex items-center justify-center`}>
-                        <svc.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-bold text-white">{svc.title}</h2>
-                        <p className="text-sm text-feus-400">{svc.tagline}</p>
-                      </div>
-                    </div>
-                    <p className="text-gray-400 leading-relaxed">{svc.description}</p>
-                    <div className="mt-8">
-                      <CTAButton to="/contact" variant="secondary">
-                        Learn More
-                      </CTAButton>
-                    </div>
+      <section className="section-mist py-20 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <SectionHeader
+              tone="light"
+              label="Service portfolio"
+              title="Start with a capability or bring us the whole challenge"
+              subtitle="Each service can stand alone or combine into an integrated engagement. FEUS.ai software adoption is scoped separately by capability, target environment, and governance requirements."
+            />
+          </AnimatedSection>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {serviceCategories.map((svc, index) => (
+              <AnimatedSection key={svc.id} delay={(index % 3) * 70}>
+                <article id={svc.id} className="surface-card flex h-full scroll-mt-28 flex-col p-6 sm:p-7">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-feus-50 text-feus-800">
+                    <svc.icon className="h-5 w-5" aria-hidden="true" />
                   </div>
-
-                  <div className="glass-card-static p-6">
-                    <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">What's Included</h4>
-                    <div className="space-y-3">
-                      {svc.offerings.map((offering) => (
-                        <div key={offering} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-4 h-4 text-accent-400 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-gray-300">{offering}</span>
-                        </div>
+                  <p className="mt-6 text-xs font-bold uppercase text-coral-600">{svc.tagline}</p>
+                  <h2 className="mt-2 text-xl font-bold text-ink">{svc.title}</h2>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{svc.description}</p>
+                  <p className="mt-5 border-l-2 border-accent-400 pl-4 text-sm font-semibold leading-relaxed text-slate-800">{svc.benefit}</p>
+                  <div className="mt-6 flex-1 border-t border-slate-200 pt-5">
+                    <h3 className="text-xs font-bold uppercase text-slate-500">Typical outputs</h3>
+                    <ul className="mt-3 space-y-2">
+                      {svc.outcomes.map((outcome) => (
+                        <li key={outcome} className="flex items-start gap-2 text-sm text-slate-600">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent-600" aria-hidden="true" />
+                          {outcome}
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
-                </div>
+                  <div className="mt-7">
+                    <CTAButton to={`/contact?type=${svc.type}`} variant="outline" className="w-full">
+                      Discuss this service
+                    </CTAButton>
+                  </div>
+                </article>
               </AnimatedSection>
-            </div>
-          </section>
+            ))}
+          </div>
         </div>
-      ))}
+      </section>
 
       <GlowDivider />
 
       {/* Engagement Models */}
-      <section className="section-gradient py-24">
+      <section className="section-ink py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionHeader
@@ -219,7 +205,7 @@ export default function ServicesPage() {
               },
             ].map((model, i) => (
               <AnimatedSection key={model.title} delay={i * 100}>
-                <div className="glass-card p-8 h-full">
+                <div className="h-full border-t border-white/20 pt-6">
                   <h3 className="text-xl font-bold text-white mb-3">{model.title}</h3>
                   <p className="text-sm text-gray-400 leading-relaxed mb-6">{model.desc}</p>
                   <div className="space-y-2">
@@ -240,18 +226,19 @@ export default function ServicesPage() {
       <GlowDivider />
 
       {/* CTA */}
-      <section className="section-dark py-24">
+      <section className="section-light py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Need a specific capability?
+              <SectionLabel tone="light">Start a conversation</SectionLabel>
+              <h2 className="mt-5 text-3xl md:text-4xl font-bold text-ink">
+                Not sure which capability fits?
               </h2>
-              <p className="mt-4 text-lg text-gray-400">
-                Tell us what you're trying to solve. We'll map the right services and engagement model.
+              <p className="mt-4 text-lg text-slate-600">
+                Tell us what you are trying to change. We will map the relevant disciplines and a practical engagement model.
               </p>
               <div className="mt-8">
-                <CTAButton to="/contact" variant="primary">Start a Conversation</CTAButton>
+                <CTAButton to="/contact?type=services" variant="dark">Start a conversation</CTAButton>
               </div>
             </div>
           </AnimatedSection>

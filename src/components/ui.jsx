@@ -1,21 +1,22 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 
-export function SectionLabel({ children }) {
+export function SectionLabel({ children, tone = 'dark', className = '' }) {
   return (
-    <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-feus-500/10 border border-feus-500/20 text-feus-400 text-sm font-medium tracking-wide mb-6">
+    <div className={`${tone === 'light' ? 'eyebrow-light' : 'eyebrow-dark'} ${className}`}>
       {children}
     </div>
   )
 }
 
-export function SectionHeader({ label, title, subtitle, center = true }) {
+export function SectionHeader({ label, title, subtitle, center = true, tone = 'dark' }) {
+  const isLight = tone === 'light'
   return (
-    <div className={`${center ? 'text-center' : ''} mb-16`}>
-      {label && <SectionLabel>{label}</SectionLabel>}
-      <h2 className="section-heading text-white">{title}</h2>
+    <div className={`${center ? 'text-center' : ''} mb-12 md:mb-16`}>
+      {label && <SectionLabel tone={tone}>{label}</SectionLabel>}
+      <h2 className={`section-heading mt-5 text-balance ${isLight ? 'text-ink' : 'text-white'}`}>{title}</h2>
       {subtitle && (
-        <p className={`section-subheading mt-4 ${center ? 'mx-auto' : ''}`}>
+        <p className={`section-subheading mt-5 text-pretty ${isLight ? 'text-slate-600' : 'text-slate-300'} ${center ? 'mx-auto' : ''}`}>
           {subtitle}
         </p>
       )}
@@ -24,20 +25,29 @@ export function SectionHeader({ label, title, subtitle, center = true }) {
 }
 
 export function CTAButton({ to, children, variant = 'primary', className = '' }) {
-  const base = variant === 'primary' ? 'btn-primary' : variant === 'accent' ? 'btn-accent' : 'btn-secondary'
+  const styles = {
+    primary: 'btn-primary',
+    accent: 'btn-accent',
+    secondary: 'btn-secondary',
+    dark: 'btn-dark',
+    outline: 'btn-outline-dark',
+  }
+  const base = styles[variant] || styles.primary
   return (
     <Link to={to} className={`${base} group ${className}`}>
       {children}
-      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
     </Link>
   )
 }
 
-export function StatCard({ value, label }) {
+export function StatCard({ value, label, detail, tone = 'dark' }) {
+  const isLight = tone === 'light'
   return (
-    <div className="text-center border-t-2 border-feus-500/20 pt-5">
-      <div className="text-3xl md:text-4xl font-bold gradient-text">{value}</div>
-      <div className="mt-1 text-sm text-gray-300 font-medium">{label}</div>
+    <div className={`border-t-2 pt-5 ${isLight ? 'border-feus-500/25' : 'border-feus-300/30'}`}>
+      <div className={`font-display text-3xl font-bold md:text-4xl ${isLight ? 'text-ink' : 'text-white'}`}>{value}</div>
+      <div className={`mt-2 text-sm font-bold ${isLight ? 'text-slate-700' : 'text-feus-100'}`}>{label}</div>
+      {detail && <p className={`mt-2 text-xs leading-relaxed ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{detail}</p>}
     </div>
   )
 }
@@ -70,27 +80,32 @@ export function GlowDivider() {
   return <div className="glow-line my-0" />
 }
 
-export function PageHero({ label, title, subtitle, children, backgroundImage }) {
+export function PageHero({ label, title, subtitle, children, backgroundImage, imagePosition = 'center' }) {
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-hero-pattern" />
+    <section className="page-hero-field relative min-h-[540px] overflow-hidden pt-32 pb-20 text-white">
       {backgroundImage && (
         <div className="absolute inset-0">
-          <img src={backgroundImage} alt="" className="w-full h-full object-cover opacity-[0.06]" />
+          <img
+            src={backgroundImage}
+            alt=""
+            width="1600"
+            height="1040"
+            fetchPriority="high"
+            className="h-full w-full object-cover"
+            style={{ objectPosition: imagePosition }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 to-ink/35" aria-hidden="true" />
         </div>
       )}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-feus-600/10 rounded-full blur-[120px]" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-accent-500/5 rounded-full blur-[100px]" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl">
           {label && <SectionLabel>{label}</SectionLabel>}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1]">
+          <h1 className="mt-5 max-w-4xl font-display text-4xl font-bold leading-[1.08] text-white sm:text-5xl lg:text-6xl text-balance">
             {title}
           </h1>
           {subtitle && (
-            <p className="mt-6 text-xl text-gray-400 leading-relaxed max-w-3xl">
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-200 sm:text-xl text-pretty">
               {subtitle}
             </p>
           )}
@@ -98,7 +113,7 @@ export function PageHero({ label, title, subtitle, children, backgroundImage }) 
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 glow-line" />
+      <div className="absolute bottom-0 left-0 right-0 glow-line" aria-hidden="true" />
     </section>
   )
 }

@@ -1,11 +1,12 @@
 ﻿import { Link } from 'react-router-dom'
 import {
-  ArrowRight, Globe, Users, Award, Target, Heart, Shield,
-  Lightbulb, Building2, Rocket, CheckCircle2, Zap, Star
+  ArrowRight, Users, Target, Heart, Shield,
+  Lightbulb, Building2, Rocket, Zap
 } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import { PageHero, SectionHeader, SectionLabel, CTAButton, GlowDivider } from '../components/ui'
 import { CalendlyButton } from '../components/CalendlyEmbed'
+import SEO from '../components/SEO'
 
 const values = [
   {
@@ -35,8 +36,8 @@ const values = [
   },
   {
     icon: Target,
-    title: 'Measurable Impact',
-    desc: 'Every service we deliver is tied to outcomes: reduced risk, faster operations, lower cost, better governance.',
+    title: 'Business Relevance',
+    desc: 'Every engagement starts with the operating outcome and the evidence the client will use to assess progress.',
   },
 ]
 
@@ -44,63 +45,68 @@ const milestones = [
   { year: 'Foundation', title: 'Enterprise Data Roots', desc: 'Founded on deep expertise in SQL Server, data platform engineering, and enterprise database operations.' },
   { year: 'Growth', title: 'Managed Services Expansion', desc: 'Expanded into full-service managed database operations, cloud infrastructure, and data architecture.' },
   { year: 'Innovation', title: 'FEUS.ai Development', desc: 'Developed and operationally validated the FEUS.ai governed data-operations core through real FEUS engineering workflows.' },
-  { year: 'Future', title: 'Enterprise AI at Scale', desc: 'Working toward evidence-backed, governed AI operations — with production claims made only after independent verification.' },
+  { year: 'Next', title: 'Grow with Evidence', desc: 'Expanding governed capabilities through controlled validation, transparent status, and environment-specific adoption.' },
 ]
 
 export default function AboutPage() {
   return (
     <>
+      <SEO
+        title="About FEUS"
+        description="Meet FEUS Electronics Group: a practitioner-led enterprise technology company connecting data, cloud, automation, digital experience, and governed AI."
+      />
       <PageHero
-        label="About Us"
-        title={<>Enterprise Technology Leadership.<br /><span className="gradient-text">Founder-Led. Practitioner-Driven.</span></>}
-        subtitle="FEUS Electronics Group is a founder-led enterprise technology company with deep experience managing databases, data platforms, and cloud infrastructure — across healthcare, financial services, aviation, and SaaS."
+        label="About FEUS"
+        title={<>Technology should create momentum.<br /><span className="text-feus-300">Control should make it durable.</span></>}
+        subtitle="FEUS Electronics Group is a practitioner-led enterprise technology company connecting strategy, implementation, experience, and governance to create practical business value."
+        backgroundImage="/brand/feus-hero-system.webp"
+        imagePosition="68% center"
       />
 
       {/* Brand Architecture */}
-      <section className="section-gradient py-24">
+      <section className="section-light py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
-                <SectionLabel>Brand Architecture</SectionLabel>
-                <h2 className="section-heading text-white">
-                  Two Brands,<br />
-                  <span className="gradient-text">One Mission.</span>
+                <SectionLabel tone="light">One connected vision</SectionLabel>
+                <h2 className="section-heading mt-5 text-ink">
+                  Enterprise delivery and governed intelligence, built together.
                 </h2>
-                <p className="mt-6 text-lg text-gray-400 leading-relaxed">
-                  <strong className="text-white">FEUS Electronics Group</strong> is the parent enterprise technology company. We are the business entity, the leadership team, and the strategic vision behind everything we build and deliver.
+                <p className="mt-6 text-lg text-slate-600 leading-relaxed">
+                  <strong className="text-ink">FEUS Electronics Group</strong> is the parent enterprise technology company. It brings business strategy, engineering, digital experience, and delivery leadership into one client relationship.
                 </p>
-                <p className="mt-4 text-gray-400 leading-relaxed">
-                  <strong className="text-feus-300">FEUS.ai</strong> is the governed AI Data Operations platform we operate and continue to expand. Its core has documented operational validation; newer agents and integrations carry their own preview status and restrictions.
+                <p className="mt-4 text-slate-600 leading-relaxed">
+                  <strong className="text-feus-800">FEUS.ai</strong> is the governed AI Data Operations platform we operate and continue to expand. Its core has documented operational validation; newer agents and integrations publish their own scope and status.
                 </p>
               </div>
-              <div className="grid gap-4">
+              <div className="grid gap-6 border-l border-slate-200 pl-6 sm:pl-10">
                 <AnimatedSection delay={100}>
-                  <div className="glass-card p-8">
+                  <div className="border-t-2 border-feus-500 pt-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-feus-500 to-feus-700 flex items-center justify-center">
-                        <Building2 className="w-6 h-6 text-white" />
+                      <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-feus-50">
+                        <Building2 className="w-5 h-5 text-feus-800" aria-hidden="true" />
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold text-white">FEUS Electronics Group</h4>
-                        <p className="text-sm text-gray-500">Parent Company</p>
+                        <h3 className="text-lg font-bold text-ink">FEUS Electronics Group</h3>
+                        <p className="text-sm text-slate-500">Services, strategy, and delivery</p>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-400">Enterprise technology company. Business strategy, leadership, and organizational governance.</p>
+                    <p className="text-sm leading-relaxed text-slate-600">The people, partnerships, and multidisciplinary expertise behind every engagement.</p>
                   </div>
                 </AnimatedSection>
                 <AnimatedSection delay={200}>
-                  <div className="glass-card p-8 border-feus-500/20">
+                  <div className="border-t-2 border-accent-500 pt-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-feus-400 to-accent-500 flex items-center justify-center">
-                        <Rocket className="w-6 h-6 text-white" />
+                      <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent-50">
+                        <Rocket className="w-5 h-5 text-accent-800" aria-hidden="true" />
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold gradient-text">FEUS.ai</h4>
-                        <p className="text-sm text-gray-500">Platform · Operationally validated core</p>
+                        <h3 className="text-lg font-bold text-ink">FEUS.ai</h3>
+                        <p className="text-sm text-slate-500">Governed AI Data Operations platform</p>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-400">A governed AI Data Operations platform available for controlled enterprise adoption by capability scope.</p>
+                    <p className="text-sm leading-relaxed text-slate-600">An operationally validated core with controlled enterprise adoption defined by capability and environment.</p>
                   </div>
                 </AnimatedSection>
               </div>
@@ -111,28 +117,23 @@ export default function AboutPage() {
 
       <GlowDivider />
 
-      {/* Our Story */}
-      <section className="section-dark py-24">
+      <section className="section-mist py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <div className="max-w-3xl">
-              <SectionLabel>Our Story</SectionLabel>
-              <h2 className="section-heading text-white">
-                From Enterprise Data Ops to<br />
-                <span className="gradient-text">AI-Powered Operations</span>
-              </h2>
-              <div className="mt-8 space-y-6 text-gray-400 leading-relaxed">
+            <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+              <div>
+                <SectionLabel tone="light">Our story</SectionLabel>
+                <h2 className="section-heading mt-5 text-ink">Built from the realities of enterprise operations.</h2>
+              </div>
+              <div className="space-y-6 text-lg leading-relaxed text-slate-600">
                 <p>
-                  FEUS Electronics Group was founded by <strong className="text-white">Dr. Tolu Adeniyi</strong> — a data and AI transformation executive whose leadership experience spans enterprise data and technology roles, including Chief Data Officer at HyCite Enterprises, Chief Technology Officer at Fortified Data, and Director of IT Infrastructure at DocuTAP/Experity. Details of engagement history are available on request.
+                  FEUS Electronics Group was founded by <strong className="text-ink">Dr. Tolu Adeniyi</strong>, a data and AI transformation executive whose experience spans enterprise data, infrastructure, security, and technology leadership.
                 </p>
                 <p>
-                  The pattern was the same everywhere: talented engineers drowning in manual operations, governance bolted on after incidents, AI tools deployed without guardrails, and executives waiting weeks for audit evidence that should be automatic. That’s the problem FEUS.ai was built to solve.
+                  The same operating tension appeared repeatedly: teams needed to move faster, but fragmented systems, manual work, unclear controls, and late-stage governance made progress harder to sustain. FEUS was built to close that gap between ambition and accountable operation.
                 </p>
                 <p>
-                  <strong className="text-white">FEUS.ai</strong> is the result of that operational experience — a governed data-operations platform designed so that governance, PII inspection, and auditable decision-making are the architecture itself, not a feature roadmap. Its core has documented operational validation, its vNext revision has extensive automated evidence, and every capability publishes its current status and environment scope on our <Link to="/status" className="text-feus-300 underline underline-offset-2">status page</Link>.
-                </p>
-                <p>
-                  Dr. Adeniyi is an <strong className="text-white">Azure Solutions Architect Expert</strong>, AWS Solutions Architect Professional, CISSP, PMP, and CDMP. He holds a Ph.D. in Leadership & Business, an MBA from Coventry University, and a B.Eng. in Electrical & Electronics Engineering. He has operated in healthcare, financial services, aviation, telecom, and direct-to-consumer SaaS.
+                  <strong className="text-ink">FEUS.ai</strong> grew from that experience. Governance, data safeguards, human decisions, and evidence are treated as operating architecture. Each capability publishes its current maturity and scope on the <Link to="/status" className="font-bold text-feus-800 underline underline-offset-2">status page</Link>.
                 </p>
               </div>
             </div>
@@ -142,23 +143,22 @@ export default function AboutPage() {
 
       <GlowDivider />
 
-      {/* Journey */}
-      <section className="section-gradient py-24">
+      <section className="section-ink py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionHeader
               label="Our Journey"
-              title="Building Toward Enterprise Intelligence"
-              subtitle="From deep technical roots to a comprehensive AI-powered managed services practice."
+              title="Building toward governed enterprise intelligence"
+              subtitle="The FEUS story connects deep data-platform practice, managed operations, multidisciplinary services, and evidence-led platform development."
             />
           </AnimatedSection>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {milestones.map((m, i) => (
               <AnimatedSection key={m.year} delay={i * 100}>
-                <div className="glass-card p-8 h-full relative">
-                  <span className="text-sm font-bold text-feus-400 uppercase tracking-wider">{m.year}</span>
-                  <h4 className="mt-3 text-lg font-semibold text-white">{m.title}</h4>
-                  <p className="mt-2 text-sm text-gray-500 leading-relaxed">{m.desc}</p>
+                <div className="h-full border-t border-white/20 pt-6">
+                  <span className="text-xs font-bold uppercase text-accent-300">{m.year}</span>
+                  <h3 className="mt-3 text-lg font-bold text-white">{m.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-400">{m.desc}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -168,23 +168,23 @@ export default function AboutPage() {
 
       <GlowDivider />
 
-      {/* Values */}
-      <section className="section-dark py-24">
+      <section className="section-light py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <SectionHeader
               label="Our Values"
               title="What Drives Us"
-              subtitle="These aren't aspirational statements on a wall — they're operational principles that shape every engagement."
+              subtitle="These are operating principles for how FEUS communicates, designs, delivers, and earns trust."
+              tone="light"
             />
           </AnimatedSection>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map((v, i) => (
               <AnimatedSection key={v.title} delay={i * 80}>
-                <div className="glass-card p-8 h-full">
-                  <v.icon className="w-6 h-6 text-feus-400 mb-4" />
-                  <h4 className="text-lg font-semibold text-white mb-2">{v.title}</h4>
-                  <p className="text-sm text-gray-400 leading-relaxed">{v.desc}</p>
+                <div className="h-full border-t border-slate-200 pt-6">
+                  <v.icon className="mb-4 h-6 w-6 text-feus-700" aria-hidden="true" />
+                  <h3 className="mb-2 text-lg font-bold text-ink">{v.title}</h3>
+                  <p className="text-sm leading-relaxed text-slate-600">{v.desc}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -194,36 +194,42 @@ export default function AboutPage() {
 
       <GlowDivider />
 
-      {/* Leadership */}
-      <section id="leadership" className="section-gradient py-24">
+      <section id="leadership" className="section-mist py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <div className="max-w-3xl mx-auto text-center">
-              <SectionLabel>Leadership</SectionLabel>
-              <h2 className="section-heading text-white">Founder-Led. Practitioner-Driven.</h2>
-              <p className="mt-6 text-lg text-gray-400 leading-relaxed">
-                FEUS Electronics Group is led by a practitioner who has spent their career building and operating enterprise data platforms — not advising from the sidelines.
-              </p>
-              <div className="mt-12 glass-card p-8 text-left">
-                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
-                  <img 
-                    src="/dr-tolu-adeniyi.jpg" 
-                    alt="Dr. Tolu Adeniyi — Founder & CEO, FEUS Electronics Group" 
-                    className="w-32 h-32 rounded-2xl object-cover shadow-lg shadow-feus-500/20 flex-shrink-0"
-                  />
-                  <div className="text-center sm:text-left">
-                    <h4 className="text-xl font-bold text-white">Dr. Tolu Adeniyi</h4>
-                    <p className="text-sm text-feus-400">Founder & CEO, FEUS Electronics Group</p>
-                    <p className="text-xs text-gray-500 mt-1">Ph.D. · MBA · CISSP · PMP · CDMP</p>
-                    <div className="mt-3 flex flex-wrap gap-2 justify-center sm:justify-start">
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-feus-500/10 border border-feus-500/20 text-xs text-feus-300">Azure Solutions Architect Expert</span>
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-feus-500/10 border border-feus-500/20 text-xs text-feus-300">AWS SA Professional</span>
+            <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
+              <div className="overflow-hidden rounded-lg bg-ink">
+                <img
+                  src="/brand/founder-portrait.webp"
+                  alt="Dr. Tolu Adeniyi, Founder and CEO of FEUS Electronics Group"
+                  width="1000"
+                  height="1200"
+                  loading="lazy"
+                  className="aspect-[5/6] h-full w-full object-cover"
+                />
+              </div>
+              <div>
+                <SectionLabel tone="light">Leadership</SectionLabel>
+                <h2 className="section-heading mt-5 text-ink">Founder-led. Practitioner-driven.</h2>
+                <p className="mt-5 text-lg leading-relaxed text-slate-600">
+                  FEUS is led by a practitioner whose career has centered on building, operating, and governing enterprise technology, with experience across healthcare, financial services, aviation, telecom, and SaaS.
+                </p>
+                <div className="mt-8 border-t border-slate-300 pt-6">
+                  <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+                    <div>
+                      <h3 className="text-xl font-bold text-ink">Dr. Tolu Adeniyi</h3>
+                      <p className="mt-1 text-sm font-bold text-feus-800">Founder & CEO, FEUS Electronics Group</p>
+                      <p className="mt-2 text-xs text-slate-500">Ph.D. · MBA · CISSP · PMP · CDMP</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="inline-flex items-center rounded-full border border-feus-200 bg-feus-50 px-3 py-1.5 text-xs font-semibold text-feus-900">Azure Solutions Architect Expert</span>
+                      <span className="inline-flex items-center rounded-full border border-feus-200 bg-feus-50 px-3 py-1.5 text-xs font-semibold text-feus-900">AWS Solutions Architect Professional</span>
                     </div>
                   </div>
+                  <p className="mt-6 text-sm leading-relaxed text-slate-600">
+                    His background combines executive leadership, architecture, data operations, cybersecurity, program delivery, and organizational change. That range shapes FEUS&rsquo;s emphasis on systems that work for both the business and the people responsible for operating them.
+                  </p>
                 </div>
-                <p className="text-gray-400 leading-relaxed">
-                  Dr. Adeniyi is a data and AI transformation executive whose experience spans healthcare, financial services, aviation, telecom, and SaaS. His leadership roles include Chief Data Officer (HyCite Enterprises), Chief Technology Officer (Fortified Data), and Director of Infrastructure (DocuTAP/Experity). He is an Azure Solutions Architect Expert and an AWS Solutions Architect Professional. Details of engagement history are available on request.
-                </p>
               </div>
             </div>
           </AnimatedSection>
@@ -232,16 +238,15 @@ export default function AboutPage() {
 
       <GlowDivider />
 
-      {/* CTA */}
-      <section className="section-dark py-24">
+      <section className="section-ink py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Want to Talk Through Your Data Operations?
+                Build what your organization can trust and operate.
               </h2>
               <p className="mt-4 text-lg text-gray-400">
-                30 minutes with a practitioner — a services conversation or an architecture briefing on FEUS.ai.
+                Start with a focused conversation about the business outcome, the operating context, and the right path forward.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <CalendlyButton className="btn-accent group" icon={ArrowRight}>

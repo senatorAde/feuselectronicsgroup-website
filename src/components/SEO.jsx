@@ -38,7 +38,14 @@ function setLink(rel, href) {
  * noindex: set true on routes that must not be indexed (approved claims
  * baseline — e.g. /copilot, /pricing, /demo).
  */
-export default function SEO({ title, description, image, type = 'website', noindex = false }) {
+export default function SEO({
+  title,
+  description,
+  image = '/brand/feus-social-preview.webp',
+  imageAlt = 'FEUS Electronics Group brand mark and enterprise technology message',
+  type = 'website',
+  noindex = false,
+}) {
   const { pathname } = useLocation()
 
   useEffect(() => {
@@ -59,14 +66,16 @@ export default function SEO({ title, description, image, type = 'website', noind
         ? image
         : `${ORIGIN}${encodeURI(image)}`
       setMeta('og:image', fullImage, true)
+      setMeta('og:image:alt', imageAlt, true)
       setMeta('twitter:image', fullImage)
+      setMeta('twitter:image:alt', imageAlt)
       setMeta('twitter:card', 'summary_large_image')
     } else {
       setMeta('twitter:card', 'summary')
     }
     setMeta('twitter:title', fullTitle)
     setMeta('twitter:description', description)
-  }, [title, description, image, type, noindex, pathname])
+  }, [title, description, image, imageAlt, type, noindex, pathname])
 
   return null
 }

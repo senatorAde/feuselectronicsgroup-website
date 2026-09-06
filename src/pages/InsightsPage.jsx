@@ -5,6 +5,7 @@ import {
 } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import { PageHero, SectionHeader, SectionLabel, CTAButton, GlowDivider } from '../components/ui'
+import SEO from '../components/SEO'
 
 const articles = [
   {
@@ -71,6 +72,10 @@ export default function InsightsPage() {
 
   return (
     <>
+      <SEO
+        title="Insights"
+        description="Perspectives from FEUS practitioners on enterprise AI, data operations, governance, cloud, and technology modernization."
+      />
       <PageHero
         label="Insights & Perspectives"
         title={<>Thinking from the<br /><span className="gradient-text">Operations Floor</span></>}
