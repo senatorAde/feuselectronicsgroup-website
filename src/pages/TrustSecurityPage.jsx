@@ -110,7 +110,7 @@ export default function TrustSecurityPage() {
               <p>Release signing: ECDSA P-384 / SHA-384 over a canonicalized manifest.</p>
               <p>Build provenance: SLSA v1.0 in a signed DSSE envelope.</p>
               <p>Software bill of materials: CycloneDX 1.4.</p>
-              <p>Source provenance: 733 governed files attested against the signed manifest.</p>
+              <p>Source provenance: 735 governed files attested against the signed manifest.</p>
               <p>Release artifacts: 515 artifacts hash-verified.</p>
               <p>Dependency verification: 0 findings across 106 items at the certified revision.</p>
               <p>Audit trail: SHA-256 hash chain, verified end to end.</p>
