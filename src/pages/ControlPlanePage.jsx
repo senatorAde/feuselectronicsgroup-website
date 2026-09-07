@@ -52,11 +52,16 @@ export default function ControlPlanePage() {
 
           <div>
             <h2 className="text-2xl font-bold text-white mb-4">Preview boundaries</h2>
+            <p className="mb-4 text-sm text-gray-400 leading-relaxed">
+              These boundaries describe the Control Plane as assessed at the certified
+              revision. The separately released cloud runtime has since exercised a live
+              identity provider; that does not extend the Control Plane assessment.
+            </p>
             <ul className="glass-card rounded-2xl p-6 border-l-4 border-slate-500/60 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">
               <li>No execution dispatcher — governed requests stop at a verdict.</li>
               <li>State is not established as shared, restart-safe, or deployed.</li>
               <li>Approval persistence can silently degrade to process memory.</li>
-              <li>No live request source, deployed registry, RBAC system, or identity provider has been exercised.</li>
+              <li>At the certified revision, no live request source, deployed registry, RBAC system, or identity provider had been exercised.</li>
             </ul>
           </div>
 

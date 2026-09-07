@@ -6,6 +6,8 @@ import HomePage from './pages/HomePage'
 const AboutPage = lazy(() => import('./pages/AboutPage'))
 const FeusAiPage = lazy(() => import('./pages/FeusAiPage'))
 const CopilotLandingPage = lazy(() => import('./pages/CopilotLandingPage'))
+const CloudRuntimePage = lazy(() => import('./pages/CloudRuntimePage'))
+const GetStartedPage = lazy(() => import('./pages/GetStartedPage'))
 const ServicesPage = lazy(() => import('./pages/ServicesPage'))
 const SolutionsPage = lazy(() => import('./pages/SolutionsPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage'))
@@ -48,6 +50,8 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/feus-ai" element={<FeusAiPage />} />
         <Route path="/copilot" element={<CopilotLandingPage />} />
+        <Route path="/cloud-runtime" element={<CloudRuntimePage />} />
+        <Route path="/get-started" element={<GetStartedPage />} />
         <Route path="/status" element={<StatusPage />} />
         <Route path="/architecture" element={<ArchitecturePage />} />
         <Route path="/agents" element={<AgentsPage />} />

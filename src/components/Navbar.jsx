@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react'
+import { Menu, X, ChevronDown, ArrowRight, ExternalLink } from 'lucide-react'
 import { CalendlyButton } from './CalendlyEmbed'
 import BrandMark from './BrandMark'
+import { LAUNCH_URL } from '../data/cloudRuntime'
 
 const primaryNavigation = [
   { name: 'Services', href: '/services' },
   { name: 'Solutions', href: '/solutions' },
   { name: 'FEUS.ai', href: '/feus-ai' },
+  { name: 'Cloud Runtime', href: '/cloud-runtime' },
+  { name: 'Get started', href: '/get-started' },
 ]
 
 const companyNavigation = [
@@ -81,7 +84,7 @@ export default function Navbar() {
             <BrandMark />
           </Link>
 
-          <div className="hidden items-center gap-1 lg:flex">
+          <div className="hidden items-center gap-1 xl:flex">
             {primaryNavigation.map((item) => (
               <Link
                 key={item.name}
@@ -148,11 +151,20 @@ export default function Navbar() {
               Trust Center
             </Link>
             <CalendlyButton
-              className="btn-primary ml-3 !min-h-11 !px-5 !py-2.5"
+              className="btn-secondary ml-3 !min-h-11 !px-5 !py-2.5"
               icon={ArrowRight}
             >
               Talk to FEUS
             </CalendlyButton>
+            <a
+              href={LAUNCH_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary ml-2 !min-h-11 !px-5 !py-2.5 inline-flex items-center gap-2"
+            >
+              Launch FEUS
+              <ExternalLink className="h-4 w-4" aria-hidden="true" />
+            </a>
           </div>
 
           <button
@@ -161,7 +173,7 @@ export default function Navbar() {
             aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={isOpen}
             aria-controls="mobile-navigation"
-            className="rounded-lg p-3 text-slate-200 transition-colors hover:bg-white/10 hover:text-white lg:hidden"
+            className="rounded-lg p-3 text-slate-200 transition-colors hover:bg-white/10 hover:text-white xl:hidden"
           >
             {isOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
           </button>
@@ -169,7 +181,7 @@ export default function Navbar() {
 
         <div
           id="mobile-navigation"
-          className={`lg:hidden ${
+          className={`xl:hidden ${
             isOpen ? 'block max-h-[calc(100svh-84px)] overflow-y-auto pb-8' : 'hidden'
           }`}
         >
@@ -206,8 +218,17 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
+            <a
+              href={LAUNCH_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary mt-5 w-full inline-flex items-center justify-center gap-2"
+            >
+              Launch FEUS
+              <ExternalLink className="h-4 w-4" aria-hidden="true" />
+            </a>
             <CalendlyButton
-              className="btn-primary mt-5 w-full"
+              className="btn-secondary mt-3 w-full"
               icon={ArrowRight}
             >
               Talk to FEUS

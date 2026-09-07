@@ -1,39 +1,40 @@
 {
-  "generated_at": "2026-08-07T06:19:49.133071+00:00",
-  "source": "FEUS.ai Assurance Suite v5.2.1",
+  "generated_at": "2026-09-07T04:40:52.492223+00:00",
+  "source": "FEUS.ai Assurance Suite v5.3.0-enterprise.1",
   "assurance": {
     "data_source": "platform assurance evidence records",
-    "total_runs": 409,
-    "finalized_runs": 409,
-    "earliest_run_at": "2026-04-11T02:14:02.861448+00:00",
-    "latest_run_at": "2026-04-25T16:46:53.998840+00:00",
-    "total_evidence_entries": 4989,
+    "total_runs": 1454,
+    "finalized_runs": 1454,
+    "earliest_run_at": "2026-07-15T21:13:49.187259+00:00",
+    "latest_run_at": "2026-09-07T02:19:28.488799+00:00",
+    "total_evidence_entries": 17296,
     "packs_invoked": {
-      "workflow_governance_v1": 311,
-      "ai_security_v1": 311
+      "workflow_governance_v1": 1058,
+      "ai_security_v1": 1058,
+      "gap041_failing_pack": 55,
+      "gap041_high_pack": 27,
+      "gap041_passing_pack": 27,
+      "evidence_failing_pack": 1
     },
     "ceiling_decisions": {
-      "PROCEED": 309,
-      "BLOCK": 1,
-      "RESTRICT": 1
+      "PROCEED": 1085,
+      "BLOCK": 56
     }
   },
   "certification": {
     "data_source": "platform certification run summaries",
-    "total_runs": 25,
-    "highest_state_achieved": "CERTIFICATION_FAILED",
+    "total_runs": 58,
+    "highest_state_achieved": "NONE",
     "latest_verdict": "REPO_VERSION_COMPLIANT",
-    "latest_run_at": "2026-04-25T18:16:56Z",
+    "latest_run_at": "2026-09-07T02:06:02Z",
     "verdict_distribution": {
-      "CERTIFICATION_FAILED": 10,
-      "REPO_VERSION_COMPLIANT": 14,
-      "RECOMMENDATION_ASSURANCE_VERIFIED": 1
+      "REPO_VERSION_COMPLIANT": 58
     },
     "promotion_targets_unlocked": []
   },
   "audit_chain": {
-    "verified": false,
-    "files_checked": 0,
+    "verified": true,
+    "files_checked": 11,
     "broken_links": 0
   },
   "data_provenance": {

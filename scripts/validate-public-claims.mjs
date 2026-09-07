@@ -427,6 +427,100 @@ if (providerPortfolio?.status !== 'PREVIEW') {
   }
 }
 
+/* 3g. Cloud Runtime product-surface claims (W-11 / W-12).
+ *
+ * The runtime is published as a current product surface. Publishing it is only
+ * honest while the qualifications travel with it, so the same three pins that
+ * guard the model claims guard the runtime claims, plus the facts that make the
+ * offer legible: a fixed launch URL, a declared TST environment, the five
+ * routing modes the runtime actually enumerates, and an onboarding path that
+ * names an owner for every step.
+ */
+const cloud = await import(pathToFileURL(join(root, 'src', 'data', 'cloudRuntime.js')).href)
+const {
+  CLOUD_RUNTIME, LAUNCH_URL, ROUTING_MODES, ROUTING_AUTHORITY,
+  ONBOARDING_STEPS, ONBOARDING_FAQ, RUNTIME_SCOPE,
+} = cloud
+
+if (LAUNCH_URL !== 'https://app.feuselectronicsgroup.com') {
+  errors.push('cloudRuntime.js: LAUNCH_URL changed without authorization')
+}
+if (CLOUD_RUNTIME?.appUrl !== LAUNCH_URL) {
+  errors.push('cloudRuntime.js: CLOUD_RUNTIME.appUrl must match LAUNCH_URL')
+}
+if (CLOUD_RUNTIME?.declaredEnvironment !== 'TST') {
+  errors.push('cloudRuntime.js: the runtime declares TST; changing it requires new release evidence')
+}
+if (CLOUD_RUNTIME?.releaseRevision !== '32ebf973e49a62c8f45c5b53ada2c4f8f8c68213') {
+  errors.push('cloudRuntime.js: verified cloud release revision changed without authorization')
+}
+for (const pin of [...MODEL_CLAIM_PINS, MODEL_PROD_PIN]) {
+  if (!pin.re.test(CLOUD_RUNTIME?.qualification ?? '')) {
+    errors.push(`cloudRuntime.js: CLOUD_RUNTIME.qualification must disclose ${pin.why}`)
+  }
+}
+if (!/estimated/i.test(CLOUD_RUNTIME?.qualification ?? '')) {
+  errors.push('cloudRuntime.js: CLOUD_RUNTIME.qualification must state that cost is estimated, not billed')
+}
+if (!/no notification destination/i.test(CLOUD_RUNTIME?.qualification ?? '')) {
+  errors.push('cloudRuntime.js: CLOUD_RUNTIME.qualification must state that alert rules route to no notification destination')
+}
+
+const EXPECTED_MODES = ['AUTO', 'ECONOMY', 'BALANCED', 'QUALITY', 'EXPLICIT']
+const actualModes = (ROUTING_MODES ?? []).map((m) => m.id)
+if (actualModes.join(',') !== EXPECTED_MODES.join(',')) {
+  errors.push(`cloudRuntime.js: routing modes must match the runtime enumeration ${EXPECTED_MODES.join('/')}, found ${actualModes.join('/') || '(none)'}`)
+}
+if ((ROUTING_MODES ?? []).filter((m) => m.isDefault).length !== 1 ||
+    !ROUTING_MODES?.find((m) => m.isDefault)?.label?.includes('FEUS Auto')) {
+  errors.push('cloudRuntime.js: FEUS Auto must be the single declared default routing mode')
+}
+for (const mode of ROUTING_MODES ?? []) {
+  if (!mode.label || !mode.summary || mode.summary.length < 20) {
+    errors.push(`cloudRuntime.js: routing mode ${mode.id} is missing a usable label or summary`)
+  }
+}
+if (!/eligib/i.test(ROUTING_AUTHORITY?.modeRule ?? '')) {
+  errors.push('cloudRuntime.js: ROUTING_AUTHORITY.modeRule must state that a mode selects within the eligible set')
+}
+if (!/FEUS Policy Router/.test(ROUTING_AUTHORITY?.statement ?? '')) {
+  errors.push('cloudRuntime.js: the FEUS Policy Router must be named as the routing authority')
+}
+if (!/Model Router is not active/i.test(ROUTING_AUTHORITY?.foundryRouterNote ?? '')) {
+  errors.push('cloudRuntime.js: the Microsoft Foundry Model Router must be disclosed as not active')
+}
+for (const pin of [...MODEL_CLAIM_PINS, MODEL_PROD_PIN]) {
+  if (!pin.re.test(ROUTING_AUTHORITY?.modelQualification ?? '')) {
+    errors.push(`cloudRuntime.js: ROUTING_AUTHORITY.modelQualification must disclose ${pin.why}`)
+  }
+}
+
+if (!Array.isArray(ONBOARDING_STEPS) || ONBOARDING_STEPS.length < 6) {
+  errors.push('cloudRuntime.js: the onboarding path must keep at least six steps')
+}
+for (const step of ONBOARDING_STEPS ?? []) {
+  for (const field of ['number', 'title', 'owner', 'detail']) {
+    if (!step?.[field] || String(step[field]).length < 2) {
+      errors.push(`cloudRuntime.js: onboarding step ${step?.number ?? '?'} is missing "${field}"`)
+    }
+  }
+}
+if (!Array.isArray(ONBOARDING_FAQ) || ONBOARDING_FAQ.length < 6) {
+  errors.push('cloudRuntime.js: the onboarding FAQ must keep at least six answered questions')
+}
+const scopeHeadings = (RUNTIME_SCOPE ?? []).map((g) => g.heading).join(' | ')
+for (const required of [/live/i, /preview/i, /governed/i]) {
+  if (!required.test(scopeHeadings)) {
+    errors.push('cloudRuntime.js: RUNTIME_SCOPE must separate what is live, what is preview, and what is governed')
+  }
+}
+const scopeText = JSON.stringify(RUNTIME_SCOPE ?? [])
+for (const pin of [...MODEL_CLAIM_PINS, MODEL_PROD_PIN]) {
+  if (!pin.re.test(scopeText)) {
+    errors.push(`cloudRuntime.js: RUNTIME_SCOPE must disclose ${pin.why}`)
+  }
+}
+
 /* 4. Required verbatim strings. */
 const indexHtml = readFileSync(join(root, 'index.html'), 'utf8')
 const APPROVED_OG =

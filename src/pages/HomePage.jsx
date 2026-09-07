@@ -25,6 +25,7 @@ import WorkflowVisual from '../components/WorkflowVisual'
 import { CalendlyButton } from '../components/CalendlyEmbed'
 import { SectionLabel, SectionHeader, CTAButton } from '../components/ui'
 import { AGENT_PORTFOLIO, POSTURE } from '../data/publicStatus'
+import { CLOUD_RUNTIME, LAUNCH_URL, ROUTING_MODES } from '../data/cloudRuntime'
 
 const servicePaths = [
   {
@@ -293,6 +294,62 @@ function PlatformSection() {
   )
 }
 
+function CloudRuntimeSection() {
+  return (
+    <section className="bg-feus-950 py-20 text-white sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <AnimatedSection>
+            <SectionLabel>Available now</SectionLabel>
+            <h2 className="section-heading mt-5 text-white text-balance">
+              {CLOUD_RUNTIME.headline}
+            </h2>
+            <p className="mt-6 text-lg leading-relaxed text-slate-300">
+              {CLOUD_RUNTIME.summary}
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-slate-400">
+              {CLOUD_RUNTIME.qualification}
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={LAUNCH_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary inline-flex items-center justify-center gap-2 whitespace-nowrap"
+              >
+                Launch FEUS
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </a>
+              <CTAButton to="/get-started" variant="secondary">Get started</CTAButton>
+              <CTAButton to="/cloud-runtime" variant="secondary">What it does</CTAButton>
+            </div>
+          </AnimatedSection>
+          <AnimatedSection delay={100}>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+              <p className="text-xs font-bold uppercase tracking-wide text-accent-300">
+                Routing modes
+              </p>
+              <dl className="mt-4 space-y-4">
+                {ROUTING_MODES.map((mode) => (
+                  <div key={mode.id}>
+                    <dt className="text-sm font-bold text-white">
+                      {mode.label}
+                      {mode.isDefault && (
+                        <span className="ml-2 text-xs font-semibold text-feus-200">default</span>
+                      )}
+                    </dt>
+                    <dd className="mt-1 text-sm leading-relaxed text-slate-400">{mode.summary}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function UseCasesSection() {
   return (
     <section className="section-light py-20 sm:py-24">
@@ -425,6 +482,7 @@ export default function HomePage() {
       <ValueSection />
       <ServicesSection />
       <PlatformSection />
+      <CloudRuntimeSection />
       <UseCasesSection />
       <OutcomesSection />
       <ProcessSection />

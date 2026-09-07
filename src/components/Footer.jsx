@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Mail, MapPin, Linkedin, Facebook, Instagram } from 'lucide-react'
 import { CalendlyButton } from './CalendlyEmbed'
 import { POSTURE } from '../data/publicStatus'
+import { LAUNCH_URL } from '../data/cloudRuntime'
 import BrandMark from './BrandMark'
 
 const footerLinks = {
@@ -14,6 +15,8 @@ const footerLinks = {
   ],
   'FEUS.ai': [
     { name: 'FEUS.ai Overview', href: '/feus-ai' },
+    { name: 'Cloud Runtime', href: '/cloud-runtime' },
+    { name: 'Get started', href: '/get-started' },
     { name: 'Agent Portfolio', href: '/agents' },
     { name: 'Architecture', href: '/architecture' },
     { name: 'Capability Status', href: '/status' },
@@ -48,7 +51,15 @@ export default function Footer() {
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <CalendlyButton className="btn-primary whitespace-nowrap" icon={ArrowRight}>
+            <a
+              href={LAUNCH_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary whitespace-nowrap"
+            >
+              Launch FEUS
+            </a>
+            <CalendlyButton className="btn-secondary whitespace-nowrap" icon={ArrowRight}>
               Book a consultation
             </CalendlyButton>
             <Link to="/contact" className="btn-secondary whitespace-nowrap">Send a message</Link>

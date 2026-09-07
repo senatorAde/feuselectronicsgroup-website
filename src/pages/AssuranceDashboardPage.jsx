@@ -93,8 +93,9 @@ export default function AssuranceDashboardPage() {
                   </table>
                   <p className="mt-4 text-xs text-gray-500">
                     Engine states are internal identifiers reported exactly as produced.
-                    CERTIFICATION_FAILED means the internal engine did not certify the run;
-                    it is displayed without renaming.
+                    NONE means no run reached a certified state. CERTIFICATION_FAILED
+                    means the internal engine did not certify the run. Either value is
+                    displayed without renaming.
                   </p>
                 </div>
               </div>
