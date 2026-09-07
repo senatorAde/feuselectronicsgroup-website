@@ -16,7 +16,8 @@
  *  - No capability may display a stronger status than its lifecycle evidence.
  *  - Every public capability must carry its required qualification.
  *  - Preview extensions must display their restrictions and next milestone.
- *  - Model invocation is DISABLED and must be described exactly that way.
+ *  - Model invocation is governed and confined to TST, and must always be
+ *    described with the unratified model set and absent PROD eligibility.
  *  - Every ROI value is an Estimate with disclosed assumptions.
  *
  * The build fails (scripts/validate-public-claims.mjs) if this file is missing,
@@ -28,7 +29,7 @@ export const POSTURE = {
   company: 'FEUS Electronics Group',
   productMaturity: 'Operationally validated core',
   publicAvailability: 'Controlled enterprise adoption by capability scope',
-  lastReviewed: '2026-08-13',
+  lastReviewed: '2026-09-06',
 
   /* ---- Customer-facing positioning (public marketing surfaces) ---- */
   headline: 'Governed AI for Data Operations',
@@ -59,8 +60,10 @@ export const POSTURE = {
     'The core GovernedExecutionGateway SQL Server path is documented through a controlled FEUS provisioning workflow in which 48 of 48 batches passed all seven governance gates and the recorded audit hash chain verified successfully. The dated JSONL audit file is not retained in this checkout, so this is documented operational validation rather than independent re-attestation.',
   productionVerifiedCapabilities: 0,
   totalCapabilities: 45,
-  liveVerifiedIntegrations: 0,
-  testsPassedAtRevision: 2320,
+  liveVerifiedIntegrations: 3,
+  liveVerifiedIntegrationsQualification:
+    'Three integrations are live-verified in a cloud evaluation deployment: Microsoft Foundry model invocation, Azure Table Storage durable evidence, and Entra ID managed identity. Governed model invocation is confined to the TST environment and the activated model set is not ratified, so no PROD model eligibility exists. A live-verified integration is not a production-verified capability, and the production-verified count remains zero.',
+  testsPassedAtRevision: 3043,
   testsQualification:
     'Test passage is revision evidence, not by itself deployment or live-integration evidence. Operational-use claims require separate workflow records.',
 }
@@ -292,7 +295,7 @@ export const CAPABILITY_LIFECYCLE = [
     validation:
       'Risk thresholds, required assurance metadata, and fail-closed behavior when assurance is disabled are implemented and tested.',
     certification:
-      'The release assurance gate is implementation-verified outside the Session 12D 45-row vNext capability certification scope; live model confidence signals and provider invocation are not established.',
+      'The release assurance gate is implementation-verified outside the Session 12D 45-row vNext capability certification scope; confidence calibration for this gate against an invoked model is not established.',
     publicStatus: 'AVAILABLE_WITH_CONSTRAINTS',
     environment: 'Approved recommendation workflows',
     restrictions:
@@ -368,14 +371,14 @@ export const CAPABILITY_LIFECYCLE = [
     capability: 'Model-provider integrations',
     productArea: 'New extension',
     validation:
-      'Provider-neutral contracts and fail-closed selection concepts are tested in isolation.',
+      'Governed invocation is verified end to end in a cloud evaluation deployment: a routed turn recorded its model, routing authority, token counts, latency, and estimated cost.',
     certification:
-      'No invocation gateway, approved model pin, provider SDK, or network call exists; runtime invocation remains disabled.',
+      'Model invocation is governed and confined to the TST environment; the activated model set is not ratified and no PROD model eligibility exists.',
     publicStatus: 'PREVIEW',
-    environment: 'Architecture evaluation only',
+    environment: 'Cloud evaluation deployment, TST scope',
     restrictions:
-      'No provider support, compatibility, fallback, safety, cost, or availability claim.',
-    nextMilestone: 'Approved provider adapter through a mandatory invocation gateway with telemetry and safety validation.',
+      'No provider support, compatibility, fallback, safety, cost, or availability claim; cost figures are estimated rather than billed.',
+    nextMilestone: 'Ratify the activated model set under independent review and re-run the routing evaluation against it.',
   },
   {
     capability: 'Additional database engines and deployment integrations',
@@ -652,13 +655,13 @@ export const INTEGRATION_STATUS = [
     dependency: 'Model providers',
     status: 'PREVIEW',
     treatment:
-      'Provider-neutral contracts are in Preview. Runtime invocation is disabled; no gateway, approved model pin, production importer, or network path exists.',
+      'Three Microsoft Foundry deployments are reachable over managed identity and were exercised by a routed turn in a cloud evaluation deployment. Invocation is confined to TST, the activated model set is not ratified, and cost is estimated rather than billed.',
   },
   {
     dependency: 'Identity provider (Entra ID)',
-    status: 'EXTERNALLY_UNVERIFIED',
+    status: 'PREVIEW',
     treatment:
-      'Implementation and tier tests only; no live identity provider was contacted.',
+      'Live-verified in a cloud evaluation deployment: the runtime holds no secrets, authenticates callers against Entra ID, and refuses both absent and invalid tokens. No customer tenant lifecycle is qualified.',
   },
   {
     dependency: 'Key Vault / managed HSM',
@@ -670,7 +673,7 @@ export const INTEGRATION_STATUS = [
     dependency: 'Azure deployment',
     status: 'PREVIEW',
     treatment:
-      'The assessed vNext topology is incomplete and was never compiled, what-if analyzed, or deployed.',
+      'A cloud evaluation topology is deployed and serving over TLS with durable evidence storage and managed identity. The separately assessed vNext topology remains incomplete and undeployed, and alert rules route to no notification destination.',
   },
 ]
 
@@ -824,13 +827,13 @@ export const AGENT_PORTFOLIO = [
     status: 'PREVIEW',
     route: '/integrations',
     summary:
-      'A provider-neutral control boundary for future model selection, policy, telemetry, safety, and cost governance.',
+      'The provider-neutral control boundary that decides model selection, policy, telemetry, safety, and cost governance before any provider call is made.',
     evidence:
-      'Provider-neutral contracts and fail-closed selection behavior are tested in isolation.',
-    environment: 'Architecture evaluation',
+      'A routed turn in the cloud evaluation deployment recorded its model, the FEUS policy router as routing authority, token counts, latency, and an estimated cost basis.',
+    environment: 'Cloud evaluation deployment, TST scope',
     restriction:
-      'Runtime model invocation is disabled; no provider support, compatibility, or availability is claimed.',
-    nextMilestone: 'Validate an approved adapter through a mandatory invocation gateway with telemetry and safety controls.',
+      'Governed invocation is confined to TST; the activated model set is not ratified and no PROD model eligibility exists.',
+    nextMilestone: 'Ratify the activated model set under independent review and re-run the routing evaluation against it.',
   },
   {
     id: 'engine-expansion',
@@ -849,13 +852,13 @@ export const AGENT_PORTFOLIO = [
   },
 ]
 
-/** Model-provider statement (approved messaging §14). */
+/** Model-provider statement (approved messaging §14, revised 2026-09-06). */
 export const MODEL_PROVIDER_STATEMENT = {
-  headline: 'Provider integrations are in Preview; invocation is disabled',
+  headline: 'Governed model invocation is live in a cloud evaluation deployment, scoped to TST',
   statement:
-    'FEUS.ai has no runtime invocation gateway, approved model pin, production importer of the provider-policy contract, or provider network-invocation path at this revision.',
+    'FEUS.ai decides model eligibility with its own policy router before any provider call is made. Three Microsoft Foundry deployments are reachable over managed identity and are constitutionally usable in the TST environment only. They are proposed and not ratified, and their cost basis is estimated, so a PROD request finds no eligible model and is refused.',
   designNote:
-    'Provider-selection and fallback contracts exist in isolated tests; they do not establish a governed model runtime.',
+    'FEUS is the control plane and the model provider is an execution platform. Every routed turn records the model chosen, the routing authority, token counts, latency, and cost basis as measured evidence rather than as a projection.',
 }
 
 /** ROI estimate framing (approved messaging §15). */

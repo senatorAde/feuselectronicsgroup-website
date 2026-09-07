@@ -47,7 +47,7 @@ export const KNOWN_LIMITATIONS = [
   'The Session 12D vNext release remains NO-GO for external deployment above LOCAL.',
   'The vNext execution path has no dispatcher or bound SQL executor; the documented core GEG path is separate.',
   'No Oracle, ITSM, identity-provider, model-provider, or Azure integration was live-verified by Session 12D.',
-  'Model-provider invocation remains disabled.',
+  'Model-provider invocation was disabled in the assessed vNext release. The separate 5.3 cloud runtime release enables it under FEUS policy routing, confined to TST, with an activated model set that is not ratified.',
   'The Oracle Operations Agent is Controlled Preview with fixture evidence only and no live adapter.',
   'Target-tier signing-key custody and authorization remain absent for the assessed vNext release.',
   'Runtime evidence is not adversary-resistant.',
@@ -96,7 +96,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'Which model providers are supported?',
-    a: 'No runtime model provider is currently supported. Provider-neutral contracts are in Preview, model invocation is disabled, and the approved model set is empty.',
+    a: 'Three Microsoft Foundry deployments are activated and reachable over managed identity in the 5.3 cloud runtime release, and a routed turn against one of them is recorded in that release evidence. Routing authority is the FEUS policy router, not the provider. Those models are constitutionally usable in TST only; they are proposed and not ratified, their cost basis is estimated rather than billed, and a PROD request correctly finds no eligible model. The Session 12D vNext release assessed separately had no invocation path at all.',
   },
   {
     q: 'Is the audit trail immutable?',
@@ -112,7 +112,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'Can FEUS.ai be deployed on-premises or in Azure?',
-    a: 'Deployment is capability and target specific. The assessed vNext Azure topology remains Preview: its templates are incomplete and were never compiled, what-if analyzed, or deployed. Core adoption requires a separate deployment qualification.',
+    a: 'Deployment is capability and target specific. An Azure evaluation topology from the 5.3 cloud runtime release is deployed and serving over TLS with durable evidence storage, managed identity, and no container secrets. It is an evaluation deployment: its alert rules route to no notification destination, and it carries no availability or recovery commitment. The separately assessed vNext 5.2 Azure topology remains Preview — those templates are incomplete and were never compiled, what-if analyzed, or deployed. Core adoption requires a separate deployment qualification.',
   },
   {
     q: 'How do I report a security concern?',
@@ -126,6 +126,17 @@ export const FAQ_ITEMS = [
 
 /** Public release-posture history (release notes page). */
 export const POSTURE_HISTORY = [
+  {
+    date: '2026-09-07',
+    revision: '32ebf973e49a62c8f45c5b53ada2c4f8f8c68213',
+    version: '5.3.0-enterprise.1',
+    authority: 'Cloud runtime release verification',
+    decision: 'VERIFIED FOR CLOUD EVALUATION USE, TST SCOPE',
+    scope:
+      'A separate release line from the assessed vNext revision, not a re-assessment of it. Governed generative inference, durable evidence storage, and Entra-authenticated access were verified end to end against the deployed service, including two checks that pass only when the platform refuses. Release verification reported no failures. Signing-key custody remains unattested, the activated model set is not ratified, and alert rules route to no notification destination.',
+    current: true,
+    controllingLabel: 'Current cloud runtime release',
+  },
   {
     date: '2026-08-07',
     revision: 'product-level, capability scoped',

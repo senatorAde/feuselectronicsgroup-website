@@ -184,6 +184,7 @@ const status = await import(pathToFileURL(VOCAB_FILE).href)
 const {
   POSTURE, CAPABILITY_SUMMARY, CAPABILITY_LIFECYCLE,
   PUBLIC_CAPABILITIES, AGENT_PORTFOLIO, CONTROL_COUNTS, STATUS_DEFS,
+  MODEL_PROVIDER_STATEMENT,
 } = status
 const release = await import(pathToFileURL(RELEASE_FILE).href)
 const { RELEASE_ASSESSMENT, KNOWN_LIMITATIONS, FAQ_ITEMS, POSTURE_HISTORY } = release
@@ -236,6 +237,21 @@ if (status.RELEASE_ASSESSMENT || status.KNOWN_LIMITATIONS || status.FAQ_ITEMS ||
 }
 if (POSTURE.productionVerifiedCapabilities !== 0 || POSTURE.totalCapabilities !== 45) {
   errors.push('publicStatus.js: capability totals do not match the certified assessment (0 of 45)')
+}
+
+/*
+ * A non-zero live-verified integration count must carry its scope. "Live
+ * verified" and "production verified" are different claims and the second is
+ * still zero; without the qualification a reader collapses them.
+ */
+if ((POSTURE.liveVerifiedIntegrations ?? 0) > 0) {
+  const q = POSTURE.liveVerifiedIntegrationsQualification ?? ''
+  if (!/\bTST\b/.test(q) || !/not ratified|unratified/i.test(q)) {
+    errors.push('publicStatus.js: a non-zero liveVerifiedIntegrations count requires liveVerifiedIntegrationsQualification disclosing the TST scope and the unratified model set')
+  }
+  if (!/production-verified count remains zero|not a production-verified capability/i.test(q)) {
+    errors.push('publicStatus.js: liveVerifiedIntegrationsQualification must separate live-verified integrations from production-verified capabilities')
+  }
 }
 
 const sumControls =
@@ -318,9 +334,48 @@ if (!itsmLifecycle || itsmLifecycle.publicStatus === 'INTEGRATION_READY') {
   errors.push('ITSM automation connectors cannot be integration ready while disclosure and live-tenant evidence remain open')
 }
 
+/*
+ * Model-provider disclosure — successor rule, 2026-09-06.
+ *
+ * Until this date the rule below pinned the phrase "invocation remains
+ * disabled". That claim became FALSE when the cloud runtime shipped: the
+ * release evidence records a routed turn reaching a Foundry deployment over
+ * the network under FEUS policy routing.
+ *
+ * The rule is REPLACED, not removed. A claim gate that is deleted the moment
+ * its claim changes protects nothing. The three qualifications that keep the
+ * new, stronger claim honest are pinned with the same force the old rule used:
+ * invocation is confined to TST, the activated model set is not ratified, and
+ * no PROD model eligibility exists. All three must appear, in the lifecycle
+ * row, in the portfolio entry, and in the public statement.
+ */
+const MODEL_CLAIM_PINS = [
+  { re: /\bTST\b/, why: 'the TST invocation scope' },
+  { re: /not ratified|unratified/i, why: 'the unratified activated model set' },
+]
+const MODEL_PROD_PIN = { re: /no PROD (model )?eligibility/i, why: 'the absence of PROD model eligibility' }
+
 const providerLifecycle = CAPABILITY_LIFECYCLE.find((row) => row.capability === 'Model-provider integrations')
-if (!providerLifecycle || !/invocation remains disabled/i.test(providerLifecycle.certification)) {
-  errors.push('Model-provider lifecycle row must disclose that runtime invocation remains disabled')
+if (!providerLifecycle) {
+  errors.push('publicStatus.js: the Model-provider integrations lifecycle row is missing')
+} else {
+  const text = `${providerLifecycle.certification} ${providerLifecycle.restrictions}`
+  for (const pin of [...MODEL_CLAIM_PINS, MODEL_PROD_PIN]) {
+    if (!pin.re.test(text)) {
+      errors.push(`Model-provider lifecycle row must disclose ${pin.why}`)
+    }
+  }
+}
+
+const providerStatementText =
+  `${MODEL_PROVIDER_STATEMENT?.headline ?? ''} ${MODEL_PROVIDER_STATEMENT?.statement ?? ''}`
+for (const pin of MODEL_CLAIM_PINS) {
+  if (!pin.re.test(providerStatementText)) {
+    errors.push(`publicStatus.js: MODEL_PROVIDER_STATEMENT must disclose ${pin.why}`)
+  }
+}
+if (!/no eligible model|refused/i.test(providerStatementText)) {
+  errors.push('publicStatus.js: MODEL_PROVIDER_STATEMENT must state that a PROD request finds no eligible model and is refused')
 }
 
 const REQUIRED_PORTFOLIO_IDS = new Set([
@@ -361,9 +416,15 @@ if (itsmPortfolio?.status !== 'PREVIEW' ||
   errors.push('FEUS ITSM Connect must remain Preview with mock-transport and live-tenant qualifications')
 }
 const providerPortfolio = AGENT_PORTFOLIO.find((agent) => agent.id === 'provider-gateway')
-if (providerPortfolio?.status !== 'PREVIEW' ||
-    !/runtime model invocation is disabled/i.test(providerPortfolio?.restriction ?? '')) {
-  errors.push('FEUS Provider Gateway must remain Preview and disclose disabled runtime invocation')
+if (providerPortfolio?.status !== 'PREVIEW') {
+  errors.push('FEUS Provider Gateway must remain Preview until the activated model set is ratified')
+} else {
+  const text = `${providerPortfolio.evidence ?? ''} ${providerPortfolio.restriction ?? ''}`
+  for (const pin of [...MODEL_CLAIM_PINS, MODEL_PROD_PIN]) {
+    if (!pin.re.test(text)) {
+      errors.push(`FEUS Provider Gateway must disclose ${pin.why}`)
+    }
+  }
 }
 
 /* 4. Required verbatim strings. */
