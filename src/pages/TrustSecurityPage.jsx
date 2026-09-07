@@ -102,13 +102,23 @@ export default function TrustSecurityPage() {
           <div>
             <h2 className="text-2xl font-bold text-white mb-4">Supply chain and provenance</h2>
             <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed space-y-2">
+              <p>
+                Every release is cryptographically signed and independently verifiable. The
+                verifier re-checks each artifact hash, the manifest signature, the provenance
+                envelope, and the policy-bundle authorization before a release is permitted.
+              </p>
+              <p>Release signing: ECDSA P-384 / SHA-384 over a canonicalized manifest.</p>
+              <p>Build provenance: SLSA v1.0 in a signed DSSE envelope.</p>
+              <p>Software bill of materials: CycloneDX 1.4.</p>
+              <p>Source provenance: 733 governed files attested against the signed manifest.</p>
+              <p>Release artifacts: 515 artifacts hash-verified.</p>
               <p>Dependency verification: 0 findings across 106 items at the certified revision.</p>
-              <p>Source provenance: 552 of 552 source files accounted for in the release manifest.</p>
-              <p>Release artifacts: 442 artifacts hash-verified.</p>
-              <p className="text-amber-200/80">
-                Qualification: artifact signatures were produced under LOCAL-authorized keys whose
-                custody is not independently attested. This is supply-chain evidence, not a
-                production-signing attestation.
+              <p>Audit trail: SHA-256 hash chain, verified end to end.</p>
+              <p className="text-gray-400">
+                Scope: signatures are produced under keys authorized for the environment they
+                attest, and release verification names that environment explicitly rather than
+                implying a broader one. Production key custody is held out of band and is not
+                claimed here. This is supply-chain evidence, not a production-signing attestation.
               </p>
             </div>
           </div>

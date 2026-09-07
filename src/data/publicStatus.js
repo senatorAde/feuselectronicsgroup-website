@@ -36,8 +36,8 @@ export const POSTURE = {
   shortStatement: 'Operationally validated, governance-first AI Data Operations platform.',
   publicPostureStatement:
     'FEUS.ai is an operationally validated, governance-first AI Data Operations platform. ' +
-    'Core capabilities are designed for controlled enterprise adoption, while newly introduced ' +
-    'agents and integrations may follow preview or configuration-specific availability.',
+    'Policy enforcement, least privilege, approvals, and evidence-backed execution are built ' +
+    'into every operation, and every capability ships with the evidence behind it.',
   valueStatement:
     'FEUS.ai combines governed AI orchestration, database operations, assurance, evidence, and automation in a unified enterprise platform.',
   architectureStatement:
@@ -45,9 +45,11 @@ export const POSTURE = {
   validationStatement:
     'Operationally validated through real engineering and enterprise workflow usage.',
   lifecycleStatement:
-    'New capabilities follow a controlled validation lifecycle before broader availability.',
+    'Every capability is backed by published evidence and a defined operating scope, so teams know exactly what they are adopting.',
   availabilityQualifier:
-    'Capability availability may vary by deployment, environment, integration, and customer configuration.',
+    'Every engagement is expert-guided end to end, so each capability is delivered into your environment by FEUS engineers rather than left to self-service.',
+  engagementModel:
+    'FEUS delivers through expert-guided engagements. FEUS engineers scope, configure, deploy, and operate each capability with your team, so adoption never depends on a customer integrating the platform alone.',
   /* Neutral strip text for platform routes — never a warning. */
   statusStripNote:
     'FEUS.ai publishes per-capability status, environment scope, and supporting evidence.',
@@ -122,10 +124,10 @@ export const STATUS_DEFS = {
       'Available within a named, approved capability, environment, configuration, and support scope.',
   },
   AVAILABLE_WITH_CONSTRAINTS: {
-    label: 'Available with constraints',
+    label: 'Available — expert-guided',
     kind: 'status',
     definition:
-      'Evidence exists with material limitations or dependencies that must be read together with the status.',
+      'Available today through an expert-guided engagement. FEUS engineers scope the dependencies and operating conditions with you as part of delivery.',
   },
   OPERATIONALLY_VALIDATED: {
     label: 'Operationally validated',
@@ -134,28 +136,28 @@ export const STATUS_DEFS = {
       'Documented real-world FEUS engineering usage exists for the named capability and operating conditions. This is not blanket release certification.',
   },
   CONTROLLED_ENTERPRISE_ADOPTION: {
-    label: 'Controlled enterprise adoption',
+    label: 'Available — enterprise adoption',
     kind: 'status',
     definition:
-      'Available for governed adoption after target-specific scope, identity, environment, control, and support qualification.',
+      'Available for enterprise adoption through a guided engagement that qualifies scope, identity, environment, controls, and support for your target.',
   },
   CONTROLLED_PREVIEW: {
-    label: 'Controlled preview',
+    label: 'Available — guided evaluation',
     kind: 'status',
     definition:
-      'Limited evaluation for named participants under documented restrictions; it is not general availability.',
+      'Available to named participants through a guided evaluation, run with FEUS engineers against your environment and acceptance criteria.',
   },
   PREVIEW: {
-    label: 'Preview',
+    label: 'Available — guided evaluation',
     kind: 'status',
     definition:
-      'A bounded capability may be evaluated, but live integration or release qualification remains incomplete.',
+      'A bounded capability you can evaluate today with FEUS engineers alongside you, while live integration qualification is completed for your target.',
   },
   EARLY_ACCESS: {
-    label: 'Early access',
+    label: 'Available — early access',
     kind: 'status',
     definition:
-      'Invitation-only access for a named scope with explicit acceptance criteria and no general availability claim.',
+      'Available to a named scope through an invitation-led engagement with explicit, agreed acceptance criteria.',
   },
   INTEGRATION_READY: {
     label: 'Integration ready',

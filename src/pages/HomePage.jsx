@@ -263,6 +263,9 @@ function PlatformSection() {
             <p className="mt-6 text-lg leading-relaxed text-slate-300">
               {POSTURE.valueStatement} Human intent, policy, identity, approvals, and evidence remain part of the operating model.
             </p>
+            <p className="mt-4 text-base leading-relaxed text-slate-200">
+              {POSTURE.engagementModel}
+            </p>
             <p className="mt-4 text-sm leading-relaxed text-slate-400">
               {POSTURE.lifecycleStatement} {POSTURE.availabilityQualifier}
             </p>

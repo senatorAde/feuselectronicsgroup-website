@@ -10,6 +10,7 @@ import {
   ROUTING_AUTHORITY,
   RUNTIME_SCOPE,
 } from '../data/cloudRuntime'
+import { POSTURE } from '../data/publicStatus'
 
 /**
  * /get-started — the client onboarding path (W-12).
@@ -44,6 +45,9 @@ export default function GetStartedPage() {
           <p className="mt-4 text-gray-300 leading-relaxed">
             You do not need an editor, an agent framework, or a local install to
             evaluate it. The cloud runtime is a browser surface.
+          </p>
+          <p className="mt-4 text-gray-200 leading-relaxed">
+            {POSTURE.engagementModel}
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
