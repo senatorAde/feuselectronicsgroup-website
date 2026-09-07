@@ -462,8 +462,16 @@ for (const pin of [...MODEL_CLAIM_PINS, MODEL_PROD_PIN]) {
 if (!/estimated/i.test(CLOUD_RUNTIME?.qualification ?? '')) {
   errors.push('cloudRuntime.js: CLOUD_RUNTIME.qualification must state that cost is estimated, not billed')
 }
-if (!/no notification destination/i.test(CLOUD_RUNTIME?.qualification ?? '')) {
-  errors.push('cloudRuntime.js: CLOUD_RUNTIME.qualification must state that alert rules route to no notification destination')
+// Alerting used to have no destination, and this pin required the site to say
+// so. That was closed on 2026-09-07: the action group delivers, and delivery
+// was proven with an Azure Monitor test notification. The pin is therefore
+// re-aimed rather than removed. What still cannot be claimed is an
+// *availability* commitment -- no response time has been measured or
+// contracted -- so the qualification must keep disclosing that. Removing the
+// pin entirely would let a verified detection capability drift into an
+// unverified response promise, which is the failure this rule now guards.
+if (!/no availability commitment/i.test(CLOUD_RUNTIME?.qualification ?? '')) {
+  errors.push('cloudRuntime.js: CLOUD_RUNTIME.qualification must state that there is no availability commitment')
 }
 
 const EXPECTED_MODES = ['AUTO', 'ECONOMY', 'BALANCED', 'QUALITY', 'EXPLICIT']

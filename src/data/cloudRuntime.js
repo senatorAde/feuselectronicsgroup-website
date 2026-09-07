@@ -12,8 +12,9 @@
  *    eligibility exists. Both facts must survive every rewrite.
  *  - Cost figures are estimated from published unit rates, never billed
  *    actuals.
- *  - Alert rules exist but route to no notification destination. Nothing here
- *    may imply a response commitment.
+ *  - Alerting is deployed and delivery-verified, and response is expert-guided
+ *    under the engagement model. Nothing here may state a response time or an
+ *    availability commitment: neither has been measured or contracted.
  *
  * scripts/validate-public-claims.mjs pins these properties. Breaking one
  * fails the build rather than shipping a softened claim.
@@ -42,9 +43,10 @@ export const CLOUD_RUNTIME = {
     'Scope: the runtime declares the TST environment. The activated model set ' +
     'is proposed and not ratified, and no PROD model eligibility exists, so a ' +
     'PROD request finds no eligible model and is refused. Cost is estimated ' +
-    'from published unit rates rather than billed actuals. Alert rules are ' +
-    'defined but route to no notification destination, so nothing here implies ' +
-    'a response commitment.',
+    'from published unit rates rather than billed actuals. Alerting is ' +
+    'deployed and delivery-verified, and response is expert-guided under the ' +
+    'engagement model, but there is no availability commitment because no ' +
+    'response time has been measured or contracted.',
 }
 
 /**
@@ -380,8 +382,10 @@ export const ONBOARDING_FAQ = [
     q: 'Is this a production service?',
     a:
       'No. The deployment declares the TST environment and is offered as a ' +
-      'governed evaluation surface. There is no availability commitment, and ' +
-      'the defined alert rules route to no notification destination.',
+      'governed evaluation surface. Alerting is deployed and its delivery has ' +
+      'been verified, and response is expert-guided by the engagement team, ' +
+      'but there is no availability commitment: no response time has been ' +
+      'measured or contracted.',
   },
   {
     q: 'How is a tenant separated from another tenant?',
