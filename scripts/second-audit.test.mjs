@@ -23,7 +23,7 @@ const server = await createServer({
   optimizeDeps: { noDiscovery: true, include: [] },
 })
 after(() => server.close())
-const { renderPage } = await server.ssrLoadModule('/scripts/audit-render.jsx')
+const { renderPage, renderSitePage } = await server.ssrLoadModule('/scripts/audit-render.jsx')
 const page = async (name, location) => {
   const { default: Component } = await server.ssrLoadModule(`/src/pages/${name}.jsx`)
   return renderPage(Component, location)
@@ -161,9 +161,41 @@ test('cost and model governance cannot imply measured savings or production elig
   assert.match(ROUTING_AUTHORITY.foundryRouterNote, /not active/)
 })
 
+test('rendered site navigation has exact legal labels and destinations, including onboarding', async () => {
+  const expected = [
+    { href: '/legal/privacy', label: 'Privacy notice' },
+    { href: '/legal/terms', label: 'Terms of use' },
+  ]
+  for (const [name, route] of [['HomePage', '/'], ['GetStartedPage', '/get-started'], ['ContactPage', '/contact?type=adoption']]) {
+    const { default: Component } = await server.ssrLoadModule(`/src/pages/${name}.jsx`)
+    const html = renderSitePage(Component, route)
+    const anchors = (markup) => [...markup.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)]
+      .map((match) => ({ href: match[1], label: text(match[2]).trim() }))
+    const footer = html.match(/<footer\b[^>]*>([\s\S]*?)<\/footer>/)?.[1]
+    assert.ok(footer, `${name}: actual shared footer must render`)
+    assert.deepEqual(anchors(footer).filter(({ href, label }) => /\/legal\//.test(href) || /privacy|terms/i.test(label)), expected, name)
+    // Check every rendered link, including navbar and onboarding/contact body;
+    // in-sentence lowercase labels stay lowercase and prose disclosures stay intact.
+    for (const link of anchors(html).filter(({ href, label }) => /\/legal\//.test(href) || /privacy|terms/i.test(label))) {
+      const target = expected.find(({ href }) => href === link.href)
+      assert.ok(target, `${name}: unexpected legal destination ${link.href}`)
+      assert.equal(link.label.toLowerCase(), target.label.toLowerCase(), name)
+    }
+    if (name === 'ContactPage') assert.match(text(html), /published as a draft pending legal approval/)
+  }
+})
+
 test('legal documents remain unapproved drafts and evidence copy has no checkout editorial', async () => {
   for (const [name, route] of [['PrivacyPage', '/legal/privacy'], ['TermsPage', '/legal/terms']]) {
-    assert.match(text(await page(name, route)), /published draft, not a binding agreement/)
+    const copy = text(await page(name, route))
+    assert.match(copy, /This is a published draft, not a binding agreement\./)
+    assert.match(copy, /not (?:yet )?been approved by legal counsel/)
+    assert.match(copy, /Draft published 2026-09-07/)
+    if (name === 'PrivacyPage') assert.match(copy, /does not form part of any contract/)
+    else {
+      assert.match(copy, /it creates no contract/)
+      assert.match(copy, /does not override any signed agreement/)
+    }
   }
   const source = readFileSync(join(root, 'src/data/publicStatus.js'), 'utf8')
   assert.doesNotMatch(source, /this checkout/)

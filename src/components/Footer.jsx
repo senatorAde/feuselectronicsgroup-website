@@ -128,10 +128,10 @@ export default function Footer() {
             </p>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
               <Link to="/legal/privacy" className="text-sm text-slate-500 transition-colors hover:text-slate-300">
-                Privacy notice <span className="text-slate-600">(draft)</span>
+                Privacy notice
               </Link>
               <Link to="/legal/terms" className="text-sm text-slate-500 transition-colors hover:text-slate-300">
-                Terms of use <span className="text-slate-600">(draft)</span>
+                Terms of use
               </Link>
               <Link to="/security" className="text-sm text-slate-500 transition-colors hover:text-slate-300">
                 Report a security issue

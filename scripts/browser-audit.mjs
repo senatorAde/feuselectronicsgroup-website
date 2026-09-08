@@ -121,7 +121,7 @@ try {
       summary: event.target.closest('summary')?.textContent
     }), true);
   ` })
-  const routes = ['/', '/feus-ai', '/cloud-runtime', '/get-started', '/demo', '/contact', '/trust', '/trust/security', '/security', '/architecture', '/status', '/faq']
+  const routes = ['/', '/feus-ai', '/cloud-runtime', '/get-started', '/demo', '/contact', '/trust', '/trust/security', '/security', '/architecture', '/status', '/faq', '/legal/privacy', '/legal/terms']
   for (const width of [1440, 390]) {
     await send('Emulation.setDeviceMetricsOverride', { width, height: width === 390 ? 844 : 1000, deviceScaleFactor: 1, mobile: false })
     for (const route of routes) {
@@ -137,6 +137,34 @@ try {
       assert.deepEqual(measurements.brokenImages, [], `${route} broken images`)
       report.pages.push({ route, ...measurements })
       await capture(`${width}-${route.replaceAll('/', '_') || 'home'}`)
+    }
+    for (const origin of ['/', '/get-started']) {
+      for (const [href, label] of [['/legal/privacy', 'Privacy notice'], ['/legal/terms', 'Terms of use']]) {
+        await navigate(origin)
+        const selector = `footer a[href="${href}"]`
+        const link = await evaluate(`(() => {
+          const element = document.querySelector(${JSON.stringify(selector)});
+          return {label:element?.textContent.trim(),href:element?.getAttribute('href')};
+        })()`)
+        assert.deepEqual(link, { label, href })
+        await pointer(selector)
+        await waitFor(`location.pathname === ${JSON.stringify(href)} && document.querySelector('main h1')?.textContent === ${JSON.stringify(label)}`)
+        const result = await evaluate(`({url:location.pathname,heading:document.querySelector('main h1').textContent,
+          copy:document.querySelector('main').innerText.replace(/\\s+/g,' '),clicks:globalThis.auditClicks})`)
+        assert.equal(result.url, href)
+        assert.equal(result.heading, label)
+        assert.match(result.copy, /This is a published draft, not a binding agreement\./)
+        assert.match(result.copy, /not (?:yet )?been approved by legal counsel/)
+        assert.match(result.copy, /Draft published 2026-09-07/)
+        if (href === '/legal/privacy') assert.match(result.copy, /does not form part of any contract/)
+        else {
+          assert.match(result.copy, /it creates no contract/)
+          assert.match(result.copy, /does not override any signed agreement/)
+        }
+        assert.ok(result.clicks.some(click => click.trusted && click.pointerType === 'mouse' && click.href === href))
+        report.clicks.push({ width, origin, legal: true, link, ...result })
+        await capture(`${width}-${origin === '/' ? 'home' : 'onboarding'}-${href.split('/').at(-1)}`)
+      }
     }
     for (const [route, intent, label] of [
       ['/demo', 'demo', 'Request a Guided Live FEUS.ai Demonstration'],
