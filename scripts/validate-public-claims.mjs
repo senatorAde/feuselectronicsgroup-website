@@ -52,6 +52,11 @@ const VOCAB_FILE = join(root, 'src', 'data', 'publicStatus.js')
 // The controlled release-evidence file holds exact-revision Trust Center
 // content (release decision, limitations, FAQ, posture history).
 const RELEASE_FILE = join(root, 'src', 'data', 'releaseAssessment.js')
+// The cloud-runtime module carries the deployed release revision and the
+// evidence figures shown on the marketing surface. Both must agree with the
+// controlled posture record; a number quoted in two places that disagree is
+// worse than a number quoted once.
+const CLOUD_RUNTIME_FILE = join(root, 'src', 'data', 'cloudRuntime.js')
 
 /* 1 + 2. Prohibited phrases (case-insensitive). */
 const PROHIBITED = [
@@ -188,6 +193,9 @@ const {
 } = status
 const release = await import(pathToFileURL(RELEASE_FILE).href)
 const { RELEASE_ASSESSMENT, KNOWN_LIMITATIONS, FAQ_ITEMS, POSTURE_HISTORY } = release
+const cloud = await import(pathToFileURL(CLOUD_RUNTIME_FILE).href)
+const { CLOUD_RUNTIME, RUNTIME_EVIDENCE } = cloud
+const CLOUD_RUNTIME_REVISION = CLOUD_RUNTIME?.releaseRevision ?? ''
 
 /* 3a. Exact-revision release evidence is preserved, not softened. */
 if (RELEASE_ASSESSMENT?.decision !== 'NO-GO') {
@@ -209,6 +217,89 @@ if (!Array.isArray(FAQ_ITEMS) || FAQ_ITEMS.length < 13) {
 }
 if (!Array.isArray(POSTURE_HISTORY) || !POSTURE_HISTORY.some((h) => h.decision === 'NO-GO')) {
   errors.push('releaseAssessment.js: POSTURE_HISTORY must retain the controlling vNext release decision')
+}
+
+/*
+ * 3a-ii. Exactly one cloud-runtime record may be current, it must name a
+ * revision, and that revision must not be the certified vNext revision — the
+ * two are different release lines and conflating them would overstate both.
+ * Superseded cloud-runtime records stay in the list; history is not deleted.
+ */
+if (Array.isArray(POSTURE_HISTORY)) {
+  const cloudRuntimeRecords = POSTURE_HISTORY.filter(
+    (h) => h.authority === 'Cloud runtime release verification',
+  )
+  const currentCloudRuntime = cloudRuntimeRecords.filter((h) => h.current === true)
+  if (currentCloudRuntime.length !== 1) {
+    errors.push(
+      `releaseAssessment.js: exactly one cloud-runtime posture record must be current (found ${currentCloudRuntime.length})`,
+    )
+  }
+  if (cloudRuntimeRecords.length > 1 && currentCloudRuntime.length === 1) {
+    const superseded = cloudRuntimeRecords.filter((h) => h.current !== true)
+    if (superseded.length !== cloudRuntimeRecords.length - 1) {
+      errors.push('releaseAssessment.js: superseded cloud-runtime records must remain in POSTURE_HISTORY')
+    }
+    for (const record of superseded) {
+      if (record.controllingLabel === 'Current cloud runtime release') {
+        errors.push(
+          `releaseAssessment.js: superseded cloud-runtime record ${record.date} still claims the current label`,
+        )
+      }
+    }
+  }
+  const current = currentCloudRuntime[0]
+  if (current) {
+    for (const field of ['date', 'revision', 'version', 'decision', 'scope', 'controllingLabel']) {
+      if (!current[field]) {
+        errors.push(`releaseAssessment.js: current cloud-runtime record is missing ${field}`)
+      }
+    }
+    if (!/^[0-9a-f]{40}$/.test(current.revision ?? '')) {
+      errors.push('releaseAssessment.js: the current cloud-runtime record must name a full 40-character revision')
+    }
+    if (current.revision === RELEASE_ASSESSMENT?.certifiedRevision) {
+      errors.push('releaseAssessment.js: the cloud-runtime release line must not reuse the certified vNext revision')
+    }
+    if (!/\bTST\b/.test(current.decision ?? '') && !/\bTST\b/.test(current.scope ?? '')) {
+      errors.push('releaseAssessment.js: the current cloud-runtime record must name the TST environment scope')
+    }
+    if (!/not ratified|unratified/i.test(current.scope ?? '')) {
+      errors.push('releaseAssessment.js: the current cloud-runtime record must disclose that the model set is not ratified')
+    }
+    if (!/estimated|not billed|rather than billed/i.test(current.scope ?? '')) {
+      errors.push('releaseAssessment.js: the current cloud-runtime record must state the cost basis')
+    }
+    if (!/custody/i.test(current.scope ?? '')) {
+      errors.push('releaseAssessment.js: the current cloud-runtime record must state the signing-key custody position')
+    }
+  }
+  /* The cloud-runtime revision on the marketing surface must match the record. */
+  if (current && CLOUD_RUNTIME_REVISION && current.revision !== CLOUD_RUNTIME_REVISION) {
+    errors.push(
+      'cloudRuntime.js: CLOUD_RUNTIME.releaseRevision does not match the current cloud-runtime posture record',
+    )
+  }
+}
+
+/*
+ * 3a-iii. The suite size is published in two places. They must agree, and the
+ * number must be a real count rather than a rounded impression of one.
+ */
+if (Array.isArray(RUNTIME_EVIDENCE)) {
+  const suite = RUNTIME_EVIDENCE.find((row) => /automated test suite/i.test(row.label ?? ''))
+  if (!suite) {
+    errors.push('cloudRuntime.js: RUNTIME_EVIDENCE must publish the automated test suite size')
+  } else {
+    const quoted = Number((suite.value ?? '').replace(/[^0-9]/g, ''))
+    if (!Number.isInteger(quoted) || quoted <= 0) {
+      errors.push('cloudRuntime.js: the automated test suite row must quote a count')
+    } else if (quoted !== POSTURE?.testsPassedAtRevision) {
+      errors.push(
+        `cloudRuntime.js: test count ${quoted} disagrees with publicStatus.js testsPassedAtRevision ${POSTURE?.testsPassedAtRevision}`,
+      )
+    }
+  }
 }
 
 /* 3b. Customer-facing posture must not carry release-gate language. */
@@ -436,9 +527,8 @@ if (providerPortfolio?.status !== 'PREVIEW') {
  * routing modes the runtime actually enumerates, and an onboarding path that
  * names an owner for every step.
  */
-const cloud = await import(pathToFileURL(join(root, 'src', 'data', 'cloudRuntime.js')).href)
 const {
-  CLOUD_RUNTIME, LAUNCH_URL, ROUTING_MODES, ROUTING_AUTHORITY,
+  LAUNCH_URL, ROUTING_MODES, ROUTING_AUTHORITY,
   ONBOARDING_STEPS, ONBOARDING_FAQ, RUNTIME_SCOPE,
 } = cloud
 
@@ -451,7 +541,7 @@ if (CLOUD_RUNTIME?.appUrl !== LAUNCH_URL) {
 if (CLOUD_RUNTIME?.declaredEnvironment !== 'TST') {
   errors.push('cloudRuntime.js: the runtime declares TST; changing it requires new release evidence')
 }
-if (CLOUD_RUNTIME?.releaseRevision !== '32ebf973e49a62c8f45c5b53ada2c4f8f8c68213') {
+if (CLOUD_RUNTIME?.releaseRevision !== '78ef0630650f41ddd72fd7eb3df55ed42e5bc562') {
   errors.push('cloudRuntime.js: verified cloud release revision changed without authorization')
 }
 for (const pin of [...MODEL_CLAIM_PINS, MODEL_PROD_PIN]) {

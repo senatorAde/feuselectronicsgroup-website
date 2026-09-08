@@ -110,15 +110,22 @@ export default function TrustSecurityPage() {
               <p>Release signing: ECDSA P-384 / SHA-384 over a canonicalized manifest.</p>
               <p>Build provenance: SLSA v1.0 in a signed DSSE envelope.</p>
               <p>Software bill of materials: CycloneDX 1.4.</p>
-              <p>Source provenance: 735 governed files attested against the signed manifest.</p>
-              <p>Release artifacts: 515 artifacts hash-verified.</p>
+              <p>Source provenance: 748 governed files attested against the signed manifest.</p>
+              <p>Release artifacts: 520 artifacts hash-verified.</p>
               <p>Dependency verification: 0 findings across 106 items at the certified revision.</p>
               <p>Audit trail: SHA-256 hash chain, verified end to end.</p>
+              <p>
+                Signing-key custody: the release key is a non-exportable EC-HSM P-384 key held in
+                Azure Key Vault. Signing runs in a hosted workflow that authenticates to the vault
+                by federated identity and calls the vault to sign; the private key is never
+                exported and does not exist on any workstation.
+              </p>
               <p className="text-gray-400">
                 Scope: signatures are produced under keys authorized for the environment they
                 attest, and release verification names that environment explicitly rather than
-                implying a broader one. Production key custody is held out of band and is not
-                claimed here. This is supply-chain evidence, not a production-signing attestation.
+                implying a broader one. Custody of the signing key is attested; the running
+                deployment still declares the TST environment, so this is supply-chain evidence
+                for a governed evaluation release rather than a production service attestation.
               </p>
             </div>
           </div>

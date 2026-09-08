@@ -127,15 +127,26 @@ export const FAQ_ITEMS = [
 /** Public release-posture history (release notes page). */
 export const POSTURE_HISTORY = [
   {
+    date: '2026-09-08',
+    revision: '78ef0630650f41ddd72fd7eb3df55ed42e5bc562',
+    version: '5.3.0-enterprise.1',
+    authority: 'Cloud runtime release verification',
+    decision: 'VERIFIED FOR CLOUD EVALUATION USE, TST SCOPE',
+    scope:
+      'Supersedes the 2026-09-07 record for the same release line. Remediates ten findings raised by the first external user of the deployed runtime, the most serious of which refused every request that did not name an environment explicitly, because the classifier fell back to LOCAL on a TST deployment instead of inheriting the deployment environment. Turn-level evidence is now persisted with each message and survives reloading a conversation, so a refusal and the rule that caused it remain readable after the fact. Release evidence is signed by a non-exportable EC-HSM P-384 key in Azure Key Vault using ECDSA P-384 over SHA-384, exercised through a hosted workflow that authenticates by federated identity; strict verification for PROD passes with no failures. Signing-key custody is therefore attested, which the 2026-09-07 record could not claim. The activated model set remains proposed and not ratified, no PROD model eligibility exists, and cost remains estimated from published unit rates rather than billed actuals.',
+    current: true,
+    controllingLabel: 'Current cloud runtime release',
+  },
+  {
     date: '2026-09-07',
     revision: '32ebf973e49a62c8f45c5b53ada2c4f8f8c68213',
     version: '5.3.0-enterprise.1',
     authority: 'Cloud runtime release verification',
     decision: 'VERIFIED FOR CLOUD EVALUATION USE, TST SCOPE',
     scope:
-      'A separate release line from the assessed vNext revision, not a re-assessment of it. Governed generative inference, durable evidence storage, and Entra-authenticated access were verified end to end against the deployed service, including two checks that pass only when the platform refuses. Release verification reported no failures. Signing-key custody remains unattested and the activated model set is not ratified. The original alert-destination finding was resolved on 2026-09-07 when the action-group receiver and test delivery were verified.',
-    current: true,
-    controllingLabel: 'Current cloud runtime release',
+      'A separate release line from the assessed vNext revision, not a re-assessment of it. Governed generative inference, durable evidence storage, and Entra-authenticated access were verified end to end against the deployed service, including two checks that pass only when the platform refuses. Release verification reported no failures. Signing-key custody remains unattested and the activated model set is not ratified. The original alert-destination finding was resolved on 2026-09-07 when the action-group receiver and test delivery were verified. Superseded on 2026-09-08 by the first-user remediation release.',
+    current: false,
+    controllingLabel: 'Superseded cloud runtime release',
   },
   {
     date: '2026-08-07',

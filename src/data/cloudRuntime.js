@@ -27,9 +27,9 @@ export const CLOUD_RUNTIME = {
   name: 'FEUS Cloud Runtime',
   appUrl: LAUNCH_URL,
   releaseVersion: '5.3.0-enterprise.1',
-  releaseRevision: '32ebf973e49a62c8f45c5b53ada2c4f8f8c68213',
+  releaseRevision: '78ef0630650f41ddd72fd7eb3df55ed42e5bc562',
   releaseTag: 'dist/5.3.0-enterprise.1-cloud-runtime-azure-verified',
-  verifiedOn: '2026-09-07',
+  verifiedOn: '2026-09-08',
   declaredEnvironment: 'TST',
   hosting: 'Azure Container Apps, East US 2, single replica',
   headline: 'FEUS.ai runs in the browser as a governed cloud runtime',
@@ -239,7 +239,7 @@ export const RUNTIME_EVIDENCE = [
   },
   {
     label: 'Automated test suite',
-    value: '3,043 tests',
+    value: '3,165 tests',
     detail: 'Collected and passing at the verified revision.',
   },
   {

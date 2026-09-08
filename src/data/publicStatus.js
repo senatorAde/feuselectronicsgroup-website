@@ -65,7 +65,7 @@ export const POSTURE = {
   liveVerifiedIntegrations: 3,
   liveVerifiedIntegrationsQualification:
     'Three integrations are live-verified in a cloud evaluation deployment: Microsoft Foundry model invocation, Azure Table Storage durable evidence, and Entra ID managed identity. Governed model invocation is confined to the TST environment and the activated model set is not ratified, so no PROD model eligibility exists. A live-verified integration is not a production-verified capability, and the production-verified count remains zero.',
-  testsPassedAtRevision: 3043,
+  testsPassedAtRevision: 3165,
   testsQualification:
     'Test passage is revision evidence, not by itself deployment or live-integration evidence. Operational-use claims require separate workflow records.',
 }
