@@ -37,6 +37,13 @@ const FaqPage = lazy(() => import('./pages/FaqPage'))
 const ReleaseNotesPage = lazy(() => import('./pages/ReleaseNotesPage'))
 const AssuranceDashboardPage = lazy(() => import('./pages/AssuranceDashboardPage'))
 
+// Legal drafts and responsible disclosure. Lazy-loaded like the trust routes:
+// they must be reachable from every page, but they do not belong in the
+// first-visit bundle.
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'))
+const TermsPage = lazy(() => import('./pages/TermsPage'))
+const SecurityPage = lazy(() => import('./pages/SecurityPage'))
+
 export default function App() {
   return (
     <Suspense fallback={(
@@ -73,6 +80,12 @@ export default function App() {
         <Route path="/trust" element={<TrustPage />} />
         <Route path="/trust/security" element={<TrustSecurityPage />} />
         <Route path="/trust/compliance" element={<TrustCompliancePage />} />
+        <Route path="/legal/privacy" element={<PrivacyPage />} />
+        <Route path="/legal/terms" element={<TermsPage />} />
+        <Route path="/privacy" element={<Navigate to="/legal/privacy" replace />} />
+        <Route path="/terms" element={<Navigate to="/legal/terms" replace />} />
+        <Route path="/security" element={<SecurityPage />} />
+        <Route path="/security.txt" element={<Navigate to="/security" replace />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/assurance" element={<AssuranceDashboardPage />} />
         <Route path="/sales" element={<MediaSalesLandingPage />} />

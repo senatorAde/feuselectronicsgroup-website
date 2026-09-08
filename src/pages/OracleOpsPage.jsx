@@ -94,7 +94,7 @@ export default function OracleOpsPage() {
   return (
     <div className="bg-navy-950 min-h-screen">
       <SEO
-        title="FEUS OracleOps | Controlled Preview"
+        title="FEUS OracleOps | Private Preview"
         description="FEUS OracleOps brings governed intelligence to Oracle operational workflows, with capability-specific controls and an accountable adoption path."
       />
 

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import { SectionLabel } from '../components/ui'
+import AudiencePaths from '../components/AudiencePaths'
 import {
   CLOUD_RUNTIME,
   LAUNCH_URL,
@@ -34,32 +35,18 @@ export default function CloudRuntimePage() {
             {CLOUD_RUNTIME.headline}
           </h1>
           <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-feus-200">
-            Declared environment {CLOUD_RUNTIME.declaredEnvironment} · Governed evaluation surface
+            Available · Governed cloud experience
           </p>
-          <p className="mt-6 text-gray-300 leading-relaxed">{CLOUD_RUNTIME.summary}</p>
+          <p className="mt-6 text-gray-300 leading-relaxed">{CLOUD_RUNTIME.availabilitySummary}</p>
 
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a
-              href={LAUNCH_URL}
-              className="btn-primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Launch FEUS
-            </a>
-            <Link to="/get-started" className="btn-secondary">
-              See the onboarding path
-            </Link>
-          </div>
+          <AudiencePaths className="mt-8" />
 
-          <div className="glass-card mt-8 rounded-2xl border-l-4 border-amber-400/60 p-6">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-amber-200">
-              Scope of this claim
-            </h2>
-            <p className="mt-3 text-sm text-gray-300 leading-relaxed">
-              {CLOUD_RUNTIME.qualification}
-            </p>
-          </div>
+          <details className="mt-8 rounded-lg border border-white/10 bg-white/[0.03] p-5">
+            <summary className="cursor-pointer text-sm font-bold text-feus-200">
+              Deployment assurance details
+            </summary>
+            <p className="mt-3 text-sm text-gray-300 leading-relaxed">{CLOUD_RUNTIME.qualification}</p>
+          </details>
         </div>
       </section>
 
@@ -119,8 +106,8 @@ export default function CloudRuntimePage() {
             ))}
           </div>
 
-          <div className="glass-card mt-6 rounded-2xl border-l-4 border-slate-500/60 p-6">
-            <h3 className="text-base font-bold text-white">Activated models</h3>
+          <details className="mt-6 rounded-lg border border-white/10 bg-white/[0.03] p-6">
+            <summary className="cursor-pointer text-base font-bold text-white">Model and provider details</summary>
             <ul className="mt-3 space-y-1 text-sm text-gray-300 font-mono">
               {ROUTING_AUTHORITY.activatedModels.map((model) => (
                 <li key={model}>{model}</li>
@@ -132,7 +119,7 @@ export default function CloudRuntimePage() {
             <p className="mt-3 text-sm text-gray-400 leading-relaxed">
               {ROUTING_AUTHORITY.foundryRouterNote}
             </p>
-          </div>
+          </details>
         </div>
       </section>
 
@@ -157,7 +144,7 @@ export default function CloudRuntimePage() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Live, preview, and governed</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">Availability and controls</h2>
           <div className="grid gap-4 lg:grid-cols-3">
             {RUNTIME_SCOPE.map((group) => (
               <div key={group.heading} className="glass-card rounded-2xl p-6">
@@ -187,7 +174,7 @@ export default function CloudRuntimePage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Launch FEUS
+              Sign in to FEUS
             </a>
             <Link to="/get-started" className="btn-secondary">
               How onboarding works

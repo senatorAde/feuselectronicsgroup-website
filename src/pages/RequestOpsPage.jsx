@@ -11,7 +11,7 @@ export default function RequestOpsPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="FEUS RequestOps"
-        description="FEUS RequestOps is a Controlled Preview extension for governed service-request intake and routing. Vendor connectors remain Preview against mock transports."
+        description="FEUS RequestOps is a private-preview capability for governed service-request intake, routing, and customer-specific connector enablement."
       />
 
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
@@ -19,7 +19,7 @@ export default function RequestOpsPage() {
           <SectionLabel>Extension product family</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">FEUS RequestOps</h1>
           <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-amber-300/90">
-            Controlled Preview · ITSM connectors in Preview
+            Private preview · customer-specific connectors
           </p>
           <p className="mt-6 text-gray-300 leading-relaxed">
             FEUS RequestOps is the governed service-request intake and routing
@@ -28,7 +28,7 @@ export default function RequestOpsPage() {
             the Service Request Agent package contains no direct database surface,
             and its tested outbound path submits typed work orders to the FEUS
             Control Plane. Vendor connector contracts for ServiceNow, Jira Service
-            Management, and Azure DevOps work items are in Preview against mock
+            Management, and Azure DevOps work items are validated against mock
             transports with dry-run defaults. No live ticket source, tenant, or
             end-to-end ticket lifecycle has been exercised.
           </p>

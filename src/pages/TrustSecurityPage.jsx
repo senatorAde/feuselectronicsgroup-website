@@ -127,11 +127,18 @@ export default function TrustSecurityPage() {
             <h2 className="text-2xl font-bold text-white mb-4">Reporting a security concern</h2>
             <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed">
               <p>
-                Vulnerability-management process details are being formalized. Security
-                concerns should use the monitored
-                responsible-disclosure channel once published. Until then, use the{' '}
+                Send security reports to{' '}
+                <a href="mailto:info@feuselectronicsgroup.com?subject=Security%20report" className="text-feus-300 underline underline-offset-2">info@feuselectronicsgroup.com</a>{' '}
+                with &ldquo;Security report&rdquo; in the subject, or use the{' '}
                 <Link to="/contact" className="text-feus-300 underline underline-offset-2">contact form</Link>{' '}
-                and mark the inquiry as security-related without including sensitive details.
+                and mark the inquiry as security-related. Send only what is needed to
+                reproduce the issue, and no credentials or customer data.
+              </p>
+              <p className="mt-3">
+                We acknowledge every report and tell you when it is resolved. We do not
+                yet publish a response time or operate a bounty. Scope and rules of
+                engagement are set out under{' '}
+                <Link to="/security" className="text-feus-300 underline underline-offset-2">responsible disclosure</Link>.
               </p>
             </div>
           </div>

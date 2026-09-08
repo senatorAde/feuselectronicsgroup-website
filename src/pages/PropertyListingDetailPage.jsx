@@ -109,7 +109,7 @@ export default function PropertyListingDetailPage() {
                   View Gallery
                 </a>
                 <CalendlyButton className="btn-accent" icon={Calendar}>
-                  Schedule a Viewing
+                  Request a viewing
                 </CalendlyButton>
               </div>
             </div>
@@ -306,10 +306,10 @@ export default function PropertyListingDetailPage() {
               <div className="glass-card-static p-6">
                 <h3 className="text-base font-semibold text-white mb-3">Prefer a live call?</h3>
                 <p className="text-sm text-gray-400 mb-4">
-                  Schedule a 30-minute consultation to walk through the listing in real time.
+                  Ask for a 30-minute consultation to walk through the listing in real time, and we will reply with times.
                 </p>
                 <CalendlyButton className="btn-accent w-full" icon={Calendar}>
-                  Book a Time
+                  Request a time
                 </CalendlyButton>
               </div>
             </div>

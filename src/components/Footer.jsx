@@ -30,7 +30,8 @@ const footerLinks = {
   ],
   Connect: [
     { name: 'Contact FEUS', href: '/contact' },
-    { name: 'Request a Demo', href: '/contact?type=demo' },
+    { name: 'Request a demonstration', href: '/demo' },
+    { name: 'Adoption path', href: '/get-started' },
     { name: 'Service Inquiry', href: '/contact?type=services' },
     { name: 'Media Inquiry', href: '/contact?type=media' },
   ],
@@ -51,16 +52,11 @@ export default function Footer() {
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <a
-              href={LAUNCH_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary whitespace-nowrap"
-            >
-              Launch FEUS
-            </a>
+            <Link to="/demo" className="btn-primary whitespace-nowrap">
+              Request a demonstration
+            </Link>
             <CalendlyButton className="btn-secondary whitespace-nowrap" icon={ArrowRight}>
-              Book a consultation
+              Request a consultation
             </CalendlyButton>
             <Link to="/contact" className="btn-secondary whitespace-nowrap">Send a message</Link>
           </div>
@@ -131,11 +127,17 @@ export default function Footer() {
               © {new Date().getFullYear()} FEUS Electronics Group. All rights reserved.
             </p>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-              <span className="text-sm text-slate-500">
-                Privacy Policy and Terms of Service are in legal review and will be published here.
-              </span>
+              <Link to="/legal/privacy" className="text-sm text-slate-500 transition-colors hover:text-slate-300">
+                Privacy notice <span className="text-slate-600">(draft)</span>
+              </Link>
+              <Link to="/legal/terms" className="text-sm text-slate-500 transition-colors hover:text-slate-300">
+                Terms of use <span className="text-slate-600">(draft)</span>
+              </Link>
+              <Link to="/security" className="text-sm text-slate-500 transition-colors hover:text-slate-300">
+                Report a security issue
+              </Link>
               <Link to="/trust/security" className="text-sm text-slate-500 transition-colors hover:text-slate-300">
-                Security
+                Security posture
               </Link>
             </div>
           </div>

@@ -39,6 +39,8 @@ export const CLOUD_RUNTIME = {
     'watches FEUS classify it, choose an eligible model, run it, and record the ' +
     'result in a hash-linked audit chain. The deployment declares the TST ' +
     'environment; it is a governed evaluation surface, not a production service.',
+  availabilitySummary:
+    'Use FEUS Auto from a browser to coordinate specialist agents, select an eligible model, apply policy and approval controls, and retain audit and cost evidence for every turn.',
   qualification:
     'Scope: the runtime declares the TST environment. The activated model set ' +
     'is proposed and not ratified, and no PROD model eligibility exists, so a ' +
@@ -263,74 +265,76 @@ export const RUNTIME_EVIDENCE = [
 export const ONBOARDING_STEPS = [
   {
     number: '01',
-    title: 'Scoping conversation',
+    title: 'Organization',
     owner: 'FEUS and client together',
     detail:
-      'Agree what the evaluation is meant to answer, which estate is in scope, ' +
-      'and which outcomes would count as a result. No access is requested yet.',
+      'Create the customer organization record, agree the operating scope, and ' +
+      'identify the outcomes that will define a successful onboarding.',
   },
   {
     number: '02',
-    title: 'Directory and sign-in',
+    title: 'Users and roles',
     owner: 'Client identity administrator',
     detail:
       'The client consents to the FEUS application in their Microsoft Entra ' +
-      'directory and nominates the people who may sign in. FEUS never receives ' +
-      'a password, and the runtime stores none.',
+      'directory, nominates the people who may sign in, and assigns operator, ' +
+      'approver, and administrator roles. FEUS never receives a password.',
   },
   {
     number: '03',
-    title: 'Tenant provisioning',
-    owner: 'FEUS operator',
+    title: 'Environment',
+    owner: 'Client, confirmed by FEUS',
     detail:
-      'A tenant is created in the runtime with its own conversation history, ' +
-      'audit chain, FinOps ledger, and approval record. Tenant separation is ' +
-      'enforced by the runtime, not by convention.',
+      'Register each operating environment and designate it as development, ' +
+      'test, or production so policy can evaluate the intended target.',
   },
   {
     number: '04',
-    title: 'Environment declaration',
-    owner: 'Client, confirmed by FEUS',
+    title: 'Connections',
+    owner: 'Client system owner',
     detail:
-      'Each connection is declared as LOCAL, TEST, TST, or PROD. The declared ' +
-      'environment is an input to eligibility, not a way around it, and it ' +
-      'decides how much data may leave the boundary.',
+      'Register customer systems by reference and validate network reachability ' +
+      'and effective permissions without placing credentials in the browser.',
   },
   {
     number: '05',
-    title: 'Connections and least-privilege identity',
-    owner: 'Client database administrator',
+    title: 'Agents and tools',
+    owner: 'FEUS operator and client owner',
     detail:
-      'The client nominates the identity FEUS may use. FEUS derives capability ' +
-      'from the effective privileges of that identity instead of demanding a ' +
-      'fixed credential model, and defaults to the least-privileged option ' +
-      'that can do the requested work.',
+      'Select the specialist agents and governed tools permitted for the ' +
+      'organization. Unlisted capabilities remain unavailable by default.',
   },
   {
     number: '06',
-    title: 'Agent permissions and approval rules',
+    title: 'Governance and approvals',
     owner: 'Client, configured by FEUS',
     detail:
-      'Decide which agents may act, which actions require a human decision, ' +
-      'and who is allowed to make it. Approvals are bound to the operation ' +
-      'plan hash, so an approved plan cannot be swapped after the fact.',
+      'Define risk rules, designate human approvers, and confirm which actions ' +
+      'require authorization before execution.',
   },
   {
     number: '07',
-    title: 'Guided first session',
-    owner: 'FEUS and client together',
+    title: 'Model and budget policy',
+    owner: 'Client administrator',
     detail:
-      'The client signs in at the runtime, sends real turns, and reads the ' +
-      'decision inspector for each one — including the turns FEUS refuses.',
+      'Choose permitted models, routing boundaries, and spend limits. FEUS Auto ' +
+      'uses only the eligible set defined for the organization.',
   },
   {
     number: '08',
-    title: 'Evidence review and go-live decision',
-    owner: 'Client',
+    title: 'Validation',
+    owner: 'FEUS and client together',
     detail:
-      'Review the audit chain, the spend record, and the refusals. Decide ' +
-      'whether to widen scope. Widening beyond the evaluation scope is a ' +
-      'governed decision, not a configuration toggle.',
+      'Run onboarding, connectivity, identity, policy, budget, isolation, and ' +
+      'negative-path checks before any activation decision.',
+  },
+  {
+    number: '09',
+    title: 'Go live',
+    owner: 'Authorized client administrator',
+    detail:
+      'Review the validation evidence and activate the approved scope. Any ' +
+      'later expansion is reviewed as a new governed change.',
   },
 ]
 
@@ -399,7 +403,7 @@ export const ONBOARDING_FAQ = [
 /** What is live, what is preview, what is governed — stated once. */
 export const RUNTIME_SCOPE = [
   {
-    heading: 'Live in the cloud evaluation deployment',
+    heading: 'Live services',
     items: [
       'Browser sign-in against Microsoft Entra ID, with unauthenticated calls refused.',
       'Governed turns routed by the FEUS Policy Router to a Microsoft Foundry model.',
@@ -408,7 +412,7 @@ export const RUNTIME_SCOPE = [
     ],
   },
   {
-    heading: 'Preview',
+    heading: 'Private preview details',
     items: [
       'Model-provider integrations: governed invocation is confined to TST, the activated model set is not ratified, and no PROD model eligibility exists.',
       'Agent capabilities beyond the verified evaluation scope remain preview and are labelled individually on the platform status page.',

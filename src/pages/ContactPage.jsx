@@ -167,7 +167,7 @@ export default function ContactPage() {
         }
         subtitle={isReviewMode
           ? 'Your feedback helps us improve and helps other teams evaluate governed data operations. It takes less than two minutes.'
-          : 'Book a consultation, request a capability-scoped FEUS.ai briefing, or send a written inquiry. We will respond within one business day.'
+                : 'Request a consultation, ask for a capability-scoped FEUS.ai briefing, or send a written inquiry. We will respond within one business day.'
         }
         backgroundImage="/brand/feus-hero-system.webp"
         imagePosition="70% center"
@@ -468,7 +468,9 @@ export default function ContactPage() {
                         )}
 
                         <p className="text-xs text-slate-500 text-center">
-                          By submitting this form, you consent to FEUS Electronics Group using the details you provide to respond to your inquiry. Messages are delivered through our form-delivery provider. A formal privacy policy is in legal review and will be published on this site.
+                          By submitting this form, you consent to FEUS Electronics Group using the details you provide to respond to your inquiry. Messages are delivered through our form-delivery provider. Our{' '}
+                          <Link to="/legal/privacy" className="underline underline-offset-2">privacy notice</Link>{' '}
+                          explains what we collect and who processes it; it is published as a draft pending legal approval.
                         </p>
                       </form>
                     </>
@@ -490,12 +492,12 @@ export default function ContactPage() {
               </div>
               <div>
                 <SectionLabel>Prefer a live conversation?</SectionLabel>
-                <h2 className="mt-5 text-3xl font-bold text-white md:text-4xl">Put 30 minutes on the calendar.</h2>
+                <h2 className="mt-5 text-3xl font-bold text-white md:text-4xl">Ask us for 30 minutes.</h2>
                 <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-300">
-                  We will discuss the outcome, current environment, and constraints, then identify a useful next step without forcing a preset package.
+                  Tell us the outcome you are after, your current environment, and your constraints. We will reply with times, then identify a useful next step without forcing a preset package.
                 </p>
                 <div className="mt-7">
-                  <CalendlyButton className="btn-primary" icon={ArrowRight}>Schedule a discovery call</CalendlyButton>
+                  <CalendlyButton className="btn-primary" icon={ArrowRight}>Request a discovery call</CalendlyButton>
                 </div>
               </div>
             </div>

@@ -65,7 +65,7 @@ export default function LeaveReview({ variant = 'full', className = '' }) {
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <CalendlyButton className="btn-secondary group text-center justify-center" icon={ArrowRight}>
-                  Book Another Session
+                  Request another session
                 </CalendlyButton>
                 <p className="text-xs text-gray-600 text-center mt-1">
                   Your review is submitted through our secure contact form. We never share your information.

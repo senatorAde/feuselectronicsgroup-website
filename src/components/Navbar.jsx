@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, ChevronDown, ArrowRight, ExternalLink } from 'lucide-react'
-import { CalendlyButton } from './CalendlyEmbed'
 import BrandMark from './BrandMark'
 import { LAUNCH_URL } from '../data/cloudRuntime'
 
@@ -150,21 +149,23 @@ export default function Navbar() {
             >
               Trust Center
             </Link>
-            <CalendlyButton
-              className="btn-secondary ml-3 !min-h-11 !px-5 !py-2.5"
-              icon={ArrowRight}
-            >
-              Talk to FEUS
-            </CalendlyButton>
             <a
               href={LAUNCH_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary ml-2 !min-h-11 !px-5 !py-2.5 inline-flex items-center gap-2"
+              title="For users whose organisation has already granted access"
+              className="btn-secondary ml-3 !min-h-11 !px-5 !py-2.5 inline-flex items-center gap-2"
             >
-              Launch FEUS
+              Sign in
               <ExternalLink className="h-4 w-4" aria-hidden="true" />
             </a>
+            <Link
+              to="/demo"
+              className="btn-primary ml-2 !min-h-11 !px-5 !py-2.5 inline-flex items-center gap-2"
+            >
+              Request a demo
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
           </div>
 
           <button
@@ -218,21 +219,23 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
+            <Link to="/demo" className="btn-primary mt-5 w-full inline-flex items-center justify-center gap-2">
+              Request a demo
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+            <Link to="/get-started" className="btn-secondary mt-3 w-full">See the adoption path</Link>
             <a
               href={LAUNCH_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary mt-5 w-full inline-flex items-center justify-center gap-2"
+              className="btn-secondary mt-3 w-full inline-flex items-center justify-center gap-2"
             >
-              Launch FEUS
+              Sign in to FEUS
               <ExternalLink className="h-4 w-4" aria-hidden="true" />
             </a>
-            <CalendlyButton
-              className="btn-secondary mt-3 w-full"
-              icon={ArrowRight}
-            >
-              Talk to FEUS
-            </CalendlyButton>
+            <p className="mt-2 text-xs leading-relaxed text-slate-500">
+              Sign-in requires an account your organisation has granted.
+            </p>
             <Link to="/contact" className="btn-secondary mt-3 w-full">Send a message</Link>
           </div>
         </div>

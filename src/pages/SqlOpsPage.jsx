@@ -12,7 +12,7 @@ export default function SqlOpsPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="FEUS SQLOps"
-        description="FEUS SQLOps is the SQL Server governance and operations family: its core GEG path has documented operational validation, while vNext dispatch remains Controlled Preview."
+        description="FEUS SQLOps brings governed analysis and operational workflows to qualified SQL Server environments."
       />
 
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
@@ -20,7 +20,7 @@ export default function SqlOpsPage() {
           <SectionLabel>Core product family</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">FEUS SQLOps</h1>
           <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-feus-300/90">
-            Controlled enterprise adoption · vNext dispatch in Controlled Preview
+            Available for enterprise deployment
           </p>
           <p className="mt-6 text-gray-300 leading-relaxed">
             FEUS SQLOps is FEUS.ai&rsquo;s SQL Server governance and operations family.
@@ -28,7 +28,7 @@ export default function SqlOpsPage() {
             provisioning workflow: 48 of 48 batches passed all seven governance
             gates. The separately assessed vNext path implements typed work orders,
             policy checks, approval binding, and pre-execution gates up to a
-            fail-closed boundary. It remains Controlled Preview because no execution
+            fail-closed boundary. That newer dispatch path remains in private preview because no execution
             dispatcher exists and no SQL executor is bound. Session 12D initiated
             no database operation and did not certify that vNext path.
           </p>

@@ -65,7 +65,7 @@ export const AUTHORIZED_USE = {
   qualification:
     'Session 12D authorizes no use of the assessed vNext 5.2.0-enterprise.1 release above LOCAL. That exact-revision decision does not itself grant or revoke a separately documented core capability deployment; each deployment requires its own authorization.',
   legalStatus:
-    'Product-posture language. Legal counsel must approve this language before it appears in binding terms.',
+    'This describes product posture, not contract terms. Draft terms of use are published at /legal/terms and are not yet approved by legal counsel or binding.',
 }
 
 /** Trust Center FAQ (Trust Center Content Plan §31). */
@@ -112,11 +112,11 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'Can FEUS.ai be deployed on-premises or in Azure?',
-    a: 'Deployment is capability and target specific. An Azure evaluation topology from the 5.3 cloud runtime release is deployed and serving over TLS with durable evidence storage, managed identity, and no container secrets. It is an evaluation deployment: its alert rules route to no notification destination, and it carries no availability or recovery commitment. The separately assessed vNext 5.2 Azure topology remains Preview — those templates are incomplete and were never compiled, what-if analyzed, or deployed. Core adoption requires a separate deployment qualification.',
+    a: 'Deployment is capability and target specific. An Azure evaluation topology from the 5.3 cloud runtime release is deployed and serving over TLS with durable evidence storage, managed identity, no container secrets, and delivery-verified alert notifications. It carries no availability or recovery commitment. The separately assessed vNext 5.2 Azure topology remains Preview — those templates are incomplete and were never compiled, what-if analyzed, or deployed. Core adoption requires a separate deployment qualification.',
   },
   {
     q: 'How do I report a security concern?',
-    a: 'The formal vulnerability-management and responsible-disclosure process is being completed. Until a monitored channel is published, use the general contact form, mark the inquiry as security-related, and do not include sensitive technical details.',
+    a: 'Email info@feuselectronicsgroup.com with "Security report" in the subject, or use the contact form and mark the inquiry as security-related. Send only what is needed to reproduce the issue, and no credentials or customer data. We acknowledge every report and tell you when it is resolved. We do not yet publish a response time or operate a bounty, and the /security page says so plainly rather than implying a programme that is not in place.',
   },
   {
     q: 'Who is authorized to use FEUS.ai?',
@@ -133,7 +133,7 @@ export const POSTURE_HISTORY = [
     authority: 'Cloud runtime release verification',
     decision: 'VERIFIED FOR CLOUD EVALUATION USE, TST SCOPE',
     scope:
-      'A separate release line from the assessed vNext revision, not a re-assessment of it. Governed generative inference, durable evidence storage, and Entra-authenticated access were verified end to end against the deployed service, including two checks that pass only when the platform refuses. Release verification reported no failures. Signing-key custody remains unattested, the activated model set is not ratified, and alert rules route to no notification destination.',
+      'A separate release line from the assessed vNext revision, not a re-assessment of it. Governed generative inference, durable evidence storage, and Entra-authenticated access were verified end to end against the deployed service, including two checks that pass only when the platform refuses. Release verification reported no failures. Signing-key custody remains unattested and the activated model set is not ratified. The original alert-destination finding was resolved on 2026-09-07 when the action-group receiver and test delivery were verified.',
     current: true,
     controllingLabel: 'Current cloud runtime release',
   },

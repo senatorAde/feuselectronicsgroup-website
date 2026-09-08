@@ -1,0 +1,9 @@
+# Responsible disclosure for FEUS Electronics Group.
+# Full policy, scope, and rules of engagement: https://feuselectronicsgroup.com/security
+
+Contact: mailto:info@feuselectronicsgroup.com
+Contact: https://feuselectronicsgroup.com/security
+Policy: https://feuselectronicsgroup.com/security
+Preferred-Languages: en
+Canonical: https://feuselectronicsgroup.com/.well-known/security.txt
+Expires: 2027-09-07T00:00:00.000Z
