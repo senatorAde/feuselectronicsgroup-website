@@ -43,35 +43,46 @@ export default function GetStartedPage() {
             the rule that refused and what would have to change.
           </p>
           <p className="mt-4 text-gray-300 leading-relaxed">
-            You do not need an editor, an agent framework, or a local install to
-            evaluate it. The cloud runtime is a browser surface.
+            You do not need an editor, an agent framework, or a local install. The
+            cloud runtime is a browser surface. It is not open to the public: access
+            is granted per organisation through Microsoft Entra ID, which is what
+            step 1 and step 2 below establish. If you want to see the product before
+            starting that, ask for a{' '}
+            <Link to="/demo" className="text-feus-200 underline underline-offset-2">
+              controlled demonstration
+            </Link>{' '}
+            instead.
           </p>
           <p className="mt-4 text-gray-200 leading-relaxed">
             {POSTURE.engagementModel}
           </p>
+          <p className="mt-4 text-gray-300 leading-relaxed">
+            {CLOUD_RUNTIME.availabilitySummary}
+          </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
+            <Link to="/contact" className="btn-primary">
+              Start the onboarding conversation
+            </Link>
+            <Link to="/demo" className="btn-secondary">
+              See a demonstration first
+            </Link>
             <a
               href={LAUNCH_URL}
-              className="btn-primary"
+              className="btn-secondary"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Launch FEUS
+              Sign in (already onboarded)
             </a>
-            <Link to="/contact" className="btn-secondary">
-              Talk to us first
-            </Link>
           </div>
 
-          <div className="glass-card mt-8 rounded-2xl border-l-4 border-amber-400/60 p-6">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-amber-200">
-              What you are signing up to evaluate
-            </h2>
-            <p className="mt-3 text-sm text-gray-300 leading-relaxed">
-              {CLOUD_RUNTIME.qualification}
-            </p>
-          </div>
+          <details className="mt-8 rounded-lg border border-white/10 bg-white/[0.03] p-5">
+            <summary className="cursor-pointer text-sm font-bold text-feus-200">
+              Deployment assurance details
+            </summary>
+            <p className="mt-3 text-sm text-gray-300 leading-relaxed">{CLOUD_RUNTIME.qualification}</p>
+          </details>
         </div>
       </section>
 
@@ -79,7 +90,7 @@ export default function GetStartedPage() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-2">The onboarding path</h2>
           <p className="text-sm text-gray-400 mb-6 leading-relaxed">
-            Eight steps, with the owner of each one named. FEUS does not ask for
+            Nine steps, with the owner of each one named. FEUS does not ask for
             access before the scope of the evaluation is agreed.
           </p>
           <ol className="space-y-4">
@@ -119,9 +130,12 @@ export default function GetStartedPage() {
               ))}
             </dl>
           </div>
-          <p className="mt-4 text-sm text-gray-400 leading-relaxed">
-            {ROUTING_AUTHORITY.modelQualification} {ROUTING_AUTHORITY.foundryRouterNote}
-          </p>
+          <details className="mt-4 rounded-lg border border-white/10 p-5 text-sm text-gray-400">
+            <summary className="cursor-pointer font-bold text-feus-200">Model governance details</summary>
+            <p className="mt-3 leading-relaxed">
+              {ROUTING_AUTHORITY.modelQualification} {ROUTING_AUTHORITY.foundryRouterNote}
+            </p>
+          </details>
         </div>
       </section>
 
@@ -154,7 +168,7 @@ export default function GetStartedPage() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Live, preview, and governed</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">Availability and controls</h2>
           <div className="grid gap-4 lg:grid-cols-3">
             {RUNTIME_SCOPE.map((group) => (
               <div key={group.heading} className="glass-card rounded-2xl p-6">
@@ -200,7 +214,7 @@ export default function GetStartedPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Launch FEUS
+              Sign in to FEUS
             </a>
             <Link to="/cloud-runtime" className="btn-secondary">
               What the runtime does

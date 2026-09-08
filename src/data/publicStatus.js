@@ -29,7 +29,7 @@ export const POSTURE = {
   company: 'FEUS Electronics Group',
   productMaturity: 'Operationally validated core',
   publicAvailability: 'Controlled enterprise adoption by capability scope',
-  lastReviewed: '2026-09-06',
+  lastReviewed: '2026-09-07',
 
   /* ---- Customer-facing positioning (public marketing surfaces) ---- */
   headline: 'Governed AI for Data Operations',
@@ -59,13 +59,13 @@ export const POSTURE = {
     'Availability is reported per capability, environment, integration, and customer configuration. ' +
     'Formal release certification is issued against named revisions and deployment scopes and is reported separately below.',
   operationalEvidence:
-    'The core GovernedExecutionGateway SQL Server path is documented through a controlled FEUS provisioning workflow in which 48 of 48 batches passed all seven governance gates and the recorded audit hash chain verified successfully. The dated JSONL audit file is not retained in this checkout, so this is documented operational validation rather than independent re-attestation.',
+    'The core GovernedExecutionGateway SQL Server path is documented through a controlled FEUS provisioning workflow in which 48 of 48 batches passed all seven governance gates and the recorded audit hash chain verified successfully. That workflow ran on FEUS-operated infrastructure and its audit file has not been released for external inspection, so this is documented operational validation rather than independent re-attestation.',
   productionVerifiedCapabilities: 0,
   totalCapabilities: 45,
   liveVerifiedIntegrations: 3,
   liveVerifiedIntegrationsQualification:
     'Three integrations are live-verified in a cloud evaluation deployment: Microsoft Foundry model invocation, Azure Table Storage durable evidence, and Entra ID managed identity. Governed model invocation is confined to the TST environment and the activated model set is not ratified, so no PROD model eligibility exists. A live-verified integration is not a production-verified capability, and the production-verified count remains zero.',
-  testsPassedAtRevision: 3043,
+  testsPassedAtRevision: 3165,
   testsQualification:
     'Test passage is revision evidence, not by itself deployment or live-integration evidence. Operational-use claims require separate workflow records.',
 }
@@ -123,8 +123,38 @@ export const STATUS_DEFS = {
     definition:
       'Available within a named, approved capability, environment, configuration, and support scope.',
   },
+  AVAILABLE_FOR_ENTERPRISE_DEPLOYMENT: {
+    label: 'Available for enterprise deployment',
+    kind: 'availability',
+    definition:
+      'Implemented and enabled through a scoped enterprise onboarding and deployment engagement.',
+  },
+  GOVERNED_AVAILABILITY: {
+    label: 'Governed availability',
+    kind: 'availability',
+    definition:
+      'Operational with policy, identity, approval, or environment controls appropriate to the action.',
+  },
+  CUSTOMER_SPECIFIC_ENABLEMENT: {
+    label: 'Customer-specific enablement',
+    kind: 'availability',
+    definition:
+      'Enabled after the target integration, identity, permissions, and operating scope are validated for the customer.',
+  },
+  PRIVATE_PREVIEW: {
+    label: 'Private preview',
+    kind: 'availability',
+    definition:
+      'Offered to selected customers in an agreed evaluation scope with explicit acceptance criteria.',
+  },
+  ROADMAP: {
+    label: 'Roadmap',
+    kind: 'availability',
+    definition:
+      'Not currently delivered and listed without a committed availability date.',
+  },
   AVAILABLE_WITH_CONSTRAINTS: {
-    label: 'Available — expert-guided',
+    label: 'Governed availability',
     kind: 'status',
     definition:
       'Available today through an expert-guided engagement. FEUS engineers scope the dependencies and operating conditions with you as part of delivery.',
@@ -136,37 +166,37 @@ export const STATUS_DEFS = {
       'Documented real-world FEUS engineering usage exists for the named capability and operating conditions. This is not blanket release certification.',
   },
   CONTROLLED_ENTERPRISE_ADOPTION: {
-    label: 'Available — enterprise adoption',
+    label: 'Available for enterprise deployment',
     kind: 'status',
     definition:
       'Available for enterprise adoption through a guided engagement that qualifies scope, identity, environment, controls, and support for your target.',
   },
   CONTROLLED_PREVIEW: {
-    label: 'Available — guided evaluation',
+    label: 'Private preview',
     kind: 'status',
     definition:
       'Available to named participants through a guided evaluation, run with FEUS engineers against your environment and acceptance criteria.',
   },
   PREVIEW: {
-    label: 'Available — guided evaluation',
+    label: 'Private preview',
     kind: 'status',
     definition:
       'A bounded capability you can evaluate today with FEUS engineers alongside you, while live integration qualification is completed for your target.',
   },
   EARLY_ACCESS: {
-    label: 'Available — early access',
+    label: 'Customer-specific enablement',
     kind: 'status',
     definition:
       'Available to a named scope through an invitation-led engagement with explicit, agreed acceptance criteria.',
   },
   INTEGRATION_READY: {
-    label: 'Integration ready',
+    label: 'Customer-specific enablement',
     kind: 'status',
     definition:
       'The adapter boundary and safety controls are ready for target-specific sandbox qualification; live compatibility is not implied.',
   },
   REQUIRES_CONFIGURATION: {
-    label: 'Requires configuration',
+    label: 'Customer-specific enablement',
     kind: 'status',
     definition:
       'Reserved future state for externally configured dependencies. Not an approved substitute for missing implementation.',
@@ -177,13 +207,13 @@ export const STATUS_DEFS = {
     definition: 'Runtime or public use is intentionally unavailable.',
   },
   EXTERNALLY_UNVERIFIED: {
-    label: 'Externally unverified',
+    label: 'Customer-specific enablement',
     kind: 'status',
     definition:
       'Implementation or contract evidence exists, but no live external target has been exercised.',
   },
   PLANNED: {
-    label: 'Planned — no date commitment',
+    label: 'Roadmap',
     kind: 'status',
     definition:
       'A non-committed concept approved for public roadmap mention. Not a promise, target quarter, or release date.',
@@ -194,6 +224,124 @@ export const STATUS_DEFS = {
     definition: 'The capability or dependency does not exist at the assessed revision.',
   },
 }
+
+/**
+ * Customer-facing operational status. Exact release, environment, custody,
+ * and constitutional details remain in releaseAssessment.js and /trust.
+ */
+export const PLATFORM_STATUS = {
+  overall: 'Operational',
+  summary:
+    'The FEUS Cloud Runtime and customer workbench are responding normally. Core identity, routing, governance, evidence, and cost-control services are available.',
+  lastVerified: '2026-09-07',
+  activeIncidents: [],
+}
+
+export const OPERATIONAL_SERVICES = [
+  {
+    name: 'FEUS Cloud Runtime',
+    status: 'Operational',
+    detail: 'Cloud-hosted runtime and health endpoints are responding.',
+  },
+  {
+    name: 'Identity & Authentication',
+    status: 'Operational',
+    detail: 'Enterprise sign-in and tenant-bound identity are active.',
+  },
+  {
+    name: 'Multi-Agent Orchestration',
+    status: 'Operational',
+    detail: 'FEUS Supervisor and policy-based specialist routing are active.',
+  },
+  {
+    name: 'Model Inference',
+    status: 'Operational',
+    detail: 'Eligible Foundry-backed and deterministic model routes are available.',
+  },
+  {
+    name: 'Governance & HITL',
+    status: 'Operational',
+    detail: 'Policy evaluation and approval controls are active.',
+  },
+  {
+    name: 'Audit & Evidence',
+    status: 'Operational',
+    detail: 'Tenant-partitioned durable evidence is active.',
+  },
+  {
+    name: 'FinOps',
+    status: 'Operational',
+    detail: 'Usage and estimated-cost controls are active.',
+  },
+  {
+    name: 'Observability & Alerting',
+    status: 'Operational',
+    detail: 'Azure Monitor alert rules and an operational notification path are configured.',
+  },
+  {
+    name: 'Client Workbench',
+    status: 'Operational',
+    detail: 'The browser workbench is available at app.feuselectronicsgroup.com.',
+  },
+]
+
+export const ENTERPRISE_CAPABILITY_AVAILABILITY = [
+  {
+    capability: 'FEUS Auto',
+    availability: 'AVAILABLE',
+    summary: 'Policy-aware model and agent selection is the default workbench experience.',
+  },
+  {
+    capability: 'Multi-agent orchestration',
+    availability: 'AVAILABLE',
+    summary: 'The FEUS Supervisor coordinates eligible specialist agents for each request.',
+  },
+  {
+    capability: 'Azure cloud runtime',
+    availability: 'AVAILABLE',
+    summary: 'The managed FEUS runtime is live in Azure with durable cloud state.',
+  },
+  {
+    capability: 'Enterprise identity',
+    availability: 'AVAILABLE_FOR_ENTERPRISE_DEPLOYMENT',
+    summary: 'Microsoft Entra identity is configured during customer onboarding.',
+  },
+  {
+    capability: 'Audit & evidence',
+    availability: 'AVAILABLE',
+    summary: 'Execution evidence, correlation, and tenant-partitioned audit records are built in.',
+  },
+  {
+    capability: 'FinOps controls',
+    availability: 'AVAILABLE',
+    summary: 'Usage, model selection, and estimated cost are recorded for governed reporting.',
+  },
+  {
+    capability: 'Human approval workflows',
+    availability: 'GOVERNED_AVAILABILITY',
+    summary: 'Risk-sensitive actions require the approval policy assigned to the target and environment.',
+  },
+  {
+    capability: 'Customer integrations',
+    availability: 'CUSTOMER_SPECIFIC_ENABLEMENT',
+    summary: 'Connections are enabled after identity, permission, network, and target validation.',
+  },
+  {
+    capability: 'Model-provider selection',
+    availability: 'AVAILABLE',
+    summary: 'FEUS Policy Router selects among eligible configured models and deterministic routes.',
+  },
+  {
+    capability: 'Microsoft-managed Model Router',
+    availability: 'CUSTOMER_SPECIFIC_ENABLEMENT',
+    summary: 'Optional provider-managed routing depends on provider capacity; FEUS Policy Router remains operational independently.',
+  },
+  {
+    capability: 'Local and edge inference',
+    availability: 'ROADMAP',
+    summary: 'Not currently delivered as part of the FEUS Cloud Runtime.',
+  },
+]
 
 /** Public capability status counts (must reconcile to 45). */
 export const CAPABILITY_SUMMARY = {
@@ -675,7 +823,7 @@ export const INTEGRATION_STATUS = [
     dependency: 'Azure deployment',
     status: 'PREVIEW',
     treatment:
-      'A cloud evaluation topology is deployed and serving over TLS with durable evidence storage and managed identity. The separately assessed vNext topology remains incomplete and undeployed, and alert rules route to no notification destination.',
+      'A cloud evaluation topology is deployed and serving over TLS with durable evidence storage, managed identity, and delivery-verified alert notifications. No availability or response-time commitment is implied.',
   },
 ]
 
@@ -686,16 +834,16 @@ export const PRODUCT_FAMILIES = [
     route: '/sqlops',
     role: 'Core product family',
     description:
-      'FEUS.ai\u2019s SQL Server governance and operations family: the core GEG path has documented operational validation, while vNext dispatch remains Controlled Preview.',
-    statusLine: 'Controlled enterprise adoption · vNext dispatch in preview',
+      'FEUS.ai\u2019s SQL Server governance and operations family, delivered through a qualified identity, target scope, and governed execution path.',
+    statusLine: 'Available for enterprise deployment',
   },
   {
     name: 'FEUS RequestOps',
     route: '/requestops',
     role: 'Extension product family',
     description:
-      'Governed service-request intake, routing, and handoffs in Controlled Preview; current vendor connectors are Preview against mock transports.',
-    statusLine: 'Controlled preview · ITSM connectors in preview',
+      'Governed service-request intake, routing, and handoffs, with customer connectors enabled after target-specific qualification.',
+    statusLine: 'Private preview · customer-specific connectors',
   },
   {
     name: 'FEUS Assurance',
@@ -703,15 +851,15 @@ export const PRODUCT_FAMILIES = [
     role: 'Reserved product family',
     description:
       'The reserved family for internal assurance evaluation and release evidence; it is not a formal certification or compliance attestation.',
-    statusLine: 'Available with constraints · not formal certification',
+    statusLine: 'Governed availability',
   },
   {
     name: 'FEUS Control Plane',
     route: '/control-plane',
     role: 'Architecture component',
     description:
-      'The in-process coordination layer for typed work orders, routing, approvals, policy checks, and agent handovers. It remains Controlled Preview because it has no execution dispatcher.',
-    statusLine: 'Controlled preview · in-process only',
+      'The coordination layer for typed work orders, routing, approvals, policy checks, and accountable agent handovers.',
+    statusLine: 'Private preview',
   },
 ]
 

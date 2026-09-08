@@ -110,15 +110,22 @@ export default function TrustSecurityPage() {
               <p>Release signing: ECDSA P-384 / SHA-384 over a canonicalized manifest.</p>
               <p>Build provenance: SLSA v1.0 in a signed DSSE envelope.</p>
               <p>Software bill of materials: CycloneDX 1.4.</p>
-              <p>Source provenance: 735 governed files attested against the signed manifest.</p>
-              <p>Release artifacts: 515 artifacts hash-verified.</p>
+              <p>Source provenance: 748 governed files attested against the signed manifest.</p>
+              <p>Release artifacts: 520 artifacts hash-verified.</p>
               <p>Dependency verification: 0 findings across 106 items at the certified revision.</p>
               <p>Audit trail: SHA-256 hash chain, verified end to end.</p>
+              <p>
+                Signing-key custody: the release key is a non-exportable EC-HSM P-384 key held in
+                Azure Key Vault. Signing runs in a hosted workflow that authenticates to the vault
+                by federated identity and calls the vault to sign; the private key is never
+                exported and does not exist on any workstation.
+              </p>
               <p className="text-gray-400">
                 Scope: signatures are produced under keys authorized for the environment they
                 attest, and release verification names that environment explicitly rather than
-                implying a broader one. Production key custody is held out of band and is not
-                claimed here. This is supply-chain evidence, not a production-signing attestation.
+                implying a broader one. Custody of the signing key is attested; the running
+                deployment still declares the TST environment, so this is supply-chain evidence
+                for a governed evaluation release rather than a production service attestation.
               </p>
             </div>
           </div>
@@ -127,11 +134,18 @@ export default function TrustSecurityPage() {
             <h2 className="text-2xl font-bold text-white mb-4">Reporting a security concern</h2>
             <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed">
               <p>
-                Vulnerability-management process details are being formalized. Security
-                concerns should use the monitored
-                responsible-disclosure channel once published. Until then, use the{' '}
+                Send security reports to{' '}
+                <a href="mailto:info@feuselectronicsgroup.com?subject=Security%20report" className="text-feus-300 underline underline-offset-2">info@feuselectronicsgroup.com</a>{' '}
+                with &ldquo;Security report&rdquo; in the subject, or use the{' '}
                 <Link to="/contact" className="text-feus-300 underline underline-offset-2">contact form</Link>{' '}
-                and mark the inquiry as security-related without including sensitive details.
+                and mark the inquiry as security-related. Send only what is needed to
+                reproduce the issue, and no credentials or customer data.
+              </p>
+              <p className="mt-3">
+                We acknowledge every report and tell you when it is resolved. We do not
+                yet publish a response time or operate a bounty. Scope and rules of
+                engagement are set out under{' '}
+                <Link to="/security" className="text-feus-300 underline underline-offset-2">responsible disclosure</Link>.
               </p>
             </div>
           </div>

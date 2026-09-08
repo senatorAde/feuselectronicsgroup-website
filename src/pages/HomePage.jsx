@@ -87,24 +87,54 @@ const trustSignals = [
 
 const useCases = [
   {
-    icon: LockKeyhole,
-    audience: 'Regulated operations',
-    challenge: 'Modernize workflows while preserving oversight, evidence, and accountable decisions.',
+    icon: Cloud,
+    audience: 'Investigate infrastructure issues',
+    challenge: 'Bring cloud context, operational signals, and specialist reasoning into one governed workflow.',
   },
   {
-    icon: Building2,
-    audience: 'Growing businesses',
-    challenge: 'Build technology foundations that support the next stage without adding avoidable complexity.',
+    icon: Database,
+    audience: 'Analyze database health',
+    challenge: 'Assess performance, configuration, resilience, and operational risk with accountable controls.',
   },
   {
     icon: Network,
-    audience: 'Enterprise platform teams',
-    challenge: 'Connect data, cloud, automation, and governance into a more coherent operating model.',
+    audience: 'Assess cloud architecture',
+    challenge: 'Review design choices, dependencies, security posture, and cost implications together.',
   },
   {
     icon: Layers3,
-    audience: 'Customer-facing brands',
-    challenge: 'Align digital presence, content, and delivery systems around a stronger client experience.',
+    audience: 'Coordinate specialist agents',
+    challenge: 'Let FEUS Supervisor route each request to the right governed capability and model.',
+  },
+  {
+    icon: ShieldCheck,
+    audience: 'Review security posture',
+    challenge: 'Surface control gaps and supporting evidence without losing human accountability.',
+  },
+  {
+    icon: LockKeyhole,
+    audience: 'Govern AI-assisted changes',
+    challenge: 'Apply identity, policy, risk, and approval checks before consequential work proceeds.',
+  },
+  {
+    icon: Workflow,
+    audience: 'Automate operational workflows',
+    challenge: 'Turn repeatable work into controlled flows with clear decisions and outcomes.',
+  },
+  {
+    icon: Gauge,
+    audience: 'Control model cost',
+    challenge: 'Route within policy while recording model use, token consumption, and estimated cost.',
+  },
+  {
+    icon: CheckCircle2,
+    audience: 'Maintain audit evidence',
+    challenge: 'Keep requests, routing decisions, approvals, and outcomes connected by correlation.',
+  },
+  {
+    icon: Users,
+    audience: 'Approve high-impact actions',
+    challenge: 'Give accountable people a clear action, target, risk, impact, and validation plan.',
   },
 ]
 
@@ -142,20 +172,34 @@ function Hero() {
 
       <div className="relative mx-auto w-full max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <SectionLabel>Enterprise technology. Governed intelligence.</SectionLabel>
+          <SectionLabel>FEUS.ai enterprise operating platform</SectionLabel>
           <h1 className="mt-6 max-w-3xl font-display text-4xl font-bold leading-[1.08] text-white sm:text-5xl lg:text-6xl text-balance">
-            FEUS builds technology that moves business forward with control.
+            FEUS.ai: governed intelligence for real operations.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-200 sm:text-xl text-pretty">
-            Strategy, engineering, and governed AI for organizations ready to modernize data, cloud, automation, digital experiences, and operations.
+            Coordinate intelligent agents, enterprise controls, automation, model selection, audit evidence, and human approval through one secure operating experience.
           </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <CalendlyButton className="btn-primary" icon={ArrowRight}>Book a consultation</CalendlyButton>
-            <CTAButton to="/solutions" variant="secondary">Explore solutions</CTAButton>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <CTAButton to="/demo">Request a demonstration</CTAButton>
+            <CTAButton to="/get-started" variant="secondary">See the adoption path</CTAButton>
+            <CTAButton to="/feus-ai" variant="secondary">Explore the platform</CTAButton>
           </div>
+          <p className="mt-4 text-sm text-slate-400">
+            Already onboarded?{' '}
+            <a
+              href={LAUNCH_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-accent-300 underline underline-offset-2"
+            >
+              Sign in to FEUS
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>{' '}
+            &mdash; requires an account your organisation has granted.
+          </p>
           <p className="mt-8 flex max-w-xl items-start gap-3 text-sm leading-relaxed text-slate-400">
             <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent-300" aria-hidden="true" />
-            Human-delivered services and capability-scoped FEUS.ai adoption, matched to your environment and goals.
+            Human-controlled where risk requires it, policy-governed throughout, and transparent by design.
           </p>
         </div>
       </div>
@@ -308,24 +352,28 @@ function CloudRuntimeSection() {
               {CLOUD_RUNTIME.headline}
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-slate-300">
-              {CLOUD_RUNTIME.summary}
+              {CLOUD_RUNTIME.availabilitySummary}
             </p>
             <p className="mt-4 text-sm leading-relaxed text-slate-400">
-              {CLOUD_RUNTIME.qualification}
+              Available now through a governed enterprise onboarding and deployment scope.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <CTAButton to="/get-started">See the adoption path</CTAButton>
+              <CTAButton to="/cloud-runtime" variant="secondary">What it does</CTAButton>
+              <CTAButton to="/demo" variant="secondary">Request a demonstration</CTAButton>
+            </div>
+            <p className="mt-4 text-sm text-slate-400">
+              Already onboarded?{' '}
               <a
                 href={LAUNCH_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary inline-flex items-center justify-center gap-2 whitespace-nowrap"
+                className="text-accent-300 underline underline-offset-2"
               >
-                Launch FEUS
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                Sign in to FEUS
               </a>
-              <CTAButton to="/get-started" variant="secondary">Get started</CTAButton>
-              <CTAButton to="/cloud-runtime" variant="secondary">What it does</CTAButton>
-            </div>
+              .
+            </p>
           </AnimatedSection>
           <AnimatedSection delay={100}>
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
@@ -360,9 +408,9 @@ function UseCasesSection() {
         <AnimatedSection>
           <SectionHeader
             tone="light"
-            label="Where FEUS fits"
-            title="Built for consequential work"
-            subtitle="FEUS supports teams that need technology to be ambitious, practical, and accountable at the same time."
+            label="What you can do"
+            title="Put FEUS to work across your enterprise"
+            subtitle="Start with the outcome. FEUS coordinates the specialist capability, model, policy, evidence, and human decision path behind it."
           />
         </AnimatedSection>
         <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
@@ -454,7 +502,7 @@ function ClosingSection() {
                 Start with a consultation, request a FEUS.ai demonstration, or send a written brief. We will route the conversation to the right capability.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <CalendlyButton className="btn-primary" icon={ArrowRight}>Book a consultation</CalendlyButton>
+                <CalendlyButton className="btn-primary" icon={ArrowRight}>Request a consultation</CalendlyButton>
                 <CTAButton to="/contact" variant="secondary">Send your brief</CTAButton>
               </div>
             </div>

@@ -8,7 +8,7 @@
 
 1. [What Changed](#what-changed)
 2. [Contact Form Fix — Two Options](#contact-form-fix)
-3. [Calendly Setup](#calendly-setup)
+3. [Scheduling Setup (optional)](#scheduling-setup-optional)
 4. [Environment Variables](#environment-variables)
 5. [Deployment Steps](#deployment-steps)
 6. [Post-Deployment Verification](#post-deployment-verification)
@@ -132,55 +132,53 @@ The original contact form only set `setSubmitted(true)` on submit — no backend
 
 ---
 
-## Calendly Setup
+## Scheduling Setup (optional)
 
-### 1. Create Your Calendly Account
-- Sign up at [calendly.com](https://calendly.com)
-- Choose a plan (Free works for basic scheduling)
+**Current state: no scheduler is configured, and that is a supported state.**
 
-### 2. Create Event Types
+The site ships with `VITE_CALENDLY_URL` unset. With no scheduler configured,
+every "Request a consultation" control routes to `/contact`, the enquiry
+reaches `info@feuselectronicsgroup.com`, and a human replies with times. The
+site is fully functional this way. Nothing is broken and nothing needs to be
+turned on.
 
-**Event Type 1: Discovery Consultation (Primary)**
-- Name: `30-Minute Discovery Consultation`
-- Duration: 30 minutes
-- URL slug: `consultation`
-- Full URL: `https://calendly.com/feuselectronicsgroup/consultation`
-- Location: Zoom or Microsoft Teams
-- Questions: Company name, role, primary challenge
+> **Why there is no default URL.** This component previously carried a
+> hard-coded scheduler link. The link returned HTTP 200 but was an empty stub,
+> so the "is a scheduler configured?" flag was permanently true, the
+> contact-form fallback written for exactly this case became unreachable, and
+> every booking control on the site rendered "This Calendly URL is not valid".
+> A hard-coded default for external configuration is worse than no default: it
+> hides the breakage and disables the fallback. Do not reintroduce one.
 
-**Event Type 2: FEUS.ai Demo (Secondary)**
-- Name: `FEUS.ai Platform Demo`
-- Duration: 45 minutes
-- URL slug: `demo`
-- Full URL: `https://calendly.com/feuselectronicsgroup/demo`
-- Location: Zoom or Microsoft Teams
-- Questions: Company name, role, current tech stack
+### To enable live scheduling
 
-**Event Type 3: Follow-Up (Post-Call)**
-- Name: `Follow-Up Discussion`
-- Duration: 30 minutes
-- URL slug: `follow-up`
-- Full URL: `https://calendly.com/feuselectronicsgroup/follow-up`
+1. Create the event type in Calendly and copy its public URL. It must be
+   `https://calendly.com/<owner>/<event>` — the component rejects anything that
+   is not HTTPS, not a `calendly.com` host, or missing an event path segment.
+2. Confirm the URL loads a real scheduling page in a private browser window.
+   A 200 response is not sufficient evidence; a stub page also returns 200.
+3. Set the variables in Vercel → Settings → Environment Variables:
 
-### 3. Configure Notifications
-- Enable email notifications for new bookings
-- Enable calendar integration (Google Calendar / Outlook)
-- Enable reminder emails (24 hours before, 1 hour before)
+   ```
+   VITE_CALENDLY_URL=https://calendly.com/<owner>/<event>   # build-time, client bundle
+   BOOKING_URL=https://calendly.com/<owner>/<event>         # runtime, contact API auto-reply
+   ```
 
-### 4. Set Environment Variable
-```
-VITE_CALENDLY_URL=https://calendly.com/feuselectronicsgroup/consultation
-```
+   `VITE_CALENDLY_URL` is inlined into the client bundle at build time, so a
+   change requires a redeploy. `BOOKING_URL` is read at request time by
+   `api/contact.js`; when it is unset, the auto-reply simply omits the booking
+   button instead of linking a dead page.
+4. Redeploy and confirm the widget opens. If the Calendly script fails to load
+   (blocked by an extension or a network policy), the button falls back to a
+   plain link and then to `/contact`.
 
-### 5. Integration Points on the Website
-The Calendly integration is already built into:
-- **Navbar:** "Book a Consultation" button (popup)
-- **Homepage Hero:** "Book a Consultation" button (popup)
-- **Homepage Final CTA:** "Book a Consultation" button (popup)
-- **FEUS.ai Page:** Multiple CTA buttons (popup)
-- **How It Works Page:** CTA buttons (popup)
-- **Contact Page:** Inline Calendly embed (full widget)
-- **Footer:** "Schedule a Consultation" button (popup)
+### Integration points
+
+`CalendlyButton` is used by the Navbar, Footer, Home, FEUS.ai, Contact, About,
+Media Sales, Property Listing, and Leave Review surfaces. All of them are
+labelled "Request …" rather than "Book …", because until a scheduler is
+configured the site cannot confirm a time — it can only pass the request to a
+person.
 
 ---
 
@@ -190,7 +188,8 @@ The Calendly integration is already built into:
 
 | Variable | Required | Value |
 |----------|----------|-------|
-| `VITE_CALENDLY_URL` | Yes | `https://calendly.com/feuselectronicsgroup/consultation` |
+| `VITE_CALENDLY_URL` | No | Public Calendly event URL. Unset ⇒ scheduling controls route to `/contact`. |
+| `BOOKING_URL` | No | Same URL, read at runtime by the contact API auto-reply. Unset ⇒ no booking button in the email. |
 | `RESEND_API_KEY` | Option B only | Your Resend API key |
 | `CONTACT_EMAIL_TO` | Option B only | `info@feuselectronicsgroup.com` |
 | `CONTACT_EMAIL_FROM` | Option B only | `FEUS Website <noreply@feuselectronicsgroup.com>` |
@@ -216,18 +215,20 @@ cp .env.example .env
 
 ### Step 3: Test Locally
 ```bash
+npm test      # claims gate + audit-fix regression gate
 npm run dev
 ```
 - Visit `http://localhost:3000`
-- Test all routes: `/`, `/about`, `/feus-ai`, `/how-it-works`, `/services`, `/solutions`, `/contact`, `/insights`
+- Test all routes, including `/demo`, `/get-started`, `/legal/privacy`,
+  `/legal/terms`, and `/security`
 - Test the contact form
-- Test Calendly buttons (popup should open)
-- Test Calendly inline embed on Contact page
+- Click a "Request a consultation" control. With no scheduler configured it
+  must land on `/contact` — that is the correct behaviour, not a failure.
 
 ### Step 4: Set Vercel Environment Variables
 ```bash
-# Via Vercel CLI
-vercel env add VITE_CALENDLY_URL
+# Via Vercel CLI. VITE_CALENDLY_URL and BOOKING_URL are optional; set them
+# only once a real scheduling URL has been confirmed to load.
 vercel env add RESEND_API_KEY
 vercel env add CONTACT_EMAIL_TO
 vercel env add CONTACT_EMAIL_FROM
@@ -250,9 +251,9 @@ git push origin main
 ```
 
 ### Step 6: Verify Production Deployment
-- Check all routes work (no 404s)
+- Check all routes work (no 404s), including the legal and security routes
 - Submit a test contact form
-- Click a Calendly button
+- Click a "Request a consultation" control and confirm where it lands
 - Test on mobile
 
 ---
@@ -260,17 +261,18 @@ git push origin main
 ## Post-Deployment Verification
 
 ### Checklist
-- [ ] Homepage loads with updated hero and "How FEUS.ai Works" section
-- [ ] `/feus-ai` shows operational model with VS Code/Copilot Chat positioning
-- [ ] `/how-it-works` shows full 5-layer architecture
-- [ ] `/contact` shows Calendly inline embed + contact form
-- [ ] Contact form submissions deliver emails to inbox
-- [ ] Contact form shows loading state while sending
-- [ ] Contact form shows error state if submission fails
-- [ ] Contact form shows success state after submission
-- [ ] Navbar "Book a Consultation" opens Calendly popup
-- [ ] Footer "Schedule a Consultation" opens Calendly popup
-- [ ] All pages' CTA buttons open Calendly popup
+- [ ] Homepage loads with the demonstration / adoption / sign-in paths, and
+      sign-in is not the most prominent action
+- [ ] `/demo` is reachable, indexable, and describes what a demonstration shows
+- [ ] `/get-started` states that the runtime is not open to the public
+- [ ] `/legal/privacy`, `/legal/terms` and `/security` load and are marked as drafts
+      where they are drafts
+- [ ] `/.well-known/security.txt` returns the file, not the SPA shell
+- [ ] Contact form submissions deliver emails to the inbox
+- [ ] Contact form shows loading, error and success states
+- [ ] Every "Request a consultation" control reaches `/contact` while no
+      scheduler is configured, and opens the scheduler once one is
+- [ ] No control anywhere is labelled "Book …" unless a scheduler is configured
 - [ ] Mobile navigation works correctly
 - [ ] All routes work without 404 on direct access / refresh
 
@@ -282,11 +284,13 @@ git push origin main
 ```
 Website Visitor
     │
-    ├─→ CTA: "Book a Consultation" → Calendly Popup → 30-min Discovery Call
+    ├─→ CTA: "Request a consultation"
+    │     ├─ scheduler configured  → Calendly popup → 30-min discovery call
+    │     └─ not configured (today) → /contact → email → a human replies with times
     │
     └─→ Contact Page
-          ├─→ Calendly Inline Embed → 30-min Discovery Call
-          └─→ Contact Form (fallback) → Email → Manual Follow-up
+          ├─→ Scheduler embed, only when one is configured
+          └─→ Contact Form → Email → Manual follow-up
 ```
 
 ### Post-Booking Flow
@@ -306,9 +310,9 @@ Discovery Call Complete
     │     - Summary of discussion
     │     - Identified opportunities
     │     - Recommended next steps
-    │     - Link to follow-up Calendly
+    │     - Link to follow-up scheduling, only if a scheduler is configured
     │
-    ├─→ If interested: Follow-up call (Calendly link in recap email)
+    ├─→ If interested: Follow-up call
     │     - Detailed proposal review
     │     - Technical deep-dive
     │     - Scope and pricing discussion
@@ -349,8 +353,8 @@ Here's a quick recap of what we discussed:
 1. We'll prepare a tailored assessment proposal based on today's discussion
 2. Schedule a follow-up to review the proposal and answer technical questions
 
-You can book a follow-up directly here:
-[Book a Follow-Up Call](https://calendly.com/feuselectronicsgroup/follow-up)
+Reply to this email with a few times that suit you and we will confirm one.
+(Once a scheduling link is configured, paste it here instead.)
 
 In the meantime, feel free to explore:
 - [How FEUS.ai Works](https://feuselectronicsgroup.com/how-it-works)
@@ -373,8 +377,12 @@ Founder & CEO, FEUS Electronics Group
 
 ## Notes
 
-- The Calendly widget loads CSS and JS from Calendly's CDN (`assets.calendly.com`)
-- The popup widget uses `window.Calendly.initPopupWidget()` with a fallback to `window.open()` if the script hasn't loaded
-- The `X-Frame-Options` header is set to `SAMEORIGIN` (not `DENY`) to allow the Calendly iframe to render
+- With no scheduler configured, nothing is loaded from Calendly's CDN at all.
+- When one is configured, the widget loads CSS and JS from `assets.calendly.com`
+- The popup uses `window.Calendly.initPopupWidget()`, falling back to
+  `window.open()` if the script has not loaded, and to `/contact` if neither is
+  available. All three paths are reachable and all three are honest.
+- The `X-Frame-Options` header is set to `SAMEORIGIN` (not `DENY`) to allow the
+  scheduler iframe to render
 - All routes use React Router client-side routing; `vercel.json` rewrites ensure direct URL access works
 - The API route at `/api/contact` is a Vercel Serverless Function (Node.js runtime)

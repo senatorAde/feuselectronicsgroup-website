@@ -174,7 +174,7 @@ export default function MediaSalesLandingPage() {
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <CalendlyButton className="btn-accent group" icon={ArrowRight}>
-                  Book a Consultation
+                  Request a consultation
                 </CalendlyButton>
                 <CTAButton to="/contact" variant="secondary">
                   Send a Message

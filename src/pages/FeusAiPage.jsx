@@ -4,10 +4,9 @@ import SEO from '../components/SEO'
 import AnimatedSection from '../components/AnimatedSection'
 import WorkflowVisual from '../components/WorkflowVisual'
 import { SectionLabel, CTAButton, GlowDivider } from '../components/ui'
-import {
-  CapabilityLifecycleTable, EvidenceCallout,
-} from '../components/statusComponents'
+import { EvidenceCallout } from '../components/statusComponents'
 import { POSTURE, PRODUCT_FAMILIES } from '../data/publicStatus'
+import { LAUNCH_URL } from '../data/cloudRuntime'
 
 const operatingPrinciples = [
   {
@@ -70,9 +69,23 @@ export default function FeusAiPage() {
               FEUS.ai coordinates agents, tools, policies, approvals, and evidence behind a unified operator experience. {POSTURE.architectureStatement}
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <CTAButton to="/contact?type=demo">Request a capability briefing</CTAButton>
+              <CTAButton to="/demo">Request a demonstration</CTAButton>
+              <CTAButton to="/get-started" variant="secondary">See the adoption path</CTAButton>
               <CTAButton to="/agents" variant="secondary">Explore the agent portfolio</CTAButton>
             </div>
+            <p className="mt-4 text-sm text-slate-400">
+              Already onboarded?{' '}
+              <a
+                href={LAUNCH_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-feus-200 underline underline-offset-2"
+              >
+                Sign in to FEUS
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </a>{' '}
+              &mdash; requires an account your organisation has granted.
+            </p>
             <p className="mt-6 max-w-2xl text-sm leading-relaxed text-slate-400">
               {POSTURE.availabilityQualifier}{' '}
               <Link to="/status" className="font-semibold text-feus-200 underline underline-offset-2">Capability status</Link>
@@ -117,7 +130,7 @@ export default function FeusAiPage() {
           <SectionLabel>Operational evidence</SectionLabel>
           <h2 className="mt-5 text-3xl font-bold text-white">Operational maturity with governance intact</h2>
           <p className="mt-6 text-slate-300 leading-relaxed">
-            {POSTURE.validationStatement} The core GovernedExecutionGateway path has documented real-world FEUS SQL Server usage: 48 of 48 provisioning batches passed all seven gates and the recorded audit chain verified. The vNext revision additionally completed {POSTURE.testsPassedAtRevision.toLocaleString()} automated tests and established policy, routing, approval, handoff, and execution-truth properties. {POSTURE.lifecycleStatement}
+            {POSTURE.validationStatement} The core GovernedExecutionGateway path has documented real-world FEUS SQL Server usage: 48 of 48 provisioning batches passed all seven gates and the recorded audit chain verified. The assessed platform revision additionally completed {POSTURE.testsPassedAtRevision.toLocaleString()} automated tests and established policy, routing, approval, handoff, and execution-truth properties. {POSTURE.lifecycleStatement}
           </p>
           <div className="mt-8"><EvidenceCallout /></div>
         </div>
@@ -161,24 +174,6 @@ export default function FeusAiPage() {
 
       <GlowDivider />
 
-      <section className="section-ink py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <SectionLabel>Lifecycle and adoption</SectionLabel>
-          <h2 className="text-3xl font-bold text-white mt-4 mb-4">
-            Capability-specific status
-          </h2>
-          <p className="text-gray-400 max-w-3xl mb-8">
-            Operational usage, release certification, public availability,
-            environment scope, and next maturity milestone are reported separately.
-          </p>
-          <div className="glass-card rounded-2xl p-6">
-            <CapabilityLifecycleTable />
-          </div>
-        </div>
-      </section>
-
-      <GlowDivider />
-
       <section className="section-light py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <SectionLabel tone="light">Adoption</SectionLabel>
@@ -191,8 +186,8 @@ export default function FeusAiPage() {
             capabilities that fit it today and the ones on a controlled validation path.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <CTAButton to="/contact?type=demo" variant="dark">Book a consultation</CTAButton>
-            <CTAButton to="/demo" variant="outline">Request a demo</CTAButton>
+            <CTAButton to="/demo" variant="dark">Request a demonstration</CTAButton>
+            <CTAButton to="/get-started" variant="outline">See the adoption path</CTAButton>
             <CTAButton to="/architecture" variant="outline">Current-state architecture</CTAButton>
           </div>
           <p className="mt-8 text-sm text-slate-600">

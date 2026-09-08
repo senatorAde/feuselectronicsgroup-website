@@ -250,7 +250,7 @@ export default function AboutPage() {
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <CalendlyButton className="btn-accent group" icon={ArrowRight}>
-                  Schedule a Consultation
+                  Request a consultation
                 </CalendlyButton>
                 <CTAButton to="/feus-ai" variant="secondary">Explore FEUS.ai</CTAButton>
               </div>

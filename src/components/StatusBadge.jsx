@@ -23,6 +23,26 @@ const STYLE = {
     icon: CircleCheck,
     classes: 'text-sky-300 bg-sky-500/10 border-sky-500/40',
   },
+  AVAILABLE_FOR_ENTERPRISE_DEPLOYMENT: {
+    icon: CircleCheck,
+    classes: 'text-teal-300 bg-teal-500/10 border-teal-500/40',
+  },
+  GOVERNED_AVAILABILITY: {
+    icon: Wrench,
+    classes: 'text-orange-300 bg-orange-500/10 border-orange-500/40',
+  },
+  CUSTOMER_SPECIFIC_ENABLEMENT: {
+    icon: PlugZap,
+    classes: 'text-cyan-300 bg-cyan-500/10 border-cyan-500/40',
+  },
+  PRIVATE_PREVIEW: {
+    icon: FlaskConical,
+    classes: 'text-amber-300 bg-amber-500/10 border-amber-500/40',
+  },
+  ROADMAP: {
+    icon: CalendarClock,
+    classes: 'text-slate-300 bg-slate-500/10 border-slate-500/40',
+  },
   AVAILABLE_WITH_CONSTRAINTS: {
     icon: TriangleAlert,
     classes: 'text-orange-300 bg-orange-500/10 border-orange-500/40',

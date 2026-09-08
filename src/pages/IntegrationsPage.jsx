@@ -12,7 +12,7 @@ export default function IntegrationsPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="Integration Status"
-        description="FEUS.ai integration lifecycle: documented core SQL Server validation, Controlled Preview Oracle, Preview ITSM contracts, and disabled model-provider invocation."
+        description="FEUS.ai integrations span available SQL Server workflows, private-preview Oracle and ITSM capabilities, and live governed model invocation."
       />
 
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
@@ -22,11 +22,10 @@ export default function IntegrationsPage() {
             External dependency status
           </h1>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            Session 12D recorded {POSTURE.liveVerifiedIntegrations} live-verified
-            product-facing external integrations for its assessed vNext revision.
-            The table also reports the separately documented core SQL Server path
-            and current lifecycle status for Oracle, ITSM, providers, identity, and
-            deployment targets.
+            FEUS currently has {POSTURE.liveVerifiedIntegrations} live-verified
+            product-facing external integrations in its cloud runtime. The table
+            also reports the separately documented core SQL Server path and current
+            lifecycle status for Oracle, ITSM, providers, identity, and deployment targets.
             Vendor names appear only to identify contract targets — they are not
             support, partnership, or certification claims.
           </p>
