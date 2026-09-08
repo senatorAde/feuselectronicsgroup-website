@@ -10,6 +10,7 @@ import {
 } from '../components/releaseComponents'
 import { POSTURE } from '../data/publicStatus'
 import { RELEASE_ASSESSMENT, AUTHORIZED_USE } from '../data/releaseAssessment'
+import CloudEvidence from '../components/CloudEvidence'
 
 /**
  * /trust — Trust Center landing, rebuilt per the Session 13A Trust Center
@@ -21,13 +22,13 @@ const sections = [
     icon: FileSearch,
     title: 'Platform status',
     to: '/status',
-    desc: 'Platform maturity, capability lifecycle, exact-revision release status, dependencies, and limitations.',
+    desc: 'Dated, static evidence and capability availability, not live incident monitoring.',
   },
   {
     icon: ShieldAlert,
     title: 'Security posture',
     to: '/trust/security',
-    desc: 'The 38-control Session 12D assessment, reported exactly as assessed — including failed and not-established controls.',
+    desc: 'The historical 38-control Session 12D assessment, including failed and not-established controls; not a new cloud assessment.',
   },
   {
     icon: Scale,
@@ -37,9 +38,9 @@ const sections = [
   },
   {
     icon: Network,
-    title: 'Current-state architecture',
+    title: 'Cloud evaluation architecture',
     to: '/architecture',
-    desc: 'The governed request path as it exists today, including the fail-closed execution boundary.',
+    desc: 'The published cloud evaluation path and its governed boundaries, with the historical Session 12D diagram retained separately.',
   },
   {
     icon: MessageCircleQuestion,
@@ -51,7 +52,7 @@ const sections = [
     icon: History,
     title: 'Posture history',
     to: '/release-notes',
-    desc: 'How the public posture has changed over time and which assessment currently controls it.',
+    desc: 'Dated records with separate cloud, product and historical revision scopes.',
   },
 ]
 
@@ -67,22 +68,21 @@ export default function TrustPage() {
         <div className="max-w-4xl mx-auto">
           <SectionLabel>Trust Center</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">
-            Operational evidence, scoped assurance
+            Cloud evaluation evidence, scoped assurance
           </h1>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            {POSTURE.publicPostureStatement} This Trust Center reports product
-            posture, security architecture, governance controls, capability status,
-            preview capabilities, known limitations, assessment scope, deployment
-            responsibilities, and historical assurance evidence without collapsing
-            them into a single score, grade, or seal.
+            FEUS.ai, a product of FEUS Electronics Group, offers a governed Azure
+            cloud evaluation in TST. This Trust Center separates the current cloud
+            release evidence, capability-specific deployment requirements and historical
+            assessments. None is a blanket production qualification or formal certification.
           </p>
           <p className="mt-4 text-gray-400 leading-relaxed">
             {RELEASE_ASSESSMENT.disclosureBoundary} The release assessment recorded
-            below is scoped to one named revision and deployment configuration; it is
+            in the historical section is scoped to one named revision and deployment configuration; it is
             not a characterization of the platform or of every core capability.
           </p>
           <div className="mt-10">
-            <ReleaseDecision />
+            <CloudEvidence />
           </div>
         </div>
       </section>
@@ -103,10 +103,14 @@ export default function TrustPage() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Posture at a glance</h2>
-          <div className="glass-card rounded-2xl p-6">
-            <PostureSummary />
-          </div>
+          <details id="historical-assessment" className="glass-card rounded-2xl p-6 scroll-mt-24">
+            <summary className="cursor-pointer text-xl font-bold text-white">Historical assessment · 5.2.0-enterprise.1 · Session 12D</summary>
+            <p className="my-4 text-sm text-gray-300">Historical, exact-revision evidence. The decision remains applicable to its assessed revision; it is not the current 5.3 cloud runtime verdict. Original records and limitations are retained without promotion or reassessment.</p>
+            <ReleaseDecision />
+            <div className="mt-6"><PostureSummary /></div>
+            <h3 className="mt-6 mb-3 text-lg font-bold text-white">Historical assessment limitations</h3>
+            <KnownLimitationList />
+          </details>
           <div className="mt-8">
             <EvidenceCallout />
           </div>
@@ -134,13 +138,6 @@ export default function TrustPage() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-4xl mx-auto grid gap-10">
-          <div>
-            <h2 className="text-2xl font-bold text-white mb-6">Known limitations</h2>
-            <div className="glass-card rounded-2xl p-6">
-              <KnownLimitationList />
-            </div>
-          </div>
-
           <div>
             <h2 className="text-2xl font-bold text-white mb-4">Customer responsibilities</h2>
             <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed space-y-3">
@@ -187,8 +184,8 @@ export default function TrustPage() {
                 Send security reports to{' '}
                 <a href="mailto:info@feuselectronicsgroup.com?subject=Security%20report" className="text-feus-300 underline underline-offset-2">info@feuselectronicsgroup.com</a>{' '}
                 with &ldquo;Security report&rdquo; in the subject, or use the{' '}
-                <Link to="/contact" className="text-feus-300 underline underline-offset-2">contact form</Link>{' '}
-                and mark the inquiry as security-related. Send only what is needed to
+                <Link to="/contact?type=security#contact-form" className="text-feus-300 underline underline-offset-2">contact form</Link>{' '}
+                with Governance &amp; Security preselected. Send only what is needed to
                 reproduce the issue, and no credentials or customer data.
               </p>
               <p className="mt-3">
@@ -201,7 +198,7 @@ export default function TrustPage() {
           </div>
 
           <p className="text-xs text-gray-500">
-            Exact-release evidence is bound to revision{' '}
+            Historical Session 12D evidence is bound to revision{' '}
             <span className="font-mono break-all">{RELEASE_ASSESSMENT.certifiedRevision}</span>{' '}
             and was last reviewed {POSTURE.lastReviewed}. Product maturity is
             capability-scoped. {RELEASE_ASSESSMENT.supersessionRule}

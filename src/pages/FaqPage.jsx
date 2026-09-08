@@ -4,6 +4,7 @@ import SEO from '../components/SEO'
 import { SectionLabel, CTAButton } from '../components/ui'
 import { POSTURE } from '../data/publicStatus'
 import { FAQ_ITEMS, RELEASE_ASSESSMENT } from '../data/releaseAssessment'
+import CloudEvidence from '../components/CloudEvidence'
 
 /**
  * /faq — platform FAQ (Trust Center content plan §31).
@@ -56,11 +57,14 @@ export default function FaqPage() {
             Exact-revision answers below are assessed against revision{' '}
             <span className="font-mono text-sm break-all">{RELEASE_ASSESSMENT.certifiedRevision}</span>.
           </p>
+          <div className="mt-6"><CloudEvidence /></div>
         </div>
       </section>
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-3xl mx-auto space-y-3">
+          <h2 className="text-xl font-bold text-white">Retained assessment FAQ · historical scope</h2>
+          <p className="pb-4 text-sm text-gray-400">These retained answers include historical restrictions and do not replace the current cloud evaluation scope above. In particular, the offline ROI demonstration statement is not a description of guided live inference.</p>
           {FAQ_ITEMS.map((item) => (
             <FaqItem key={item.q} q={item.q} a={item.a} />
           ))}

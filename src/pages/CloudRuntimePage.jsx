@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import { SectionLabel } from '../components/ui'
 import AudiencePaths from '../components/AudiencePaths'
+import CloudEvidence from '../components/CloudEvidence'
+import { LIVE_DEMO } from '../data/demoExperience'
 import {
   CLOUD_RUNTIME,
   LAUNCH_URL,
@@ -30,16 +32,17 @@ export default function CloudRuntimePage() {
 
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <SectionLabel>Available now</SectionLabel>
+          <SectionLabel>Guided cloud evaluation</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">
             {CLOUD_RUNTIME.headline}
           </h1>
           <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-feus-200">
-            Available · Governed cloud experience
+            Azure TST · Authorized access
           </p>
           <p className="mt-6 text-gray-300 leading-relaxed">{CLOUD_RUNTIME.availabilitySummary}</p>
 
           <AudiencePaths className="mt-8" />
+          <p className="mt-5 text-sm text-gray-300">{LIVE_DEMO.boundary}</p>
 
           <details className="mt-8 rounded-lg border border-white/10 bg-white/[0.03] p-5">
             <summary className="cursor-pointer text-sm font-bold text-feus-200">
@@ -62,11 +65,8 @@ export default function CloudRuntimePage() {
               </div>
             ))}
           </div>
-          <p className="mt-6 text-xs text-gray-500 leading-relaxed">
-            FEUS.ai {CLOUD_RUNTIME.releaseVersion}, verified {CLOUD_RUNTIME.verifiedOn} at
-            revision <span className="font-mono">{CLOUD_RUNTIME.releaseRevision.slice(0, 12)}</span>.
-            Hosting: {CLOUD_RUNTIME.hosting}.
-          </p>
+          <div className="mt-6"><CloudEvidence /></div>
+          <p className="mt-4 text-xs text-gray-400">Hosting: {CLOUD_RUNTIME.hosting}.</p>
         </div>
       </section>
 
@@ -87,6 +87,7 @@ export default function CloudRuntimePage() {
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-4">How FEUS chooses a model</h2>
+          <p className="mb-4 text-gray-300 leading-relaxed">{LIVE_DEMO.cost}</p>
           <p className="text-gray-300 leading-relaxed">{ROUTING_AUTHORITY.statement}</p>
           <p className="mt-3 text-gray-300 leading-relaxed">{ROUTING_AUTHORITY.modeRule}</p>
 

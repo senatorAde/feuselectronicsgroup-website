@@ -230,11 +230,12 @@ export const STATUS_DEFS = {
  * and constitutional details remain in releaseAssessment.js and /trust.
  */
 export const PLATFORM_STATUS = {
-  overall: 'Operational',
+  overall: 'Published evaluation snapshot',
   summary:
-    'The FEUS Cloud Runtime and customer workbench are responding normally. Core identity, routing, governance, evidence, and cost-control services are available.',
+    'This static page summarizes the published cloud evaluation record. It does not probe services, receive incident updates, or establish present service health.',
   lastVerified: '2026-09-07',
-  activeIncidents: [],
+  basis: 'Website review date uses local time (UTC−04:00); source verification dates use UTC. Published release records are cited below; this review is not a live observation.',
+  activeIncidents: null,
 }
 
 export const OPERATIONAL_SERVICES = [
@@ -365,7 +366,7 @@ export const CAPABILITY_LIFECYCLE = [
     capability: 'Governance engine and seven-gate execution gateway',
     productArea: 'Core platform',
     validation:
-      'Documented operational use in a controlled FEUS SQL Server provisioning workflow: the retained record reports 48 of 48 batches passed all seven gates and a valid audit chain; its dated JSONL file is not present in this checkout.',
+      'Documented operational use in a controlled FEUS SQL Server provisioning workflow: the retained record reports 48 of 48 batches passed all seven gates and a valid audit chain; the underlying dated audit file is not available for public inspection, so the result is not independently re-attested here.',
     certification:
       'Core-path operational record; vNext pre-execution controls are implementation-verified, while vNext dispatch remains outside the certified operating path.',
     publicStatus: 'CONTROLLED_ENTERPRISE_ADOPTION',
@@ -391,7 +392,7 @@ export const CAPABILITY_LIFECYCLE = [
     capability: 'SQL Server governed operational workflows',
     productArea: 'Core platform',
     validation:
-      'The legacy/core pyodbc execution path and a real FEUS SQL Server workflow are documented; the historical run record is retained, but its dated JSONL audit file is not present in this checkout.',
+      'The core execution path and a real FEUS SQL Server workflow are documented; the historical run record is retained, but its underlying dated audit file is not available for public inspection or independent re-attestation.',
     certification:
       'Session 12D partially confirmed the legacy path and separately found the new vNext dispatcher and executor unbound.',
     publicStatus: 'CONTROLLED_ENTERPRISE_ADOPTION',
@@ -417,7 +418,7 @@ export const CAPABILITY_LIFECYCLE = [
     capability: 'Audit and evidence framework',
     productArea: 'Core platform',
     validation:
-      'The retained core-workflow record reports 288 audit events and a valid local hash chain; its dated JSONL file is not present in this checkout; release evidence and provenance gates are established separately.',
+      'The retained core-workflow record reports 288 audit events and a valid local hash chain; its underlying dated audit file is not available for public inspection or independent re-attestation. Release evidence and provenance gates are established separately.',
     certification:
       'Local integrity behavior is verified, but adversary-resistant anchoring and a deployed durable sink were not established for the assessed vNext release.',
     publicStatus: 'AVAILABLE_WITH_CONSTRAINTS',

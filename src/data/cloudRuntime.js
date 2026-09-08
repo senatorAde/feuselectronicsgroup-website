@@ -40,7 +40,7 @@ export const CLOUD_RUNTIME = {
     'result in a hash-linked audit chain. The deployment declares the TST ' +
     'environment; it is a governed evaluation surface, not a production service.',
   availabilitySummary:
-    'Use FEUS Auto from a browser to coordinate specialist agents, select an eligible model, apply policy and approval controls, and retain audit and cost evidence for every turn.',
+    'Evaluate FEUS Auto from an authorized browser session in Azure TST: classify a turn, select an eligible Microsoft Foundry model, apply policy and approval controls, and retain audit and estimated-cost evidence. Inference does not establish live SQL or tool execution.',
   qualification:
     'Scope: the runtime declares the TST environment. The activated model set ' +
     'is proposed and not ratified, and no PROD model eligibility exists, so a ' +
@@ -214,10 +214,10 @@ export const TURN_PIPELINE = [
       'stopped it.',
   },
   {
-    step: 'Execute',
+    step: 'Infer within scope',
     detail:
-      'The assigned agent runs the turn, with any tool call passing through ' +
-      'the tool gateway rather than around it.',
+      'An eligible model may generate a response. Any proposed agent or tool action ' +
+      'retains a separate governed execution boundary; inference success does not prove tool or SQL execution.',
   },
   {
     step: 'Record',
@@ -225,6 +225,19 @@ export const TURN_PIPELINE = [
       'Routing decision, token counts, estimated cost, and an evidence digest ' +
       'are appended to the hash-linked audit chain and the FinOps ledger.',
   },
+]
+
+/** Logical cloud path; a listed boundary does not assert a live downstream tool. */
+export const CLOUD_ARCHITECTURE = [
+  { title: 'Public website', detail: 'Explains FEUS.ai, offers guided demonstrations and links to the separate workbench. It does not execute customer operations.' },
+  { title: 'Azure workbench', detail: 'Browser evaluation surface hosted on Azure Container Apps in the declared TST environment.' },
+  { title: 'Microsoft Entra ID', detail: 'Authenticates the operator. Missing or invalid credentials are refused; sign-in does not grant access by itself.' },
+  { title: 'Tenant authorization', detail: 'Checks the authorized tenant and operator scope before accessing tenant-bound conversation and evidence records.' },
+  { title: 'Classification', detail: 'Classifies task and data sensitivity before provider selection; environment context is part of eligibility.' },
+  { title: 'FEUS Policy Router', detail: 'Applies eligibility, routing preference and budget constraints. A preference cannot override policy; missing eligibility means refusal and required approvals remain mandatory.' },
+  { title: 'Eligible model / provider', detail: 'Microsoft Foundry inference is available within TST policy. The activated set is proposed and not ratified; no PROD model eligibility exists. Deterministic turns contact no model.' },
+  { title: 'Governed agent / tool boundary', detail: 'Agent assignment and permitted tools remain governed. A proposed tool action needs its own target, identity, policy and approval checks. The live inference evidence does not establish live SQL or tool execution.' },
+  { title: 'Durable storage', detail: 'Azure Table Storage retains tenant-bound conversations, routing audit, approval evidence and estimated-cost records using managed identity. Stored evidence does not itself attest customer-system execution.' },
 ]
 
 /** What the 5.3 cloud release actually verified. */

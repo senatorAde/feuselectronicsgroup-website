@@ -62,6 +62,7 @@ export default function FeusAiPage() {
           <div className="max-w-3xl">
             <SectionLabel>{POSTURE.headline}</SectionLabel>
             <h1 className="mt-5 font-display text-5xl font-bold text-white sm:text-6xl">FEUS.ai</h1>
+            <p className="mt-3 text-sm font-semibold text-feus-200">A product of FEUS Electronics Group</p>
             <p className="mt-6 max-w-2xl text-xl leading-relaxed text-slate-200">
               Turn operational intent into controlled action across AI, data, assurance, and automation.
             </p>
@@ -73,6 +74,9 @@ export default function FeusAiPage() {
               <CTAButton to="/get-started" variant="secondary">See the adoption path</CTAButton>
               <CTAButton to="/agents" variant="secondary">Explore the agent portfolio</CTAButton>
             </div>
+            <p className="mt-4 max-w-2xl text-sm text-slate-300">
+              Start with a guided live Azure TST demo using Microsoft Foundry inference and synthetic inputs, with authorized Entra access and agreed budgets. No customer connections. Choose offline fixtures if live access is unsuitable; inference does not establish live SQL or tool execution.
+            </p>
             <p className="mt-4 text-sm text-slate-400">
               Already onboarded?{' '}
               <a

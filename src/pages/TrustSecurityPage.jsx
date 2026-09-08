@@ -137,7 +137,7 @@ export default function TrustSecurityPage() {
                 Send security reports to{' '}
                 <a href="mailto:info@feuselectronicsgroup.com?subject=Security%20report" className="text-feus-300 underline underline-offset-2">info@feuselectronicsgroup.com</a>{' '}
                 with &ldquo;Security report&rdquo; in the subject, or use the{' '}
-                <Link to="/contact" className="text-feus-300 underline underline-offset-2">contact form</Link>{' '}
+                <Link to="/contact?type=security#contact-form" className="text-feus-300 underline underline-offset-2">contact form</Link>{' '}
                 and mark the inquiry as security-related. Send only what is needed to
                 reproduce the issue, and no credentials or customer data.
               </p>

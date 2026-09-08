@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
-import { Activity, ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react'
+import { Activity, ArrowRight, Info, ShieldCheck } from 'lucide-react'
 import SEO from '../components/SEO'
 import StatusBadge from '../components/StatusBadge'
 import { SectionLabel } from '../components/ui'
+import CloudEvidence from '../components/CloudEvidence'
 import {
   ENTERPRISE_CAPABILITY_AVAILABILITY,
   OPERATIONAL_SERVICES,
@@ -18,7 +19,7 @@ export default function StatusPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="Platform Status"
-        description="Current FEUS.ai cloud service health, active incidents, and enterprise capability availability."
+        description="Dated FEUS.ai cloud evaluation evidence and capability scope. A static publication, not live service health or incident monitoring."
       />
 
       <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
@@ -27,16 +28,17 @@ export default function StatusPage() {
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">
             FEUS Platform Status
           </h1>
-          <div className="mt-7 flex items-center gap-3 text-emerald-300">
-            <CheckCircle2 className="h-6 w-6" aria-hidden="true" />
+          <div className="mt-7 flex items-center gap-3 text-feus-300">
+            <Info className="h-6 w-6" aria-hidden="true" />
             <p className="text-2xl font-bold text-white">{PLATFORM_STATUS.overall}</p>
           </div>
           <p className="mt-4 max-w-3xl text-lg leading-relaxed text-gray-300">
             {PLATFORM_STATUS.summary}
           </p>
           <p className="mt-3 text-sm text-gray-500">
-            Verified {PLATFORM_STATUS.lastVerified}. Service status is distinct from capability-specific deployment policy.
+            Review date: <time dateTime={PLATFORM_STATUS.lastVerified}>{PLATFORM_STATUS.lastVerified}</time>. {PLATFORM_STATUS.basis}
           </p>
+          <div className="mt-6"><CloudEvidence /></div>
         </div>
       </section>
 
@@ -44,19 +46,19 @@ export default function StatusPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <h2 className="text-2xl font-bold text-white">Service health</h2>
-              <p className="mt-2 text-sm text-gray-400">Current health of the customer-facing FEUS platform.</p>
+              <h2 className="text-2xl font-bold text-white">Services described in the published record</h2>
+              <p className="mt-2 text-sm text-gray-400">Descriptions below reflect the cited evaluation scope, not real-time availability. Inference evidence does not establish live SQL or tool execution.</p>
             </div>
             <Activity className="hidden h-7 w-7 text-feus-300 sm:block" aria-hidden="true" />
           </div>
           <div className="mt-7 grid gap-x-10 sm:grid-cols-2">
             {OPERATIONAL_SERVICES.map((service) => (
               <div key={service.name} className="flex gap-4 border-t border-white/10 py-5">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-300" aria-hidden="true" />
+                <Info className="mt-0.5 h-5 w-5 flex-shrink-0 text-feus-300" aria-hidden="true" />
                 <div>
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                     <h3 className="font-semibold text-white">{service.name}</h3>
-                    <span className="text-xs font-bold uppercase text-emerald-300">{service.status}</span>
+                    <span className="text-xs font-bold uppercase text-feus-300">Published evaluation scope</span>
                   </div>
                   <p className="mt-1 text-sm leading-relaxed text-gray-400">{service.detail}</p>
                 </div>
@@ -68,21 +70,8 @@ export default function StatusPage() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-bold text-white">Active incidents</h2>
-          {PLATFORM_STATUS.activeIncidents.length === 0 ? (
-            <p className="mt-4 flex items-center gap-3 text-gray-300">
-              <CheckCircle2 className="h-5 w-5 text-emerald-300" aria-hidden="true" />
-              No active incidents reported.
-            </p>
-          ) : (
-            <ul className="mt-4 space-y-3">
-              {PLATFORM_STATUS.activeIncidents.map((incident) => (
-                <li key={incident.id} className="border-l-2 border-amber-400 pl-4 text-gray-300">
-                  {incident.summary}
-                </li>
-              ))}
-            </ul>
-          )}
+          <h2 className="text-2xl font-bold text-white">Incident information</h2>
+          <p className="mt-4 text-gray-300">No live incident feed is connected to this page. Current incident state is unknown here; absence of a notice is not evidence that there are no incidents. Contact the engagement team for operational information.</p>
         </div>
       </section>
 

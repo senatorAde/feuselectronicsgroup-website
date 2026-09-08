@@ -19,7 +19,7 @@ export function ReleaseDecision({ compact = false }) {
   return (
     <div className="border-l-4 border-slate-500/60 bg-white/[0.03] rounded-r-xl p-6">
       <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">
-        Assessed vNext release decision
+        Historical Session 12D release decision
       </p>
       <p className="mt-1 text-2xl font-bold text-white">{RELEASE_ASSESSMENT.decision}</p>
       <p className="mt-1 text-gray-300">{RELEASE_ASSESSMENT.scopeRule}</p>
@@ -48,11 +48,11 @@ export function ReleaseDecision({ compact = false }) {
 /** At-a-glance posture table (Trust Center Content Plan §4.2). */
 export function PostureSummary() {
   const rows = [
-    ['Platform maturity', POSTURE.productMaturity],
-    ['Public availability', POSTURE.publicAvailability],
-    ['Assessed vNext release decision', RELEASE_ASSESSMENT.decision],
+    ['Historical version assessed', RELEASE_ASSESSMENT.versionAssessed],
+    ['Historical revision', RELEASE_ASSESSMENT.certifiedRevision],
+    ['Session 12D release decision', RELEASE_ASSESSMENT.decision],
     ['Session 12D production-verified rows', `${POSTURE.productionVerifiedCapabilities} of ${POSTURE.totalCapabilities}`],
-    ['Session 12D live-verified integrations', String(POSTURE.liveVerifiedIntegrations)],
+    ['Session 12D live-verified integrations', '0 (at that assessment)'],
     ['Security controls assessed', String(CONTROL_COUNTS.assessed)],
     ['Verified', String(CONTROL_COUNTS.verified)],
     ['Verified with constraints', String(CONTROL_COUNTS.verifiedWithConstraints)],
@@ -60,13 +60,13 @@ export function PostureSummary() {
     ['Failed', String(CONTROL_COUNTS.failed)],
     ['Not established', String(CONTROL_COUNTS.notEstablished)],
     ['Assessed vNext deployment scope', 'Internal LOCAL evaluation'],
-    ['Model invocation', 'Disabled'],
+    ['Model invocation at that revision', 'Disabled'],
     ['Oracle Operations Agent', 'Controlled Preview'],
     ['ROI', 'Estimate only'],
   ]
   return (
-    <table className="w-full text-sm border-collapse">
-      <caption className="sr-only">FEUS.ai release posture at a glance</caption>
+    <table className="w-full table-fixed text-sm border-collapse">
+      <caption className="sr-only">Historical Session 12D release posture</caption>
       <thead>
         <tr className="border-b border-white/10 text-left">
           <th scope="col" className="py-2 pr-4 text-gray-400 font-medium">Item</th>
@@ -77,7 +77,7 @@ export function PostureSummary() {
         {rows.map(([k, v]) => (
           <tr key={k} className="border-b border-white/[0.06]">
             <th scope="row" className="py-2 pr-4 text-gray-300 font-normal text-left">{k}</th>
-            <td className="py-2 text-white font-medium">{v}</td>
+            <td className="py-2 text-white font-medium break-words">{v}</td>
           </tr>
         ))}
       </tbody>

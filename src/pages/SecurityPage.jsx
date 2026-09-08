@@ -48,10 +48,10 @@ export default function SecurityPage() {
                 </a>{' '}
                 with <span className="font-mono">Security report</span> in the subject
                 line, or use the{' '}
-                <Link to="/contact" className="text-accent-300 underline underline-offset-2">
+                <Link to="/contact?type=security#contact-form" className="text-accent-300 underline underline-offset-2">
                   contact form
                 </Link>{' '}
-                and select the security interest area.
+                with Governance &amp; Security preselected.
               </p>
               <p className="text-white font-medium">
                 Please send only what we need to reproduce the issue.
