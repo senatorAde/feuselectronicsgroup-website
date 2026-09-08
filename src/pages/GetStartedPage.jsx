@@ -38,8 +38,9 @@ export default function GetStartedPage() {
           <p className="mt-6 text-gray-300 leading-relaxed">
             FEUS.ai is a governed assistant for database and data operations. Every
             request it handles is classified, checked against the Platform
-            Constitution, routed to a model that is eligible for that request in
-            that environment, executed, and recorded. When FEUS refuses, it names
+            Constitution, and recorded. Inference requests route only to an eligible
+            model for the request and environment. Model inference does not
+            establish live SQL or tool execution. When FEUS refuses, it names
             the rule that refused and what would have to change.
           </p>
           <p className="mt-4 text-gray-300 leading-relaxed">
@@ -49,9 +50,12 @@ export default function GetStartedPage() {
             step 1 and step 2 below establish. If you want to see the product before
             starting that, ask for a{' '}
             <Link to="/demo" className="text-feus-200 underline underline-offset-2">
-              controlled demonstration
+              guided live Azure TST demonstration
             </Link>{' '}
             instead.
+          </p>
+          <p className="mt-4 text-gray-300 leading-relaxed">
+            Demonstrations use synthetic inputs, authorized Entra access and agreed budgets, with no customer connections. Offline fixtures are a separate option. Adoption qualifies your own identities, targets and permissions; a demo does not grant that authority or full production qualification.
           </p>
           <p className="mt-4 text-gray-200 leading-relaxed">
             {POSTURE.engagementModel}
@@ -61,7 +65,7 @@ export default function GetStartedPage() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link to="/contact" className="btn-primary">
+            <Link to="/contact?type=adoption#contact-form" className="btn-primary">
               Start the onboarding conversation
             </Link>
             <Link to="/demo" className="btn-secondary">

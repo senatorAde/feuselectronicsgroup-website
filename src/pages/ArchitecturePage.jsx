@@ -1,10 +1,11 @@
 import SEO from '../components/SEO'
 import { SectionLabel, CTAButton } from '../components/ui'
-import { POSTURE, MODEL_PROVIDER_STATEMENT } from '../data/publicStatus'
 import { RELEASE_ASSESSMENT } from '../data/releaseAssessment'
+import CloudEvidence from '../components/CloudEvidence'
+import { CLOUD_ARCHITECTURE } from '../data/cloudRuntime'
 
 /**
- * /architecture — assessed vNext current-state architecture page.
+ * /architecture — cloud evaluation first; historical vNext diagram retained below.
  * Diagram rules (Session 13A visual requirements §13 / Trust plan §8):
  *  - CURRENT STATE label, revision binding, environment, legend, alt text.
  *  - Solid = implemented and tested; dashed/red = missing, mock, or disabled.
@@ -36,22 +37,15 @@ const gateStage = {
   body: 'The Protected Execution Service evaluates identity, environment, policy, approval, and evidence gates. Each gate fails closed under its tested conditions. At this revision the PES is exercised in-process by tests — it is not invoked by the Control Plane.',
 }
 
-export default function ArchitecturePage() {
+function HistoricalArchitecture() {
   return (
     <div className="bg-navy-950 min-h-screen">
-      <SEO
-        title="vNext Current-State Architecture"
-        description="The assessed FEUS.ai vNext request path: typed intake, governed work orders, deny-by-default routing, pre-execution gates, and a fail-closed unbound execution boundary."
-      />
-
-      <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+      <section className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <SectionLabel>Architecture · Assessed vNext current state</SectionLabel>
-          <h1 className="section-heading text-4xl sm:text-5xl mt-4">
-            How the assessed vNext request flows
-          </h1>
+          <SectionLabel>Historical architecture · Session 12D</SectionLabel>
+          <h2 className="section-heading text-2xl mt-4">Historical 5.2 request path</h2>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            This page shows the RequestOps-to-Control-Plane-to-PES path at the
+            This historical diagram shows the RequestOps-to-Control-Plane-to-PES path at the
             Session 12D assessed revision, including where it intentionally stops.
             In this vNext design, stages 0–5 are implemented and fail closed, while
             stage 6 is unbound because no dispatcher or executor exists. This diagram
@@ -67,7 +61,7 @@ export default function ArchitecturePage() {
           <div
             role="img"
             aria-label={
-              'Current-state diagram of the assessed FEUS.ai vNext governed request path. ' +
+              'Historical diagram of the Session 12D FEUS.ai vNext governed request path, not the current cloud runtime. ' +
               'Implemented and tested: a typed service request enters FEUS RequestOps, becomes a governed work order, ' +
               'and passes through Control Plane routing, policy, and approval, which record a policy verdict. ' +
               'First fail-closed discontinuity: the Control Plane has no execution dispatcher, so nothing is dispatched onward from its verdict. ' +
@@ -79,7 +73,7 @@ export default function ArchitecturePage() {
             className="glass-card rounded-2xl p-6 sm:p-8"
           >
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500 border-b border-white/[0.08] pb-4 mb-6">
-              <span className="font-semibold text-amber-300/90 uppercase tracking-wide">Assessed vNext current state</span>
+              <span className="font-semibold text-amber-300/90 uppercase tracking-wide">Historical assessed vNext state</span>
               <span>Diagram FEUS-ARCH-PUB-001 · v1.1</span>
               <span className="font-mono break-all">Revision {RELEASE_ASSESSMENT.certifiedRevision}</span>
               <span>Assessed environment: LOCAL / test evidence only</span>
@@ -197,11 +191,6 @@ export default function ArchitecturePage() {
                 own seven-gate operational workflow and evidence record.
               </p>
             </div>
-            <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed">
-              <h2 className="text-lg font-semibold text-white mb-2">{MODEL_PROVIDER_STATEMENT.headline}</h2>
-              <p>{MODEL_PROVIDER_STATEMENT.statement}</p>
-              <p className="mt-2 text-gray-400">{MODEL_PROVIDER_STATEMENT.designNote}</p>
-            </div>
           </div>
 
           <div className="mt-10 flex flex-wrap gap-4">
@@ -210,6 +199,41 @@ export default function ArchitecturePage() {
             <CTAButton to="/integrations" variant="secondary">Integration status</CTAButton>
           </div>
         </div>
+      </section>
+    </div>
+  )
+}
+
+export default function ArchitecturePage() {
+  return (
+    <div className="bg-navy-950 min-h-screen">
+      <SEO title="Cloud Evaluation Architecture" description="The FEUS.ai Azure TST path: website, workbench, Entra identity, tenant authorization, classification, FEUS Policy Router, eligible provider, governed tool boundary and durable evidence." />
+      <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <SectionLabel>FEUS.ai · Cloud evaluation architecture</SectionLabel>
+          <h1 className="section-heading text-4xl sm:text-5xl mt-4">From website to governed cloud turn</h1>
+          <p className="mt-6 text-gray-300 leading-relaxed">FEUS.ai is a product of FEUS Electronics Group. The public website explains the offer; the separate Azure workbench handles authenticated evaluation. This is the published TST topology, not a claim that all agent or tool capabilities are live.</p>
+          <div className="mt-8"><CloudEvidence /></div>
+          <h2 className="mt-10 text-2xl font-bold text-white" id="cloud-path">Cloud evaluation path</h2>
+          <p className="mt-3 text-sm text-gray-400">Ordered logical boundaries, not unconditional execution arrows. Identity, tenant authorization, policy or budget checks can refuse a turn. A required approval holds it; a deterministic route contacts no provider.</p>
+          <ol aria-labelledby="cloud-path" className="mt-6 glass-card rounded-2xl p-6 space-y-6">
+            {CLOUD_ARCHITECTURE.map((stage, index) => (
+              <li key={stage.title} className="flex gap-4">
+                <span aria-hidden="true" className="text-feus-300 font-mono">{index + 1}</span>
+                <div><h3 className="font-bold text-white">{stage.title}</h3><p className="mt-1 text-sm text-gray-300 leading-relaxed">{stage.detail}</p></div>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-5 text-sm text-gray-300">Live inference is not live SQL or tool execution. Customer connections, effective target privileges and operation-specific controls require separate validation. Durable storage is not an immutable or independently anchored audit guarantee.</p>
+          <div className="mt-8 flex flex-wrap gap-4"><CTAButton to="/demo">Explore the guided demo</CTAButton><CTAButton to="/trust" variant="secondary">Review evidence scope</CTAButton></div>
+        </div>
+      </section>
+      <section className="max-w-5xl mx-auto px-4 pb-12">
+        <details id="historical-architecture" className="border border-white/10 rounded-2xl p-5 scroll-mt-24">
+          <summary className="cursor-pointer text-xl text-white font-bold">Historical 5.2 architecture · Session 12D</summary>
+          <p className="mt-4 text-sm text-gray-300">Retained for its named revision and assessment scope. Missing dispatch and disabled inference below describe that historical path, not the current 5.3 cloud deployment.</p>
+          <HistoricalArchitecture />
+        </details>
       </section>
     </div>
   )

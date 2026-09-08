@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import { Link, useSearchParams, useLocation } from 'react-router-dom'
 import emailjs from '@emailjs/browser'
 import {
   Mail, MapPin, ArrowRight, Send, BrainCircuit, BriefcaseBusiness,
@@ -10,42 +10,8 @@ import AnimatedSection from '../components/AnimatedSection'
 import { PageHero, SectionLabel, CTAButton, GlowDivider } from '../components/ui'
 import { CalendlyButton } from '../components/CalendlyEmbed'
 import SEO from '../components/SEO'
-
-const inquiryTypes = [
-  'Request a Controlled Demonstration of FEUS.ai',
-  'Managed Database Operations',
-  'Data Architecture & Engineering',
-  'Cloud & Platform Operations',
-  'Enterprise AI Solutions',
-  'Governance & Security',
-  'Analytics & Business Intelligence',
-  'Automation & Integration',
-  'Digital Platforms & Web',
-  'Media, Photo & Video',
-  'Strategy & Implementation Advisory',
-  'General Inquiry',
-]
-
-const queryInquiryTypes = {
-  demo: inquiryTypes[0],
-  database: inquiryTypes[1],
-  data: inquiryTypes[2],
-  modernization: inquiryTypes[2],
-  cloud: inquiryTypes[3],
-  'cloud-ops': inquiryTypes[3],
-  ai: inquiryTypes[4],
-  enablement: inquiryTypes[4],
-  governance: inquiryTypes[5],
-  analytics: inquiryTypes[6],
-  automation: inquiryTypes[7],
-  workflow: inquiryTypes[7],
-  digital: inquiryTypes[8],
-  'digital-experience': inquiryTypes[8],
-  media: inquiryTypes[9],
-  'visual-story': inquiryTypes[9],
-  strategy: inquiryTypes[10],
-  services: inquiryTypes[11],
-}
+import { inquiryTypes, resolveInquiry, focusContactForm } from '../data/contactNavigation'
+import { LIVE_DEMO } from '../data/demoExperience'
 
 const contactPaths = [
   {
@@ -57,7 +23,7 @@ const contactPaths = [
   {
     icon: BrainCircuit,
     title: 'Explore FEUS.ai',
-    description: 'Request a capability-scoped platform demonstration or architecture briefing.',
+    description: 'Request a guided live Azure TST demo with synthetic inputs, authorized Entra access, and agreed budgets. No customer connections.',
     type: 'demo',
   },
   {
@@ -78,16 +44,19 @@ const fieldClass = 'w-full rounded-lg border border-slate-300 bg-white px-4 py-3
 
 export default function ContactPage() {
   const [searchParams] = useSearchParams()
+  const location = useLocation()
+  const formSectionRef = useRef(null)
+  const inquiryRef = useRef(null)
   const requestedType = searchParams.get('type')
   const isReviewMode = requestedType === 'review'
 
   const [formData, setFormData] = useState({
     firstName: '', lastName: '', email: '', company: '',
-    jobTitle: '', inquiryType: '', message: '',
+    jobTitle: '', message: '',
     // Review-specific fields
     rating: 0,
     wouldRecommend: '',
-    formType: 'contact',
+    ...resolveInquiry(requestedType),
   })
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -95,24 +64,13 @@ export default function ContactPage() {
   const [hoverRating, setHoverRating] = useState(0)
 
   useEffect(() => {
-    if (isReviewMode) {
-      setFormData((prev) => ({
-        ...prev,
-        inquiryType: 'Demo Feedback / Review',
-        formType: 'demo_feedback',
-      }))
-      return
-    }
+    setFormData((prev) => ({ ...prev, ...resolveInquiry(requestedType) }))
+  }, [requestedType])
 
-    const inquiryType = queryInquiryTypes[requestedType]
-    if (inquiryType) {
-      setFormData((prev) => ({
-        ...prev,
-        inquiryType,
-        formType: 'contact',
-      }))
-    }
-  }, [isReviewMode, requestedType])
+  useEffect(() => {
+    if (location.hash !== '#contact-form' && !resolveInquiry(requestedType).inquiryType) return
+    focusContactForm(formSectionRef.current, inquiryRef.current)
+  }, [location.key, location.hash, requestedType])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -192,7 +150,7 @@ export default function ContactPage() {
         </section>
       )}
 
-      <section id="contact-form" className="section-mist scroll-mt-24 py-20 sm:py-24">
+      <section id="contact-form" ref={formSectionRef} className="section-mist scroll-mt-24 py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <SectionLabel tone="light">Get in touch</SectionLabel>
@@ -202,6 +160,15 @@ export default function ContactPage() {
             <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
               Share enough context for us to route your inquiry well. We will respond within one business day.
             </p>
+            {requestedType === 'demo' && (
+              <p className="mt-4 text-slate-600 max-w-2xl mx-auto">{LIVE_DEMO.access} {LIVE_DEMO.budget}</p>
+            )}
+            {requestedType === 'adoption' && (
+              <p className="mt-4 text-slate-600 max-w-2xl mx-auto">Adoption starts with scope, identity, target permissions, budgets and validation. Sending this form does not provision access or connect customer systems.</p>
+            )}
+            {(requestedType === 'security' || requestedType === 'governance') && (
+              <p className="mt-4 text-slate-600 max-w-2xl mx-auto">Governance &amp; Security is selected. Do not include credentials, customer data or sensitive exploit details. This form is not an encrypted disclosure channel; see our <Link to="/security" className="text-feus-800 underline">responsible disclosure guidance</Link>.</p>
+            )}
           </div>
           <div className="grid lg:grid-cols-5 gap-12">
             {/* Contact Info */}
@@ -356,7 +323,7 @@ export default function ContactPage() {
                         <div>
                           <label htmlFor="inquiryType" className="block text-sm font-semibold text-slate-700 mb-1.5">Area of interest *</label>
                           <select
-                            id="inquiryType" name="inquiryType" required
+                            id="inquiryType" name="inquiryType" required ref={inquiryRef}
                             value={formData.inquiryType} onChange={handleChange}
                             className={`${fieldClass} appearance-none`}
                           >

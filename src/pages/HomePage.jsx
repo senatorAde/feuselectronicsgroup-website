@@ -184,6 +184,9 @@ function Hero() {
             <CTAButton to="/get-started" variant="secondary">See the adoption path</CTAButton>
             <CTAButton to="/feus-ai" variant="secondary">Explore the platform</CTAButton>
           </div>
+          <p className="mt-4 max-w-2xl text-sm text-slate-300">
+            FEUS.ai is a product of FEUS Electronics Group. Start with a guided live Azure TST demo: Microsoft Foundry inference, synthetic inputs, authorized Entra access and agreed budgets. No customer connections; an offline fixture option is available.
+          </p>
           <p className="mt-4 text-sm text-slate-400">
             Already onboarded?{' '}
             <a
