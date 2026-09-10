@@ -42,3 +42,12 @@ https://vercel.com/senatorades-projects/feuswebsite/DMnjNc8t9QAB399CDntmL6akRH42
 and main CI https://github.com/senatorAde/feuselectronicsgroup-website/actions/runs/34194526866.
 These identifiers do not describe the new candidate. Owner merge after candidate
 CI and observed production deployment is still required; preview is not production.
+
+## Candidate publication
+
+PR: https://github.com/senatorAde/feuselectronicsgroup-website/pull/5.
+Initial source commit: `74d95d0cc02dc517a9ed03833a45630fd7d75753`.
+Initial hosted CI found its shallow checkout lacked the immutable historical
+baseline used by the release-history regression. Commit
+`dfc6ededcc7a8d2c3a7c5505815f797f7d00b51f` enables full checkout history; the
+assertion and all 22 tests remain intact. No finding was suppressed.
