@@ -23,12 +23,36 @@
 /** Where a signed-in operator reaches the runtime. */
 export const LAUNCH_URL = 'https://app.feuselectronicsgroup.com'
 
+/** Historical validation is not the latest deployment or fresh acceptance. */
+export const HISTORICAL_CLOUD_VALIDATION = {
+  sourceRevision: '78ef0630650f41ddd72fd7eb3df55ed42e5bc562',
+  releaseTag: 'dist/5.3.0-enterprise.1-cloud-runtime-azure-verified',
+  verifiedOn: '2026-09-08',
+}
+
+/** Recorded checkpoint, not a live health/traffic probe. Update only from new release evidence. */
+export const LATEST_DEPLOYED_RECORD = {
+  sourceRevision: '72b306570fa3eea731c57f5ede8b2a6ee9e0e3e4',
+  signedRevision: 'ff67fc8',
+  revision: 'ca-feus-runtime--0000009',
+  imageDigest: 'sha256:843813f417c4d276d19788d3e1130ade91ba2a4f386941d654e4c0f589c49459',
+  checkpointUtc: '2026-09-08T16:35:06.0600276Z',
+  trafficPercentAtCheckpoint: 100,
+  evidenceRecord: 'live-acceptance-0000009.json',
+  scope: 'The checkpoint records one completed inherited-TST turn and one no-eligible-model PROD refusal; neither used tools or customer targets.',
+}
+
+export const STARTER_STATUS = {
+  failureReference: 'cf7aa36f',
+  status: 'correction_pending',
+  summary: 'A subsequent starter failure (cf7aa36f) remains under focused correction. Starter acceptance is pending; the deployment checkpoint is not proof that the current starter journey succeeds.',
+}
+
 export const CLOUD_RUNTIME = {
   name: 'FEUS Cloud Runtime',
   appUrl: LAUNCH_URL,
   releaseVersion: '5.3.0-enterprise.1',
-  releaseRevision: '78ef0630650f41ddd72fd7eb3df55ed42e5bc562',
-  releaseTag: 'dist/5.3.0-enterprise.1-cloud-runtime-azure-verified',
+  releaseRevision: LATEST_DEPLOYED_RECORD.sourceRevision,
   verifiedOn: '2026-09-08',
   declaredEnvironment: 'TST',
   hosting: 'Azure Container Apps, East US 2, single replica',
@@ -48,7 +72,9 @@ export const CLOUD_RUNTIME = {
     'from published unit rates rather than billed actuals. Alerting is ' +
     'deployed and delivery-verified, and response is expert-guided under the ' +
     'engagement model, but there is no availability commitment because no ' +
-    'response time has been measured or contracted.',
+    'response time has been measured or contracted. TST eligibility is distinct from ' +
+    'the proposed_not_ratified governance status; it is not ratification or PROD authorization. ' +
+    STARTER_STATUS.summary,
 }
 
 /**
@@ -181,7 +207,8 @@ export const ROUTING_AUTHORITY = {
   modelQualification:
     'The three Microsoft Foundry deployments above are activated for the TST ' +
     'environment only. The activated set is proposed and not ratified, and no ' +
-    'PROD model eligibility exists.',
+    'PROD model eligibility exists. TST eligibility is evaluated per turn; ' +
+    'proposed_not_ratified is the separate governance status, not a claim that no TST model can run.',
 }
 
 /**
@@ -240,7 +267,7 @@ export const CLOUD_ARCHITECTURE = [
   { title: 'Durable storage', detail: 'Azure Table Storage retains tenant-bound conversations, routing audit, approval evidence and estimated-cost records using managed identity. Stored evidence does not itself attest customer-system execution.' },
 ]
 
-/** What the 5.3 cloud release actually verified. */
+/** Historical validation counts only; do not attribute these to revision 0000009. */
 export const RUNTIME_EVIDENCE = [
   {
     label: 'Cloud acceptance checks',
@@ -260,7 +287,7 @@ export const RUNTIME_EVIDENCE = [
     value: '5 of 5 satisfied',
     detail:
       'Durable table state, inference provider, identity, configuration, and ' +
-      'audit sink all report satisfied on the running revision.',
+      'audit sink reported satisfied at the historical validation revision.',
   },
   {
     label: 'Secrets in the runtime',
