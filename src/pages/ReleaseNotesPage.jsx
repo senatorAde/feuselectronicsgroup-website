@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import { SectionLabel } from '../components/ui'
 import { POSTURE_HISTORY, RELEASE_ASSESSMENT } from '../data/releaseAssessment'
+import CloudEvidence from '../components/CloudEvidence'
+import { HISTORICAL_CLOUD_VALIDATION } from '../data/cloudRuntime'
 
 /**
  * /release-notes — product-posture and exact-revision release history.
@@ -29,6 +31,8 @@ export default function ReleaseNotesPage() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-3xl mx-auto space-y-6">
+          <CloudEvidence />
+          <p className="text-sm text-gray-400">Original assessments and their wording are retained below. The latest recorded deployment is distinct from the older validation record; neither establishes current starter acceptance.</p>
           {POSTURE_HISTORY.map((entry) => (
             <article
               key={`${entry.date}-${entry.decision}`}
@@ -40,7 +44,7 @@ export default function ReleaseNotesPage() {
                 <span>{entry.version}</span>
                 {entry.current ? (
                   <span className="font-semibold text-amber-300/90 uppercase tracking-wide">
-                    {entry.controllingLabel ?? 'Current'}
+                    {entry.revision === HISTORICAL_CLOUD_VALIDATION.sourceRevision ? 'Historical validation record (original current label retained in history)' : (entry.controllingLabel ?? 'Current')}
                   </span>
                 ) : (
                   <span className="font-semibold text-gray-400 uppercase tracking-wide">
@@ -52,7 +56,7 @@ export default function ReleaseNotesPage() {
                 {entry.decision}
               </h2>
               <p className="mt-1 text-sm text-gray-400">{entry.authority}</p>
-              <p className="mt-3 text-sm text-gray-300 leading-relaxed">{entry.scope}</p>
+              <p className="mt-3 text-sm text-gray-300 leading-relaxed [overflow-wrap:anywhere]">{entry.scope}</p>
             </article>
           ))}
 

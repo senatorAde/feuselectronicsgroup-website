@@ -75,7 +75,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { firstName, lastName, email, company, jobTitle, inquiryType, message } = req.body;
+  const { firstName, lastName, email, company, jobTitle, inquiryType, message } = req.body || {};
 
   // Validate required fields
   if (!firstName || !lastName || !email || !company || !inquiryType || !message) {
@@ -108,7 +108,7 @@ export default async function handler(req, res) {
     const toEmail = process.env.CONTACT_EMAIL_TO || 'info@feuselectronicsgroup.com';
     const fromEmail = process.env.CONTACT_EMAIL_FROM || 'FEUS Website <onboarding@resend.dev>';
 
-    await resend.emails.send({
+    const notification = await resend.emails.send({
       from: fromEmail,
       to: [toEmail],
       replyTo: email,
@@ -158,9 +158,14 @@ export default async function handler(req, res) {
       `,
     });
 
-    // Send auto-reply to the submitter
+    // Resend can resolve with an error instead of rejecting. Never report success.
+    if (notification.error || !notification.data?.id) {
+      return res.status(502).json({ error: 'The email provider did not accept the inquiry. Please email info@feuselectronicsgroup.com directly.' });
+    }
+
+    // Acknowledgement failure must not misreport an accepted inquiry as unsent.
     const booking = bookingUrl();
-    await resend.emails.send({
+    const acknowledgement = await resend.emails.send({
       from: fromEmail,
       to: [email],
       subject: `Thank you for contacting FEUS Electronics Group`,
@@ -168,7 +173,7 @@ export default async function handler(req, res) {
         <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px;">
           <h1 style="color: #1f2937; font-size: 20px;">Thank you, ${safe.firstName}.</h1>
           <p style="color: #4b5563; font-size: 14px; line-height: 1.7;">
-            We've received your message regarding <strong>${safe.inquiryType}</strong> and will get back to you within one business day.
+            Your inquiry regarding <strong>${safe.inquiryType}</strong> was accepted by our email provider. This is not proof of inbox delivery. Response time is not guaranteed.
           </p>
           ${booking ? `<p style="color: #4b5563; font-size: 14px; line-height: 1.7;">
             In the meantime, if you'd like to schedule a consultation directly, you can book a time here:
@@ -187,12 +192,17 @@ export default async function handler(req, res) {
           </p>
         </div>
       `,
+    }).catch(() => ({ error: true }));
+
+    return res.status(200).json({
+      success: true,
+      delivery: 'provider_accepted',
+      acknowledgementAccepted: !acknowledgement.error && Boolean(acknowledgement.data?.id),
+      message: 'The email provider accepted the inquiry; inbox delivery is not confirmed.',
     });
 
-    return res.status(200).json({ success: true, message: 'Message sent successfully' });
-
   } catch (error) {
-    console.error('Contact form error:', error);
+    console.error('Contact form provider request failed');
     return res.status(500).json({ 
       error: 'Failed to send message. Please try again or email us directly at info@feuselectronicsgroup.com' 
     });

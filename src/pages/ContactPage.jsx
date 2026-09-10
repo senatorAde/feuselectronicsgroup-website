@@ -103,7 +103,7 @@ export default function ContactPage() {
 
       setSubmitted(true)
     } catch (err) {
-      console.error('Contact form error:', err)
+      console.error('Contact form provider request failed')
       setError('We could not send your message through the form')
     } finally {
       setSubmitting(false)
@@ -125,7 +125,7 @@ export default function ContactPage() {
         }
         subtitle={isReviewMode
           ? 'Your feedback helps us improve and helps other teams evaluate governed data operations. It takes less than two minutes.'
-                : 'Request a consultation, ask for a capability-scoped FEUS.ai briefing, or send a written inquiry. We will respond within one business day.'
+                : 'Request a consultation, ask for a capability-scoped FEUS.ai briefing, or send a written inquiry. Response time is not guaranteed.'
         }
         backgroundImage="/brand/feus-hero-system.webp"
         imagePosition="70% center"
@@ -158,7 +158,7 @@ export default function ContactPage() {
               Tell us what you want to change.
             </h2>
             <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
-              Share enough context for us to route your inquiry well. We will respond within one business day.
+              Share enough context for us to route your inquiry well. Response time is not guaranteed.
             </p>
             {requestedType === 'demo' && (
               <p className="mt-4 text-slate-600 max-w-2xl mx-auto">{LIVE_DEMO.access} {LIVE_DEMO.budget}</p>
@@ -221,7 +221,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h4 className="text-sm font-semibold text-ink">Response time</h4>
-                        <span className="text-sm text-slate-600">Within 1 business day</span>
+                        <span className="text-sm text-slate-600">Not guaranteed</span>
                       </div>
                     </div>
                   </div>
@@ -230,7 +230,7 @@ export default function ContactPage() {
                     <h4 className="text-sm font-semibold text-ink mb-3">What to expect</h4>
                     <div className="space-y-3">
                       {[
-                        'Initial response within 1 business day',
+                        'Response timing agreed during the conversation',
                         'Discovery call to understand your needs',
                         'Tailored assessment and proposal',
                         'No obligation, no pressure',
@@ -257,7 +257,7 @@ export default function ContactPage() {
                       </div>
                       <h3 className="text-2xl font-bold text-ink mb-3">Thank you</h3>
                       <p className="text-slate-600 max-w-md mx-auto">
-                        We've received your message and will get back to you within one business day.
+                        The form provider accepted your request. This is not confirmation of inbox delivery or a guaranteed response time. You can also email info@feuselectronicsgroup.com.
                       </p>
                     </div>
                   ) : (
@@ -435,7 +435,7 @@ export default function ContactPage() {
                         )}
 
                         <p className="text-xs text-slate-500 text-center">
-                          By submitting this form, you consent to FEUS Electronics Group using the details you provide to respond to your inquiry. Messages are delivered through our form-delivery provider. Our{' '}
+                          By submitting this form, you consent to FEUS Electronics Group using the details you provide to respond to your inquiry. This form sends your details through EmailJS. End-to-end inbox delivery has not been verified in this website review; provider acceptance is not proof of delivery. Do not include credentials or sensitive customer data. Our{' '}
                           <Link to="/legal/privacy" className="underline underline-offset-2">privacy notice</Link>{' '}
                           explains what we collect and who processes it; it is published as a draft pending legal approval.
                         </p>

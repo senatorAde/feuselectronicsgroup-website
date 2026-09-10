@@ -15,28 +15,43 @@ export default function ControlPlanePage() {
       />
 
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <SectionLabel>Architecture component</SectionLabel>
-          <h1 className="section-heading text-4xl sm:text-5xl mt-4">FEUS Control Plane</h1>
-          <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-amber-300/90">
-            Implementation verified in-process only · Not a separately available product
-          </p>
-          {/* Approved messaging §8 */}
-          <p className="mt-6 text-gray-300 leading-relaxed">
-            The FEUS Control Plane is the coordination layer of the FEUS.ai
-            architecture. At the certified revision it implements typed work-order
-            lifecycles, deterministic deny-by-default agent and capability routing,
-            typed sanitized cross-agent messages, identity non-propagation across
-            handovers, independent approval binding, and policy checks before side
-            effects — all verified in-process by automated tests. It has no
-            execution dispatcher: no work order reaches a database, and shared
-            durable state has not been established.
-          </p>
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-4xl">
+            <SectionLabel>Architecture component</SectionLabel>
+            <h1 className="section-heading text-4xl sm:text-5xl mt-4">FEUS Control Plane</h1>
+            <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-amber-300/90">
+              Implementation verified in-process only · Not a separately available product
+            </p>
+            {/* Approved messaging §8 */}
+            <p className="mt-6 text-gray-300 leading-relaxed">
+              The FEUS Control Plane is the coordination layer of the FEUS.ai
+              architecture. At the certified revision it implements typed work-order
+              lifecycles, deterministic deny-by-default agent and capability routing,
+              typed sanitized cross-agent messages, identity non-propagation across
+              handovers, independent approval binding, and policy checks before side
+              effects — all verified in-process by automated tests. It has no
+              execution dispatcher: no work order reaches a database, and shared
+              durable state has not been established.
+            </p>
+          </div>
+          <figure className="mt-12 border-y border-white/10 py-4">
+            <img
+              src="/brand/feus-governed-pipeline.webp"
+              alt="Conceptual illustration of human review, policy controls, evidence, and secure workflow stages"
+              width="1672"
+              height="941"
+              loading="lazy"
+              className="aspect-[16/9] w-full object-cover"
+            />
+            <figcaption className="pt-3 text-xs text-slate-400">
+              Conceptual operating-model illustration, not a live system view.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
-        <div className="max-w-4xl mx-auto grid gap-10">
+        <div className="mx-auto grid w-full min-w-0 max-w-4xl grid-cols-[minmax(0,1fr)] gap-10">
           <div>
             <h2 className="text-2xl font-bold text-white mb-4">Governance properties (tested in-process)</h2>
             <ul className="glass-card rounded-2xl p-6 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">

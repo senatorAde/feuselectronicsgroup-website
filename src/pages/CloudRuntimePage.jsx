@@ -13,6 +13,8 @@ import {
   RUNTIME_EVIDENCE,
   RUNTIME_SCOPE,
   TURN_PIPELINE,
+  HISTORICAL_CLOUD_VALIDATION,
+  STARTER_STATUS,
 } from '../data/cloudRuntime'
 
 /**
@@ -40,6 +42,7 @@ export default function CloudRuntimePage() {
             Azure TST · Authorized access
           </p>
           <p className="mt-6 text-gray-300 leading-relaxed">{CLOUD_RUNTIME.availabilitySummary}</p>
+          <p className="mt-4 text-sm font-semibold text-amber-200">{STARTER_STATUS.summary}</p>
 
           <AudiencePaths className="mt-8" />
           <p className="mt-5 text-sm text-gray-300">{LIVE_DEMO.boundary}</p>
@@ -55,7 +58,8 @@ export default function CloudRuntimePage() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">What the release established</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">Historical validation evidence</h2>
+          <p className="mb-6 text-sm text-gray-400">The following counts belong to historical validation {HISTORICAL_CLOUD_VALIDATION.sourceRevision.slice(0, 7)}, not to deployment 0000009 or current starter acceptance.</p>
           <div className="grid gap-4 sm:grid-cols-2">
             {RUNTIME_EVIDENCE.map((item) => (
               <div key={item.label} className="glass-card rounded-2xl p-6">

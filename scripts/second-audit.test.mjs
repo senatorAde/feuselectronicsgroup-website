@@ -13,16 +13,21 @@ import { PLATFORM_STATUS, DEMO_DISCLAIMER } from '../src/data/publicStatus.js'
 import { RELEASE_ASSESSMENT, KNOWN_LIMITATIONS, FAQ_ITEMS } from '../src/data/releaseAssessment.js'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
+const cacheDir = mkdtempSync(join(tmpdir(), 'feus-second-audit-vite-'))
 // Disable the mapped-drive watcher. SSR transforms use the real Vite/React
 // components, not source regexes standing in for rendered copy or navigation.
 const server = await createServer({
   root,
+  cacheDir,
   server: { middlewareMode: true, watch: { ignored: () => true }, hmr: false, preTransformRequests: false },
   appType: 'custom',
   logLevel: 'error',
   optimizeDeps: { noDiscovery: true, include: [] },
 })
-after(() => server.close())
+after(async () => {
+  await server.close()
+  rmSync(cacheDir, { recursive: true, force: true })
+})
 const { renderPage, renderSitePage } = await server.ssrLoadModule('/scripts/audit-render.jsx')
 const page = async (name, location) => {
   const { default: Component } = await server.ssrLoadModule(`/src/pages/${name}.jsx`)

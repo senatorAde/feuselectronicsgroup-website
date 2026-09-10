@@ -7,6 +7,11 @@ const sharedBrandRoot = resolve(projectRoot, '..', '..', 'FEUS-Shared', 'brandin
 const outputRoot = resolve(projectRoot, 'public', 'brand')
 const logoSource = resolve(sharedBrandRoot, 'FEUS logo 2026.png')
 const portraitSource = resolve(sharedBrandRoot, 'DSC_4281.JPG')
+const experienceArtwork = [
+  ['Codex Image Sep 9, 2026, 02_39_25 PM.png', 'feus-governed-pipeline.webp'],
+  ['Codex Image Sep 9, 2026, 02_40_42 PM.png', 'feus-agent-orchestration.webp'],
+  ['Codex Image Sep 9, 2026, 02_40_52 PM.png', 'feus-secure-cloud-operations.webp'],
+]
 
 const heroArtwork = Buffer.from(`
   <svg width="1600" height="1040" viewBox="0 0 1600 1040" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +122,23 @@ async function buildPortrait() {
     .toFile(resolve(outputRoot, 'founder-portrait.webp'))
 }
 
+async function buildExperienceArtwork() {
+  await Promise.all(experienceArtwork.map(([sourceName, outputName]) => (
+    sharp(resolve(sharedBrandRoot, sourceName))
+      .rotate()
+      .resize({ width: 1920, withoutEnlargement: true })
+      .webp({ quality: 82, effort: 6 })
+      .toFile(resolve(outputRoot, outputName))
+  )))
+}
+
 await mkdir(outputRoot, { recursive: true })
-await Promise.all([buildLogo(), buildHero(), buildSocialPreview(), buildPortrait()])
+await Promise.all([
+  buildLogo(),
+  buildHero(),
+  buildSocialPreview(),
+  buildPortrait(),
+  buildExperienceArtwork(),
+])
 
 console.log('Generated FEUS brand assets in public/brand')

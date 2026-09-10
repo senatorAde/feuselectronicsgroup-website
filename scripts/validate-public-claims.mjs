@@ -274,11 +274,15 @@ if (Array.isArray(POSTURE_HISTORY)) {
       errors.push('releaseAssessment.js: the current cloud-runtime record must state the signing-key custody position')
     }
   }
-  /* The cloud-runtime revision on the marketing surface must match the record. */
-  if (current && CLOUD_RUNTIME_REVISION && current.revision !== CLOUD_RUNTIME_REVISION) {
+  /* Historical validation retains its original labels; deployment is separate. */
+  if (current && current.revision !== cloud.HISTORICAL_CLOUD_VALIDATION?.sourceRevision) {
     errors.push(
-      'cloudRuntime.js: CLOUD_RUNTIME.releaseRevision does not match the current cloud-runtime posture record',
+      'cloudRuntime.js: historical validation must match its retained posture record',
     )
+  }
+  const deploymentRecords = POSTURE_HISTORY.filter(h => h.decision === 'LATEST RECORDED DEPLOYMENT; STARTER CORRECTION PENDING')
+  if (deploymentRecords.length !== 1 || deploymentRecords[0].revision !== CLOUD_RUNTIME_REVISION) {
+    errors.push('cloudRuntime.js: latest deployment must match exactly one appended deployment distinction')
   }
 }
 
@@ -541,8 +545,18 @@ if (CLOUD_RUNTIME?.appUrl !== LAUNCH_URL) {
 if (CLOUD_RUNTIME?.declaredEnvironment !== 'TST') {
   errors.push('cloudRuntime.js: the runtime declares TST; changing it requires new release evidence')
 }
-if (CLOUD_RUNTIME?.releaseRevision !== '78ef0630650f41ddd72fd7eb3df55ed42e5bc562') {
-  errors.push('cloudRuntime.js: verified cloud release revision changed without authorization')
+if (cloud.HISTORICAL_CLOUD_VALIDATION?.sourceRevision !== '78ef0630650f41ddd72fd7eb3df55ed42e5bc562') {
+  errors.push('cloudRuntime.js: historical validation revision must be retained')
+}
+if (CLOUD_RUNTIME?.releaseRevision !== '72b306570fa3eea731c57f5ede8b2a6ee9e0e3e4' ||
+    cloud.LATEST_DEPLOYED_RECORD?.revision !== 'ca-feus-runtime--0000009' ||
+    cloud.LATEST_DEPLOYED_RECORD?.signedRevision !== 'ff67fc8' ||
+    cloud.LATEST_DEPLOYED_RECORD?.imageDigest !== 'sha256:843813f417c4d276d19788d3e1130ade91ba2a4f386941d654e4c0f589c49459') {
+  errors.push('cloudRuntime.js: latest deployment must match the recorded 0000009 checkpoint')
+}
+if (cloud.STARTER_STATUS?.status !== 'correction_pending' ||
+    !/starter acceptance is pending/i.test(CLOUD_RUNTIME?.qualification ?? '')) {
+  errors.push('cloudRuntime.js: unresolved starter acceptance must remain explicit until new release evidence')
 }
 for (const pin of [...MODEL_CLAIM_PINS, MODEL_PROD_PIN]) {
   if (!pin.re.test(CLOUD_RUNTIME?.qualification ?? '')) {

@@ -160,10 +160,10 @@ function Hero() {
   return (
     <section className="relative flex min-h-[calc(100svh-48px)] items-center overflow-hidden bg-ink pt-28 text-white">
       <img
-        src="/brand/feus-hero-system.webp"
+        src="/brand/feus-secure-cloud-operations.webp"
         alt=""
-        width="1600"
-        height="1040"
+        width="1672"
+        height="941"
         fetchPriority="high"
         className="absolute inset-0 h-full w-full object-cover object-[64%_center] sm:object-center"
       />

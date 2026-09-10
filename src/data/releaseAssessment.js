@@ -124,7 +124,9 @@ export const FAQ_ITEMS = [
   },
 ]
 
-/** Public release-posture history (release notes page). */
+import { LATEST_DEPLOYED_RECORD, STARTER_STATUS } from './cloudRuntime.js'
+
+/** Public release-posture history (release notes page). Original records remain intact. */
 export const POSTURE_HISTORY = [
   {
     date: '2026-09-08',
@@ -180,5 +182,15 @@ export const POSTURE_HISTORY = [
       'Internal assurance and certification engine runs. Superseded as public authority by the Session 12D exact-revision assessment.',
     current: false,
     controllingLabel: 'Superseded',
+  },
+  {
+    date: '2026-09-08',
+    revision: LATEST_DEPLOYED_RECORD.sourceRevision,
+    version: '5.3.0-enterprise.1',
+    authority: 'Recorded live deployment checkpoint, 2026-09-08T16:35:06Z',
+    decision: 'LATEST RECORDED DEPLOYMENT; STARTER CORRECTION PENDING',
+    scope: `Deployment ${LATEST_DEPLOYED_RECORD.revision}, signed revision ${LATEST_DEPLOYED_RECORD.signedRevision}, image ${LATEST_DEPLOYED_RECORD.imageDigest}, recorded at 100% traffic. ${LATEST_DEPLOYED_RECORD.scope} The earlier 78ef063 validation record and its original labels are retained as history, not as the latest deployment. ${STARTER_STATUS.summary} Model eligibility remains TST-scoped, the activated set is proposed and not ratified, no PROD model eligibility exists, and cost is estimated, not billed.`,
+    current: true,
+    controllingLabel: 'Latest recorded deployment (not current starter acceptance)',
   },
 ]

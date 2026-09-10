@@ -34,8 +34,17 @@ export default function AgentsPage() {
         description="Explore the FEUS.ai agent portfolio: governed specialists for data operations, service requests, integration planning, and accountable enterprise workflows."
       />
 
-      <section className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-feus-950/30 via-navy-950 to-navy-950" aria-hidden="true" />
+      <section className="relative flex min-h-[680px] items-center overflow-hidden px-4 pb-20 pt-28 sm:px-6 lg:px-8">
+        <img
+          src="/brand/feus-agent-orchestration.webp"
+          alt=""
+          width="1672"
+          height="941"
+          fetchPriority="high"
+          className="absolute inset-0 h-full w-full object-cover object-[62%_center]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/90 to-navy-950/20" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-navy-950/30" aria-hidden="true" />
         <div className="relative max-w-6xl mx-auto">
           <SectionLabel>FEUS.ai agent portfolio</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-6xl mt-4 max-w-4xl">

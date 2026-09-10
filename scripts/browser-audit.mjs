@@ -21,7 +21,7 @@ let sequence = 0
 let sessionId
 const pending = new Map()
 const listeners = new Map()
-const report = { output, mode: 'Installed Edge headless; native CDP mouse input, not DOM dispatch', pages: [], clicks: [], blockedNonGet: [], localHttpErrors: [] }
+const report = { output, mode: 'Installed Edge headless; native CDP mouse input, not DOM dispatch', pages: [], clicks: [], releaseNotes: [], imageChecks: [], blockedNonGet: [], localHttpErrors: [] }
 const assetUrls = new Set()
 const on = (event, callback) => {
   const callbacks = listeners.get(event) || []
@@ -222,6 +222,81 @@ try {
       await capture('390-mobile-menu')
     }
   }
+  // Keep the original route/pointer suite above intact. These additional checks
+  // exercise the built CSS and real image decoders, including lazy-loaded art.
+  for (const width of [390, 768, 1440]) {
+    await send('Emulation.setDeviceMetricsOverride', { width, height: width === 390 ? 844 : 1000, deviceScaleFactor: 1, mobile: false })
+    await navigate('/release-notes')
+    const releaseNotes = await evaluate(`(() => {
+      const scopes = [...document.querySelectorAll('main article')].map(article => {
+        const scope = article.querySelector('p:last-child');
+        if (!scope) throw Error('Missing release scope paragraph');
+        const r = scope.getBoundingClientRect();
+        return {text:scope.textContent,overflowWrap:getComputedStyle(scope).overflowWrap,
+          clientWidth:scope.clientWidth,scrollWidth:scope.scrollWidth,left:r.left,right:r.right};
+      });
+      return {width:innerWidth,documentWidth:document.documentElement.scrollWidth,
+        visibility:document.visibilityState,scopes};
+    })()`)
+    report.releaseNotes.push(releaseNotes)
+    assert.equal(releaseNotes.width, width)
+    assert.equal(releaseNotes.visibility, 'visible')
+    assert.ok(releaseNotes.documentWidth <= width, `Release notes overflow at ${width}: ${releaseNotes.documentWidth}`)
+    assert.ok(releaseNotes.scopes.length > 0, 'Release scope coverage must not be empty')
+    for (const scope of releaseNotes.scopes) {
+      assert.equal(scope.overflowWrap, 'anywhere', 'Release scope must wrap long revisions/digests')
+      assert.ok(scope.scrollWidth <= scope.clientWidth, `Release scope overflow at ${width}`)
+      assert.ok(scope.left >= 0 && scope.right <= width, `Release scope outside viewport at ${width}`)
+    }
+    await capture(`${width}-release-notes`)
+    await evaluate(`document.querySelector('main article:last-of-type').scrollIntoView({block:'center',behavior:'instant'})`)
+    await settled()
+    await capture(`${width}-release-notes-scope`)
+
+    for (const [route, asset] of [
+      ['/', '/brand/feus-secure-cloud-operations.webp'],
+      ['/agents', '/brand/feus-agent-orchestration.webp'],
+      ['/control-plane', '/brand/feus-governed-pipeline.webp'],
+    ]) {
+      await navigate(route)
+      const imageCount = await evaluate('document.images.length')
+      assert.ok(imageCount > 0, `${route} image coverage must not be empty`)
+      const images = []
+      for (let index = 0; index < imageCount; index++) {
+        await evaluate(`document.images[${index}].scrollIntoView({block:'center',behavior:'instant'})`)
+        await settled()
+        images.push(await evaluate(`(async () => {
+          const image = document.images[${index}];
+          let timer;
+          try {
+            await Promise.race([image.decode(), new Promise((_, reject) => {
+              timer = setTimeout(() => reject(Error('Image decode timeout')), 10000);
+            })]);
+          } finally { clearTimeout(timer); }
+          const r = image.getBoundingClientRect(), style = getComputedStyle(image);
+          return {src:new URL(image.currentSrc || image.src).pathname,complete:image.complete,decoded:true,
+            naturalWidth:image.naturalWidth,naturalHeight:image.naturalHeight,
+            width:r.width,height:r.height,left:r.left,right:r.right,
+            objectFit:style.objectFit,objectPosition:style.objectPosition,loading:image.loading};
+        })()`))
+      }
+      const artwork = images.find(image => image.src === asset)
+      const documentWidth = await evaluate('document.documentElement.scrollWidth')
+      report.imageChecks.push({ route, width, documentWidth, images, artwork })
+      assert.ok(documentWidth <= width, `${route} overflow at ${width}: ${documentWidth}`)
+      assert.ok(images.every(image => image.complete && image.decoded && image.naturalWidth > 0 && image.naturalHeight > 0), `${route} image load failure`)
+      assert.ok(artwork, `${route} missing new artwork`)
+      assert.equal(artwork.naturalWidth, 1672)
+      assert.equal(artwork.naturalHeight, 941)
+      assert.ok(artwork.width > 0 && artwork.height > 0 && artwork.left >= 0 && artwork.right <= width, `${route} invalid artwork geometry`)
+      assert.equal(artwork.objectFit, 'cover')
+      if (route === '/control-plane') assert.ok(Math.abs(artwork.width / artwork.height - 16 / 9) < 0.01)
+      await evaluate(`document.querySelector('img[src="${asset}"]').scrollIntoView({block:'center',behavior:'instant'})`)
+      await settled()
+      await capture(`${width}-${route === '/' ? 'home' : route.slice(1)}-artwork`)
+    }
+  }
+  report.assets = [...assetUrls].sort()
   report.assetCount = assetUrls.size
   assert.deepEqual(report.localHttpErrors, [])
   assert.deepEqual(report.blockedNonGet, [])
@@ -231,7 +306,7 @@ try {
   process.exitCode = 1
 } finally {
   writeFileSync(join(output, 'report.json'), JSON.stringify(report, null, 2))
-  console.log(JSON.stringify({ output, pages: report.pages.length, pointerChecks: report.clicks.length, assetCount: report.assetCount, success: report.success, error: report.error }, null, 2))
+  console.log(JSON.stringify({ output, pages: report.pages.length, pointerChecks: report.clicks.length, releaseNotesChecks: report.releaseNotes.length, imagePageChecks: report.imageChecks.length, assetCount: report.assetCount, success: report.success, error: report.error }, null, 2))
   if (socket?.readyState === WebSocket.OPEN) {
     await send('Browser.close', {}, null).catch(() => {})
     socket.close()

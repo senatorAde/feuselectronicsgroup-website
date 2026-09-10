@@ -88,8 +88,9 @@ export default function PrivacyPage() {
                 conversation. We do not use it for automated decision-making.
               </p>
               <p>
-                Contact form submissions arrive as email in the
-                info@feuselectronicsgroup.com mailbox and are retained there as
+                Contact form submissions are intended for the
+                info@feuselectronicsgroup.com mailbox. Inbox delivery has not been
+                verified in this website review. Enquiries received are retained as
                 ordinary business correspondence. We have not yet fixed a retention
                 period, and we will publish one in the approved notice rather than
                 state a period we do not currently enforce.
@@ -101,25 +102,32 @@ export default function PrivacyPage() {
             <h2 className="text-2xl font-bold text-white mb-4">Who else processes it</h2>
             <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed space-y-4">
               <p>
-                We use these providers. They process your details on our instructions,
-                for the purposes listed, and for nothing else.
+                The implementation uses the providers below. Their handling is
+                subject to their terms and the configured service; this draft does
+                not attest provider configuration or end-to-end delivery.
               </p>
               <ul className="space-y-3">
                 <li>
                   <span className="text-white font-medium">Vercel</span> — hosts the
-                  website and runs the contact form endpoint. Processes server logs and
-                  the form submission in transit.
+                  website. A separate serverless contact endpoint is present in the
+                  repository, but the current browser contact form does not call it.
                 </li>
                 <li>
-                  <span className="text-white font-medium">Resend</span> — delivers the
-                  contact form as email to us, and sends you the acknowledgement.
-                  Processes the contents of the form.
+                  <span className="text-white font-medium">EmailJS</span> — the current
+                  browser contact form sends your submitted details to this provider
+                  for email processing. Acceptance is not proof of inbox delivery.
                 </li>
                 <li>
-                  <span className="text-white font-medium">Microsoft</span> — hosts the
-                  info@feuselectronicsgroup.com mailbox where enquiries are received and
-                  kept, and provides Azure identity and hosting for the separate FEUS.ai
-                  runtime.
+                  <span className="text-white font-medium">Resend</span> — used by the
+                  separate serverless endpoint if configured and invoked, not by the
+                  current browser contact form. Its delivery has not been verified here.
+                </li>
+                <li>
+                  <span className="text-white font-medium">Mailbox provider</span> —
+                  processes enquiries that reach our inbox; its current configuration
+                  has not been verified in this review. Microsoft provides Azure identity
+                  and hosting for the separate FEUS.ai runtime, not evidence of website
+                  contact delivery.
                 </li>
               </ul>
               <p>

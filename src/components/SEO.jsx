@@ -34,6 +34,8 @@ function setLink(rel, href) {
 /**
  * Imperatively sets <title> and meta tags on mount and route change.
  * Keeps SEO per-page without adding react-helmet as a dependency.
+ * Non-JavaScript social crawlers receive index.html's homepage tags, not these
+ * route updates. Distinct route previews require prerendering or SSR.
  *
  * noindex: set true on routes that must not be indexed (approved claims
  * baseline — e.g. /copilot, /pricing, /demo).
@@ -41,8 +43,8 @@ function setLink(rel, href) {
 export default function SEO({
   title,
   description,
-  image = '/brand/feus-social-preview.webp',
-  imageAlt = 'FEUS Electronics Group brand mark and enterprise technology message',
+  image = '/brand/feus-social-preview.jpg',
+  imageAlt = 'FEUS Electronics Group — Enterprise technology. Governed intelligence.',
   type = 'website',
   noindex = false,
 }) {
@@ -66,6 +68,10 @@ export default function SEO({
         ? image
         : `${ORIGIN}${encodeURI(image)}`
       setMeta('og:image', fullImage, true)
+      // Static dimensions/type describe the default only, not custom route art.
+      for (const suffix of ['type', 'width', 'height']) {
+        document.head.querySelector(`meta[property="og:image:${suffix}"]`)?.remove()
+      }
       setMeta('og:image:alt', imageAlt, true)
       setMeta('twitter:image', fullImage)
       setMeta('twitter:image:alt', imageAlt)
