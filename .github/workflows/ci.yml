@@ -27,6 +27,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # Release-history regression compares immutable historical objects.
+          # A shallow checkout omits that baseline and must not skip the check.
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
