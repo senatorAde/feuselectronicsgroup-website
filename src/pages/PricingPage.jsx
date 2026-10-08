@@ -1,11 +1,10 @@
 import SEO from '../components/SEO'
 import { SectionLabel, CTAButton } from '../components/ui'
-import { Link } from 'react-router-dom'
+import PriceBook from '../components/PriceBook'
 
 /**
- * /pricing — replaced platform pricing with a professional-services
- * engagement page. Platform adoption is scoped through a capability and
- * target qualification; no public self-service tiers are offered here.
+ * /pricing — FEUS.ai platform pricing (published price book) followed by
+ * FEUS Electronics Group professional-services engagements.
  */
 
 const engagements = [
@@ -27,31 +26,35 @@ export default function PricingPage() {
   return (
     <div className="bg-navy-950 min-h-screen">
       <SEO
-        title="Engagements"
-        description="FEUS Electronics Group professional-services engagements are scoped and priced individually. FEUS.ai adoption is capability and target specific; public self-service pricing is not offered."
-        noindex
+        title="Pricing"
+        description="FEUS.ai platform plans with included model usage, Economy to Frontier model classes, add-ons and service packages, plus FEUS Electronics Group professional services."
       />
 
       <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <SectionLabel>Engagements</SectionLabel>
+        <div className="max-w-6xl mx-auto">
+          <SectionLabel>Pricing</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">
-            Working with FEUS Electronics Group
+            FEUS.ai plans and pricing
           </h1>
-          <p className="mt-6 text-gray-300 leading-relaxed">
-            Our professional services are scoped and priced per engagement. The
-            FEUS.ai core is considered for controlled enterprise adoption through
-            capability, target, governance, and support qualification. Public
-            self-service plans and blanket platform licensing terms are not offered
-            on this page.
+          <p className="mt-6 max-w-3xl text-gray-300 leading-relaxed">
+            Platform plans include a monthly model usage allowance. FEUS Auto routes every
+            request to the lowest-cost eligible model, and usage beyond your allowance is
+            metered by model class.
           </p>
-          <p className="mt-4 text-gray-300">For FEUS.ai, <Link to="/packages" className="underline">compare scoped engagement paths</Link>. Package pricing is approved and quoted per customer scope; users, resources and entitlements are negotiated, not preset public tiers.</p>
+          <div className="mt-12">
+            <PriceBook />
+          </div>
         </div>
       </section>
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-4xl mx-auto">
-          <div className="grid sm:grid-cols-3 gap-6">
+          <h2 className="text-2xl font-bold text-white">Professional services</h2>
+          <p className="mt-3 text-gray-300">
+            FEUS Electronics Group also delivers database and data-platform engagements, scoped
+            and priced per engagement.
+          </p>
+          <div className="mt-6 grid sm:grid-cols-3 gap-6">
             {engagements.map((e) => (
               <div key={e.title} className="glass-card rounded-2xl p-6">
                 <h2 className="text-lg font-semibold text-white">{e.title}</h2>

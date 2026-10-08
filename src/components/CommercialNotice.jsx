@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 export default function CommercialNotice() {
   return <aside className="commercial-notice" aria-label="How FEUS.ai engagements work">
     <strong>How engagements work</strong>
-    <p>Intro call → discovery → customer-specific readiness pack → onboarding → 14-day controlled trial → value review → paid package. Trials start after onboarding, and there is no automatic billing: packages are quoted per scope and paid by proposal and invoice.</p>
+    <p>Intro call → discovery → customer-specific readiness pack → onboarding → 14-day controlled trial → value review → your plan. Trials start after onboarding, and there is no automatic billing: plans follow the published price book, with final terms in your signed proposal and invoice.</p>
     <Link to="/journey">The evaluation journey</Link>
-    {' · '}<Link to="/readiness">Customer readiness pack</Link>
+    {' · '}<Link to="/packages">Plans and pricing</Link>
   </aside>
 }

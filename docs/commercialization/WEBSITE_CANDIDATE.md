@@ -61,7 +61,7 @@ Before release, the parent gate should require this document and link its review
 2. Backend lifecycle contract and customer-pack/activation/conversion acceptance evidence for the actual revision.
 3. Website `npm test` and `npm run build` outputs, plus mobile/browser and reduced-motion acceptance.
 4. Delivery/privacy/abuse-control operator acceptance and scheduler verification, or explicit unavailable-mode acceptance.
-5. Owner-approved packages and pricing basis (2026-10-08): public pages present approved packages with pricing quoted per customer scope. No public numeric list price was supplied, so none is published; self-service purchase and automatic billing remain unavailable.
+5. Published price book (owner directed 2026-10-08): `/packages` and `/pricing` render `src/data/platformPricing.js` through `src/components/PriceBook.jsx` — Starter $2,500/month, Professional $7,500/month, Enterprise custom; Economy/Balanced/Premium/Frontier model usage classes with included allowances and metered overage (Microsoft Foundry list price + 20%); add-ons and service packages. It mirrors the distribution price book in `docs/commercialization/PACKAGES_AND_ECONOMICS.md`. No SLA, uptime, unlimited or self-service purchase claims; invoiced, no automatic billing.
 
 Website tests use local provider/rate stubs; they prove behavior, not operational configuration, inbox receipt, privacy approval or live deployment. Historical assertions are retained; directly coupled EmailJS/no-endpoint expectations were replaced by stronger server transport/guard assertions.
 

@@ -134,7 +134,7 @@ test('commercial pages SSR retain journey boundaries, email fallback and accessi
       ['CommercialJourneyPage', '/journey', [/Request an intro/, /20–30/, /30–60/, /60–90/, /12–14/, /aria-pressed="true"/, /aria-live="polite"/, /Illustrative walkthrough/, /How engagements work/, /no automatic billing/, /proposal and invoice/]],
       ['TrialPage', '/trial', [/No clock before onboarding/, /No auto-billing/, /explicit customer consent/, /day 12–14/i]],
       ['ReadinessPage', '/readiness', [/Hosted readiness/, /Expert installed readiness/, /all five gateway/, /do not need Git/, /not a browser-issued approval/, /customer-specific pack/]],
-      ['PackagesPage', '/packages', [/Quoted per scope/, /approved/, /negotiated/, /Contact sales/, /<caption>/, /scope="row"/]],
+      ['PackagesPage', '/packages', [/\$2,500/, /\$7,500/, /Model usage classes/, /Frontier/, /no automatic billing/, /Contact sales/, /<caption>/, /scope="row"/]],
       ['ContactPage', '/contact?type=intro', [/Request a FEUS.ai Intro/, /disabled=""/, /name="privacyConsent"/, /required=""/, /tabindex="-1"/, /mailto:info@feuselectronicsgroup.com/, /confirm a time with you by email/, /draft privacy notice/]],
       ['ArchitecturePage', '/architecture', [/official architecture reference/, /Available by engagement/, /<td>Preview<\/td>/, /<td>Roadmap<\/td>/, /feus-ai-architecture-reference.jpg/, /Snowflake/, /Databricks/, /Executive context/, /Technical context/, /Security context/]],
     ]) {
