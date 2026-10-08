@@ -6,7 +6,20 @@ Candidate implementation only. No commit, push, deployment, operator enablement,
 
 `/journey` leads with an intro and four approximate conversations: 20–30 minute intro, 30–60 minute fit/discovery, 60–90 minute readiness/onboarding, and value review around trial day 12–14. `/trial`, `/readiness` and `/packages` explain the customer-specific pack, negotiated entitlements, activation approvals, execution-anchored 14-day evaluation, explicit conversion consent, extension review and offboarding. No clock before onboarding or automatic billing. Hosted and Expert readiness are separate; ordinary users do not need Git. The website does not create or approve runtime packs.
 
-The candidate notice distinguishes the owner-ratified 2026-10-07 Foundry catalog from stale product-status metadata and historical hosted checkpoints. Catalog eligibility remains tenant/environment/privacy/capability/budget-specific. Installed candidate evidence is not live deployment acceptance. `publicStatus.js` and `cloudRuntime.js` historical records are intentionally preserved for parent reconciliation.
+The existing owner-promoted hosted runtime is now separately reconciled from the
+new commercialization candidate. `product-status.public.json` is copied from the
+distribution's existing generated projection and pinned to candidate source in CI.
+Current runtime revision/digest/date and eleven-deployment catalog derive from it.
+Historical release evidence remains unchanged except explicit supersession labels.
+Catalog eligibility remains tenant/environment/privacy/capability/budget-specific;
+existing live hosting does not approve the new journey or qualify a customer.
+
+The distribution repository is private. Cross-repository CI must have
+`FEUS_DISTRIBUTION_READ_TOKEN` with contents-read access to that repository;
+missing access fails explicitly rather than treating a local copy as remote
+verification. Local checks use the authenticated `gh` session without reading or
+printing tokens. Provisioning the CI credential is an operator action, not model
+authorization or a production release.
 
 The authenticated backend interface is `GET /api/v1/customer/journey` and `POST /api/v1/customer/journey/commands` with `{action,payload,expected_revision,idempotency_key}`. A configured human owner uses separate `/api/v1/customer/owner/journey` and `/api/v1/customer/owner/journey/commands` for readiness review and notification delivery. All require bearer identity, stable `X-Session-ID` and explicit `X-FEUS-Organization`; there is no anonymous activation path. `/readiness` links only to the existing workbench root (`LAUNCH_URL`) and names **Workspace & account**, not an invented deep-link route. The public website sends no lifecycle commands. Payload/decision contracts are owned by distribution `docs/commercialization/TRIAL_WORKFLOW.md`.
 
@@ -34,7 +47,7 @@ Only existing `VITE_CALENDLY_URL`/`BOOKING_URL` configuration is used, HTTPS and
 
 Before release, the parent gate should require this document and link its reviewed website source revision to:
 
-1. Current candidate capability reconciliation, model ratification evidence and unresolved product-status conflict disposition.
+1. Current candidate capability reconciliation, model ratification and dated existing-runtime evidence, with new-candidate acceptance separate.
 2. Backend lifecycle contract and customer-pack/activation/conversion acceptance evidence for the actual revision.
 3. Website `npm test` and `npm run build` outputs, plus mobile/browser and reduced-motion acceptance.
 4. Delivery/privacy/abuse-control operator acceptance and scheduler verification, or explicit unavailable-mode acceptance.

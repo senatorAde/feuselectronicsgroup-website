@@ -1,0 +1,382 @@
+{
+  "authority": "observation_only_not_release_authorization",
+  "canonical_path": "feus-platform/product-status.yaml",
+  "canonical_repository": "senatorAde/FEUS-Enterprise-Distribution",
+  "capabilities": [
+    {
+      "capability_id": "platform.status.read",
+      "certification": "implementation_verified",
+      "constraints": [
+        "api_endpoint_planned"
+      ],
+      "dependencies": [
+        "platform_constitution"
+      ],
+      "environments": [
+        "LOCAL",
+        "DEV",
+        "TEST",
+        "TST",
+        "UAT",
+        "STAGE",
+        "PROD"
+      ],
+      "internal_status": "validated",
+      "operational_validation": "local",
+      "preview": false,
+      "production_eligible": false,
+      "public_status": "controlled"
+    },
+    {
+      "capability_id": "environment.prepare",
+      "certification": "not_release_certified",
+      "constraints": [
+        "operator_approval_for_installation"
+      ],
+      "dependencies": [
+        "bootstrap_scripts"
+      ],
+      "environments": [
+        "LOCAL"
+      ],
+      "internal_status": "implemented",
+      "operational_validation": "local",
+      "preview": true,
+      "production_eligible": false,
+      "public_status": "preview"
+    },
+    {
+      "capability_id": "release.validate",
+      "certification": "revision_scoped",
+      "constraints": [
+        "fresh_changed_source_verification_and_authorized_release_required"
+      ],
+      "dependencies": [
+        "release_gates"
+      ],
+      "environments": [
+        "LOCAL",
+        "DEV",
+        "TEST",
+        "TST",
+        "UAT",
+        "STAGE",
+        "PROD"
+      ],
+      "internal_status": "validated",
+      "operational_validation": "ci",
+      "preview": false,
+      "production_eligible": false,
+      "public_status": "controlled"
+    },
+    {
+      "capability_id": "ticket.orchestrate",
+      "certification": "contract_verified",
+      "constraints": [
+        "writes_disabled_by_default"
+      ],
+      "dependencies": [
+        "live_itsm_qualification"
+      ],
+      "environments": [
+        "LOCAL"
+      ],
+      "internal_status": "implemented",
+      "operational_validation": "deterministic_tests",
+      "preview": true,
+      "production_eligible": false,
+      "public_status": "preview"
+    },
+    {
+      "capability_id": "sql.observe",
+      "certification": "core_path_operational_record",
+      "constraints": [
+        "vnext_dispatch_not_wired",
+        "prod_use_is_hitl_scoped"
+      ],
+      "dependencies": [
+        "wired_geg",
+        "service_identity"
+      ],
+      "environments": [
+        "LOCAL",
+        "PROD"
+      ],
+      "internal_status": "validated",
+      "operational_validation": "controlled_feus_workflow",
+      "preview": false,
+      "production_eligible": false,
+      "public_status": "controlled"
+    },
+    {
+      "capability_id": "sql.execute.governed",
+      "certification": "legacy_core_only",
+      "constraints": [
+        "autonomous_nonlocal_blocked_pending_custody",
+        "hitl_confirmation_required_in_prod",
+        "vnext_executor_unbound"
+      ],
+      "dependencies": [
+        "wired_geg",
+        "entity_allowlist",
+        "approvals"
+      ],
+      "environments": [
+        "LOCAL",
+        "PROD"
+      ],
+      "internal_status": "validated",
+      "operational_validation": "controlled_feus_workflow",
+      "preview": false,
+      "production_eligible": false,
+      "public_status": "controlled"
+    },
+    {
+      "capability_id": "oracle.observe",
+      "certification": "fixture_only",
+      "constraints": [
+        "no_live_target_evidence",
+        "read_only"
+      ],
+      "dependencies": [
+        "oracle_driver_and_live_port"
+      ],
+      "environments": [
+        "LOCAL"
+      ],
+      "internal_status": "implemented",
+      "operational_validation": "deterministic_fake",
+      "preview": true,
+      "production_eligible": false,
+      "public_status": "preview"
+    },
+    {
+      "capability_id": "evidence.collect",
+      "certification": "implementation_verified",
+      "constraints": [
+        "local_chain_not_adversary_resistant"
+      ],
+      "dependencies": [
+        "durable_sink_for_nonlocal"
+      ],
+      "environments": [
+        "LOCAL",
+        "DEV",
+        "TEST",
+        "TST",
+        "UAT",
+        "STAGE",
+        "PROD"
+      ],
+      "internal_status": "validated",
+      "operational_validation": "local_and_ci",
+      "preview": false,
+      "production_eligible": false,
+      "public_status": "controlled"
+    },
+    {
+      "capability_id": "web.deploy",
+      "certification": "website_pipeline_separate",
+      "constraints": [
+        "not_control_plane_wired"
+      ],
+      "dependencies": [
+        "cross_repo_constitution_consumer"
+      ],
+      "environments": [],
+      "internal_status": "implemented",
+      "operational_validation": "external_vercel",
+      "preview": true,
+      "production_eligible": false,
+      "public_status": "preview"
+    },
+    {
+      "capability_id": "model.invoke",
+      "certification": "owner_ratified_catalog_and_bounded_hosted_acceptance",
+      "constraints": [
+        "environment_scoped_tenant_approval",
+        "local_remote_consent_required",
+        "no_raw_rows_pii_or_credentials",
+        "frontier_permission_and_budget_required",
+        "inference_not_customer_tool_execution",
+        "customer_prod_acceptance_unverified"
+      ],
+      "dependencies": [
+        "provider_gateway",
+        "approved_pin",
+        "tenant_approval"
+      ],
+      "environments": [
+        "LOCAL",
+        "DEV",
+        "TEST",
+        "TST",
+        "PROD"
+      ],
+      "internal_status": "validated",
+      "operational_validation": "controlled_tst_workflow",
+      "preview": false,
+      "production_eligible": false,
+      "public_status": "controlled"
+    }
+  ],
+  "commercialization": {
+    "billing": "no_automatic_charge_provider",
+    "deployment": "not_deployed_by_this_reconciliation",
+    "validated_baseline_commit": "712e2f82d8eddd2cd3c7b78befe99dda01f1ec96"
+  },
+  "constitution_revision": "2f29cee1e0a3e2d16198a7f760e4295ec5b4942ec89551ba7364a0e81defaa95",
+  "generated_notice": "GENERATED FROM FEUS PLATFORM CONSTITUTION.\nDO NOT EDIT DIRECTLY.",
+  "hosted_runtime": {
+    "acceptance": {
+      "commercial_journey": "unverified_live",
+      "customer_browser_acceptance": "unverified",
+      "payment": "not_implemented",
+      "synthetic_core_failed": 0,
+      "synthetic_core_passed": 31
+    },
+    "active_revision": "ca-feus-runtime--rc-d057b81-chn",
+    "application_version": "5.3.0-enterprise.1",
+    "authentication": {
+      "mechanism": "application_entra_bearer_validation",
+      "two_organization_acceptance": "unverified",
+      "unauthenticated_models_http": 401,
+      "unauthenticated_status_http": 401
+    },
+    "authority": "observation_only_not_release_authorization",
+    "authorization": {
+      "autonomous_runtime": "not_authorized_by_this_observation",
+      "historical_promotion": "owner_requested_traffic_promotion_with_postchecks",
+      "new_release": "separate_action_specific_authorization_and_fresh_signed_source_required",
+      "reference": "owner-promote-d057b81.evidence.jsonl"
+    },
+    "azure_endpoint": "https://ca-feus-runtime.mangopond-5bfbdbec.eastus2.azurecontainerapps.io",
+    "classification": "live_owner_promoted_controlled_service",
+    "configured_deployments": [
+      "gpt-4.1-mini",
+      "gpt-5-mini",
+      "gpt-4.1",
+      "gpt-5.4-mini",
+      "Kimi-K2.6",
+      "gpt-5.6-luna",
+      "gpt-5.6-terra",
+      "gpt-5.6-sol",
+      "gpt-5.5",
+      "MAI-Thinking-1",
+      "claude-opus-5-5"
+    ],
+    "declared_environment": "TST",
+    "deployed_at": "2026-10-07T21:50:40Z",
+    "deployment_timestamp_basis": "operator_promotion_postcheck_record",
+    "endpoint": "https://app.feuselectronicsgroup.com",
+    "evidence": [
+      {
+        "kind": "source",
+        "reference": "https://github.com/senatorAde/FEUS-Enterprise-Distribution/pull/24"
+      },
+      {
+        "kind": "signing",
+        "reference": "https://github.com/senatorAde/FEUS-Enterprise-Distribution/actions/runs/37686736738"
+      }
+    ],
+    "fresh_model_invocation_verified": false,
+    "health": {
+      "durable_state": true,
+      "inference_available": true,
+      "ready": true,
+      "status": "ok"
+    },
+    "image": "acrfeuspoc28c5.azurecr.io/feus-cloud-runtime",
+    "image_digest": "sha256:ff57a83c9b909ba09dea978e95ce242932e73adfea7dc1ca1e1933053a974043",
+    "last_verified_at": "2026-10-08T01:40:21Z",
+    "model_catalog_ratification": "OWNER-RATIFY-MODELS-2026-10-07",
+    "planned_capabilities": [
+      "additional_live_data_engine_qualification",
+      "automatic_billing_subject_to_approval"
+    ],
+    "release_verification": {
+      "artifacts": 539,
+      "failed": 0,
+      "full_release_certification": false,
+      "passed": 18,
+      "public_key": "feg-release-signing-key-2026-09",
+      "signing_run": "37686736738",
+      "skipped": 0,
+      "target": "PROD",
+      "warned": 0
+    },
+    "restricted_capabilities": [
+      "tenant_environment_approval_required",
+      "customer_prod_inference_unverified",
+      "hosted_customer_sql_unverified",
+      "two_organization_authentication_unverified",
+      "cloud_restore_retention_deletion_unverified",
+      "commercial_journey_not_live_accepted",
+      "no_automatic_billing",
+      "no_full_release_certification"
+    ],
+    "scale": {
+      "maximum": 3,
+      "minimum": 1
+    },
+    "signed_source_commit": "8bd0ccd586f722fa478c6b1fc816653f42703ca4",
+    "source_commit": "d057b81a9fe5e5b98d0c2f19269a0af50a006a3a",
+    "source_equivalence": "identical_outside_release_metadata",
+    "source_mapping": "operator_build_record_acr_output_and_azure_readback",
+    "traffic_percent": 100,
+    "verified_capabilities": [
+      "public_health_and_readiness",
+      "protected_api_token_requirement",
+      "eleven_provisioned_foundry_deployments",
+      "signed_source_equivalence",
+      "operator_recorded_synthetic_core_acceptance",
+      "owner_recorded_traffic_promotion"
+    ]
+  },
+  "model_invoke": {
+    "capability_id": "model.invoke",
+    "certification": "owner_ratified_catalog_and_bounded_hosted_acceptance",
+    "constraints": [
+      "environment_scoped_tenant_approval",
+      "local_remote_consent_required",
+      "no_raw_rows_pii_or_credentials",
+      "frontier_permission_and_budget_required",
+      "inference_not_customer_tool_execution",
+      "customer_prod_acceptance_unverified"
+    ],
+    "dependencies": [
+      "provider_gateway",
+      "approved_pin",
+      "tenant_approval"
+    ],
+    "environments": [
+      "LOCAL",
+      "DEV",
+      "TEST",
+      "TST",
+      "PROD"
+    ],
+    "internal_status": "validated",
+    "operational_validation": "controlled_tst_workflow",
+    "preview": false,
+    "production_eligible": false,
+    "public_status": "controlled"
+  },
+  "production_operation": {
+    "advisory": "AVAILABLE",
+    "authority": "governance.yaml production_operation",
+    "autonomous": "DISABLED_PENDING_SEPARATE_RUNTIME_QUALIFICATION",
+    "hitl": "AVAILABLE",
+    "model": "per_dimension_truthful_status",
+    "production_eligible_flag_meaning": "autonomous_production_qualification_only_never_hitl_availability",
+    "read_only": "AVAILABLE",
+    "strict_release_signing": "AVAILABLE_FOR_AUTHORIZED_REVISION_SCOPED_HSM_WORKFLOW"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "feus-platform/deployment.yaml": "9dacf7494a0b275077fee300d98fba2f41e991488e0a26a841da6c430245bc94",
+    "feus-platform/models.yaml": "6b969a89a9a776fff7033a26c6429f1c44649552f59aa45dd1092926d72938b7",
+    "feus-platform/product-status.yaml": "aa7f4811f55d81ac44783fdebc9642283e046612fccd18329e6c5998c6f46a3a",
+    "feus-platform/schemas/product-status.schema.json": "5fe84c1e378f3bd3f196e96d5bfbc29f27fb29808071c9b20817b64d0c711d88"
+  }
+}

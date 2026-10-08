@@ -1,5 +1,10 @@
 # Starter launch correction — candidate, not deployed
 
+> HISTORICAL September incident/candidate record. Later owner promotion and source
+> verification are represented by the generated canonical observation in
+> [current website candidate](../commercialization/WEBSITE_CANDIDATE.md).
+> Old latest/unratified/EmailJS statements below are not current instructions.
+
 2026-09-08. Source is on fix/starter-launch-summary, uncommitted. Runtime correction is in the separate feus-starter-launch-correction worktree. No component deployed by this correction.
 
 - Latest recorded deployed runtime: source 72b306570fa3eea731c57f5ede8b2a6ee9e0e3e4, revision ca-feus-runtime--0000009, digest sha256:843813f417c4d276d19788d3e1130ade91ba2a4f386941d654e4c0f589c49459. Historical 78ef063 validation retained separately. Subsequent starter incident cf7aa36f remains pending corrected live acceptance.

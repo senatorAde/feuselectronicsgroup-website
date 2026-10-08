@@ -150,18 +150,19 @@ test('status is static, incident state unknown, and publication dates are honest
   assert.match(copy, /Current incident state is unknown/)
   assert.doesNotMatch(copy, /No active incidents reported|responding normally|Current health/)
   assert.ok(copy.includes(CLOUD_RUNTIME.verifiedOn))
-  assert.match(copy, /Source verification date \(UTC\): 2026-09-08/)
+  assert.ok(copy.includes(`Source verification date (UTC): ${CLOUD_RUNTIME.verifiedOn}`))
   assert.match(copy, /local time \(UTC−04:00\)/)
   assert.doesNotMatch(copy, /source date is later|needs reconciliation|future.dated/i)
-  assert.equal(CLOUD_RUNTIME.verifiedOn, '2026-09-08')
+  assert.match(CLOUD_RUNTIME.verifiedOn, /^2026-10-08T/)
   assert.match(copy, /published cloud release evidence/i)
 })
 
-test('cost and model governance cannot imply measured savings or production eligibility', () => {
+test('cost and catalog eligibility cannot imply customer production acceptance', () => {
   assert.match(LIVE_DEMO.cost, /not billed actuals/)
   assert.match(LIVE_DEMO.cost, /frontier models avoided.*not measured savings/)
-  assert.match(CLOUD_RUNTIME.qualification, /proposed and not ratified/)
-  assert.match(CLOUD_RUNTIME.qualification, /no PROD model eligibility/)
+  assert.match(CLOUD_RUNTIME.qualification, /owner-ratified/)
+  assert.match(CLOUD_RUNTIME.qualification, /does not attest customer PROD inference/)
+  assert.match(CLOUD_RUNTIME.qualification, /tenant- and environment-scoped approval/)
   assert.match(ROUTING_AUTHORITY.foundryRouterNote, /not active/)
 })
 

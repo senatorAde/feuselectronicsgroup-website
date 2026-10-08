@@ -7,9 +7,9 @@
  *
  * Rules for editing this file:
  *  - The runtime is deployed as a cloud evaluation surface with a declared
- *    environment of TST. Never describe it as a production surface.
- *  - The activated model set is proposed and not ratified, and no PROD model
- *    eligibility exists. Both facts must survive every rewrite.
+ *    policy profile of TST. Public traffic is not full release qualification.
+ *  - Current model/deployment observations derive from the canonical registry.
+ *    Catalog approval never substitutes for tenant or operation approval.
  *  - Cost figures are estimated from published unit rates, never billed
  *    actuals.
  *  - Alerting is deployed and delivery-verified, and response is expert-guided
@@ -19,6 +19,8 @@
  * scripts/validate-public-claims.mjs pins these properties. Breaking one
  * fails the build rather than shipping a softened claim.
  */
+
+import { HOSTED_RUNTIME, MODEL_QUALIFICATION } from './productionTruth.js'
 
 /** Where a signed-in operator reaches the runtime. */
 export const LAUNCH_URL = 'https://app.feuselectronicsgroup.com'
@@ -31,7 +33,7 @@ export const HISTORICAL_CLOUD_VALIDATION = {
 }
 
 /** Recorded checkpoint, not a live health/traffic probe. Update only from new release evidence. */
-export const LATEST_DEPLOYED_RECORD = {
+export const HISTORICAL_DEPLOYMENT_0000009 = {
   sourceRevision: '72b306570fa3eea731c57f5ede8b2a6ee9e0e3e4',
   signedRevision: 'ff67fc8',
   revision: 'ca-feus-runtime--0000009',
@@ -42,10 +44,27 @@ export const LATEST_DEPLOYED_RECORD = {
   scope: 'The checkpoint records one completed inherited-TST turn and one no-eligible-model PROD refusal; neither used tools or customer targets.',
 }
 
-export const STARTER_STATUS = {
+export const HISTORICAL_STARTER_STATUS = {
   failureReference: 'cf7aa36f',
   status: 'correction_pending',
   summary: 'A subsequent starter failure (cf7aa36f) remains under focused correction. Starter acceptance is pending; the deployment checkpoint is not proof that the current starter journey succeeds.',
+}
+
+export const LATEST_DEPLOYED_RECORD = {
+  sourceRevision: HOSTED_RUNTIME.source_commit,
+  signedRevision: HOSTED_RUNTIME.signed_source_commit,
+  revision: HOSTED_RUNTIME.active_revision,
+  imageDigest: HOSTED_RUNTIME.image_digest,
+  checkpointUtc: HOSTED_RUNTIME.last_verified_at,
+  trafficPercentAtCheckpoint: HOSTED_RUNTIME.traffic_percent,
+  evidenceRecord: 'Canonical product-status hosted_runtime observation',
+  scope: 'Owner-requested traffic promotion and recorded synthetic core acceptance; authenticated Azure readback and fresh signed-source verification agree. This is not full release certification or customer acceptance.',
+}
+
+export const STARTER_STATUS = {
+  failureReference: HISTORICAL_STARTER_STATUS.failureReference,
+  status: 'bounded_core_acceptance_only',
+  summary: 'The September starter correction is historical. October promotion records 31/31 synthetic core checks. Current customer-browser and commercial-journey acceptance remain unverified.',
 }
 
 export const CLOUD_RUNTIME = {
@@ -53,27 +72,23 @@ export const CLOUD_RUNTIME = {
   appUrl: LAUNCH_URL,
   releaseVersion: '5.3.0-enterprise.1',
   releaseRevision: LATEST_DEPLOYED_RECORD.sourceRevision,
-  verifiedOn: '2026-09-08',
-  declaredEnvironment: 'TST',
-  hosting: 'Azure Container Apps, East US 2, single replica',
+  verifiedOn: HOSTED_RUNTIME.last_verified_at,
+  declaredEnvironment: HOSTED_RUNTIME.declared_environment,
+  hosting: `Azure Container Apps, East US 2, ${HOSTED_RUNTIME.scale.minimum}–${HOSTED_RUNTIME.scale.maximum} configured replicas`,
   headline: 'FEUS.ai runs in the browser as a governed cloud runtime',
   summary:
     'The FEUS Cloud Runtime is deployed on Azure and reachable from a browser. ' +
     'An operator signs in with a Microsoft Entra ID account, sends a turn, and ' +
     'watches FEUS classify it, choose an eligible model, run it, and record the ' +
     'result in a hash-linked audit chain. The deployment declares the TST ' +
-    'environment; it is a governed evaluation surface, not a production service.',
+    'policy profile. Its owner-promoted live deployment does not by itself qualify customer production operations.',
   availabilitySummary:
     'Evaluate FEUS Auto from an authorized browser session in Azure TST: classify a turn, select an eligible Microsoft Foundry model, apply policy and approval controls, and retain audit and estimated-cost evidence. Inference does not establish live SQL or tool execution.',
   qualification:
-    'Scope: the runtime declares the TST environment. The activated model set ' +
-    'is proposed and not ratified, and no PROD model eligibility exists, so a ' +
-    'PROD request finds no eligible model and is refused. Cost is estimated ' +
-    'from published unit rates rather than billed actuals. Alerting is ' +
+    MODEL_QUALIFICATION + ' Alerting is ' +
     'deployed and delivery-verified, and response is expert-guided under the ' +
     'engagement model, but there is no availability commitment because no ' +
-    'response time has been measured or contracted. TST eligibility is distinct from ' +
-    'the proposed_not_ratified governance status; it is not ratification or PROD authorization. ' +
+    'response time has been measured or contracted. ' +
     STARTER_STATUS.summary,
 }
 
@@ -198,17 +213,8 @@ export const ROUTING_AUTHORITY = {
     'The Microsoft Foundry Model Router is not active in this deployment. ' +
     'Deployment capacity for it was zero in every region probed, so FEUS ' +
     'policy routing is the only selection authority in use.',
-  activatedModels: [
-    'deterministic (no model contacted)',
-    'foundry.gpt-4.1',
-    'foundry.gpt-4.1-mini',
-    'foundry.gpt-5-mini',
-  ],
-  modelQualification:
-    'The three Microsoft Foundry deployments above are activated for the TST ' +
-    'environment only. The activated set is proposed and not ratified, and no ' +
-    'PROD model eligibility exists. TST eligibility is evaluated per turn; ' +
-    'proposed_not_ratified is the separate governance status, not a claim that no TST model can run.',
+  activatedModels: ['deterministic (no model contacted)', ...HOSTED_RUNTIME.configured_deployments],
+  modelQualification: MODEL_QUALIFICATION,
 }
 
 /**
@@ -262,12 +268,12 @@ export const CLOUD_ARCHITECTURE = [
   { title: 'Tenant authorization', detail: 'Checks the authorized tenant and operator scope before accessing tenant-bound conversation and evidence records.' },
   { title: 'Classification', detail: 'Classifies task and data sensitivity before provider selection; environment context is part of eligibility.' },
   { title: 'FEUS Policy Router', detail: 'Applies eligibility, routing preference and budget constraints. A preference cannot override policy; missing eligibility means refusal and required approvals remain mandatory.' },
-  { title: 'Eligible model / provider', detail: 'Microsoft Foundry inference is available within TST policy. The activated set is proposed and not ratified; no PROD model eligibility exists. Deterministic turns contact no model.' },
+  { title: 'Eligible model / provider', detail: MODEL_QUALIFICATION + ' Deterministic turns contact no model.' },
   { title: 'Governed agent / tool boundary', detail: 'Agent assignment and permitted tools remain governed. A proposed tool action needs its own target, identity, policy and approval checks. The live inference evidence does not establish live SQL or tool execution.' },
   { title: 'Durable storage', detail: 'Azure Table Storage retains tenant-bound conversations, routing audit, approval evidence and estimated-cost records using managed identity. Stored evidence does not itself attest customer-system execution.' },
 ]
 
-/** Historical validation counts only; do not attribute these to revision 0000009. */
+/** Historical September validation counts, not the current deployment's full suite. */
 export const RUNTIME_EVIDENCE = [
   {
     label: 'Cloud acceptance checks',
@@ -397,9 +403,7 @@ export const ONBOARDING_FAQ = [
   {
     q: 'Which models are used?',
     a:
-      'Three Microsoft Foundry deployments and a deterministic path that ' +
-      'contacts no model. The activated set is proposed and not ratified, is ' +
-      'scoped to the TST environment, and carries no PROD eligibility.',
+      MODEL_QUALIFICATION + ' Deterministic turns contact no model.',
   },
   {
     q: 'Can I pin a model myself?',
@@ -454,7 +458,7 @@ export const RUNTIME_SCOPE = [
   {
     heading: 'Private preview details',
     items: [
-      'Model-provider integrations: governed invocation is confined to TST, the activated model set is not ratified, and no PROD model eligibility exists.',
+      MODEL_QUALIFICATION,
       'Agent capabilities beyond the verified evaluation scope remain preview and are labelled individually on the platform status page.',
     ],
   },

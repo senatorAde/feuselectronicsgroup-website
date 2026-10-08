@@ -1,7 +1,7 @@
 // Candidate documentation, not a runtime grant or an attestation of deployment.
 export const COMMERCIAL_CANDIDATE = {
-  status: 'Installed candidate; live deployment unverified',
-  reconciliation: 'The 2026-10-07 catalog records owner-ratified Foundry candidates. Eligibility still depends on tenant, environment, privacy, capability and budget checks. Product-status metadata is stale and conflicts with that catalog; reconciliation and deployment evidence are required. Historical hosted checkpoints are not current candidate acceptance.',
+  status: 'Commercialization candidate; not yet deployed',
+  reconciliation: 'The existing hosted runtime is owner-promoted and separately verified. The 2026-10-07 catalog is owner-ratified; tenant, environment, privacy, capability and budget checks remain required. The new commercialization journey is source-tested, not live-accepted. Existing runtime evidence does not approve this candidate.',
 }
 
 export const JOURNEY_CALLS = [
@@ -25,8 +25,8 @@ export const READINESS_PACK = [
 export const COMPONENT_POSTURE = [
   ['Governed SQL gateway', 'Available in controlled legacy SQL evidence', 'Target-specific readiness and authorized identity required; not proof of hosted live SQL.'],
   ['Identity, policy, approval, PII & audit', 'Available core with constraints', 'Verify wiring, effective privileges and audit health on the selected route before execution.'],
-  ['Hosted browser & Entra entry', 'Limited · historical deployment checkpoints', 'Current candidate live deployment and starter acceptance are not attested. Customer targets are not enabled by a demo.'],
-  ['Model catalog & routing', 'Limited · owner-ratified Foundry candidates', 'Tenant, environment, privacy, capability and budget checks remain required; stale product-status metadata conflicts.'],
+  ['Hosted browser & Entra entry', 'Available · controlled live runtime', 'Dated Azure readback and source verification are published separately from new-candidate acceptance. Customer targets are not enabled by a demo.'],
+  ['Model catalog & routing', 'Controlled · owner-ratified Foundry catalog', 'Eleven configured deployments; tenant, environment, privacy, capability and budget checks remain required. Fresh customer inference acceptance is separate.'],
   ['Commercial lifecycle & customer pack', 'Installed candidate · deployment unverified', 'Readiness/activation and commercial approvals belong to the governed backend. The website is documentation and lead intake, not an authority source.'],
   ['Lead delivery & scheduling', 'Configuration dependent', 'Server-side provider, privacy and shared abuse controls must be enabled. Calendly requires an operator-configured valid event. No durable CRM is implemented here.'],
   ['Specialist integrations & autonomous operation', 'Limited / roadmap by capability', 'Consult the published capability register. Diagram placement does not establish implementation, certification or autonomous production authority.'],

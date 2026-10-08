@@ -131,7 +131,7 @@ test('actual candidate pages SSR retain journey boundaries, email fallback and a
   const server = await createServer({ root, cacheDir, server: { middlewareMode: true, watch: { ignored: () => true }, hmr: false, preTransformRequests: false }, appType: 'custom', logLevel: 'error', optimizeDeps: { noDiscovery: true, include: [] } })
   try {
     for (const [name, route, patterns] of [
-      ['CommercialJourneyPage', '/journey', [/Request an intro/, /20–30/, /30–60/, /60–90/, /12–14/, /aria-pressed="true"/, /aria-live="polite"/, /not live execution/, /owner-ratified Foundry/, /live deployment unverified/, /Historical hosted checkpoints/]],
+      ['CommercialJourneyPage', '/journey', [/Request an intro/, /20–30/, /30–60/, /60–90/, /12–14/, /aria-pressed="true"/, /aria-live="polite"/, /not live execution/, /owner-ratified/, /not yet deployed/, /Existing runtime evidence does not approve/]],
       ['TrialPage', '/trial', [/No clock before onboarding/, /No auto-billing/, /explicit customer consent/, /day 12–14/i]],
       ['ReadinessPage', '/readiness', [/Hosted readiness/, /Expert installed readiness/, /all five gateway/, /do not need Git/, /not a browser-issued approval/, /customer-specific pack/]],
       ['PackagesPage', '/packages', [/unpublished/, /negotiated/, /Contact sales/, /<caption>/, /scope="row"/]],
