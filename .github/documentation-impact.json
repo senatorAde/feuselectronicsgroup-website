@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "impacts": [
+    {"scope":"public_experience","decision":"updated","documents":["docs/commercialization/WEBSITE_CANDIDATE.md"]}
+  ]
+}

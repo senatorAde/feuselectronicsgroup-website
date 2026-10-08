@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 // longer accepted bookings: the code looked configured, so nothing reported a
 // problem, and visitors met "This Calendly URL is not valid" at the exact
 // moment they tried to buy. With no default, an unconfigured site sends people
-// to the contact form, which is always answered.
+// to the contact form; response time is not guaranteed.
 const RAW_CALENDLY_URL = import.meta.env.VITE_CALENDLY_URL || ''
 
 /**
@@ -17,7 +17,7 @@ const RAW_CALENDLY_URL = import.meta.env.VITE_CALENDLY_URL || ''
  * treated as working configuration and would break the same way the hardcoded
  * default did.
  */
-function readSchedulerUrl(raw) {
+export function readSchedulerUrl(raw) {
   const value = String(raw || '').trim()
   if (!value) return ''
   try {
@@ -36,7 +36,7 @@ export const CALENDLY_URL = readSchedulerUrl(RAW_CALENDLY_URL)
 export const IS_CALENDLY_CONFIGURED = Boolean(CALENDLY_URL)
 
 const WIDGET_PARAMS =
-  'hide_gdpr_banner=1&background_color=061326&text_color=e2e8f0&primary_color=16a8f4'
+  'background_color=061326&text_color=e2e8f0&primary_color=16a8f4'
 
 function withParams(url) {
   return url.includes('?') ? `${url}&${WIDGET_PARAMS}` : `${url}?${WIDGET_PARAMS}`
@@ -105,7 +105,7 @@ function SchedulingUnavailable() {
       <Link to="/contact" className="font-bold underline underline-offset-2">
         Send us a message
       </Link>{' '}
-      and we will reply with times, usually within one business day.
+      to request an intro. An appointment is not yet booked; response time is not guaranteed.
     </p>
   )
 }
@@ -166,7 +166,7 @@ export function CalendlyInline({ url = CALENDLY_URL, height = '700px', className
  */
 export function CalendlyButton({
   url = CALENDLY_URL,
-  children = 'Request a consultation',
+  children = 'Request an intro',
   className = 'btn-accent group',
   icon: Icon = null,
 }) {
@@ -175,7 +175,7 @@ export function CalendlyButton({
 
   if (!IS_CALENDLY_CONFIGURED) {
     return (
-      <Link to="/contact" className={className}>
+      <Link to="/contact" state={{ inquiry: 'intro' }} className={className} aria-label={`${children} — appointment not yet booked`}>
         {children}
         {Icon && (
           <Icon
@@ -188,24 +188,18 @@ export function CalendlyButton({
   }
 
   const handleClick = (e) => {
-    e.preventDefault()
-
-    // Guard against a double-click stacking two overlays.
-    const now = Date.now()
-    if (now - openedAt.current < 800) return
-    openedAt.current = now
-
     if (scriptState === 'ready' && window.Calendly) {
+      e.preventDefault()
+      const now = Date.now()
+      if (now - openedAt.current < 800) return
+      openedAt.current = now
       window.Calendly.initPopupWidget({ url: withParams(url) })
-      return
     }
-    // The overlay is unavailable, so open the booking page directly rather
-    // than leaving the click with no visible effect.
-    window.open(url, '_blank', 'noopener,noreferrer')
+    // Otherwise retain the native link, including when scripts never finish.
   }
 
   return (
-    <button type="button" onClick={handleClick} className={className}>
+    <a href={url} target="_blank" rel="noopener noreferrer" onClick={handleClick} className={className}>
       {children}
       {Icon && (
         <Icon
@@ -213,7 +207,7 @@ export function CalendlyButton({
           aria-hidden="true"
         />
       )}
-    </button>
+    </a>
   )
 }
 

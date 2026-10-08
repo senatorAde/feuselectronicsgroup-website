@@ -1,5 +1,5 @@
 /**
- * FEUS.ai public posture and capability status — single source of truth.
+ * FEUS.ai public presentation; current hosted facts derive from the constitution.
  *
  * Product-level posture is governed by:
  *   docs/product-posture/FEUS_PRODUCT_OPERATIONAL_POSTURE.md
@@ -16,20 +16,22 @@
  *  - No capability may display a stronger status than its lifecycle evidence.
  *  - Every public capability must carry its required qualification.
  *  - Preview extensions must display their restrictions and next milestone.
- *  - Model invocation is governed and confined to TST, and must always be
- *    described with the unratified model set and absent PROD eligibility.
+ *  - Model invocation retains tenant/environment approval and data controls.
+ *    Historical assessment counts never certify a newer deployment.
  *  - Every ROI value is an Estimate with disclosed assumptions.
  *
  * The build fails (scripts/validate-public-claims.mjs) if this file is missing,
  * incomplete, or inconsistent with the approved counts.
  */
 
+import { HOSTED_RUNTIME, MODEL_QUALIFICATION } from './productionTruth.js'
+
 export const POSTURE = {
   platform: 'FEUS.ai',
   company: 'FEUS Electronics Group',
   productMaturity: 'Operationally validated core',
   publicAvailability: 'Controlled enterprise adoption by capability scope',
-  lastReviewed: '2026-09-07',
+  lastReviewed: HOSTED_RUNTIME.last_verified_at.slice(0, 10),
 
   /* ---- Customer-facing positioning (public marketing surfaces) ---- */
   headline: 'Governed AI for Data Operations',
@@ -64,10 +66,11 @@ export const POSTURE = {
   totalCapabilities: 45,
   liveVerifiedIntegrations: 3,
   liveVerifiedIntegrationsQualification:
-    'Three integrations are live-verified in a cloud evaluation deployment: Microsoft Foundry model invocation, Azure Table Storage durable evidence, and Entra ID managed identity. Governed model invocation is confined to the TST environment and the activated model set is not ratified, so no PROD model eligibility exists. A live-verified integration is not a production-verified capability, and the production-verified count remains zero.',
+    'Three integration classes have historical controlled cloud evidence: Microsoft Foundry, Azure Table Storage and Entra ID. ' +
+    MODEL_QUALIFICATION + ' This is not a production-verified capability; the historical assessment production-verified count remains zero.',
   testsPassedAtRevision: 3165,
   testsQualification:
-    'Test passage is revision evidence, not by itself deployment or live-integration evidence. Operational-use claims require separate workflow records.',
+    'The 3,165-test count belongs to the September validation revision, not the latest deployment or commercialization candidate. Test passage is not deployment or customer acceptance.',
 }
 
 /*
@@ -524,12 +527,12 @@ export const CAPABILITY_LIFECYCLE = [
     validation:
       'Governed invocation is verified end to end in a cloud evaluation deployment: a routed turn recorded its model, routing authority, token counts, latency, and estimated cost.',
     certification:
-      'Model invocation is governed and confined to the TST environment; the activated model set is not ratified and no PROD model eligibility exists.',
+      MODEL_QUALIFICATION,
     publicStatus: 'PREVIEW',
     environment: 'Cloud evaluation deployment, TST scope',
     restrictions:
       'No provider support, compatibility, fallback, safety, cost, or availability claim; cost figures are estimated rather than billed.',
-    nextMilestone: 'Ratify the activated model set under independent review and re-run the routing evaluation against it.',
+    nextMilestone: 'Complete customer-specific live acceptance and verify rates against billing evidence.',
   },
   {
     capability: 'Additional database engines and deployment integrations',
@@ -566,11 +569,11 @@ export const PUBLIC_CAPABILITIES = [
     id: 'CAP-03',
     family: 'FEUS Assurance',
     name: 'Policy bundle verification',
-    status: 'DISABLED_PENDING_APPROVAL',
+    status: 'IMPLEMENTATION_VERIFIED',
     description:
-      'Policy bundles can be verified in LOCAL under the current key authorization.',
+      'Policy bundles are verified with purpose-separated registered keys; the September HSM key is authorized for TST/PROD.',
     qualification:
-      'TST/PROD use is disabled until an attested dual-control key-custody ceremony and truthful target-tier authorization occur.',
+      'Earlier assessments used a different signing key. Current purpose-scoped HSM verification is revision-bound, not automatic approval or recertification of another release.',
   },
   {
     id: 'CAP-04',
@@ -806,7 +809,7 @@ export const INTEGRATION_STATUS = [
     dependency: 'Model providers',
     status: 'PREVIEW',
     treatment:
-      'Three Microsoft Foundry deployments are reachable over managed identity and were exercised by a routed turn in a cloud evaluation deployment. Invocation is confined to TST, the activated model set is not ratified, and cost is estimated rather than billed.',
+      MODEL_QUALIFICATION,
   },
   {
     dependency: 'Identity provider (Entra ID)',
@@ -816,9 +819,9 @@ export const INTEGRATION_STATUS = [
   },
   {
     dependency: 'Key Vault / managed HSM',
-    status: 'UNAVAILABLE',
+    status: 'PREVIEW',
     treatment:
-      'Required future custody model; not implemented or authorized for production.',
+      'Purpose-separated Azure EC-HSM signing is implemented and verified for the deployed source. New releases require their own authorized signing workflow and source verification.',
   },
   {
     dependency: 'Azure deployment',
@@ -983,8 +986,8 @@ export const AGENT_PORTFOLIO = [
       'A routed turn in the cloud evaluation deployment recorded its model, the FEUS policy router as routing authority, token counts, latency, and an estimated cost basis.',
     environment: 'Cloud evaluation deployment, TST scope',
     restriction:
-      'Governed invocation is confined to TST; the activated model set is not ratified and no PROD model eligibility exists.',
-    nextMilestone: 'Ratify the activated model set under independent review and re-run the routing evaluation against it.',
+      MODEL_QUALIFICATION,
+    nextMilestone: 'Complete customer-specific live acceptance and rate reconciliation.',
   },
   {
     id: 'engine-expansion',
@@ -1007,7 +1010,7 @@ export const AGENT_PORTFOLIO = [
 export const MODEL_PROVIDER_STATEMENT = {
   headline: 'Governed model invocation is live in a cloud evaluation deployment, scoped to TST',
   statement:
-    'FEUS.ai decides model eligibility with its own policy router before any provider call is made. Three Microsoft Foundry deployments are reachable over managed identity and are constitutionally usable in the TST environment only. They are proposed and not ratified, and their cost basis is estimated, so a PROD request finds no eligible model and is refused.',
+    'FEUS.ai decides model eligibility with its own policy router before any provider call is made. ' + MODEL_QUALIFICATION,
   designNote:
     'FEUS is the control plane and the model provider is an execution platform. Every routed turn records the model chosen, the routing authority, token counts, latency, and cost basis as measured evidence rather than as a projection.',
 }

@@ -4,6 +4,8 @@ import SEO from '../components/SEO'
 import AnimatedSection from '../components/AnimatedSection'
 import WorkflowVisual from '../components/WorkflowVisual'
 import { SectionLabel, CTAButton, GlowDivider } from '../components/ui'
+import CommercialNotice from '../components/CommercialNotice'
+import { CalendlyButton } from '../components/CalendlyEmbed'
 import { EvidenceCallout } from '../components/statusComponents'
 import { POSTURE, PRODUCT_FAMILIES } from '../data/publicStatus'
 import { LAUNCH_URL } from '../data/cloudRuntime'
@@ -70,10 +72,13 @@ export default function FeusAiPage() {
               FEUS.ai coordinates agents, tools, policies, approvals, and evidence behind a unified operator experience. {POSTURE.architectureStatement}
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <CTAButton to="/demo">Request a demonstration</CTAButton>
+              <CalendlyButton className="btn-primary">Request an intro</CalendlyButton>
+              <CTAButton to="/journey" variant="secondary">Evaluation journey</CTAButton>
+              <CTAButton to="/demo" variant="secondary">Request a demonstration</CTAButton>
               <CTAButton to="/get-started" variant="secondary">See the adoption path</CTAButton>
               <CTAButton to="/agents" variant="secondary">Explore the agent portfolio</CTAButton>
             </div>
+            <CommercialNotice />
             <p className="mt-4 max-w-2xl text-sm text-slate-300">
               Start with a guided live Azure TST demo using Microsoft Foundry inference and synthetic inputs, with authorized Entra access and agreed budgets. No customer connections. Choose offline fixtures if live access is unsuitable; inference does not establish live SQL or tool execution.
             </p>

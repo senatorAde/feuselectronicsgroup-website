@@ -14,6 +14,10 @@ const footerLinks = {
     { name: 'Sales & Media', href: '/sales' },
   ],
   'FEUS.ai': [
+    { name: 'Evaluation journey', href: '/journey' },
+    { name: 'Controlled trial', href: '/trial' },
+    { name: 'Customer readiness', href: '/readiness' },
+    { name: 'Engagement comparison', href: '/packages' },
     { name: 'FEUS.ai Overview', href: '/feus-ai' },
     { name: 'Cloud Runtime', href: '/cloud-runtime' },
     { name: 'Get started', href: '/get-started' },
@@ -52,11 +56,12 @@ export default function Footer() {
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link to="/demo" className="btn-primary whitespace-nowrap">
+            <CalendlyButton className="btn-primary whitespace-nowrap">Request an intro</CalendlyButton>
+            <Link to="/demo" className="btn-secondary whitespace-nowrap">
               Request a demonstration
             </Link>
             <CalendlyButton className="btn-secondary whitespace-nowrap" icon={ArrowRight}>
-              Request a consultation
+              Discuss readiness
             </CalendlyButton>
             <Link to="/contact" className="btn-secondary whitespace-nowrap">Send a message</Link>
           </div>

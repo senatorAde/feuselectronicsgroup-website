@@ -47,7 +47,7 @@ export const KNOWN_LIMITATIONS = [
   'The Session 12D vNext release remains NO-GO for external deployment above LOCAL.',
   'The vNext execution path has no dispatcher or bound SQL executor; the documented core GEG path is separate.',
   'No Oracle, ITSM, identity-provider, model-provider, or Azure integration was live-verified by Session 12D.',
-  'Model-provider invocation was disabled in the assessed vNext release. The separate 5.3 cloud runtime release enables it under FEUS policy routing, confined to TST, with an activated model set that is not ratified.',
+  'Model-provider invocation was disabled in the assessed vNext release. The October hosted catalog is now owner-ratified; the dated TST observation is separate from customer PROD acceptance.',
   'The Oracle Operations Agent is Controlled Preview with fixture evidence only and no live adapter.',
   'Target-tier signing-key custody and authorization remain absent for the assessed vNext release.',
   'Runtime evidence is not adversary-resistant.',
@@ -96,7 +96,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'Which model providers are supported?',
-    a: 'Three Microsoft Foundry deployments are activated and reachable over managed identity in the 5.3 cloud runtime release, and a routed turn against one of them is recorded in that release evidence. Routing authority is the FEUS policy router, not the provider. Those models are constitutionally usable in TST only; they are proposed and not ratified, their cost basis is estimated rather than billed, and a PROD request correctly finds no eligible model. The Session 12D vNext release assessed separately had no invocation path at all.',
+    a: MODEL_QUALIFICATION + ' The historical Session 12D vNext release assessed separately had no invocation path.',
   },
   {
     q: 'Is the audit trail immutable?',
@@ -124,7 +124,8 @@ export const FAQ_ITEMS = [
   },
 ]
 
-import { LATEST_DEPLOYED_RECORD, STARTER_STATUS } from './cloudRuntime.js'
+import { LATEST_DEPLOYED_RECORD, HISTORICAL_DEPLOYMENT_0000009, HISTORICAL_STARTER_STATUS } from './cloudRuntime.js'
+import { HOSTED_RUNTIME, MODEL_QUALIFICATION } from './productionTruth.js'
 
 /** Public release-posture history (release notes page). Original records remain intact. */
 export const POSTURE_HISTORY = [
@@ -136,8 +137,8 @@ export const POSTURE_HISTORY = [
     decision: 'VERIFIED FOR CLOUD EVALUATION USE, TST SCOPE',
     scope:
       'Supersedes the 2026-09-07 record for the same release line. Remediates ten findings raised by the first external user of the deployed runtime, the most serious of which refused every request that did not name an environment explicitly, because the classifier fell back to LOCAL on a TST deployment instead of inheriting the deployment environment. Turn-level evidence is now persisted with each message and survives reloading a conversation, so a refusal and the rule that caused it remain readable after the fact. Release evidence is signed by a non-exportable EC-HSM P-384 key in Azure Key Vault using ECDSA P-384 over SHA-384, exercised through a hosted workflow that authenticates by federated identity; strict verification for PROD passes with no failures. Signing-key custody is therefore attested, which the 2026-09-07 record could not claim. The activated model set remains proposed and not ratified, no PROD model eligibility exists, and cost remains estimated from published unit rates rather than billed actuals.',
-    current: true,
-    controllingLabel: 'Current cloud runtime release',
+    current: false,
+    controllingLabel: 'Historical cloud runtime validation',
   },
   {
     date: '2026-09-07',
@@ -185,12 +186,22 @@ export const POSTURE_HISTORY = [
   },
   {
     date: '2026-09-08',
-    revision: LATEST_DEPLOYED_RECORD.sourceRevision,
+    revision: HISTORICAL_DEPLOYMENT_0000009.sourceRevision,
     version: '5.3.0-enterprise.1',
     authority: 'Recorded live deployment checkpoint, 2026-09-08T16:35:06Z',
     decision: 'LATEST RECORDED DEPLOYMENT; STARTER CORRECTION PENDING',
-    scope: `Deployment ${LATEST_DEPLOYED_RECORD.revision}, signed revision ${LATEST_DEPLOYED_RECORD.signedRevision}, image ${LATEST_DEPLOYED_RECORD.imageDigest}, recorded at 100% traffic. ${LATEST_DEPLOYED_RECORD.scope} The earlier 78ef063 validation record and its original labels are retained as history, not as the latest deployment. ${STARTER_STATUS.summary} Model eligibility remains TST-scoped, the activated set is proposed and not ratified, no PROD model eligibility exists, and cost is estimated, not billed.`,
+    scope: `Deployment ${HISTORICAL_DEPLOYMENT_0000009.revision}, signed revision ${HISTORICAL_DEPLOYMENT_0000009.signedRevision}, image ${HISTORICAL_DEPLOYMENT_0000009.imageDigest}, recorded at 100% traffic. ${HISTORICAL_DEPLOYMENT_0000009.scope} The earlier 78ef063 validation record and its original labels are retained as history, not as the latest deployment. ${HISTORICAL_STARTER_STATUS.summary} Model eligibility remains TST-scoped, the activated set is proposed and not ratified, no PROD model eligibility exists, and cost is estimated, not billed.`,
+    current: false,
+    controllingLabel: 'Historical September deployment checkpoint',
+  },
+  {
+    date: HOSTED_RUNTIME.last_verified_at.slice(0, 10),
+    revision: LATEST_DEPLOYED_RECORD.sourceRevision,
+    version: HOSTED_RUNTIME.application_version,
+    authority: 'Cloud runtime release verification',
+    decision: 'OWNER-PROMOTED LIVE RUNTIME; LIMITED QUALIFICATION',
+    scope: `${LATEST_DEPLOYED_RECORD.revision}, ${LATEST_DEPLOYED_RECORD.imageDigest}, 100% traffic at dated Azure readback. Registered HSM custody key verifies signed source with 18 PASS, 0 WARN, 0 FAIL. ${MODEL_QUALIFICATION} Operator records report 31/31 synthetic core checks, not full certification, two-organization acceptance or live commercial lifecycle/payment. New releases require fresh source verification and action-specific authorization.`,
     current: true,
-    controllingLabel: 'Latest recorded deployment (not current starter acceptance)',
+    controllingLabel: 'Current hosted runtime observation, not commercial release approval',
   },
 ]

@@ -15,6 +15,9 @@ export const inquiryTypes = [
   'FEUS.ai Adoption & Onboarding',
   'Request an Offline Fixture Demonstration',
   'Demo Feedback / Review',
+  'Request a FEUS.ai Intro',
+  'FEUS.ai Packages & Commercial Scope',
+  'FEUS.ai Readiness & Trial',
 ]
 
 const queryInquiryTypes = {
@@ -40,6 +43,10 @@ const queryInquiryTypes = {
   adoption: inquiryTypes[12],
   'offline-demo': inquiryTypes[13],
   review: inquiryTypes[14],
+  intro: inquiryTypes[15],
+  packages: inquiryTypes[16],
+  readiness: inquiryTypes[17],
+  trial: inquiryTypes[17],
 }
 
 export function resolveInquiry(type) {

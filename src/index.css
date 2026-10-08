@@ -234,3 +234,44 @@
     transition-duration: 0.01ms !important;
   }
 }
+/* Candidate commercial surfaces use explicit user-controlled motion only. */
+.commercial-page { background: #061326; color: #e2e8f0; padding: 8rem max(1rem, calc((100vw - 1120px) / 2)) 4rem; line-height: 1.75; }
+.commercial-page h1 { font-size: clamp(2rem, 5vw, 3.8rem); line-height: 1.15; font-weight: 800; color: white; margin: 1rem 0 1.5rem; }
+.commercial-page h2, .commercial-blueprint h2 { font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.3; font-weight: 750; color: white; margin-bottom: 1rem; }
+.commercial-page h3 { color: white; font-size: 1.2rem; font-weight: 700; }
+.commercial-page p { margin: .75rem 0; }
+.commercial-page section { margin-top: 3rem; scroll-margin-top: 7rem; }
+.commercial-page a:not([class*="btn-"]) { color: #7dd3fc; text-decoration: underline; text-underline-offset: 3px; }
+.commercial-eyebrow, .commercial-timing { color: #7dd3fc; font-weight: 700; }
+.commercial-actions, .commercial-story-choices, .commercial-story-controls { display: flex; flex-wrap: wrap; gap: .8rem; margin: 1.5rem 0; }
+.commercial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr)); gap: 1rem; }
+.commercial-card { padding: 1.5rem; border: 1px solid #334155; border-radius: 1rem; background: #0c2038; }
+.commercial-notice { padding: 1.25rem; border-left: 4px solid #fbbf24; background: #18243a; border-radius: .5rem; margin-top: 2rem; color: #e2e8f0; font-size: .95rem; }
+.commercial-notice a { color: #7dd3fc; text-decoration: underline; }
+.commercial-small { font-size: .9rem; }
+.commercial-list { list-style: decimal; padding-left: 1.5rem; }
+.commercial-list li { margin: 1rem 0; }
+.commercial-pack > div { border-top: 1px solid #334155; padding: 1rem 0; }
+.commercial-pack dt { color: #7dd3fc; font-weight: 700; }
+.commercial-pack dd { margin-top: .5rem; }
+.commercial-table-wrap { overflow-x: auto; margin: 2rem 0; }
+.commercial-table-wrap table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.commercial-table-wrap caption { text-align: left; color: white; font-weight: 700; margin-bottom: 1rem; }
+.commercial-table-wrap th, .commercial-table-wrap td { text-align: left; vertical-align: top; padding: 1rem; border: 1px solid #475569; min-width: 150px; }
+.commercial-table-wrap th { color: white; background: #0c2038; }
+.commercial-blueprint figure { max-width: 760px; margin: 2rem auto; }
+.commercial-blueprint img { width: 100%; height: auto; border-radius: 1rem; }
+.commercial-blueprint figcaption { margin-top: .75rem; font-size: .9rem; }
+.commercial-architecture { padding-top: 0; }
+.commercial-story { padding: 1.5rem; background: #0c2038; border: 1px solid #334155; border-radius: 1rem; }
+.commercial-story button { border: 1px solid #64748b; border-radius: .5rem; padding: .7rem 1rem; min-height: 44px; color: white; background: #122e49; }
+.commercial-story button[aria-pressed="true"] { background: #0369a1; border-color: #7dd3fc; }
+.commercial-story button:disabled { opacity: .5; cursor: not-allowed; }
+.commercial-story-steps { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1rem 0; }
+.commercial-story-detail { border-left: 3px solid #7dd3fc; padding: .5rem 1rem; min-height: 7rem; }
+.commercial-route { color: #7dd3fc; font-weight: 700; }
+.commercial-page :focus-visible, .commercial-notice :focus-visible { outline: 3px solid #fbbf24; outline-offset: 4px; }
+.contact-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .commercial-page *, .commercial-notice * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

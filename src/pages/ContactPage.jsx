@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useSearchParams, useLocation } from 'react-router-dom'
-import emailjs from '@emailjs/browser'
+import { readContactAvailability, sendContact } from '../services/contactClient'
 import {
   Mail, MapPin, ArrowRight, Send, BrainCircuit, BriefcaseBusiness,
   Clock, Globe, MessageSquare, CheckCircle2, Calendar,
@@ -47,12 +47,12 @@ export default function ContactPage() {
   const location = useLocation()
   const formSectionRef = useRef(null)
   const inquiryRef = useRef(null)
-  const requestedType = searchParams.get('type')
+  const requestedType = searchParams.get('type') || location.state?.inquiry
   const isReviewMode = requestedType === 'review'
 
   const [formData, setFormData] = useState({
     firstName: '', lastName: '', email: '', company: '',
-    jobTitle: '', message: '',
+    jobTitle: '', message: '', website: '', privacyConsent: false,
     // Review-specific fields
     rating: 0,
     wouldRecommend: '',
@@ -62,6 +62,13 @@ export default function ContactPage() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
   const [hoverRating, setHoverRating] = useState(0)
+  const [contactAvailable, setContactAvailable] = useState(false)
+
+  useEffect(() => {
+    let active = true
+    readContactAvailability().then(available => { if (active) setContactAvailable(available) })
+    return () => { active = false }
+  }, [])
 
   useEffect(() => {
     setFormData((prev) => ({ ...prev, ...resolveInquiry(requestedType) }))
@@ -73,12 +80,13 @@ export default function ContactPage() {
   }, [location.key, location.hash, requestedType])
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    setFormData({ ...formData, [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value })
     if (error) setError(null)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!contactAvailable) { setError('Online inquiries are unavailable. Please use direct email'); return }
     setSubmitting(true)
     setError(null)
 
@@ -87,24 +95,12 @@ export default function ContactPage() {
         ? `\n\n--- Review Details ---\nRating: ${formData.rating}/5 stars\nWould Recommend: ${formData.wouldRecommend || 'Not specified'}\nForm Type: demo_feedback`
         : ''
 
-      await emailjs.send(
-        'service_e5n5jan',
-        'template_0opftvh',
-        {
-          from_name: `${formData.firstName} ${formData.lastName}`,
-          from_email: formData.email,
-          company: formData.company,
-          job_title: formData.jobTitle,
-          inquiry_type: formData.inquiryType,
-          message: formData.message + reviewSuffix,
-        },
-        'wF0ChRLXEfBrHG029'
-      )
+      await sendContact({ ...formData, message: formData.message + reviewSuffix })
 
       setSubmitted(true)
     } catch (err) {
       console.error('Contact form provider request failed')
-      setError('We could not send your message through the form')
+      setError(err.message || 'We could not send your message through the form')
     } finally {
       setSubmitting(false)
     }
@@ -257,7 +253,7 @@ export default function ContactPage() {
                       </div>
                       <h3 className="text-2xl font-bold text-ink mb-3">Thank you</h3>
                       <p className="text-slate-600 max-w-md mx-auto">
-                        The form provider accepted your request. This is not confirmation of inbox delivery or a guaranteed response time. You can also email info@feuselectronicsgroup.com.
+                        The email provider accepted your request. This is not confirmation of inbox delivery, a booked appointment, CRM registration, trial activation, or a guaranteed response time. You can also email info@feuselectronicsgroup.com.
                       </p>
                     </div>
                   ) : (
@@ -268,11 +264,19 @@ export default function ContactPage() {
                       {/* Hidden field for form type */}
                       <input type="hidden" name="formType" value={formData.formType} />
                       <form onSubmit={handleSubmit} className="space-y-6">
+                        <p role="status" className="text-sm text-slate-700">
+                          {contactAvailable ? 'Server-side email inquiries are enabled by the operator.' : 'Online inquiries are unavailable until delivery, privacy and shared abuse controls are operator enabled.'}{' '}
+                          <a href="mailto:info@feuselectronicsgroup.com" className="underline">Email us directly</a>. An intro request is not yet booked.
+                        </p>
+                        <div className="contact-honeypot" aria-hidden="true">
+                          <label htmlFor="website">Leave this field empty</label>
+                          <input id="website" name="website" tabIndex={-1} autoComplete="off" value={formData.website} onChange={handleChange} />
+                        </div>
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div>
                             <label htmlFor="firstName" className="block text-sm font-semibold text-slate-700 mb-1.5">First name *</label>
                             <input
-                              id="firstName" type="text" name="firstName" autoComplete="given-name" required
+                              id="firstName" type="text" name="firstName" autoComplete="given-name" required maxLength={100}
                               value={formData.firstName} onChange={handleChange}
                               className={fieldClass}
                               placeholder="Your first name"
@@ -281,7 +285,7 @@ export default function ContactPage() {
                           <div>
                             <label htmlFor="lastName" className="block text-sm font-semibold text-slate-700 mb-1.5">Last name *</label>
                             <input
-                              id="lastName" type="text" name="lastName" autoComplete="family-name" required
+                              id="lastName" type="text" name="lastName" autoComplete="family-name" required maxLength={100}
                               value={formData.lastName} onChange={handleChange}
                               className={fieldClass}
                               placeholder="Your last name"
@@ -292,7 +296,7 @@ export default function ContactPage() {
                         <div>
                           <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-1.5">Work email *</label>
                           <input
-                            id="email" type="email" name="email" autoComplete="email" required
+                            id="email" type="email" name="email" autoComplete="email" required maxLength={254}
                             value={formData.email} onChange={handleChange}
                             className={fieldClass}
                             placeholder="you@company.com"
@@ -303,7 +307,7 @@ export default function ContactPage() {
                           <div>
                             <label htmlFor="company" className="block text-sm font-semibold text-slate-700 mb-1.5">Company *</label>
                             <input
-                              id="company" type="text" name="company" autoComplete="organization" required
+                              id="company" type="text" name="company" autoComplete="organization" required maxLength={200}
                               value={formData.company} onChange={handleChange}
                               className={fieldClass}
                               placeholder="Company name"
@@ -312,7 +316,7 @@ export default function ContactPage() {
                           <div>
                             <label htmlFor="jobTitle" className="block text-sm font-semibold text-slate-700 mb-1.5">Job title</label>
                             <input
-                              id="jobTitle" type="text" name="jobTitle" autoComplete="organization-title"
+                              id="jobTitle" type="text" name="jobTitle" autoComplete="organization-title" maxLength={200}
                               value={formData.jobTitle} onChange={handleChange}
                               className={fieldClass}
                               placeholder="Your role"
@@ -396,7 +400,7 @@ export default function ContactPage() {
                             {isReviewMode ? 'Your Feedback *' : 'Message *'}
                           </label>
                           <textarea
-                            id="message" name="message" required rows={5}
+                            id="message" name="message" required rows={5} maxLength={isReviewMode ? 4500 : 5000}
                             value={formData.message} onChange={handleChange}
                             className={`${fieldClass} resize-y`}
                             placeholder={isReviewMode
@@ -408,7 +412,7 @@ export default function ContactPage() {
 
                         <button
                           type="submit"
-                          disabled={submitting}
+                          disabled={submitting || !contactAvailable}
                           className="btn-primary w-full group disabled:opacity-60 disabled:cursor-not-allowed"
                         >
                           {submitting ? (
@@ -435,10 +439,14 @@ export default function ContactPage() {
                         )}
 
                         <p className="text-xs text-slate-500 text-center">
-                          By submitting this form, you consent to FEUS Electronics Group using the details you provide to respond to your inquiry. This form sends your details through EmailJS. End-to-end inbox delivery has not been verified in this website review; provider acceptance is not proof of delivery. Do not include credentials or sensitive customer data. Our{' '}
+                          This candidate form calls /api/contact and, only when enabled, sends your details through the server-side Resend provider. End-to-end inbox delivery has not been verified in this website review; provider acceptance is not proof of delivery. Do not include credentials or sensitive customer data. Our{' '}
                           <Link to="/legal/privacy" className="underline underline-offset-2">privacy notice</Link>{' '}
                           explains what we collect and who processes it; it is published as a draft pending legal approval.
                         </p>
+                        <label className="flex gap-3 text-sm text-slate-700">
+                          <input type="checkbox" name="privacyConsent" required checked={formData.privacyConsent} onChange={handleChange} />
+                          I have read the draft privacy notice and agree to use of these details to respond to this inquiry.
+                        </label>
                       </form>
                     </>
                   )}
@@ -459,7 +467,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <SectionLabel>Prefer a live conversation?</SectionLabel>
-                <h2 className="mt-5 text-3xl font-bold text-white md:text-4xl">Ask us for 30 minutes.</h2>
+                <h2 className="mt-5 text-3xl font-bold text-white md:text-4xl">Start with a 20–30 minute intro.</h2>
                 <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-300">
                   Tell us the outcome you are after, your current environment, and your constraints. We will reply with times, then identify a useful next step without forcing a preset package.
                 </p>

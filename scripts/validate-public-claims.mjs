@@ -264,8 +264,8 @@ if (Array.isArray(POSTURE_HISTORY)) {
     if (!/\bTST\b/.test(current.decision ?? '') && !/\bTST\b/.test(current.scope ?? '')) {
       errors.push('releaseAssessment.js: the current cloud-runtime record must name the TST environment scope')
     }
-    if (!/not ratified|unratified/i.test(current.scope ?? '')) {
-      errors.push('releaseAssessment.js: the current cloud-runtime record must disclose that the model set is not ratified')
+    if (!/owner-ratified/i.test(current.scope ?? '') || !/tenant-.*approval/i.test(current.scope ?? '')) {
+      errors.push('releaseAssessment.js: current model ratification must retain tenant approval')
     }
     if (!/estimated|not billed|rather than billed/i.test(current.scope ?? '')) {
       errors.push('releaseAssessment.js: the current cloud-runtime record must state the cost basis')
@@ -275,12 +275,12 @@ if (Array.isArray(POSTURE_HISTORY)) {
     }
   }
   /* Historical validation retains its original labels; deployment is separate. */
-  if (current && current.revision !== cloud.HISTORICAL_CLOUD_VALIDATION?.sourceRevision) {
+  if (!cloudRuntimeRecords.some(h => h.revision === cloud.HISTORICAL_CLOUD_VALIDATION?.sourceRevision && h.current === false)) {
     errors.push(
       'cloudRuntime.js: historical validation must match its retained posture record',
     )
   }
-  const deploymentRecords = POSTURE_HISTORY.filter(h => h.decision === 'LATEST RECORDED DEPLOYMENT; STARTER CORRECTION PENDING')
+  const deploymentRecords = POSTURE_HISTORY.filter(h => h.decision === 'OWNER-PROMOTED LIVE RUNTIME; LIMITED QUALIFICATION')
   if (deploymentRecords.length !== 1 || deploymentRecords[0].revision !== CLOUD_RUNTIME_REVISION) {
     errors.push('cloudRuntime.js: latest deployment must match exactly one appended deployment distinction')
   }
@@ -341,8 +341,8 @@ if (POSTURE.productionVerifiedCapabilities !== 0 || POSTURE.totalCapabilities !=
  */
 if ((POSTURE.liveVerifiedIntegrations ?? 0) > 0) {
   const q = POSTURE.liveVerifiedIntegrationsQualification ?? ''
-  if (!/\bTST\b/.test(q) || !/not ratified|unratified/i.test(q)) {
-    errors.push('publicStatus.js: a non-zero liveVerifiedIntegrations count requires liveVerifiedIntegrationsQualification disclosing the TST scope and the unratified model set')
+  if (!/\bTST\b/.test(q) || !/owner-ratified/i.test(q) || !/tenant-.*approval/i.test(q)) {
+    errors.push('publicStatus.js: live integration evidence must disclose TST scope, catalog ratification and tenant approval')
   }
   if (!/production-verified count remains zero|not a production-verified capability/i.test(q)) {
     errors.push('publicStatus.js: liveVerifiedIntegrationsQualification must separate live-verified integrations from production-verified capabilities')
@@ -440,15 +440,15 @@ if (!itsmLifecycle || itsmLifecycle.publicStatus === 'INTEGRATION_READY') {
  * The rule is REPLACED, not removed. A claim gate that is deleted the moment
  * its claim changes protects nothing. The three qualifications that keep the
  * new, stronger claim honest are pinned with the same force the old rule used:
- * invocation is confined to TST, the activated model set is not ratified, and
- * no PROD model eligibility exists. All three must appear, in the lifecycle
- * row, in the portfolio entry, and in the public statement.
+ * the dated serving profile is TST, the catalog is now owner-ratified, and
+ * tenant/environment approval is still required. Historical scope is not a
+ * permanent denial of models whose owner later ratified them.
  */
 const MODEL_CLAIM_PINS = [
   { re: /\bTST\b/, why: 'the TST invocation scope' },
-  { re: /not ratified|unratified/i, why: 'the unratified activated model set' },
+  { re: /owner-ratified/i, why: 'the owner-ratified model catalog' },
 ]
-const MODEL_PROD_PIN = { re: /no PROD (model )?eligibility/i, why: 'the absence of PROD model eligibility' }
+const MODEL_PROD_PIN = { re: /tenant-.*environment-scoped approval/i, why: 'tenant and environment approval, not automatic PROD access' }
 
 const providerLifecycle = CAPABILITY_LIFECYCLE.find((row) => row.capability === 'Model-provider integrations')
 if (!providerLifecycle) {
@@ -469,8 +469,8 @@ for (const pin of MODEL_CLAIM_PINS) {
     errors.push(`publicStatus.js: MODEL_PROVIDER_STATEMENT must disclose ${pin.why}`)
   }
 }
-if (!/no eligible model|refused/i.test(providerStatementText)) {
-  errors.push('publicStatus.js: MODEL_PROVIDER_STATEMENT must state that a PROD request finds no eligible model and is refused')
+if (!/does not attest customer PROD inference/i.test(providerStatementText)) {
+  errors.push('publicStatus.js: model statement must separate catalog eligibility from customer PROD acceptance')
 }
 
 const REQUIRED_PORTFOLIO_IDS = new Set([
@@ -512,7 +512,7 @@ if (itsmPortfolio?.status !== 'PREVIEW' ||
 }
 const providerPortfolio = AGENT_PORTFOLIO.find((agent) => agent.id === 'provider-gateway')
 if (providerPortfolio?.status !== 'PREVIEW') {
-  errors.push('FEUS Provider Gateway must remain Preview until the activated model set is ratified')
+  errors.push('FEUS Provider Gateway remains Preview until customer-specific qualification')
 } else {
   const text = `${providerPortfolio.evidence ?? ''} ${providerPortfolio.restriction ?? ''}`
   for (const pin of [...MODEL_CLAIM_PINS, MODEL_PROD_PIN]) {
@@ -548,15 +548,22 @@ if (CLOUD_RUNTIME?.declaredEnvironment !== 'TST') {
 if (cloud.HISTORICAL_CLOUD_VALIDATION?.sourceRevision !== '78ef0630650f41ddd72fd7eb3df55ed42e5bc562') {
   errors.push('cloudRuntime.js: historical validation revision must be retained')
 }
-if (CLOUD_RUNTIME?.releaseRevision !== '72b306570fa3eea731c57f5ede8b2a6ee9e0e3e4' ||
-    cloud.LATEST_DEPLOYED_RECORD?.revision !== 'ca-feus-runtime--0000009' ||
-    cloud.LATEST_DEPLOYED_RECORD?.signedRevision !== 'ff67fc8' ||
-    cloud.LATEST_DEPLOYED_RECORD?.imageDigest !== 'sha256:843813f417c4d276d19788d3e1130ade91ba2a4f386941d654e4c0f589c49459') {
-  errors.push('cloudRuntime.js: latest deployment must match the recorded 0000009 checkpoint')
+const truth = JSON.parse(readFileSync(join(root, 'src', 'data', 'product-status.public.json'), 'utf8'))
+const observed = truth.hosted_runtime
+if (truth.authority !== 'observation_only_not_release_authorization' ||
+    !/^sha256:[0-9a-f]{64}$/.test(observed?.image_digest ?? '') ||
+    !/^[0-9a-f]{40}$/.test(observed?.source_commit ?? '') ||
+    CLOUD_RUNTIME?.releaseRevision !== observed?.source_commit ||
+    cloud.LATEST_DEPLOYED_RECORD?.revision !== observed?.active_revision ||
+    cloud.LATEST_DEPLOYED_RECORD?.signedRevision !== observed?.signed_source_commit ||
+    cloud.LATEST_DEPLOYED_RECORD?.imageDigest !== observed?.image_digest ||
+    CLOUD_RUNTIME?.verifiedOn !== observed?.last_verified_at ||
+    ROUTING_AUTHORITY?.activatedModels?.length !== observed?.configured_deployments?.length + 1) {
+  errors.push('cloudRuntime.js: current claims must derive from the pinned canonical observation')
 }
-if (cloud.STARTER_STATUS?.status !== 'correction_pending' ||
-    !/starter acceptance is pending/i.test(CLOUD_RUNTIME?.qualification ?? '')) {
-  errors.push('cloudRuntime.js: unresolved starter acceptance must remain explicit until new release evidence')
+if (cloud.STARTER_STATUS?.status !== 'bounded_core_acceptance_only' ||
+    !/customer-browser.*unverified/i.test(CLOUD_RUNTIME?.qualification ?? '')) {
+  errors.push('cloudRuntime.js: bounded core acceptance must not imply customer-browser acceptance')
 }
 for (const pin of [...MODEL_CLAIM_PINS, MODEL_PROD_PIN]) {
   if (!pin.re.test(CLOUD_RUNTIME?.qualification ?? '')) {

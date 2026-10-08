@@ -26,6 +26,7 @@ import { CalendlyButton } from '../components/CalendlyEmbed'
 import { SectionLabel, SectionHeader, CTAButton } from '../components/ui'
 import { AGENT_PORTFOLIO, POSTURE } from '../data/publicStatus'
 import { CLOUD_RUNTIME, LAUNCH_URL, ROUTING_MODES } from '../data/cloudRuntime'
+import CommercialNotice from '../components/CommercialNotice'
 
 const servicePaths = [
   {
@@ -180,10 +181,13 @@ function Hero() {
             Coordinate intelligent agents, enterprise controls, automation, model selection, audit evidence, and human approval through one secure operating experience.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <CTAButton to="/demo">Request a demonstration</CTAButton>
+            <CalendlyButton className="btn-primary">Request an intro</CalendlyButton>
+            <CTAButton to="/journey" variant="secondary">See the evaluation journey</CTAButton>
+            <CTAButton to="/demo" variant="secondary">Request a demonstration</CTAButton>
             <CTAButton to="/get-started" variant="secondary">See the adoption path</CTAButton>
             <CTAButton to="/feus-ai" variant="secondary">Explore the platform</CTAButton>
           </div>
+          <p className="mt-4 text-sm text-slate-300">Intro requests are not yet booked. Review <Link to="/readiness" className="underline">customer readiness</Link> and <Link to="/packages" className="underline">scoped engagement options</Link>; no trial clock before onboarding or automatic billing.</p>
           <p className="mt-4 max-w-2xl text-sm text-slate-300">
             FEUS.ai is a product of FEUS Electronics Group. Start with a guided live Azure TST demo: Microsoft Foundry inference, synthetic inputs, authorized Entra access and agreed budgets. No customer connections; an offline fixture option is available.
           </p>
@@ -200,6 +204,7 @@ function Hero() {
             </a>{' '}
             &mdash; requires an account your organisation has granted.
           </p>
+          <CommercialNotice />
           <p className="mt-8 flex max-w-xl items-start gap-3 text-sm leading-relaxed text-slate-400">
             <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent-300" aria-hidden="true" />
             Human-controlled where risk requires it, policy-governed throughout, and transparent by design.

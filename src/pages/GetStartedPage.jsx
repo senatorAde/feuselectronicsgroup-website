@@ -11,6 +11,8 @@ import {
   RUNTIME_SCOPE,
 } from '../data/cloudRuntime'
 import { POSTURE } from '../data/publicStatus'
+import CommercialNotice from '../components/CommercialNotice'
+import { CalendlyButton } from '../components/CalendlyEmbed'
 
 /**
  * /get-started — the client onboarding path (W-12).
@@ -65,6 +67,8 @@ export default function GetStartedPage() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
+            <CalendlyButton className="btn-primary">Request an intro</CalendlyButton>
+            <Link to="/journey" className="btn-secondary">Evaluation journey</Link>
             <Link to="/contact?type=adoption#contact-form" className="btn-primary">
               Start the onboarding conversation
             </Link>
@@ -80,6 +84,8 @@ export default function GetStartedPage() {
               Sign in (already onboarded)
             </a>
           </div>
+          <CommercialNotice />
+          <p className="mt-4 text-gray-300">Review the <Link to="/readiness" className="underline">customer-specific readiness pack</Link> and <Link to="/trial" className="underline">trial activation rules</Link>. No trial clock before onboarding; no automatic billing.</p>
 
           <details className="mt-8 rounded-lg border border-white/10 bg-white/[0.03] p-5">
             <summary className="cursor-pointer text-sm font-bold text-feus-200">

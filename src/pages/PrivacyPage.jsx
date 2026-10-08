@@ -11,9 +11,7 @@ import { SectionLabel } from '../components/ui'
  * details they type into the contact form, which is the only question a
  * privacy notice needs to answer before someone decides to use it.
  *
- * Every statement below describes behaviour that is true of the deployed site
- * today. Nothing here is aspirational, and nothing describes a control that is
- * not in place.
+ * This describes candidate transport, not an attestation of live deployment.
  */
 export default function PrivacyPage() {
   return (
@@ -33,8 +31,9 @@ export default function PrivacyPage() {
               It is published in draft so you can see how your details are handled
               before you send them, rather than being asked to trust an unpublished
               document. It has not yet been approved by legal counsel and does not
-              form part of any contract. It describes what the site does today, and
-              it will be replaced by an approved notice.
+              form part of any contract. It describes this website candidate, not
+              verified live deployment. Contact delivery remains disabled until
+              the operator enables delivery, privacy and shared abuse controls.
             </p>
           </div>
         </div>
@@ -68,9 +67,10 @@ export default function PrivacyPage() {
                 you select, and your message.
               </p>
               <p>
-                The site sets no cookies, runs no analytics or advertising trackers,
-                and stores nothing in your browser. We do not build a profile of you,
-                and we do not sell or share your details for anyone else&rsquo;s marketing.
+                The FEUS/contact lead path does not write your inquiry to browser
+                storage or implement a durable CRM. When enabled, third-party
+                scheduling may process technical/browser information under its
+                own notice. No blanket cookie-free claim covers those providers.
               </p>
               <p>
                 Our hosting provider records ordinary server logs, including IP address
@@ -91,9 +91,9 @@ export default function PrivacyPage() {
                 Contact form submissions are intended for the
                 info@feuselectronicsgroup.com mailbox. Inbox delivery has not been
                 verified in this website review. Enquiries received are retained as
-                ordinary business correspondence. We have not yet fixed a retention
-                period, and we will publish one in the approved notice rather than
-                state a period we do not currently enforce.
+                ordinary business correspondence. We have not attested a live retention
+                period here. The operator must review retention, provider terms,
+                access, deletion and this notice before enabling privacy readiness.
               </p>
             </div>
           </div>
@@ -109,18 +109,33 @@ export default function PrivacyPage() {
               <ul className="space-y-3">
                 <li>
                   <span className="text-white font-medium">Vercel</span> — hosts the
-                  website. A separate serverless contact endpoint is present in the
-                  repository, but the current browser contact form does not call it.
+                  serverless /api/contact endpoint in the deployment design. This
+                  candidate browser contact form calls that endpoint; a static-only
+                  deployment cannot send inquiries and must retain the email fallback.
                 </li>
                 <li>
-                  <span className="text-white font-medium">EmailJS</span> — the current
-                  browser contact form sends your submitted details to this provider
-                  for email processing. Acceptance is not proof of inbox delivery.
+                  <span className="text-white font-medium">EmailJS</span> — removed
+                  from the FEUS/contact lead path in this candidate. Separate legacy
+                  property inquiry surfaces may still use it; this change does not
+                  attest their provider configuration.
                 </li>
                 <li>
                   <span className="text-white font-medium">Resend</span> — used by the
-                  separate serverless endpoint if configured and invoked, not by the
-                  current browser contact form. Its delivery has not been verified here.
+                  contact endpoint only when server-side delivery, privacy and shared
+                  abuse controls are explicitly enabled. Provider acceptance is not
+                  inbox delivery; delivery has not been verified here.
+                </li>
+                <li>
+                  <span className="text-white font-medium">Shared rate-limit provider</span> —
+                  an operator-configured Redis REST service receives a salted hash
+                  of the trusted client IP and short-lived abuse counters, not the
+                  inquiry content. Controls refuse sends when unavailable.
+                </li>
+                <li>
+                  <span className="text-white font-medium">Calendly</span> — only an
+                  operator-configured event is offered. Its scripts may receive
+                  technical/browser data. An intro request alone is not a booking;
+                  provider processing is subject to its privacy notice.
                 </li>
                 <li>
                   <span className="text-white font-medium">Mailbox provider</span> —

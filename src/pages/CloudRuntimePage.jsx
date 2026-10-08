@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
+import CommercialNotice from '../components/CommercialNotice'
 import { SectionLabel } from '../components/ui'
 import AudiencePaths from '../components/AudiencePaths'
 import CloudEvidence from '../components/CloudEvidence'
@@ -35,6 +36,7 @@ export default function CloudRuntimePage() {
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <SectionLabel>Guided cloud evaluation</SectionLabel>
+          <CommercialNotice />
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">
             {CLOUD_RUNTIME.headline}
           </h1>
@@ -59,7 +61,7 @@ export default function CloudRuntimePage() {
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-6">Historical validation evidence</h2>
-          <p className="mb-6 text-sm text-gray-400">The following counts belong to historical validation {HISTORICAL_CLOUD_VALIDATION.sourceRevision.slice(0, 7)}, not to deployment 0000009 or current starter acceptance.</p>
+          <p className="mb-6 text-sm text-gray-400">The following counts belong to historical validation {HISTORICAL_CLOUD_VALIDATION.sourceRevision.slice(0, 7)}, not to the latest deployed revision or current customer acceptance.</p>
           <div className="grid gap-4 sm:grid-cols-2">
             {RUNTIME_EVIDENCE.map((item) => (
               <div key={item.label} className="glass-card rounded-2xl p-6">

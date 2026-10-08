@@ -3,6 +3,7 @@ import { SectionLabel, CTAButton } from '../components/ui'
 import { RELEASE_ASSESSMENT } from '../data/releaseAssessment'
 import CloudEvidence from '../components/CloudEvidence'
 import { CLOUD_ARCHITECTURE } from '../data/cloudRuntime'
+import ArchitectureBlueprint from '../components/ArchitectureBlueprint'
 
 /**
  * /architecture — cloud evaluation first; historical vNext diagram retained below.
@@ -228,6 +229,7 @@ export default function ArchitecturePage() {
           <div className="mt-8 flex flex-wrap gap-4"><CTAButton to="/demo">Explore the guided demo</CTAButton><CTAButton to="/trust" variant="secondary">Review evidence scope</CTAButton></div>
         </div>
       </section>
+      <div className="commercial-page commercial-architecture"><ArchitectureBlueprint /></div>
       <section className="max-w-5xl mx-auto px-4 pb-12">
         <details id="historical-architecture" className="border border-white/10 rounded-2xl p-5 scroll-mt-24">
           <summary className="cursor-pointer text-xl text-white font-bold">Historical 5.2 architecture · Session 12D</summary>

@@ -20,7 +20,7 @@ export default function CloudEvidence() {
         {' '}The source date and revision are retained from the published record; this website review is not a new live verification.
       </p>
       <p className="mt-3 text-gray-400">{LATEST_DEPLOYED_RECORD.scope}</p>
-      <p className="mt-3 text-gray-400">Historical validation record: <span className="font-mono break-all">{HISTORICAL_CLOUD_VALIDATION.sourceRevision}</span>. Its test counts and release tag belong to that record, not to the latest deployment or pending starter correction.</p>
+      <p className="mt-3 text-gray-400">Historical validation record: <span className="font-mono break-all">{HISTORICAL_CLOUD_VALIDATION.sourceRevision}</span>. Its test counts and release tag belong to that record, not to the latest deployment or new commercial candidate.</p>
       <p className="mt-3 text-gray-400">Static evidence summary, not live incident monitoring or a statement of present service health.</p>
       <div className="mt-4 flex flex-wrap gap-4">
         <Link to="/cloud-runtime" className="text-feus-200 underline">Cloud runtime scope</Link>

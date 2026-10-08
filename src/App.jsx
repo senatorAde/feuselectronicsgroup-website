@@ -8,6 +8,10 @@ const FeusAiPage = lazy(() => import('./pages/FeusAiPage'))
 const CopilotLandingPage = lazy(() => import('./pages/CopilotLandingPage'))
 const CloudRuntimePage = lazy(() => import('./pages/CloudRuntimePage'))
 const GetStartedPage = lazy(() => import('./pages/GetStartedPage'))
+const CommercialJourneyPage = lazy(() => import('./pages/CommercialJourneyPage'))
+const TrialPage = lazy(() => import('./pages/TrialPage'))
+const ReadinessPage = lazy(() => import('./pages/ReadinessPage'))
+const PackagesPage = lazy(() => import('./pages/PackagesPage'))
 const ServicesPage = lazy(() => import('./pages/ServicesPage'))
 const SolutionsPage = lazy(() => import('./pages/SolutionsPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage'))
@@ -59,6 +63,10 @@ export default function App() {
         <Route path="/copilot" element={<CopilotLandingPage />} />
         <Route path="/cloud-runtime" element={<CloudRuntimePage />} />
         <Route path="/get-started" element={<GetStartedPage />} />
+        <Route path="/journey" element={<CommercialJourneyPage />} />
+        <Route path="/trial" element={<TrialPage />} />
+        <Route path="/readiness" element={<ReadinessPage />} />
+        <Route path="/packages" element={<PackagesPage />} />
         <Route path="/status" element={<StatusPage />} />
         <Route path="/architecture" element={<ArchitecturePage />} />
         <Route path="/agents" element={<AgentsPage />} />
