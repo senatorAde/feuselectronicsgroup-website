@@ -234,7 +234,7 @@
     transition-duration: 0.01ms !important;
   }
 }
-/* Candidate commercial surfaces use explicit user-controlled motion only. */
+/* Commercial surfaces use explicit user-controlled motion only. */
 .commercial-page { background: #061326; color: #e2e8f0; padding: 8rem max(1rem, calc((100vw - 1120px) / 2)) 4rem; line-height: 1.75; }
 .commercial-page h1 { font-size: clamp(2rem, 5vw, 3.8rem); line-height: 1.15; font-weight: 800; color: white; margin: 1rem 0 1.5rem; }
 .commercial-page h2, .commercial-blueprint h2 { font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.3; font-weight: 750; color: white; margin-bottom: 1rem; }

@@ -1,6 +1,6 @@
 # robots.txt — FEUS Electronics Group
 # Routes below are intentionally excluded from indexing per the
-# Session 13A approved claims baseline (noindex routes and quarantined assets).
+# approved claims baseline (noindex routes and quarantined assets).
 
 User-agent: *
 Disallow: /copilot

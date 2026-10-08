@@ -37,8 +37,8 @@ export default function CopilotLandingPage() {
               integration, and customer configuration.
             </p>
             <p className="text-xs text-gray-500">
-              The &ldquo;Copilot&rdquo; name is retained for historical reference only and
-              is under naming review.
+              The &ldquo;Copilot&rdquo; name refers to the operator experience inside the
+              authenticated FEUS.ai workbench.
             </p>
           </div>
           <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">

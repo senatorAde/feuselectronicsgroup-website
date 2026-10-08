@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom'
-import { COMMERCIAL_CANDIDATE } from '../data/commercialJourney'
 
+/** Short, positive explanation of how a FEUS.ai engagement runs. */
 export default function CommercialNotice() {
-  return <aside className="commercial-notice" aria-label="Candidate availability and evidence">
-    <strong>{COMMERCIAL_CANDIDATE.status}</strong>
-    <p>{COMMERCIAL_CANDIDATE.reconciliation}</p>
-    <p>Older entry-page availability, routing and non-ratification statements describe the named historical checkpoints; they do not override the newer catalog or establish current production eligibility. This candidate is not a fully released production offer.</p>
-    <Link to="/status">Published status &amp; historical evidence</Link>
-    {' · '}<Link to="/readiness">Customer-specific readiness</Link>
+  return <aside className="commercial-notice" aria-label="How FEUS.ai engagements work">
+    <strong>How engagements work</strong>
+    <p>Intro call → discovery → customer-specific readiness pack → onboarding → 14-day controlled trial → value review → paid package. Trials start after onboarding, and there is no automatic billing: packages are quoted per scope and paid by proposal and invoice.</p>
+    <Link to="/journey">The evaluation journey</Link>
+    {' · '}<Link to="/readiness">Customer readiness pack</Link>
   </aside>
 }

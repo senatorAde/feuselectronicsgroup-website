@@ -183,6 +183,19 @@ const mustNot = (text, re, where, why) => {
   }
 }
 
+/* ------------------------------------------------------------------ *
+ * Contact honesty — the form states what happens to an inquiry without
+ * promising a response time, and consent stays explicit.
+ * ------------------------------------------------------------------ */
+{
+  const where = 'src/pages/ContactPage.jsx'
+  const contact = read('src', 'pages', 'ContactPage.jsx')
+  mustNot(contact, /within (one|1|24|48) (business )?(hour|day)s?|guaranteed response|respond(s)? within/i, where, 'the contact page must not promise a response time')
+  must(contact, /name="privacyConsent"[^>]*required|required[^>]*name="privacyConsent"/s, where, 'the inquiry form must require explicit privacy consent')
+  must(contact, /to="\/legal\/privacy"/, where, 'the inquiry form must link the privacy notice')
+  must(contact, /Do not include credentials or sensitive customer data/, where, 'the form must warn against sending credentials or sensitive data')
+}
+
 /* ------------------------------------------------------------------ */
 if (errors.length) {
   console.error('\nAudit-fix regression check FAILED:\n')
@@ -190,4 +203,4 @@ if (errors.length) {
   console.error(`\n${errors.length} regression(s). Each corresponds to a defect a real user hit.\n`)
   process.exit(1)
 }
-console.log('Audit-fix regression check passed (findings 2, 5 and 8 still fixed).')
+console.log('Audit-fix regression check passed (findings 2, 5 and 8 still fixed; contact honesty intact).')

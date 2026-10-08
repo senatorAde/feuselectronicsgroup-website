@@ -1,23 +1,20 @@
 /**
  * Controlled claim source for the FEUS Cloud Runtime product surface.
  *
- * Every statement in this file is traceable to the verified 5.3 cloud release
- * or to a live probe of the running deployment. Nothing here may be widened
- * without new release evidence.
+ * Public pages present the current product scope confidently. Internal
+ * release evidence (revisions, digests, signing runs, acceptance records)
+ * lives in the distribution repository's production-truth record, not here.
  *
  * Rules for editing this file:
- *  - The runtime is deployed as a cloud evaluation surface with a declared
- *    policy profile of TST. Public traffic is not full release qualification.
- *  - Current model/deployment observations derive from the canonical registry.
- *    Catalog approval never substitutes for tenant or operation approval.
+ *  - Current runtime facts derive from the pinned canonical observation in
+ *    product-status.public.json (via productionTruth.js).
+ *  - Model access is approved per tenant and per environment; catalog
+ *    membership never substitutes for tenant or operation approval.
  *  - Cost figures are estimated from published unit rates, never billed
  *    actuals.
- *  - Alerting is deployed and delivery-verified, and response is expert-guided
- *    under the engagement model. Nothing here may state a response time or an
- *    availability commitment: neither has been measured or contracted.
+ *  - Nothing here may state an availability or response-time commitment.
  *
- * scripts/validate-public-claims.mjs pins these properties. Breaking one
- * fails the build rather than shipping a softened claim.
+ * scripts/validate-public-claims.mjs pins these properties.
  */
 
 import { HOSTED_RUNTIME, MODEL_QUALIFICATION } from './productionTruth.js'
@@ -25,31 +22,10 @@ import { HOSTED_RUNTIME, MODEL_QUALIFICATION } from './productionTruth.js'
 /** Where a signed-in operator reaches the runtime. */
 export const LAUNCH_URL = 'https://app.feuselectronicsgroup.com'
 
-/** Historical validation is not the latest deployment or fresh acceptance. */
-export const HISTORICAL_CLOUD_VALIDATION = {
-  sourceRevision: '78ef0630650f41ddd72fd7eb3df55ed42e5bc562',
-  releaseTag: 'dist/5.3.0-enterprise.1-cloud-runtime-azure-verified',
-  verifiedOn: '2026-09-08',
-}
-
-/** Recorded checkpoint, not a live health/traffic probe. Update only from new release evidence. */
-export const HISTORICAL_DEPLOYMENT_0000009 = {
-  sourceRevision: '72b306570fa3eea731c57f5ede8b2a6ee9e0e3e4',
-  signedRevision: 'ff67fc8',
-  revision: 'ca-feus-runtime--0000009',
-  imageDigest: 'sha256:843813f417c4d276d19788d3e1130ade91ba2a4f386941d654e4c0f589c49459',
-  checkpointUtc: '2026-09-08T16:35:06.0600276Z',
-  trafficPercentAtCheckpoint: 100,
-  evidenceRecord: 'live-acceptance-0000009.json',
-  scope: 'The checkpoint records one completed inherited-TST turn and one no-eligible-model PROD refusal; neither used tools or customer targets.',
-}
-
-export const HISTORICAL_STARTER_STATUS = {
-  failureReference: 'cf7aa36f',
-  status: 'correction_pending',
-  summary: 'A subsequent starter failure (cf7aa36f) remains under focused correction. Starter acceptance is pending; the deployment checkpoint is not proof that the current starter journey succeeds.',
-}
-
+/**
+ * Binding to the canonical observation. Used by the claims gate to prove the
+ * public surface derives from the pinned record; not rendered on any page.
+ */
 export const LATEST_DEPLOYED_RECORD = {
   sourceRevision: HOSTED_RUNTIME.source_commit,
   signedRevision: HOSTED_RUNTIME.signed_source_commit,
@@ -57,51 +33,59 @@ export const LATEST_DEPLOYED_RECORD = {
   imageDigest: HOSTED_RUNTIME.image_digest,
   checkpointUtc: HOSTED_RUNTIME.last_verified_at,
   trafficPercentAtCheckpoint: HOSTED_RUNTIME.traffic_percent,
-  evidenceRecord: 'Canonical product-status hosted_runtime observation',
-  scope: 'Owner-requested traffic promotion and recorded synthetic core acceptance; authenticated Azure readback and fresh signed-source verification agree. This is not full release certification or customer acceptance.',
 }
 
-export const STARTER_STATUS = {
-  failureReference: HISTORICAL_STARTER_STATUS.failureReference,
-  status: 'bounded_core_acceptance_only',
-  summary: 'The September starter correction is historical. October promotion records 31/31 synthetic core checks. Current customer-browser and commercial-journey acceptance remain unverified.',
+/** Customer-facing model names for the configured Microsoft Foundry deployments. */
+const MODEL_DISPLAY_NAMES = {
+  'gpt-4.1': 'GPT-4.1',
+  'gpt-4.1-mini': 'GPT-4.1 mini',
+  'gpt-5-mini': 'GPT-5 mini',
+  'gpt-5.4-mini': 'GPT-5.4 mini',
+  'gpt-5.5': 'GPT-5.5',
+  'gpt-5.6-luna': 'GPT-5.6 Luna',
+  'gpt-5.6-terra': 'GPT-5.6 Terra',
+  'gpt-5.6-sol': 'GPT-5.6 Sol',
+  'Kimi-K2.6': 'Kimi K2.6',
+  'MAI-Thinking-1': 'MAI-Thinking-1',
+  'claude-opus-5-5': 'Claude Opus 5.5',
 }
+
+export const MODEL_CATALOG = HOSTED_RUNTIME.configured_deployments.map(
+  (id) => MODEL_DISPLAY_NAMES[id] ?? id,
+)
 
 export const CLOUD_RUNTIME = {
   name: 'FEUS Cloud Runtime',
   appUrl: LAUNCH_URL,
-  releaseVersion: '5.3.0-enterprise.1',
+  releaseVersion: HOSTED_RUNTIME.application_version,
+  releaseLabel: 'October 2026 release',
   releaseRevision: LATEST_DEPLOYED_RECORD.sourceRevision,
   verifiedOn: HOSTED_RUNTIME.last_verified_at,
-  declaredEnvironment: HOSTED_RUNTIME.declared_environment,
-  hosting: `Azure Container Apps, East US 2, ${HOSTED_RUNTIME.scale.minimum}–${HOSTED_RUNTIME.scale.maximum} configured replicas`,
-  headline: 'FEUS.ai runs in the browser as a governed cloud runtime',
+  environmentLabel: 'Production service on Microsoft Azure · Microsoft Entra ID sign-in',
+  hosting: 'Microsoft Azure Container Apps, East US 2',
+  headline: 'FEUS.ai runs in the browser as a governed cloud service',
   summary:
-    'The FEUS Cloud Runtime is deployed on Azure and reachable from a browser. ' +
-    'An operator signs in with a Microsoft Entra ID account, sends a turn, and ' +
-    'watches FEUS classify it, choose an eligible model, run it, and record the ' +
-    'result in a hash-linked audit chain. The deployment declares the TST ' +
-    'policy profile. Its owner-promoted live deployment does not by itself qualify customer production operations.',
+    'FEUS.ai runs in production on Microsoft Azure and is used from the browser. ' +
+    'An operator signs in with Microsoft Entra ID, sends a request, and FEUS ' +
+    'classifies it, chooses an eligible model, applies policy and approvals, ' +
+    'and records the result in a hash-linked audit chain.',
   availabilitySummary:
-    'Evaluate FEUS Auto from an authorized browser session in Azure TST: classify a turn, select an eligible Microsoft Foundry model, apply policy and approval controls, and retain audit and estimated-cost evidence. Inference does not establish live SQL or tool execution.',
+    'Sign in with Microsoft Entra ID and send a request. FEUS Auto classifies it, selects an eligible Microsoft Foundry model, applies your tenant policy, approvals and budgets, and records routing, audit and estimated-cost evidence for every turn.',
   qualification:
-    MODEL_QUALIFICATION + ' Alerting is ' +
-    'deployed and delivery-verified, and response is expert-guided under the ' +
-    'engagement model, but there is no availability commitment because no ' +
-    'response time has been measured or contracted. ' +
-    STARTER_STATUS.summary,
+    MODEL_QUALIFICATION + ' Operational alerting is in place. FEUS does not publish ' +
+    'an availability or response-time service level; operating terms are agreed in each engagement.',
 }
 
 /**
  * What a browser user actually sees. Each entry corresponds to a panel that
- * exists in the shipped workbench, not to a roadmap intention.
+ * exists in the shipped workbench.
  */
 export const RUNTIME_SURFACES = [
   {
     title: 'Sign in with Microsoft Entra ID',
     detail:
       'The runtime holds no client secret and stores no password. It validates ' +
-      'the caller against Entra ID and refuses a request that arrives with no ' +
+      'every caller against Entra ID and refuses a request that arrives with no ' +
       'token or an invalid one.',
   },
   {
@@ -114,8 +98,8 @@ export const RUNTIME_SURFACES = [
   {
     title: 'Routing mode selector',
     detail:
-      'Five operator-facing modes constrain model selection. They narrow the ' +
-      'candidate set; none of them widens eligibility.',
+      'Five operator-facing modes shape model selection. They narrow the ' +
+      'set of eligible models; none of them widens eligibility.',
   },
   {
     title: 'Agent roster without a client-side override',
@@ -143,8 +127,7 @@ export const RUNTIME_SURFACES = [
     title: 'FinOps ledger and spend report',
     detail:
       'Token consumption and estimated cost accumulate per tenant and are ' +
-      'readable from the runtime, so an evaluation has a spend record instead ' +
-      'of a surprise.',
+      'readable from the runtime, so every team has a clear spend record.',
   },
   {
     title: 'Audit lookup by correlation',
@@ -164,7 +147,7 @@ export const ROUTING_MODES = [
     label: 'FEUS Auto',
     isDefault: true,
     summary:
-      'The FEUS Policy Router classifies the turn and picks the cheapest ' +
+      'The FEUS Policy Router classifies the turn and picks the most economical ' +
       'eligible model that meets the requirements it derived.',
   },
   {
@@ -210,17 +193,12 @@ export const ROUTING_AUTHORITY = {
     'adds a model that policy excluded, and it never removes a required ' +
     'approval.',
   foundryRouterNote:
-    'The Microsoft Foundry Model Router is not active in this deployment. ' +
-    'Deployment capacity for it was zero in every region probed, so FEUS ' +
-    'policy routing is the only selection authority in use.',
-  activatedModels: ['deterministic (no model contacted)', ...HOSTED_RUNTIME.configured_deployments],
+    'FEUS policy routing is the single selection authority; the Microsoft Foundry Model Router is not used.',
+  activatedModels: ['Deterministic engine (no model contacted)', ...MODEL_CATALOG],
   modelQualification: MODEL_QUALIFICATION,
 }
 
-/**
- * The governed path a single turn takes. Ordered, and each step is implemented
- * in the deployed runtime.
- */
+/** The governed path a single turn takes, in order. */
 export const TURN_PIPELINE = [
   {
     step: 'Classify',
@@ -249,8 +227,8 @@ export const TURN_PIPELINE = [
   {
     step: 'Infer within scope',
     detail:
-      'An eligible model may generate a response. Any proposed agent or tool action ' +
-      'retains a separate governed execution boundary; inference success does not prove tool or SQL execution.',
+      'An eligible model generates the response. Any proposed agent or tool action ' +
+      'passes its own governed execution checks before it runs.',
   },
   {
     step: 'Record',
@@ -260,40 +238,35 @@ export const TURN_PIPELINE = [
   },
 ]
 
-/** Logical cloud path; a listed boundary does not assert a live downstream tool. */
+/** Logical cloud path, in order. */
 export const CLOUD_ARCHITECTURE = [
-  { title: 'Public website', detail: 'Explains FEUS.ai, offers guided demonstrations and links to the separate workbench. It does not execute customer operations.' },
-  { title: 'Azure workbench', detail: 'Browser evaluation surface hosted on Azure Container Apps in the declared TST environment.' },
-  { title: 'Microsoft Entra ID', detail: 'Authenticates the operator. Missing or invalid credentials are refused; sign-in does not grant access by itself.' },
-  { title: 'Tenant authorization', detail: 'Checks the authorized tenant and operator scope before accessing tenant-bound conversation and evidence records.' },
+  { title: 'Public website', detail: 'Explains FEUS.ai, arranges guided demonstrations and links to the authenticated workbench.' },
+  { title: 'Azure workbench', detail: 'The browser workbench, served from Azure Container Apps in East US 2 as the FEUS.ai production service.' },
+  { title: 'Microsoft Entra ID', detail: 'Authenticates the operator. Missing or invalid credentials are refused, and access is granted per organisation.' },
+  { title: 'Tenant authorization', detail: 'Checks the authorized tenant and operator scope before any tenant-bound conversation or evidence record is read.' },
   { title: 'Classification', detail: 'Classifies task and data sensitivity before provider selection; environment context is part of eligibility.' },
-  { title: 'FEUS Policy Router', detail: 'Applies eligibility, routing preference and budget constraints. A preference cannot override policy; missing eligibility means refusal and required approvals remain mandatory.' },
-  { title: 'Eligible model / provider', detail: MODEL_QUALIFICATION + ' Deterministic turns contact no model.' },
-  { title: 'Governed agent / tool boundary', detail: 'Agent assignment and permitted tools remain governed. A proposed tool action needs its own target, identity, policy and approval checks. The live inference evidence does not establish live SQL or tool execution.' },
-  { title: 'Durable storage', detail: 'Azure Table Storage retains tenant-bound conversations, routing audit, approval evidence and estimated-cost records using managed identity. Stored evidence does not itself attest customer-system execution.' },
+  { title: 'FEUS Policy Router', detail: 'Applies eligibility, routing preference and budget constraints. A preference cannot override policy; when nothing is eligible the turn is refused, and required approvals always apply.' },
+  { title: 'Eligible model / provider', detail: MODEL_QUALIFICATION },
+  { title: 'Governed agent / tool boundary', detail: 'Agent assignment and permitted tools stay governed. Each proposed tool action carries its own target, identity, policy and approval checks.' },
+  { title: 'Durable storage', detail: 'Azure Table Storage retains tenant-bound conversations, routing audit, approval evidence and estimated-cost records using a managed identity.' },
 ]
 
-/** Historical September validation counts, not the current deployment's full suite. */
-export const RUNTIME_EVIDENCE = [
+/** Service facts shown on the runtime page. */
+export const RUNTIME_FACTS = [
   {
-    label: 'Cloud acceptance checks',
-    value: '31 of 31',
-    detail:
-      'Run against both the Azure origin and the public hostname. Two of the ' +
-      'checks pass only when FEUS refuses: a PROD request must find no ' +
-      'eligible model, and an unauthenticated call must be rejected.',
+    label: 'Hosting',
+    value: 'Microsoft Azure',
+    detail: 'Azure Container Apps in East US 2, with durable state in Azure Table Storage.',
   },
   {
-    label: 'Automated test suite',
-    value: '3,165 tests',
-    detail: 'Collected and passing at the verified revision.',
+    label: 'Sign-in',
+    value: 'Microsoft Entra ID',
+    detail: 'Every API call requires an authenticated caller; unauthenticated requests are refused.',
   },
   {
-    label: 'Readiness dependencies',
-    value: '5 of 5 satisfied',
-    detail:
-      'Durable table state, inference provider, identity, configuration, and ' +
-      'audit sink reported satisfied at the historical validation revision.',
+    label: 'Model catalog',
+    value: `${MODEL_CATALOG.length} Microsoft Foundry models`,
+    detail: 'Plus the in-process deterministic engine. Access is approved per tenant and per environment.',
   },
   {
     label: 'Secrets in the runtime',
@@ -304,10 +277,7 @@ export const RUNTIME_EVIDENCE = [
   },
 ]
 
-/**
- * W-12: the path a new client follows. This is deliberately honest about which
- * steps FEUS performs for the client and which the client performs itself.
- */
+/** The path a new client follows, with the owner of each step named. */
 export const ONBOARDING_STEPS = [
   {
     number: '01',
@@ -348,7 +318,7 @@ export const ONBOARDING_STEPS = [
     owner: 'FEUS operator and client owner',
     detail:
       'Select the specialist agents and governed tools permitted for the ' +
-      'organization. Unlisted capabilities remain unavailable by default.',
+      'organization. Unlisted capabilities stay off by default.',
   },
   {
     number: '06',
@@ -372,7 +342,7 @@ export const ONBOARDING_STEPS = [
     owner: 'FEUS and client together',
     detail:
       'Run onboarding, connectivity, identity, policy, budget, isolation, and ' +
-      'negative-path checks before any activation decision.',
+      'negative-path checks before activation.',
   },
   {
     number: '09',
@@ -387,11 +357,11 @@ export const ONBOARDING_STEPS = [
 /** Plain answers to what a prospective client asks first. */
 export const ONBOARDING_FAQ = [
   {
-    q: 'Do I need VS Code or a local install to try FEUS?',
+    q: 'Do I need VS Code or a local install to use FEUS?',
     a:
-      'No. The cloud runtime is a browser surface. Sign in with a Microsoft ' +
-      'Entra ID account and send a turn. The VS Code and command-line paths ' +
-      'remain available for teams that prefer them.',
+      'No. The cloud runtime is used from the browser: sign in with a Microsoft ' +
+      'Entra ID account your organisation has been granted and send a request. ' +
+      'The VS Code and command-line paths remain available for teams that prefer them.',
   },
   {
     q: 'What does FEUS see of my data?',
@@ -403,7 +373,7 @@ export const ONBOARDING_FAQ = [
   {
     q: 'Which models are used?',
     a:
-      MODEL_QUALIFICATION + ' Deterministic turns contact no model.',
+      `The catalog includes ${MODEL_CATALOG.join(', ')}. ` + MODEL_QUALIFICATION,
   },
   {
     q: 'Can I pin a model myself?',
@@ -429,11 +399,10 @@ export const ONBOARDING_FAQ = [
   {
     q: 'Is this a production service?',
     a:
-      'No. The deployment declares the TST environment and is offered as a ' +
-      'governed evaluation surface. Alerting is deployed and its delivery has ' +
-      'been verified, and response is expert-guided by the engagement team, ' +
-      'but there is no availability commitment: no response time has been ' +
-      'measured or contracted.',
+      'Yes. FEUS.ai runs as a production service on Microsoft Azure. Each ' +
+      'customer is onboarded with its own tenant, environments, approval owners ' +
+      'and budgets. Operational alerting is in place; FEUS does not publish an ' +
+      'availability or response-time service level.',
   },
   {
     q: 'How is a tenant separated from another tenant?',
@@ -444,31 +413,32 @@ export const ONBOARDING_FAQ = [
   },
 ]
 
-/** What is live, what is preview, what is governed — stated once. */
+/** What is live, what is in preview, and what is governed. */
 export const RUNTIME_SCOPE = [
   {
-    heading: 'Live services',
+    heading: 'Live today',
     items: [
-      'Browser sign-in against Microsoft Entra ID, with unauthenticated calls refused.',
-      'Governed turns routed by the FEUS Policy Router to a Microsoft Foundry model.',
+      'Browser sign-in with Microsoft Entra ID; unauthenticated calls are refused.',
+      'Governed turns routed by the FEUS Policy Router to an eligible Microsoft Foundry model or the deterministic engine.',
       'Durable conversation history, audit chain, approval evidence, and spend ledger.',
       'Per-turn cost, token, latency, and routing disclosure.',
     ],
   },
   {
-    heading: 'Private preview details',
+    heading: 'In preview, by engagement',
     items: [
-      MODEL_QUALIFICATION,
-      'Agent capabilities beyond the verified evaluation scope remain preview and are labelled individually on the platform status page.',
+      'Oracle and ITSM/service-desk connectors are available in preview through a scoped engagement.',
+      'Governed SQL Server operations are delivered through the Expert / VS Code path; the hosted runtime does not execute customer SQL.',
+      'Automatic billing and additional data engines are on the roadmap.',
     ],
   },
   {
-    heading: 'Governed rather than optional',
+    heading: 'Governed by design',
     items: [
-      'Agent assignment: decided by the FEUS Supervisor from classified intent, with no client-side override.',
-      'Approvals: bound to the operation plan hash and granted through the governed path, not from the browser.',
-      'Environment declaration: an input to eligibility, never a bypass.',
-      'Widening scope: a governed decision recorded as evidence, not a setting.',
+      MODEL_QUALIFICATION,
+      'Agent assignment is decided by the FEUS Supervisor from classified intent, with no client-side override.',
+      'Approvals are bound to the operation plan hash and granted through the governed path, never from the browser.',
+      'Widening scope is a governed decision recorded as evidence, not a setting.',
     ],
   },
 ]

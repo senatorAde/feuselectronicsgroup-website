@@ -4,11 +4,9 @@ import SEO from '../components/SEO'
 import AnimatedSection from '../components/AnimatedSection'
 import WorkflowVisual from '../components/WorkflowVisual'
 import { SectionLabel, CTAButton, GlowDivider } from '../components/ui'
-import CommercialNotice from '../components/CommercialNotice'
 import { CalendlyButton } from '../components/CalendlyEmbed'
-import { EvidenceCallout } from '../components/statusComponents'
 import { POSTURE, PRODUCT_FAMILIES } from '../data/publicStatus'
-import { LAUNCH_URL } from '../data/cloudRuntime'
+import { CLOUD_RUNTIME, LAUNCH_URL } from '../data/cloudRuntime'
 
 const operatingPrinciples = [
   {
@@ -36,18 +34,16 @@ const operatingPrinciples = [
 /**
  * /feus-ai — primary FEUS.ai product page.
  *
- * Leads with business outcome, governed automation, operational maturity,
- * platform capabilities, and an adoption CTA. Exact-revision release-gate
- * detail, the Session 12D capability matrix, and known limitations live in the
- * Trust Center (/trust, /status) and are linked from here, never used as the
- * product headline.
+ * Leads with business outcome, governed automation, platform capabilities,
+ * and an adoption CTA. Capability status lives in the Trust Center (/trust,
+ * /status) and is linked from here.
  */
 export default function FeusAiPage() {
   return (
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="FEUS.ai Platform"
-        description="FEUS.ai is a governed AI Data Operations platform with an operationally validated core and capability-specific preview boundaries for new agents and integrations."
+        description="FEUS.ai is a governed AI operations platform running in production on Microsoft Azure: policy-aware model routing, approvals, audit evidence and governed database operations."
       />
 
       <section className="relative flex min-h-[680px] items-center overflow-hidden bg-ink px-4 pb-20 pt-32 text-white sm:px-6 lg:px-8">
@@ -78,9 +74,8 @@ export default function FeusAiPage() {
               <CTAButton to="/get-started" variant="secondary">See the adoption path</CTAButton>
               <CTAButton to="/agents" variant="secondary">Explore the agent portfolio</CTAButton>
             </div>
-            <CommercialNotice />
             <p className="mt-4 max-w-2xl text-sm text-slate-300">
-              Start with a guided live Azure TST demo using Microsoft Foundry inference and synthetic inputs, with authorized Entra access and agreed budgets. No customer connections. Choose offline fixtures if live access is unsuitable; inference does not establish live SQL or tool execution.
+              {CLOUD_RUNTIME.environmentLabel}. Start with a guided live demonstration using Microsoft Foundry models and sample data, led by a FEUS engineer with an agreed budget, or choose an offline walkthrough.
             </p>
             <p className="mt-4 text-sm text-slate-400">
               Already onboarded?{' '}
@@ -136,12 +131,14 @@ export default function FeusAiPage() {
 
       <section className="section-ink py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <SectionLabel>Operational evidence</SectionLabel>
-          <h2 className="mt-5 text-3xl font-bold text-white">Operational maturity with governance intact</h2>
+          <SectionLabel>How it runs</SectionLabel>
+          <h2 className="mt-5 text-3xl font-bold text-white">In production, with governance intact</h2>
           <p className="mt-6 text-slate-300 leading-relaxed">
-            {POSTURE.validationStatement} The core GovernedExecutionGateway path has documented real-world FEUS SQL Server usage: 48 of 48 provisioning batches passed all seven gates and the recorded audit chain verified. The assessed platform revision additionally completed {POSTURE.testsPassedAtRevision.toLocaleString()} automated tests and established policy, routing, approval, handoff, and execution-truth properties. {POSTURE.lifecycleStatement}
+            {POSTURE.validationStatement} {CLOUD_RUNTIME.summary}
           </p>
-          <div className="mt-8"><EvidenceCallout /></div>
+          <p className="mt-4 text-slate-300 leading-relaxed">
+            For database work, the GovernedExecutionGateway runs seven gates in order — readiness, audit, environment and identity, policy, PII inspection, approval, and execution — and FEUS uses it in its own SQL Server provisioning work. {POSTURE.lifecycleStatement}
+          </p>
         </div>
       </section>
 
@@ -152,9 +149,8 @@ export default function FeusAiPage() {
             Mature core and controlled expansion
           </h2>
           <p className="text-slate-600 max-w-3xl mb-10">
-            Each family carries its own lifecycle. A preview extension does not make
-            the entire platform preview, and core maturity does not promote an
-            unvalidated integration.
+            Each family has its own published status, so you can see exactly what
+            is available today and what is offered in preview through an engagement.
           </p>
           <div className="mb-10">
             <CTAButton to="/agents" variant="outline">Agent and integration portfolio</CTAButton>
@@ -174,7 +170,7 @@ export default function FeusAiPage() {
                   {fam.statusLine}
                 </p>
                 <p className="mt-3 text-slate-600 text-sm leading-relaxed">{fam.description}</p>
-                <p className="mt-3 text-xs text-slate-500">See the capability lifecycle and exact restrictions below.</p>
+                <p className="mt-3 text-xs text-slate-500">See the capability status and scope.</p>
               </Link>
             ))}
           </div>
@@ -192,17 +188,16 @@ export default function FeusAiPage() {
           <p className="mt-4 text-slate-600 leading-relaxed">
             Enterprise adoption is scoped by capability, target environment, identity
             model, and governance requirements. Our team will map your estate to the
-            capabilities that fit it today and the ones on a controlled validation path.
+            capabilities that fit it today and the previews worth exploring together.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <CTAButton to="/demo" variant="dark">Request a demonstration</CTAButton>
             <CTAButton to="/get-started" variant="outline">See the adoption path</CTAButton>
-            <CTAButton to="/architecture" variant="outline">Current-state architecture</CTAButton>
+            <CTAButton to="/architecture" variant="outline">Architecture</CTAButton>
           </div>
           <p className="mt-8 text-sm text-slate-600">
-            Detailed assurance evidence — the exact-revision capability matrix,
-            security-control results, release assessment scope, and known
-            limitations — is published in the{' '}
+            How FEUS.ai governs requests, protects data and handles security reports
+            is published in the{' '}
             <Link to="/trust" className="font-semibold text-feus-800 underline underline-offset-2">Trust Center</Link>,
             with per-capability detail on the{' '}
             <Link to="/status" className="font-semibold text-feus-800 underline underline-offset-2">status page</Link>{' '}

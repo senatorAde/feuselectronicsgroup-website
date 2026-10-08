@@ -11,9 +11,9 @@ export default function CommercialJourneyPage() {
     <header>
       <p className="commercial-eyebrow">From business intent to verified value</p>
       <h1>A useful first conversation.<br />A controlled path to adoption.</h1>
-      <p>Explore FEUS.ai around your actual workload, governance needs and evidence—not a promise that every illustrated capability is live.</p>
+      <p>Explore FEUS.ai around your actual workload, governance needs and evidence, with a clear decision at every step.</p>
       <div className="commercial-actions"><CalendlyButton>Request an intro</CalendlyButton><Link to="/trial" className="btn-secondary">Review the evaluation trial</Link></div>
-      <p className="commercial-small">Requesting an intro does not book an appointment. A booking requires a confirmed Calendly event or an agreed time by email.</p>
+      <p className="commercial-small">After you request an intro, we confirm a time with you by email or through the scheduling link.</p>
     </header>
     <CommercialNotice />
     <section aria-labelledby="calls-title"><h2 id="calls-title">Four conversations, with clear decisions</h2>
@@ -23,9 +23,9 @@ export default function CommercialJourneyPage() {
     </section>
     <UseCaseStories />
     <section><h2>Choose the route that fits your team</h2><div className="commercial-grid">
-      <article className="commercial-card"><h3>Hosted browser route</h3><p>For organizations evaluating a browser experience with Entra-based scoped access. No editor or Git is needed for ordinary users. Hosted inference evidence is distinct from governed live customer SQL.</p><Link to="/readiness#hosted">Hosted readiness</Link></article>
-      <article className="commercial-card"><h3>Expert installed route</h3><p>For DBA/operator-led evaluation in an agreed customer environment. Qualify installed candidate dependencies, gateway wiring and effective target privileges. Installed-product use does not require Git.</p><Link to="/readiness#expert">Expert readiness</Link></article>
+      <article className="commercial-card"><h3>Hosted browser route</h3><p>The production service on Microsoft Azure, used from the browser with Microsoft Entra ID sign-in. No editor or Git is needed for ordinary users. Customer SQL execution is delivered through the Expert route.</p><Link to="/readiness#hosted">Hosted readiness</Link></article>
+      <article className="commercial-card"><h3>Expert installed route</h3><p>For DBA/operator-led work in your environment through VS Code. We confirm installed dependencies, gateway wiring and effective target privileges with you. Installed-product use does not require Git.</p><Link to="/readiness#expert">Expert readiness</Link></article>
     </div></section>
-    <section><h2>Agree the commercial scope, not an invented tier</h2><p>Users, resources, capabilities, support and entitlements are negotiated for your customer-specific pack. Package pricing is approved and quoted in your scoped proposal; contact sales to start.</p><div className="commercial-actions"><Link to="/packages" className="btn-secondary">Compare engagement options</Link><Link to="/readiness" className="btn-secondary">Review your readiness pack</Link></div></section>
+    <section><h2>Agree the commercial scope that fits</h2><p>Users, resources, capabilities, support and entitlements are negotiated for your customer-specific pack. Package pricing is approved and quoted in your scoped proposal; contact sales to start.</p><div className="commercial-actions"><Link to="/packages" className="btn-secondary">Compare engagement options</Link><Link to="/readiness" className="btn-secondary">Review your readiness pack</Link></div></section>
   </div>
 }

@@ -4,8 +4,7 @@ import { SectionLabel, CTAButton } from '../components/ui'
 import { CapabilityStatusTable } from '../components/statusComponents'
 
 /**
- * /sqlops — FEUS SQLOps family page. Separates the operational core
- * GEG path from the assessed vNext dispatcher/PES path.
+ * /sqlops — FEUS SQLOps family page.
  */
 export default function SqlOpsPage() {
   return (
@@ -24,13 +23,12 @@ export default function SqlOpsPage() {
           </p>
           <p className="mt-6 text-gray-300 leading-relaxed">
             FEUS SQLOps is FEUS.ai&rsquo;s SQL Server governance and operations family.
-            The core GEG path has documented operational validation in a real FEUS
-            provisioning workflow: 48 of 48 batches passed all seven governance
-            gates. The separately assessed vNext path implements typed work orders,
-            policy checks, approval binding, and pre-execution gates up to a
-            fail-closed boundary. That newer dispatch path remains in private preview because no execution
-            dispatcher exists and no SQL executor is bound. Session 12D initiated
-            no database operation and did not certify that vNext path.
+            Every database operation runs through the GovernedExecutionGateway, which
+            applies seven gates in order: readiness, audit, environment and identity,
+            policy, PII inspection, approval, and execution. FEUS uses the same path
+            in its own SQL Server provisioning work, where every batch passed all
+            seven gates with a verified audit chain. SQLOps is delivered through the
+            Expert / VS Code path for your qualified targets and approved identities.
           </p>
         </div>
       </section>
@@ -38,31 +36,27 @@ export default function SqlOpsPage() {
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-4xl mx-auto grid gap-10">
           <div>
-            <h2 className="text-2xl font-bold text-white mb-4">What exists today</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">What you get</h2>
             <ul className="glass-card rounded-2xl p-6 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">
-              <li>A core SQL Server gateway with documented real-workflow execution and automated test evidence.</li>
-              <li>Policy checks that run before the currently reachable execution boundary and default to denial.</li>
-              <li>Pre-execution governance gates (stages 0–5) that fail closed under their tested conditions.</li>
-              <li>A fail-closed vNext stage 6: with no bound executor, vNext governed requests stop at a verdict.</li>
+              <li>A governed SQL Server gateway with automated test coverage, used in FEUS&rsquo;s own provisioning work.</li>
+              <li>Policy checks that run before execution and default to denial.</li>
+              <li>PII inspection that always blocks critical categories, and approvals bound to the operation plan.</li>
+              <li>A hash-linked audit trail for every governed operation.</li>
             </ul>
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-white mb-4">Current boundaries</h2>
-            <ul className="glass-card rounded-2xl p-6 border-l-4 border-slate-500/60 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">
-              <li>A vNext execution dispatcher or bound SQL executor.</li>
-              <li>Live governed database execution through the vNext Control Plane/PES path.</li>
-              <li>A vNext compensating rollback executor.</li>
-              <li>Release authorization for the vNext dispatch path beyond internal evaluation environments.</li>
+            <h2 className="text-2xl font-bold text-white mb-4">How it is delivered</h2>
+            <ul className="glass-card rounded-2xl p-6 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">
+              <li>Through the Expert / VS Code path, installed in your environment as part of an engagement.</li>
+              <li>Each target server, service identity and entity allowlist is qualified during onboarding.</li>
+              <li>The hosted cloud runtime does not execute customer SQL.</li>
+              <li>The Agent Control Plane dispatch path is offered in preview through a scoped engagement.</li>
             </ul>
-            <p className="mt-3 text-xs text-gray-500">
-              These boundaries apply to the vNext dispatch path only. The core FEUS
-              SQLOps gateway is separately available for controlled enterprise adoption.
-            </p>
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-white mb-4">SQLOps capability evidence</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">SQLOps capabilities</h2>
             <div className="glass-card rounded-2xl p-6">
               <CapabilityStatusTable family="FEUS SQLOps" />
             </div>
@@ -74,8 +68,8 @@ export default function SqlOpsPage() {
           </div>
 
           <div className="flex flex-wrap gap-4">
-            <CTAButton to="/architecture">See the current-state architecture</CTAButton>
-            <CTAButton to="/status" variant="secondary">Platform status</CTAButton>
+            <CTAButton to="/architecture">See the architecture</CTAButton>
+            <CTAButton to="/status" variant="secondary">Service status</CTAButton>
           </div>
         </div>
       </section>

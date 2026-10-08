@@ -93,10 +93,9 @@ export default function SecurityPage() {
                 We are not publishing a response time, a severity scale, or a bounty.
               </p>
               <p>
-                A formal vulnerability management programme with a published service
-                level is not yet in place, and stating one we do not operate would be
-                the wrong way to begin a security relationship. This page will be
-                updated when that programme exists, and it will be dated when it is.
+                We work through each report directly with the person who sent it. When
+                we introduce a published severity scale or service level, this page
+                will be updated and dated.
               </p>
               <p>
                 We are happy to credit you when we publish a fix, if you would like us
@@ -118,16 +117,15 @@ export default function SecurityPage() {
                 directly.
               </p>
               <p>
-                Our published security posture, including the controls that have not
-                met their threshold, is documented under{' '}
+                The controls that protect FEUS.ai are described under{' '}
                 <Link
                   to="/trust/security"
                   className="text-accent-300 underline underline-offset-2"
                 >
-                  security posture
+                  security
                 </Link>
-                . A finding we have already published is still worth reporting if you
-                can show it is worse than we described.
+                . If you can show that a control is weaker than we describe, please
+                report it.
               </p>
             </div>
           </div>

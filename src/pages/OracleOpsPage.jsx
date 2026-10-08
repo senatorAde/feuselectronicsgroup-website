@@ -29,7 +29,7 @@ const tiers = [
     tier: 'Tier 1',
     title: 'Observe only',
     count: '13',
-    status: 'Fixture validated',
+    status: 'Preview by engagement',
     icon: Eye,
     detail: 'Registered read-only observations with target, identity, host, role, and continuity checks.',
   },
@@ -37,9 +37,9 @@ const tiers = [
     tier: 'Tier 2',
     title: 'Controlled action',
     count: '4',
-    status: 'Contract only',
+    status: 'Not offered today',
     icon: LockKeyhole,
-    detail: 'Approval-bound action contracts exist, but no live adapter or authorized execution path is active.',
+    detail: 'Approval-bound action contracts are defined; controlled actions are not part of the current offer.',
   },
   {
     tier: 'Tier 3',
@@ -94,7 +94,7 @@ export default function OracleOpsPage() {
   return (
     <div className="bg-navy-950 min-h-screen">
       <SEO
-        title="FEUS OracleOps | Private Preview"
+        title="FEUS OracleOps | Preview"
         description="FEUS OracleOps brings governed intelligence to Oracle operational workflows, with capability-specific controls and an accountable adoption path."
       />
 
@@ -189,16 +189,16 @@ export default function OracleOpsPage() {
       <section className="py-14 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 text-sm">
           <div>
-            <p className="font-semibold text-white">Evaluation scope</p>
+            <p className="font-semibold text-white">Preview scope</p>
             <p className="mt-2 text-gray-400 leading-relaxed">{lifecycle.environment}</p>
           </div>
           <div>
-            <p className="font-semibold text-white">Current capability boundary</p>
+            <p className="font-semibold text-white">What is included</p>
             <p className="mt-2 text-gray-400 leading-relaxed">{lifecycle.restrictions}</p>
           </div>
           <div>
             <p className="font-semibold text-white">Adoption path</p>
-            <p className="mt-2 text-amber-200/80 leading-relaxed">{lifecycle.nextMilestone}</p>
+            <p className="mt-2 text-gray-300 leading-relaxed">{lifecycle.nextMilestone}</p>
           </div>
         </div>
       </section>

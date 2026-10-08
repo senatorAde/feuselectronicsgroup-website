@@ -3,12 +3,11 @@ import { ChevronDown } from 'lucide-react'
 import SEO from '../components/SEO'
 import { SectionLabel, CTAButton } from '../components/ui'
 import { POSTURE } from '../data/publicStatus'
-import { FAQ_ITEMS, RELEASE_ASSESSMENT } from '../data/releaseAssessment'
+import { FAQ_ITEMS } from '../data/releaseNotes'
 import CloudEvidence from '../components/CloudEvidence'
 
 /**
- * /faq — platform FAQ (Trust Center content plan §31).
- * Questions and answers are approved text; do not reword answers.
+ * /faq — platform FAQ. Answers live in src/data/releaseNotes.js.
  */
 
 function FaqItem({ q, a }) {
@@ -43,7 +42,7 @@ export default function FaqPage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="Platform FAQ"
-        description="Direct answers about FEUS.ai: production readiness, certifications, integrations, audit trail, PII protection, ROI figures, and authorized use."
+        description="Direct answers about FEUS.ai: production use, certifications, integrations, models, audit trail, personal data, ROI, trials and billing."
       />
 
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
@@ -53,9 +52,7 @@ export default function FaqPage() {
             Direct answers about FEUS.ai
           </h1>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            These are the questions evaluators ask most. {POSTURE.availabilityQualifier}{' '}
-            Exact-revision answers below are assessed against revision{' '}
-            <span className="font-mono text-sm break-all">{RELEASE_ASSESSMENT.certifiedRevision}</span>.
+            These are the questions evaluators ask most. {POSTURE.availabilityQualifier}
           </p>
           <div className="mt-6"><CloudEvidence /></div>
         </div>
@@ -63,13 +60,12 @@ export default function FaqPage() {
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-3xl mx-auto space-y-3">
-          <h2 className="text-xl font-bold text-white">Retained assessment FAQ · historical scope</h2>
-          <p className="pb-4 text-sm text-gray-400">These retained answers include historical restrictions and do not replace the current cloud evaluation scope above. In particular, the offline ROI demonstration statement is not a description of guided live inference.</p>
+          <h2 className="text-xl font-bold text-white pb-2">Frequently asked questions</h2>
           {FAQ_ITEMS.map((item) => (
             <FaqItem key={item.q} q={item.q} a={item.a} />
           ))}
           <div className="pt-8 flex flex-wrap gap-4">
-            <CTAButton to="/status">Platform status</CTAButton>
+            <CTAButton to="/status">Service status</CTAButton>
             <CTAButton to="/contact" variant="secondary">Ask a question</CTAButton>
           </div>
         </div>

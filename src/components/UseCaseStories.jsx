@@ -8,7 +8,7 @@ export default function UseCaseStories() {
   const story = USE_CASE_STORIES.find(item => item.id === selected)
   return <section className="commercial-story" aria-labelledby="story-title">
     <h2 id="story-title">Intent → Govern → Execute → Verify → Measure Value</h2>
-    <p><strong>Interactive walkthrough / simulation — not live execution.</strong> No database, model or customer target is called by these controls.</p>
+    <p><strong>Illustrative walkthrough.</strong> These controls step through an example; they do not call a database, model or customer system.</p>
     <div className="commercial-story-choices" role="group" aria-label="Choose a use case">
       {USE_CASE_STORIES.map(item => <button key={item.id} type="button" aria-pressed={selected === item.id}
         onClick={() => { setSelected(item.id); setStep(0) }}>{item.title}</button>)}
@@ -26,6 +26,6 @@ export default function UseCaseStories() {
       <button type="button" disabled={step === 0} onClick={() => setStep(step - 1)}>Previous stage</button>
       <button type="button" disabled={step === 4} onClick={() => setStep(step + 1)}>Next stage</button>
     </div>
-    <p>No auto-play. Use the buttons with keyboard, touch or pointer. <Link to="/architecture">Inspect architecture and evidence limits</Link>.</p>
+    <p>No auto-play. Use the buttons with keyboard, touch or pointer. <Link to="/architecture">See the reference architecture</Link>.</p>
   </section>
 }
