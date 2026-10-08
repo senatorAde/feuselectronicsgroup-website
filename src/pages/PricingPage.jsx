@@ -1,5 +1,6 @@
 import SEO from '../components/SEO'
 import { SectionLabel, CTAButton } from '../components/ui'
+import { Link } from 'react-router-dom'
 
 /**
  * /pricing — replaced platform pricing with a professional-services
@@ -44,6 +45,7 @@ export default function PricingPage() {
             self-service plans and blanket platform licensing terms are not offered
             on this page.
           </p>
+          <p className="mt-4 text-gray-300">For FEUS.ai, <Link to="/packages" className="underline">compare scoped engagement paths</Link>. Prices remain unpublished pending approval; users, resources and entitlements are negotiated, not preset public tiers.</p>
         </div>
       </section>
 

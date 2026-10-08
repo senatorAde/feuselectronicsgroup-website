@@ -1,3 +1,6 @@
+import { contactAvailable, consumeContactRate } from './contactControls.js';
+import { inquiryTypes } from '../src/data/contactNavigation.js';
+
 // ─────────────────────────────────────────────────────────
 // OPTION B: Vercel Serverless Function — Contact Form API
 // ─────────────────────────────────────────────────────────
@@ -56,35 +59,44 @@ function bookingUrl() {
   if (!raw) return '';
   try {
     const parsed = new URL(raw);
-    return parsed.protocol === 'https:' ? parsed.toString() : '';
+    return parsed.protocol === 'https:' && /(^|\.)calendly\.com$/i.test(parsed.hostname) &&
+      parsed.pathname.split('/').filter(Boolean).length >= 2 ? parsed.toString() : '';
   } catch {
     return '';
   }
 }
 
-export default async function handler(req, res) {
-  // CORS preflight
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    return res.status(200).end();
+export function createContactHandler({ rateCheck = consumeContactRate } = {}) {
+return async function handler(req, res) {
+  res.setHeader?.('Cache-Control', 'no-store');
+  if (req.method === 'GET') {
+    return res.status(200).json({ available: Boolean(contactAvailable()), delivery: 'email_provider', durableCRM: false });
   }
-
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  if (!contactAvailable()) return res.status(503).json({ error: 'Online inquiries are not operationally enabled. Please use the direct email fallback.' });
+  if (req.headers?.origin !== new URL(process.env.CONTACT_SITE_ORIGIN).origin) {
+    return res.status(403).json({ error: 'Origin not permitted' });
+  }
+  if (!req.body || typeof req.body !== 'object' || Array.isArray(req.body)) return res.status(400).json({ error: 'Invalid submission' });
   const { firstName, lastName, email, company, jobTitle, inquiryType, message } = req.body || {};
 
-  // Validate required fields
-  if (!firstName || !lastName || !email || !company || !inquiryType || !message) {
-    return res.status(400).json({ error: 'Missing required fields' });
+  for (const [field, limit] of Object.entries(LIMITS)) {
+    const value = req.body[field];
+    if (field === 'jobTitle' && value === undefined) continue;
+    if (typeof value !== 'string' || value.length > limit ||
+        (field !== 'jobTitle' && !value.trim()) || /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(value)) {
+      return res.status(400).json({ error: 'Invalid or oversized fields' });
+    }
   }
+  if (!inquiryTypes.includes(inquiryType) || req.body.privacyConsent !== true ||
+      (req.body.website !== undefined && req.body.website !== '')) return res.status(400).json({ error: 'Invalid submission or missing privacy consent' });
 
   // Basic email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
+  if (!emailRegex.test(email) || /[\r\n]/.test(email)) {
     return res.status(400).json({ error: 'Invalid email address' });
   }
 
@@ -99,19 +111,28 @@ export default async function handler(req, res) {
   };
 
   try {
+    if (!await rateCheck(req)) {
+      res.setHeader?.('Retry-After', '600');
+      return res.status(429).json({ error: 'Too many inquiries. Please wait before retrying or use direct email.' });
+    }
+  } catch {
+    return res.status(503).json({ error: 'Abuse protection is unavailable. No message was sent; please use direct email.' });
+  }
+
+  try {
     // ═══════════════════════════════════════════
     // PROVIDER: Resend (recommended)
     // ═══════════════════════════════════════════
     const { Resend } = await import('resend');
     const resend = new Resend(process.env.RESEND_API_KEY);
 
-    const toEmail = process.env.CONTACT_EMAIL_TO || 'info@feuselectronicsgroup.com';
-    const fromEmail = process.env.CONTACT_EMAIL_FROM || 'FEUS Website <onboarding@resend.dev>';
+    const toEmail = process.env.CONTACT_EMAIL_TO;
+    const fromEmail = process.env.CONTACT_EMAIL_FROM;
 
     const notification = await resend.emails.send({
       from: fromEmail,
       to: [toEmail],
-      replyTo: email,
+      replyTo: email.trim(),
       subject: `[FEUS Contact] ${safe.inquiryType} — ${safe.firstName} ${safe.lastName} (${safe.company})`
         .replace(/[\r\n]+/g, ' '),
       html: `
@@ -168,6 +189,7 @@ export default async function handler(req, res) {
     const acknowledgement = await resend.emails.send({
       from: fromEmail,
       to: [email],
+      replyTo: toEmail,
       subject: `Thank you for contacting FEUS Electronics Group`,
       html: `
         <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px;">
@@ -201,10 +223,13 @@ export default async function handler(req, res) {
       message: 'The email provider accepted the inquiry; inbox delivery is not confirmed.',
     });
 
-  } catch (error) {
+  } catch {
     console.error('Contact form provider request failed');
     return res.status(500).json({ 
-      error: 'Failed to send message. Please try again or email us directly at info@feuselectronicsgroup.com' 
+      error: 'The provider request failed; delivery is unknown. Please email info@feuselectronicsgroup.com directly before retrying.'
     });
   }
+};
 }
+
+export default createContactHandler();

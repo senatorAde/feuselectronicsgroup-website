@@ -1,0 +1,47 @@
+# Commercialization website candidate
+
+Candidate implementation only. No commit, push, deployment, operator enablement, customer approval, billing or live provider test is performed by this website change.
+
+## Journey and scope
+
+`/journey` leads with an intro and four approximate conversations: 20–30 minute intro, 30–60 minute fit/discovery, 60–90 minute readiness/onboarding, and value review around trial day 12–14. `/trial`, `/readiness` and `/packages` explain the customer-specific pack, negotiated entitlements, activation approvals, execution-anchored 14-day evaluation, explicit conversion consent, extension review and offboarding. No clock before onboarding or automatic billing. Hosted and Expert readiness are separate; ordinary users do not need Git. The website does not create or approve runtime packs.
+
+The candidate notice distinguishes the owner-ratified 2026-10-07 Foundry catalog from stale product-status metadata and historical hosted checkpoints. Catalog eligibility remains tenant/environment/privacy/capability/budget-specific. Installed candidate evidence is not live deployment acceptance. `publicStatus.js` and `cloudRuntime.js` historical records are intentionally preserved for parent reconciliation.
+
+The authenticated backend interface is `GET /api/v1/customer/journey` and `POST /api/v1/customer/journey/commands` with `{action,payload,expected_revision,idempotency_key}`. A configured human owner uses separate `/api/v1/customer/owner/journey` and `/api/v1/customer/owner/journey/commands` for readiness review and notification delivery. All require bearer identity, stable `X-Session-ID` and explicit `X-FEUS-Organization`; there is no anonymous activation path. `/readiness` links only to the existing workbench root (`LAUNCH_URL`) and names **Workspace & account**, not an invented deep-link route. The public website sends no lifecycle commands. Payload/decision contracts are owned by distribution `docs/commercialization/TRIAL_WORKFLOW.md`.
+
+Interactive stories are original user-controlled walkthroughs/simulations. No database or model calls, auto-play, production outcomes, invented ROI, customer references, certifications or prices. Native keyboard buttons, live-region stage updates, touch-sized controls and reduced-motion styling are included.
+
+## Official architecture asset
+
+Only the approved user-supplied `FEUS.ai architecture diagram.jpg` was copied from shared branding to `public/brand/feus-ai-architecture-reference.jpg`; the source remains unchanged. `/architecture` retains historical diagrams and adds executive, technical and security context, accessible text and a component-by-component available/limited/roadmap table. The graphic does not attest every depicted component or execution arrow.
+
+## Lead delivery operational gate
+
+FEUS/contact leads no longer use EmailJS. The browser reads `GET /api/contact` and posts to the existing server-side Resend endpoint only when available. Default state is unavailable. Separate legacy property inquiries retain their existing provider; no durable CRM is claimed.
+
+Required operator attestations: `CONTACT_DELIVERY_ENABLED=true`, `CONTACT_PRIVACY_ENABLED=true`, `CONTACT_ABUSE_CONTROLS_ENABLED=true`. Required server-only configuration: `RESEND_API_KEY`, `CONTACT_EMAIL_TO`, `CONTACT_EMAIL_FROM`, `CONTACT_SITE_ORIGIN`, `CONTACT_RATE_LIMIT_URL`, `CONTACT_RATE_LIMIT_TOKEN`, `CONTACT_RATE_LIMIT_SALT`. Never put secrets in `VITE_*`. The rate endpoint must implement authenticated Redis REST atomic EVAL; process-local counters are deliberately not used.
+
+The operator must verify sender/domain authorization, notification and acknowledgement acceptance/inbox results, bounce/error handling, provider/DPA/privacy notice and retention/deletion/access practices, trusted client-address routing and shared rate-counter behavior before enabling. Privacy approval is an operator decision, not inferred by this draft or automated tests. Counters contain salted IP hashes and expire after 600 seconds; inquiry content is not sent to the rate service. Limits are five inquiries per client and 100 globally per 600-second window. Missing client identity, counter failure, invalid input, honeypot or consent failure refuses delivery. Vercel uses its platform-provided `x-vercel-forwarded-for` only when `VERCEL=1`; another deployment must supply a trusted socket address or an explicitly reviewed adapter. Untrusted `x-forwarded-for` is not used.
+
+Client timeouts/malformed responses remain visible with delivery-unknown warnings. Provider rejection is an error, never a success; acknowledgement failure does not erase accepted notification. Acceptance is not proof of inbox delivery, booking, account creation or trial activation. Input remains available for retry; direct `mailto:info@feuselectronicsgroup.com` fallback is retained. Static hosting without `/api/contact` cannot deliver and defaults unavailable.
+
+## Scheduling and privacy
+
+Only existing `VITE_CALENDLY_URL`/`BOOKING_URL` configuration is used, HTTPS and Calendly event-path validated. No invented URL. Unconfigured scheduling requests an intro through contact and explicitly says an appointment is not yet booked. Failed/loading widgets retain a native event link; no guaranteed response deadline. The Calendly privacy banner is not suppressed. Candidate privacy copy describes server provider, shared abuse service, legacy property inquiries and scheduling; live deployment and legal approval are not asserted.
+
+## Documentation/release gate hook
+
+Before release, the parent gate should require this document and link its reviewed website source revision to:
+
+1. Current candidate capability reconciliation, model ratification evidence and unresolved product-status conflict disposition.
+2. Backend lifecycle contract and customer-pack/activation/conversion acceptance evidence for the actual revision.
+3. Website `npm test` and `npm run build` outputs, plus mobile/browser and reduced-motion acceptance.
+4. Delivery/privacy/abuse-control operator acceptance and scheduler verification, or explicit unavailable-mode acceptance.
+5. Approved customer-specific commercial terms and signed/deployed candidate evidence. No public price or self-service availability until approved.
+
+Website tests use local provider/rate stubs; they prove behavior, not operational configuration, inbox receipt, privacy approval or live deployment. Historical assertions are retained; directly coupled EmailJS/no-endpoint expectations were replaced by stronger server transport/guard assertions.
+
+Local browser fallback verification used installed Edge with a fresh private profile and loopback CDP, not an existing user browser or any newly installed tool. Against the built preview at `127.0.0.1:5188`, `/journey`, `/trial`, `/readiness`, `/packages`, `/contact?type=intro` and `/architecture` had no document overflow at 1440px or 390px. Native Tab/Enter selected walkthrough stages, advanced execution and reset to the hosted story; native intro activation selected the correct inquiry. Unconfigured delivery stayed visibly unavailable with a disabled send and email fallback, and scheduling explicitly remained not booked. Reduced-motion emulation produced no animation and zero transition duration. Eighteen checks passed with no runtime exceptions or non-GET requests. External network requests were blocked; live Calendly, email, authentication and backend lifecycle behavior remain unverified. The launched browser was closed and its profile removed; screenshots/report remain private under `.git`, not tracked public assets.
+
+The parent-added `.github/documentation-policy.json` defines `public_experience` changes and requires this document; `.github/documentation-impact.json` declares its update. `.github/workflows/documentation-impact.yml` executes vendored `scripts/check_documentation_impact.py` against the actual diff and review evidence on PRs, and the diff on branch pushes. Its canonical source is `senatorAde/FEUS-Enterprise-Distribution:scripts/check_documentation_impact.py`; the parent-supplied current source/vendor SHA-256 is `748818a93a431625f36cba920d0cd48e1459edcb5b423218b8440e5ba41dd623`. Human review for a no-impact declaration requires GitHub author association OWNER, MEMBER or COLLABORATOR; outsider approvals are not accepted. Re-verify equality after any gate edit; this declaration is not approval or a bypass of change-specific evidence.

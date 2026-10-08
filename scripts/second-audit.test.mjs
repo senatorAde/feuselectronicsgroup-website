@@ -1,7 +1,6 @@
 import { test, after } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync, cpSync, mkdtempSync, mkdirSync, writeFileSync, rmSync, existsSync } from 'node:fs'
-import { tmpdir } from 'node:os'
 import { join, extname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { spawnSync } from 'node:child_process'
@@ -13,7 +12,7 @@ import { PLATFORM_STATUS, DEMO_DISCLAIMER } from '../src/data/publicStatus.js'
 import { RELEASE_ASSESSMENT, KNOWN_LIMITATIONS, FAQ_ITEMS } from '../src/data/releaseAssessment.js'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
-const cacheDir = mkdtempSync(join(tmpdir(), 'feus-second-audit-vite-'))
+const cacheDir = mkdtempSync(join(root, '.second-audit-ssr-'))
 // Disable the mapped-drive watcher. SSR transforms use the real Vite/React
 // components, not source regexes standing in for rendered copy or navigation.
 const server = await createServer({
@@ -208,7 +207,7 @@ test('legal documents remain unapproved drafts and evidence copy has no checkout
 })
 
 test('existing claims gate still rejects marketing release-gate leakage (isolated mutation)', () => {
-  const fixture = mkdtempSync(join(tmpdir(), 'feus-claims-mutation-'))
+  const fixture = mkdtempSync(join(root, '.claims-mutation-'))
   try {
     const allowed = new Set(['.js', '.jsx', '.mjs', '.json', '.txt', '.xml', '.html'])
     for (const directory of ['src', 'public']) {

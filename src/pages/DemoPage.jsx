@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
+import CommercialNotice from '../components/CommercialNotice'
 import { SectionLabel, CTAButton } from '../components/ui'
 import { DEMO_DISCLAIMER, ROI_STATEMENT } from '../data/publicStatus'
 import { LIVE_DEMO } from '../data/demoExperience'
@@ -22,6 +23,7 @@ export default function DemoPage() {
       <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Evaluating FEUS.ai</SectionLabel>
+          <CommercialNotice />
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">
             Guided live Azure demonstration
           </h1>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
+import CommercialNotice from '../components/CommercialNotice'
 import { SectionLabel } from '../components/ui'
 import AudiencePaths from '../components/AudiencePaths'
 import CloudEvidence from '../components/CloudEvidence'
@@ -35,6 +36,7 @@ export default function CloudRuntimePage() {
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <SectionLabel>Guided cloud evaluation</SectionLabel>
+          <CommercialNotice />
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">
             {CLOUD_RUNTIME.headline}
           </h1>

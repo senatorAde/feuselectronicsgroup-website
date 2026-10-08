@@ -152,7 +152,8 @@ const mustNot = (text, re, where, why) => {
 
   const privacy = read('src', 'pages', 'PrivacyPage.jsx')
   must(privacy, /draft/i, 'src/pages/PrivacyPage.jsx', 'an unapproved notice must be labelled a draft')
-  must(privacy, /no cookies|sets no cookies/i, 'src/pages/PrivacyPage.jsx', 'the notice must state the site\'s actual browser-storage behaviour')
+  must(privacy, /does not write your inquiry to browser/i, 'src/pages/PrivacyPage.jsx', 'the notice must state the lead path\'s actual browser-storage behaviour')
+  must(privacy, /No blanket cookie-free claim/i, 'src/pages/PrivacyPage.jsx', 'third-party scheduling must not inherit a false cookie-free assertion')
   must(privacy, /Vercel/, 'src/pages/PrivacyPage.jsx', 'sub-processors must be named')
   must(privacy, /Resend/, 'src/pages/PrivacyPage.jsx', 'sub-processors must be named')
 

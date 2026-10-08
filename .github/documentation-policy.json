@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "scopes": [
+    {"id":"public_experience","paths":["src/*","api/*","public/*","package.json","package-lock.json","scripts/*",".github/workflows/*",".github/documentation-policy.json"],"documents":["docs/commercialization/WEBSITE_CANDIDATE.md"]}
+  ]
+}
