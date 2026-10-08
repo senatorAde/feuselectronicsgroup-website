@@ -111,8 +111,10 @@ test('actual corrected pages render release distinctions and contact/legal limit
     appType: 'custom', logLevel: 'error', optimizeDeps: { noDiscovery: true, include: [] },
   })
   try {
+    const deployed = JSON.parse(readFileSync(join(root, 'src/data/product-status.public.json'), 'utf8')).hosted_runtime
+    const literal = value => new RegExp(value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
     for (const [name, route, patterns] of [
-      ['CloudRuntimePage', '/cloud-runtime', [/rc-d057b81-chn/, /d057b81/, /8bd0ccd/, /78ef063/, /customer-browser.*unverified/, /Historical validation evidence/]],
+      ['CloudRuntimePage', '/cloud-runtime', [literal(deployed.active_revision.replace('ca-feus-runtime--', '')), literal(deployed.source_commit.slice(0, 7)), literal(deployed.signed_source_commit.slice(0, 7)), /78ef063/, /customer-browser.*unverified/, /Historical validation evidence/]],
       ['ReleaseNotesPage', '/release-notes', [/0000009/, /Historical validation record/, /NO-GO/, /STARTER CORRECTION PENDING/]],
       ['ContactPage', '/contact', [/server-side Resend/, /End-to-end inbox delivery has not been verified/, /Response time is not guaranteed/]],
       ['PrivacyPage', '/legal/privacy', [/EmailJS/, /Resend/, /published draft, not a binding agreement/]],

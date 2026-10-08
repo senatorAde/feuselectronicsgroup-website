@@ -1,7 +1,7 @@
-// Candidate documentation, not a runtime grant or an attestation of deployment.
+// Release status text; current revision/digest values derive from the pinned canonical projection.
 export const COMMERCIAL_CANDIDATE = {
-  status: 'Commercialization candidate; not yet deployed',
-  reconciliation: 'The existing hosted runtime is owner-promoted and separately verified. The 2026-10-07 catalog is owner-ratified; tenant, environment, privacy, capability and budget checks remain required. The new commercialization journey is source-tested, not live-accepted. Existing runtime evidence does not approve this candidate.',
+  status: 'Commercialization release deployed 2026-10-08 (owner-approved)',
+  reconciliation: 'The commercialization journey is deployed on the owner-promoted hosted runtime. The 2026-10-07 catalog is owner-ratified; tenant, environment, privacy, capability and budget checks remain required. The journey is synthetically accepted; each customer still needs readiness approval, and no live customer trial or automatic billing is claimed.',
 }
 
 export const JOURNEY_CALLS = [
