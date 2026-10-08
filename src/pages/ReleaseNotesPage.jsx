@@ -1,69 +1,55 @@
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import { SectionLabel } from '../components/ui'
-import { POSTURE_HISTORY, RELEASE_ASSESSMENT } from '../data/releaseAssessment'
+import { CURRENT_RELEASE, RELEASE_NOTES } from '../data/releaseNotes'
 import CloudEvidence from '../components/CloudEvidence'
-import { HISTORICAL_CLOUD_VALIDATION } from '../data/cloudRuntime'
 
-/**
- * /release-notes — product-posture and exact-revision release history.
- */
+/** /release-notes — customer-facing release notes. */
 export default function ReleaseNotesPage() {
   return (
     <div className="bg-navy-950 min-h-screen">
       <SEO
-        title="Posture History"
-        description="FEUS.ai posture history: product maturity decisions and exact-revision release assessments, each retained with its governing scope."
+        title="Release Notes"
+        description="What is new in FEUS.ai: the governed cloud runtime in production on Microsoft Azure, the Microsoft Foundry model catalog, and the guided evaluation journey."
       />
 
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <SectionLabel>Posture history</SectionLabel>
+          <SectionLabel>Release notes</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">
-            How the public posture has changed
+            What&rsquo;s new in FEUS.ai
           </h1>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            FEUS.ai records product maturity and exact-revision release decisions
-            separately. {RELEASE_ASSESSMENT.supersessionRule}
+            {CURRENT_RELEASE.summary}
           </p>
         </div>
       </section>
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-3xl mx-auto space-y-6">
-          <CloudEvidence />
-          <p className="text-sm text-gray-400">Original assessments and their wording are retained below. The latest recorded deployment is distinct from the older validation record; neither establishes current starter acceptance.</p>
-          {POSTURE_HISTORY.map((entry) => (
+          {RELEASE_NOTES.map((release, index) => (
             <article
-              key={`${entry.date}-${entry.decision}`}
-              className={`glass-card rounded-2xl p-6 ${entry.current ? 'border-l-4 border-l-feus-500/70' : 'opacity-80'}`}
+              key={release.id}
+              className={`glass-card rounded-2xl p-6 ${index === 0 ? 'border-l-4 border-l-feus-500/70' : ''}`}
             >
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
-                <span>{entry.date}</span>
-                <span className="font-mono break-all">{entry.revision}</span>
-                <span>{entry.version}</span>
-                {entry.current ? (
-                  <span className="font-semibold text-amber-300/90 uppercase tracking-wide">
-                    {entry.revision === HISTORICAL_CLOUD_VALIDATION.sourceRevision ? 'Historical validation record (original current label retained in history)' : (entry.controllingLabel ?? 'Current')}
-                  </span>
-                ) : (
-                  <span className="font-semibold text-gray-400 uppercase tracking-wide">
-                    {entry.controllingLabel ?? 'Superseded'}
-                  </span>
+                {index === 0 && (
+                  <span className="font-semibold text-feus-200 uppercase tracking-wide">Current release</span>
                 )}
               </div>
-              <h2 className="mt-3 text-xl font-semibold text-white">
-                {entry.decision}
-              </h2>
-              <p className="mt-1 text-sm text-gray-400">{entry.authority}</p>
-              <p className="mt-3 text-sm text-gray-300 leading-relaxed [overflow-wrap:anywhere]">{entry.scope}</p>
+              <h2 className="mt-2 text-xl font-semibold text-white">{release.title}</h2>
+              <ul className="mt-3 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">
+                {release.items.map((item) => <li key={item}>{item}</li>)}
+              </ul>
             </article>
           ))}
 
+          <CloudEvidence />
+
           <p className="text-sm text-gray-400 pt-4">
-            Current posture detail:{' '}
+            Capability availability:{' '}
             <Link to="/status" className="text-feus-300 underline underline-offset-2">
-              Platform status
+              Service status
             </Link>
           </p>
         </div>

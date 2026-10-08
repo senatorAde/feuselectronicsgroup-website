@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "repository": "senatorAde/FEUS-Enterprise-Distribution",
-  "revision": "b24684119934329ec90984f1349ad3145bf8f379",
+  "revision": "3dcd0fba9a9b041374fb13b1c4a560787a821188",
   "path": "feus-platform/generated/product-status.public.json",
-  "sha256": "fe5f960463bfd1dee6d2b4fe08ee3231fcb9c5a06a9f15a47bf15cf7da408d41"
+  "sha256": "f5c4a483bc08410d11b753b517966895723bebbc983b42866777bc2add68e433"
 }

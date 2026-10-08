@@ -147,16 +147,16 @@ export default function ItsmConnectPage() {
       <section className="py-14 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 text-sm">
           <div>
-            <p className="font-semibold text-white">Evaluation scope</p>
+            <p className="font-semibold text-white">Preview scope</p>
             <p className="mt-2 text-gray-400 leading-relaxed">{lifecycle.environment}</p>
           </div>
           <div>
-            <p className="font-semibold text-white">Current capability boundary</p>
+            <p className="font-semibold text-white">What is included</p>
             <p className="mt-2 text-gray-400 leading-relaxed">{lifecycle.restrictions}</p>
           </div>
           <div>
             <p className="font-semibold text-white">Adoption path</p>
-            <p className="mt-2 text-amber-200/80 leading-relaxed">{lifecycle.nextMilestone}</p>
+            <p className="mt-2 text-gray-300 leading-relaxed">{lifecycle.nextMilestone}</p>
           </div>
         </div>
       </section>

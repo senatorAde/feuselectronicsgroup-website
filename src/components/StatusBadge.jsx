@@ -9,7 +9,7 @@ import { STATUS_DEFS } from '../data/publicStatus'
  * StatusBadge — the only approved way to render a capability, dependency,
  * or feature status on public surfaces.
  *
- * Rules (Session 13A visual requirements):
+ * Rules:
  *  - Text, icon, and accessible label always render together; hue is never
  *    the only signal.
  *  - No certification symbolism (shields, seals, medals, grades, scores).

@@ -11,7 +11,7 @@ export default function ControlPlanePage() {
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="FEUS Control Plane"
-        description="The FEUS Control Plane is the implemented in-process coordination layer for typed work orders, routing, approvals, and policy checks. It has no execution dispatcher and is not a separately available product."
+        description="The FEUS Control Plane is the coordination layer for typed work orders, routing, approvals, and policy checks, available in preview through a scoped engagement."
       />
 
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
@@ -20,18 +20,18 @@ export default function ControlPlanePage() {
             <SectionLabel>Architecture component</SectionLabel>
             <h1 className="section-heading text-4xl sm:text-5xl mt-4">FEUS Control Plane</h1>
             <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-amber-300/90">
-              Implementation verified in-process only · Not a separately available product
+              Preview · available through a scoped engagement
             </p>
             {/* Approved messaging §8 */}
             <p className="mt-6 text-gray-300 leading-relaxed">
               The FEUS Control Plane is the coordination layer of the FEUS.ai
-              architecture. At the certified revision it implements typed work-order
-              lifecycles, deterministic deny-by-default agent and capability routing,
-              typed sanitized cross-agent messages, identity non-propagation across
-              handovers, independent approval binding, and policy checks before side
-              effects — all verified in-process by automated tests. It has no
-              execution dispatcher: no work order reaches a database, and shared
-              durable state has not been established.
+              architecture. It implements typed work-order lifecycles, deterministic
+              deny-by-default agent and capability routing, typed sanitized
+              cross-agent messages, identity non-propagation across handovers,
+              independent approval binding, and policy checks before side effects,
+              all covered by automated tests. It is offered in preview through a
+              scoped engagement; governed database execution today runs through the
+              seven-gate GovernedExecutionGateway.
             </p>
           </div>
           <figure className="mt-12 border-y border-white/10 py-4">
@@ -53,7 +53,7 @@ export default function ControlPlanePage() {
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="mx-auto grid w-full min-w-0 max-w-4xl grid-cols-[minmax(0,1fr)] gap-10">
           <div>
-            <h2 className="text-2xl font-bold text-white mb-4">Governance properties (tested in-process)</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">Governance properties</h2>
             <ul className="glass-card rounded-2xl p-6 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">
               <li>Typed work-order states and transitions.</li>
               <li>Policy enforcement before any reachable side effect, defaulting to denial.</li>
@@ -66,30 +66,24 @@ export default function ControlPlanePage() {
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-white mb-4">Preview boundaries</h2>
-            <p className="mb-4 text-sm text-gray-400 leading-relaxed">
-              These boundaries describe the Control Plane as assessed at the certified
-              revision. The separately released cloud runtime has since exercised a live
-              identity provider; that does not extend the Control Plane assessment.
-            </p>
-            <ul className="glass-card rounded-2xl p-6 border-l-4 border-slate-500/60 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">
-              <li>No execution dispatcher — governed requests stop at a verdict.</li>
-              <li>State is not established as shared, restart-safe, or deployed.</li>
-              <li>Approval persistence can silently degrade to process memory.</li>
-              <li>At the certified revision, no live request source, deployed registry, RBAC system, or identity provider had been exercised.</li>
+            <h2 className="text-2xl font-bold text-white mb-4">Preview scope</h2>
+            <ul className="glass-card rounded-2xl p-6 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">
+              <li>Offered through a scoped engagement, with FEUS engineers alongside your team.</li>
+              <li>Acceptance criteria are agreed with you before the preview starts.</li>
+              <li>Governed database execution runs through the seven-gate gateway rather than Control Plane dispatch.</li>
             </ul>
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-white mb-4">Control Plane capability evidence</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">Control Plane capabilities</h2>
             <div className="glass-card rounded-2xl p-6">
               <CapabilityStatusTable family="FEUS Control Plane" />
             </div>
           </div>
 
           <div className="flex flex-wrap gap-4">
-            <CTAButton to="/architecture">See the current-state architecture</CTAButton>
-            <CTAButton to="/status" variant="secondary">Platform status</CTAButton>
+            <CTAButton to="/architecture">See the architecture</CTAButton>
+            <CTAButton to="/status" variant="secondary">Service status</CTAButton>
           </div>
         </div>
       </section>

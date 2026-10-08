@@ -24,9 +24,9 @@ export default function AudiencePaths({ className = '' }) {
           icon={PlayCircle}
           eyebrow="Evaluating"
           title="See it working"
-          body="A guided live Azure TST demo with Microsoft Foundry inference, synthetic inputs, authorized Entra access and agreed budgets. No customer connections. An offline fixture option is also available."
+          body="A guided live session on the production Azure service, led by a FEUS engineer, with Microsoft Foundry models, sample data and an agreed budget. An offline walkthrough is also available."
           action={<Link to="/demo" className="btn-primary inline-flex items-center justify-center gap-2 w-full">Request a demonstration<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>}
-          note="Arranged with you. Usually within one business week."
+          note="Arranged with you at an agreed time."
         />
         <PathCard
           icon={Building2}

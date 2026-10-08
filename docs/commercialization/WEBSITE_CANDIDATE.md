@@ -61,7 +61,7 @@ Before release, the parent gate should require this document and link its review
 2. Backend lifecycle contract and customer-pack/activation/conversion acceptance evidence for the actual revision.
 3. Website `npm test` and `npm run build` outputs, plus mobile/browser and reduced-motion acceptance.
 4. Delivery/privacy/abuse-control operator acceptance and scheduler verification, or explicit unavailable-mode acceptance.
-5. Owner-approved packages and pricing basis (2026-10-08): public pages present approved packages with pricing quoted per customer scope. No public numeric list price was supplied, so none is published; self-service purchase and automatic billing remain unavailable.
+5. Published price book (owner directed 2026-10-08): `/packages` and `/pricing` render `src/data/platformPricing.js` through `src/components/PriceBook.jsx` — Starter $2,500/month, Professional $7,500/month, Enterprise custom; Economy/Balanced/Premium/Frontier model usage classes with included allowances and metered overage (Microsoft Foundry list price + 20%); add-ons and service packages. It mirrors the distribution price book in `docs/commercialization/PACKAGES_AND_ECONOMICS.md`. No SLA, uptime, unlimited or self-service purchase claims; invoiced, no automatic billing.
 
 Website tests use local provider/rate stubs; they prove behavior, not operational configuration, inbox receipt, privacy approval or live deployment. Historical assertions are retained; directly coupled EmailJS/no-endpoint expectations were replaced by stronger server transport/guard assertions.
 
@@ -72,3 +72,16 @@ The parent-added `.github/documentation-policy.json` defines `public_experience`
 ## Post-release re-pin (2026-10-08)
 
 The projection is re-pinned to distribution main `b24684119934329ec90984f1349ad3145bf8f379`, which records the owner-approved release `ca-feus-runtime--rc-0877cd5-chp` (digest `sha256:3397d06c2663ddf2b0bee855c895081017ae1f1bd5619cc30fb3d7ee5c8f0e14`) serving 100% with single rollback `rc-d057b81-chn`. Current revision, digest and date on public pages derive from that projection.
+
+## Customer-facing copy standard (2026-10-08)
+
+Public pages present the current product scope confidently and concisely. FEUS.ai is described as a governed cloud service running in production on Microsoft Azure (Container Apps, East US 2) with Microsoft Entra ID sign-in, a Microsoft Foundry model catalog, policy-aware routing, human-in-the-loop approvals, budgets and audit evidence, plus the guided journey from intro call to paid package.
+
+- Internal release evidence (revisions, image digests, signing runs, acceptance counts, environment profiles, assessment history and release decisions) lives in the distribution repository's production-truth record, not on public pages. The website still binds to the pinned canonical projection: `scripts/validate-public-claims.mjs` proves that version, catalog size and runtime facts derive from `product-status.public.json`, but revision and digest values are no longer rendered. This supersedes the "derive on public pages" wording in the re-pin section above.
+- Real limitations that matter to a buyer are stated briefly as product scope, never as audit doubt: Oracle and ITSM connectors are in preview through scoped engagements; the hosted runtime does not execute customer SQL (governed SQL Server operations run through the Expert / VS Code path); automatic billing and additional data engines are roadmap; model access is approved per tenant and per environment; costs are estimates; no availability or response-time service level is published.
+- Overclaim prohibitions are retained and extended in the claims gate: no certification or compliance claims, testimonials, case studies, customer counts, unlimited, SLA/uptime or response-time guarantees, invented savings or ROI metrics, self-service purchase or automatic billing, and preview items never presented as generally available. The gate also rejects internal audit vocabulary (for example NO-GO, TST, candidate, unverified, historical checkpoint, synthetic acceptance counts, owner-ratified, digests and commit SHAs) on public source, and a rendered-page regression test enforces the same list.
+- Legal-status statements on the privacy notice and terms of use are owner/legal decisions and are unchanged.
+
+## Production re-pin (2026-10-08)
+
+The projection is re-pinned to distribution main `3dcd0fba9a9b041374fb13b1c4a560787a821188`, recording the production service `rc-f3dc0b7-chq` with `FEUS_ENVIRONMENT=PROD` as the service default and a single rollback revision. Public copy describes the hosted runtime as the production service.

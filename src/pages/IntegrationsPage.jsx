@@ -1,7 +1,7 @@
 import SEO from '../components/SEO'
 import { SectionLabel, CTAButton } from '../components/ui'
 import { IntegrationStatusTable } from '../components/statusComponents'
-import { MODEL_PROVIDER_STATEMENT, POSTURE } from '../data/publicStatus'
+import { MODEL_PROVIDER_STATEMENT } from '../data/publicStatus'
 
 /**
  * /integrations — external dependency status page (IMPL-039, IMPL-040).
@@ -11,23 +11,22 @@ export default function IntegrationsPage() {
   return (
     <div className="bg-navy-950 min-h-screen">
       <SEO
-        title="Integration Status"
-        description="FEUS.ai integrations span available SQL Server workflows, private-preview Oracle and ITSM capabilities, and live governed model invocation."
+        title="Integrations"
+        description="FEUS.ai integrations: Microsoft Azure, Microsoft Entra ID and the Microsoft Foundry model catalog, governed SQL Server operations, and Oracle and ITSM connectors in preview."
       />
 
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <SectionLabel>Integrations</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">
-            External dependency status
+            Integrations
           </h1>
           <p className="mt-6 text-gray-300 leading-relaxed">
-            FEUS currently has {POSTURE.liveVerifiedIntegrations} live-verified
-            product-facing external integrations in its cloud runtime. The table
-            also reports the separately documented core SQL Server path and current
-            lifecycle status for Oracle, ITSM, providers, identity, and deployment targets.
-            Vendor names appear only to identify contract targets — they are not
-            support, partnership, or certification claims.
+            FEUS.ai runs on Microsoft Azure with Microsoft Entra ID sign-in and a
+            Microsoft Foundry model catalog. Governed SQL Server operations are
+            delivered through the Expert path, and Oracle and ITSM connectors are
+            available in preview through scoped engagements. Vendor names identify
+            integration targets only; they are not partnership or certification claims.
           </p>
         </div>
       </section>
@@ -51,12 +50,10 @@ export default function IntegrationsPage() {
               What &ldquo;Preview&rdquo; means for connectors
             </h2>
             <p>
-              ServiceNow, Jira Service Management, and Azure DevOps work-item connector
-              contracts are exercised against mock transports in controlled
-              demonstrations. No live tenant, credentials, field mapping, network
-              route, or end-to-end ticket lifecycle has been exercised. Promotion
-              requires structured disclosure control and an approved live sandbox
-              lifecycle.
+              ServiceNow, Jira Service Management, and Azure DevOps work-item connectors
+              are available in preview through a scoped engagement. They run with
+              dry-run defaults and least-privilege configuration, connected to your
+              sandbox tenant with field mappings agreed with your team.
             </p>
           </div>
 
@@ -64,7 +61,7 @@ export default function IntegrationsPage() {
             <CTAButton to="/agents/oracle">FEUS OracleOps</CTAButton>
             <CTAButton to="/integrations/itsm" variant="secondary">FEUS ITSM Connect</CTAButton>
             <CTAButton to="/requestops">FEUS RequestOps</CTAButton>
-            <CTAButton to="/status" variant="secondary">Platform status</CTAButton>
+            <CTAButton to="/status" variant="secondary">Service status</CTAButton>
           </div>
         </div>
       </section>

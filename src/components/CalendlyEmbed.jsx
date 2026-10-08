@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 // longer accepted bookings: the code looked configured, so nothing reported a
 // problem, and visitors met "This Calendly URL is not valid" at the exact
 // moment they tried to buy. With no default, an unconfigured site sends people
-// to the contact form; response time is not guaranteed.
+// to the contact form.
 const RAW_CALENDLY_URL = import.meta.env.VITE_CALENDLY_URL || ''
 
 /**
@@ -105,7 +105,7 @@ function SchedulingUnavailable() {
       <Link to="/contact" className="font-bold underline underline-offset-2">
         Send us a message
       </Link>{' '}
-      to request an intro. An appointment is not yet booked; response time is not guaranteed.
+      to request an intro. We will confirm a time with you by email.
     </p>
   )
 }
@@ -175,7 +175,7 @@ export function CalendlyButton({
 
   if (!IS_CALENDLY_CONFIGURED) {
     return (
-      <Link to="/contact" state={{ inquiry: 'intro' }} className={className} aria-label={`${children} — appointment not yet booked`}>
+      <Link to="/contact" state={{ inquiry: 'intro' }} className={className} aria-label={`${children} — we will confirm a time by email`}>
         {children}
         {Icon && (
           <Icon

@@ -40,10 +40,10 @@ export default function GetStartedPage() {
           <p className="mt-6 text-gray-300 leading-relaxed">
             FEUS.ai is a governed assistant for database and data operations. Every
             request it handles is classified, checked against the Platform
-            Constitution, and recorded. Inference requests route only to an eligible
-            model for the request and environment. Model inference does not
-            establish live SQL or tool execution. When FEUS refuses, it names
-            the rule that refused and what would have to change.
+            Constitution, and recorded. Each request routes only to a model that is
+            eligible for the request and environment, and any proposed tool action
+            passes its own governed checks. When FEUS refuses, it names the rule
+            that refused and what would have to change.
           </p>
           <p className="mt-4 text-gray-300 leading-relaxed">
             You do not need an editor, an agent framework, or a local install. The
@@ -52,12 +52,12 @@ export default function GetStartedPage() {
             step 1 and step 2 below establish. If you want to see the product before
             starting that, ask for a{' '}
             <Link to="/demo" className="text-feus-200 underline underline-offset-2">
-              guided live Azure TST demonstration
+              guided live demonstration
             </Link>{' '}
             instead.
           </p>
           <p className="mt-4 text-gray-300 leading-relaxed">
-            Demonstrations use synthetic inputs, authorized Entra access and agreed budgets, with no customer connections. Offline fixtures are a separate option. Adoption qualifies your own identities, targets and permissions; a demo does not grant that authority or full production qualification.
+            Demonstrations use sample data and an agreed budget, led by a FEUS engineer; an offline walkthrough is also available. Adoption then sets up your own identities, targets and permissions.
           </p>
           <p className="mt-4 text-gray-200 leading-relaxed">
             {POSTURE.engagementModel}
@@ -85,11 +85,11 @@ export default function GetStartedPage() {
             </a>
           </div>
           <CommercialNotice />
-          <p className="mt-4 text-gray-300">Review the <Link to="/readiness" className="underline">customer-specific readiness pack</Link> and <Link to="/trial" className="underline">trial activation rules</Link>. No trial clock before onboarding; no automatic billing.</p>
+          <p className="mt-4 text-gray-300">Review the <Link to="/readiness" className="underline">customer-specific readiness pack</Link> and <Link to="/trial" className="underline">how the trial works</Link>.</p>
 
           <details className="mt-8 rounded-lg border border-white/10 bg-white/[0.03] p-5">
             <summary className="cursor-pointer text-sm font-bold text-feus-200">
-              Deployment assurance details
+              Service details
             </summary>
             <p className="mt-3 text-sm text-gray-300 leading-relaxed">{CLOUD_RUNTIME.qualification}</p>
           </details>
@@ -169,7 +169,7 @@ export default function GetStartedPage() {
                 Tokens in, tokens out, and an estimated cost are recorded per turn
                 and accumulated in a per-tenant ledger. Cost basis is labelled
                 estimated because it is derived from published unit rates rather
-                than an invoice, so treat the figure as an evaluation signal.
+                than an invoice.
               </p>
             </div>
           </div>

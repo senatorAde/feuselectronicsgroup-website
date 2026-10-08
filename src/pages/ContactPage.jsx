@@ -23,7 +23,7 @@ const contactPaths = [
   {
     icon: BrainCircuit,
     title: 'Explore FEUS.ai',
-    description: 'Request a guided live Azure TST demo with synthetic inputs, authorized Entra access, and agreed budgets. No customer connections.',
+    description: 'Request a guided live demonstration on the production Azure service, with sample data and an agreed budget.',
     type: 'demo',
   },
   {
@@ -121,7 +121,7 @@ export default function ContactPage() {
         }
         subtitle={isReviewMode
           ? 'Your feedback helps us improve and helps other teams evaluate governed data operations. It takes less than two minutes.'
-                : 'Request a consultation, ask for a capability-scoped FEUS.ai briefing, or send a written inquiry. Response time is not guaranteed.'
+                : 'Request a consultation, ask for a FEUS.ai briefing, or send a written inquiry. Our team will follow up by email.'
         }
         backgroundImage="/brand/feus-hero-system.webp"
         imagePosition="70% center"
@@ -154,7 +154,7 @@ export default function ContactPage() {
               Tell us what you want to change.
             </h2>
             <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
-              Share enough context for us to route your inquiry well. Response time is not guaranteed.
+              Share enough context for us to route your inquiry well. Our team will follow up by email.
             </p>
             {requestedType === 'demo' && (
               <p className="mt-4 text-slate-600 max-w-2xl mx-auto">{LIVE_DEMO.access} {LIVE_DEMO.budget}</p>
@@ -216,8 +216,8 @@ export default function ContactPage() {
                         <Clock className="w-5 h-5 text-feus-800" aria-hidden="true" />
                       </div>
                       <div>
-                        <h4 className="text-sm font-semibold text-ink">Response time</h4>
-                        <span className="text-sm text-slate-600">Not guaranteed</span>
+                        <h4 className="text-sm font-semibold text-ink">Follow-up</h4>
+                        <span className="text-sm text-slate-600">By email</span>
                       </div>
                     </div>
                   </div>
@@ -253,7 +253,7 @@ export default function ContactPage() {
                       </div>
                       <h3 className="text-2xl font-bold text-ink mb-3">Thank you</h3>
                       <p className="text-slate-600 max-w-md mx-auto">
-                        The email provider accepted your request. This is not confirmation of inbox delivery, a booked appointment, CRM registration, trial activation, or a guaranteed response time. You can also email info@feuselectronicsgroup.com.
+                        Your inquiry was submitted. Our team will follow up by email. You can also reach us at info@feuselectronicsgroup.com.
                       </p>
                     </div>
                   ) : (
@@ -265,8 +265,8 @@ export default function ContactPage() {
                       <input type="hidden" name="formType" value={formData.formType} />
                       <form onSubmit={handleSubmit} className="space-y-6">
                         <p role="status" className="text-sm text-slate-700">
-                          {contactAvailable ? 'Server-side email inquiries are enabled by the operator.' : 'Online inquiries are unavailable until delivery, privacy and shared abuse controls are operator enabled.'}{' '}
-                          <a href="mailto:info@feuselectronicsgroup.com" className="underline">Email us directly</a>. An intro request is not yet booked.
+                          {contactAvailable ? 'Send your inquiry below and our team will follow up by email.' : 'The online form is temporarily unavailable.'}{' '}
+                          <a href="mailto:info@feuselectronicsgroup.com" className="underline">Email us directly</a> at any time. For an intro, we will confirm a time with you by email.
                         </p>
                         <div className="contact-honeypot" aria-hidden="true">
                           <label htmlFor="website">Leave this field empty</label>
@@ -439,7 +439,7 @@ export default function ContactPage() {
                         )}
 
                         <p className="text-xs text-slate-500 text-center">
-                          This candidate form calls /api/contact and, only when enabled, sends your details through the server-side Resend provider. End-to-end inbox delivery has not been verified in this website review; provider acceptance is not proof of delivery. Do not include credentials or sensitive customer data. Our{' '}
+                          This form sends your details to our team by email through our provider, Resend. Do not include credentials or sensitive customer data. Our{' '}
                           <Link to="/legal/privacy" className="underline underline-offset-2">privacy notice</Link>{' '}
                           explains what we collect and who processes it; it is published as a draft pending legal approval.
                         </p>

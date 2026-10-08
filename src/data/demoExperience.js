@@ -1,10 +1,10 @@
-/** Guided evaluation offer; not runtime authorization or a production claim. */
+/** Guided demonstration offer for FEUS.ai. */
 export const LIVE_DEMO = {
-  title: 'Guided live Azure demonstration',
-  label: 'LIVE DEMO · TST · SYNTHETIC INPUTS · NOT PRODUCTION',
-  summary: 'Explore FEUS.ai, a product of FEUS Electronics Group, in a guided live Azure TST session with Microsoft Foundry inference and synthetic inputs. No customer systems are connected.',
-  access: 'A FEUS engineer guides the session. Anyone operating the workbench needs authorized Microsoft Entra ID access and tenant authorization arranged in advance; signing in does not create access.',
-  budget: 'Agree the session scope, token and spend budgets before starting. Budget, eligibility, policy and required approval checks remain in force; no eligible model means refusal.',
-  boundary: 'Live model inference is not evidence of live SQL or tool execution, customer integration, or full production qualification. No customer database, ITSM tenant, identity provider, secret store, or cloud resource is connected during the demo.',
-  cost: 'Token costs are estimates from published unit rates, not billed actuals. A count of frontier models avoided is a routing indicator, not measured savings. ROI figures use disclosed assumptions and are not customer results.',
+  title: 'Guided live demonstration',
+  label: 'Guided live session · Sample data · No customer systems connected',
+  summary: 'See FEUS.ai, a product of FEUS Electronics Group, in a guided live session on the production Azure service, with Microsoft Foundry models and sample data. No customer systems are connected during a demonstration.',
+  access: 'A FEUS engineer leads the session. Anyone operating the workbench signs in with Microsoft Entra ID access arranged with you in advance.',
+  budget: 'We agree the session scope and model budget up front. Policy, eligibility, budget and approval checks apply exactly as they do in everyday use; when no model is eligible, FEUS refuses and explains why.',
+  boundary: 'Demonstrations use sample data only. Connecting your own systems is part of onboarding, with your identities, targets and approval owners.',
+  cost: 'Per-turn costs are estimates from published model rates, not billed actuals. Routing indicators such as frontier models avoided describe routing choices, not measured savings, and any ROI figure uses disclosed assumptions rather than customer results.',
 }

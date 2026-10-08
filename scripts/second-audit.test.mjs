@@ -9,7 +9,7 @@ import { resolveInquiry, focusContactForm, inquiryTypes } from '../src/data/cont
 import { LIVE_DEMO } from '../src/data/demoExperience.js'
 import { CLOUD_ARCHITECTURE, CLOUD_RUNTIME, ROUTING_AUTHORITY } from '../src/data/cloudRuntime.js'
 import { PLATFORM_STATUS, DEMO_DISCLAIMER } from '../src/data/publicStatus.js'
-import { RELEASE_ASSESSMENT, KNOWN_LIMITATIONS, FAQ_ITEMS } from '../src/data/releaseAssessment.js'
+import { CURRENT_RELEASE, FAQ_ITEMS } from '../src/data/releaseNotes.js'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const cacheDir = mkdtempSync(join(root, '.second-audit-ssr-'))
@@ -88,26 +88,25 @@ test('rendered contact deep links select the correct option; required fields rem
   assert.match(html, /<option value="" selected="">/)
 })
 
-test('demo renders live evaluation first with a genuinely separate offline simulation', async () => {
+test('demo renders the live session first with a genuinely separate offline walkthrough', async () => {
   const html = await page('DemoPage', '/demo')
   const copy = text(html)
-  assert.ok(copy.indexOf(LIVE_DEMO.title) < copy.indexOf('Alternative: offline fixture demonstration'))
-  for (const term of ['Microsoft Foundry', 'TST', 'synthetic inputs', 'Microsoft Entra ID', 'tenant authorization', 'spend budgets', 'refused']) assert.ok(copy.includes(term), term)
-  assert.match(copy, /Live model inference is not evidence of live SQL or tool execution/)
-  assert.match(copy, /SIMULATION/)
+  assert.ok(copy.indexOf(LIVE_DEMO.title) < copy.indexOf('Alternative: offline walkthrough'))
+  for (const term of ['Microsoft Foundry', 'sample data', 'Microsoft Entra ID', 'model budget', 'refused']) assert.ok(copy.includes(term), term)
+  assert.match(copy, /No customer systems are connected during a demonstration/)
   assert.ok(copy.includes(DEMO_DISCLAIMER.compact))
   assert.ok(links(html).includes('/contact?type=demo#contact-form'))
   assert.ok(links(html).includes('/contact?type=offline-demo#contact-form'))
   assert.doesNotMatch(copy, /no account to create|Every demonstration.*LOCAL/)
 })
 
-test('main evaluation surfaces explain live demo constraints and keep demo/adoption separate', async () => {
+test('main product surfaces present the service confidently and keep demo/adoption separate', async () => {
   for (const [name, route] of [['HomePage', '/'], ['FeusAiPage', '/feus-ai'], ['CloudRuntimePage', '/cloud-runtime'], ['GetStartedPage', '/get-started']]) {
     const html = await page(name, route)
     const copy = text(html)
-    for (const term of [/TST/, /synthetic inputs/i, /Entra/, /budget/i, /no customer connections/i]) assert.match(copy, term, name)
+    for (const term of [/Azure/, /Entra/, /budget/i, /sample data/i]) assert.match(copy, term, name)
     assert.ok(links(html).includes('/demo'), name)
-    assert.doesNotMatch(copy, /NO-GO|above LOCAL/, name)
+    assert.doesNotMatch(copy, /NO-GO|above LOCAL|\bTST\b|does not establish/, name)
   }
   const started = await page('GetStartedPage', '/get-started')
   assert.ok(links(started).includes('/contact?type=adoption#contact-form'))
@@ -119,14 +118,17 @@ test('all security reporting surfaces deep-link to the selected and focusable fo
   }
 })
 
-test('trust and architecture lead current cloud scope; historical evidence stays labelled and retained', async () => {
+test('trust and architecture lead with the current governed service', async () => {
   const trust = text(await page('TrustPage', '/trust'))
-  assert.ok(trust.indexOf('Current cloud evaluation') < trust.indexOf('NO-GO'))
-  assert.match(trust, /Historical assessment · 5\.2\.0-enterprise\.1/)
+  assert.match(trust, /Governance you can inspect/)
+  assert.ok(trust.indexOf('How every turn is governed') < trust.indexOf('Capability availability'))
+  assert.match(trust, /not yet approved by legal counsel or binding/)
+  assert.doesNotMatch(trust, /NO-GO|Historical assessment|Session 12D/)
   const html = await page('ArchitecturePage', '/architecture')
   const copy = text(html)
   assert.equal((html.match(/<h1\b/g) || []).length, 1)
-  assert.ok(copy.indexOf('Cloud evaluation path') < copy.indexOf('Historical 5.2 architecture'))
+  assert.ok(copy.indexOf('The governed cloud path') < copy.indexOf('The official architecture reference'))
+  assert.doesNotMatch(copy, /Historical 5\.2 architecture|templates incomplete|undeployed/)
   const expected = ['Public website', 'Azure workbench', 'Microsoft Entra ID', 'Tenant authorization', 'Classification', 'FEUS Policy Router', 'Eligible model / provider', 'Governed agent / tool boundary', 'Durable storage']
   assert.deepEqual(CLOUD_ARCHITECTURE.map((stage) => stage.title), expected)
   let previous = html.indexOf('aria-labelledby="cloud-path"')
@@ -135,35 +137,28 @@ test('trust and architecture lead current cloud scope; historical evidence stays
     assert.ok(at > previous, title)
     previous = at
   }
-  assert.match(copy, /Live inference is not live SQL or tool execution/)
-  assert.match(copy, /Historical assessed vNext state/)
-  assert.equal(RELEASE_ASSESSMENT.decision, 'NO-GO')
-  assert.equal(RELEASE_ASSESSMENT.certifiedRevision, '3c401504aef201b510c8695bac7c31ad424c2274')
-  assert.ok(KNOWN_LIMITATIONS.length >= 12)
-  assert.ok(FAQ_ITEMS.length >= 13)
+  assert.match(copy, /seven-gate path: readiness, audit, environment and identity, policy, PII inspection, approval, and execution/)
+  assert.ok(FAQ_ITEMS.length >= 10)
 })
 
-test('status is static, incident state unknown, and publication dates are honest', async () => {
+test('status describes the current release without claiming live monitoring or uptime', async () => {
   const copy = text(await page('StatusPage', '/status'))
   assert.equal(PLATFORM_STATUS.activeIncidents, null)
-  assert.match(copy, /Static evidence summary, not live incident monitoring/)
-  assert.match(copy, /Current incident state is unknown/)
-  assert.doesNotMatch(copy, /No active incidents reported|responding normally|Current health/)
-  assert.ok(copy.includes(CLOUD_RUNTIME.verifiedOn))
-  assert.ok(copy.includes(`Source verification date (UTC): ${CLOUD_RUNTIME.verifiedOn}`))
-  assert.match(copy, /local time \(UTC−04:00\)/)
+  assert.match(copy, /FEUS\.ai production service/)
+  assert.match(copy, /it is not a live monitor/)
+  assert.ok(copy.includes(CURRENT_RELEASE.label))
+  assert.doesNotMatch(copy, /No active incidents reported|responding normally|Current health|uptime|\bSLA\b/i)
   assert.doesNotMatch(copy, /source date is later|needs reconciliation|future.dated/i)
   assert.match(CLOUD_RUNTIME.verifiedOn, /^2026-10-08T/)
-  assert.match(copy, /published cloud release evidence/i)
 })
 
-test('cost and catalog eligibility cannot imply customer production acceptance', () => {
+test('cost is estimated and catalog membership never implies unrestricted model access', () => {
   assert.match(LIVE_DEMO.cost, /not billed actuals/)
   assert.match(LIVE_DEMO.cost, /frontier models avoided.*not measured savings/)
-  assert.match(CLOUD_RUNTIME.qualification, /owner-ratified/)
-  assert.match(CLOUD_RUNTIME.qualification, /does not attest customer PROD inference/)
-  assert.match(CLOUD_RUNTIME.qualification, /tenant- and environment-scoped approval/)
-  assert.match(ROUTING_AUTHORITY.foundryRouterNote, /not active/)
+  assert.match(CLOUD_RUNTIME.qualification, /approved per tenant and per environment/)
+  assert.match(CLOUD_RUNTIME.qualification, /frontier models need explicit permission and budget/)
+  assert.match(CLOUD_RUNTIME.qualification, /does not publish an availability or response-time service level/)
+  assert.match(ROUTING_AUTHORITY.foundryRouterNote, /not used/)
 })
 
 test('rendered site navigation has exact legal labels and destinations, including onboarding', async () => {
@@ -204,10 +199,10 @@ test('legal documents remain unapproved drafts and evidence copy has no checkout
   }
   const source = readFileSync(join(root, 'src/data/publicStatus.js'), 'utf8')
   assert.doesNotMatch(source, /this checkout/)
-  assert.match(source, /not available for public inspection/)
+  assert.doesNotMatch(source, /independently (re-)?attested|independently verified|third-party verified/i)
 })
 
-test('existing claims gate still rejects marketing release-gate leakage (isolated mutation)', () => {
+test('claims gate rejects internal-audit leakage and overclaims (isolated mutations)', () => {
   const fixture = mkdtempSync(join(root, '.claims-mutation-'))
   try {
     const allowed = new Set(['.js', '.jsx', '.mjs', '.json', '.txt', '.xml', '.html'])
@@ -225,10 +220,13 @@ test('existing claims gate still rejects marketing release-gate leakage (isolate
     const baseline = run()
     assert.equal(baseline.status, 0, baseline.stdout + baseline.stderr)
     const home = join(fixture, 'src/pages/HomePage.jsx')
-    writeFileSync(home, readFileSync(home, 'utf8') + '\nconst regression = "NO-GO above LOCAL"\n')
-    const mutation = run()
-    assert.equal(mutation.status, 1, mutation.stdout + mutation.stderr)
-    assert.match(mutation.stdout + mutation.stderr, /HomePage.jsx/)
+    const original = readFileSync(home, 'utf8')
+    for (const injected of ['NO-GO above LOCAL', 'Azure TST · Authorized access', 'synthetic core checks passed', 'SOC 2 certified platform', 'unlimited users', '99.9% uptime', 'Trusted by 500 enterprises', 'Automatic billing starts on day 15']) {
+      writeFileSync(home, `${original}\nconst regression = "${injected}"\n`)
+      const mutation = run()
+      assert.equal(mutation.status, 1, `${injected}: ${mutation.stdout}${mutation.stderr}`)
+      assert.match(mutation.stdout + mutation.stderr, /HomePage.jsx/, injected)
+    }
   } finally {
     rmSync(fixture, { recursive: true, force: true })
   }

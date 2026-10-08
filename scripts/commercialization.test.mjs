@@ -126,17 +126,17 @@ test('commercial data has the four approximate calls, full pack and bounded walk
   assert.equal(resolveInquiry('trial').inquiryType, 'FEUS.ai Readiness & Trial')
 })
 
-test('actual candidate pages SSR retain journey boundaries, email fallback and accessible walkthrough', async () => {
+test('commercial pages SSR retain journey boundaries, email fallback and accessible walkthrough', async () => {
   const cacheDir = mkdtempSync(join(root, '.commercial-ssr-'))
   const server = await createServer({ root, cacheDir, server: { middlewareMode: true, watch: { ignored: () => true }, hmr: false, preTransformRequests: false }, appType: 'custom', logLevel: 'error', optimizeDeps: { noDiscovery: true, include: [] } })
   try {
     for (const [name, route, patterns] of [
-      ['CommercialJourneyPage', '/journey', [/Request an intro/, /20–30/, /30–60/, /60–90/, /12–14/, /aria-pressed="true"/, /aria-live="polite"/, /not live execution/, /owner-ratified/, /deployed 2026-10-08/, /no live customer trial or automatic billing is claimed/]],
+      ['CommercialJourneyPage', '/journey', [/Request an intro/, /20–30/, /30–60/, /60–90/, /12–14/, /aria-pressed="true"/, /aria-live="polite"/, /Illustrative walkthrough/, /How engagements work/, /no automatic billing/, /proposal and invoice/]],
       ['TrialPage', '/trial', [/No clock before onboarding/, /No auto-billing/, /explicit customer consent/, /day 12–14/i]],
       ['ReadinessPage', '/readiness', [/Hosted readiness/, /Expert installed readiness/, /all five gateway/, /do not need Git/, /not a browser-issued approval/, /customer-specific pack/]],
-      ['PackagesPage', '/packages', [/Quoted per scope/, /approved/, /negotiated/, /Contact sales/, /<caption>/, /scope="row"/]],
-      ['ContactPage', '/contact?type=intro', [/Request a FEUS.ai Intro/, /disabled=""/, /name="privacyConsent"/, /tabindex="-1"/, /mailto:info@feuselectronicsgroup.com/, /not yet booked/]],
-      ['ArchitecturePage', '/architecture', [/official architecture reference/, /Not every component or arrow is implemented/, /feus-ai-architecture-reference.jpg/, /Snowflake/, /Databricks/, /Executive context/, /Technical context/, /Security context/]],
+      ['PackagesPage', '/packages', [/\$2,500/, /\$7,500/, /Model usage classes/, /Frontier/, /no automatic billing/, /Contact sales/, /<caption>/, /scope="row"/]],
+      ['ContactPage', '/contact?type=intro', [/Request a FEUS.ai Intro/, /disabled=""/, /name="privacyConsent"/, /required=""/, /tabindex="-1"/, /mailto:info@feuselectronicsgroup.com/, /confirm a time with you by email/, /draft privacy notice/]],
+      ['ArchitecturePage', '/architecture', [/official architecture reference/, /Available by engagement/, /<td>Preview<\/td>/, /<td>Roadmap<\/td>/, /feus-ai-architecture-reference.jpg/, /Snowflake/, /Databricks/, /Executive context/, /Technical context/, /Security context/]],
     ]) {
       const module = await server.ssrLoadModule(`/src/pages/${name}.jsx`)
       const html = renderToStaticMarkup(React.createElement(StaticRouter, { location: route }, React.createElement(module.default)))
@@ -147,11 +147,38 @@ test('actual candidate pages SSR retain journey boundaries, email fallback and a
     assert.equal(scheduler.readSchedulerUrl('https://calendly.com/fixture/event'), 'https://calendly.com/fixture/event')
     const fallback = renderToStaticMarkup(React.createElement(StaticRouter, {}, React.createElement(scheduler.CalendlyButton)))
     assert.match(fallback, /href="\/contact"/)
-    assert.match(fallback, /appointment not yet booked/)
+    assert.match(fallback, /we will confirm a time by email/)
     assert.match(read('src/index.css'), /prefers-reduced-motion: reduce/)
     assert.match(read('src/index.css'), /min-height: 44px/)
     assert.match(read('src/components/UseCaseStories.jsx'), /No auto-play/)
     assert.doesNotMatch(read('src/components/UseCaseStories.jsx'), /setInterval|fetch\(|setTimeout/)
     assert.ok(existsSync(join(root, 'public', 'brand', 'feus-ai-architecture-reference.jpg')))
+  } finally { await server.close(); rmSync(cacheDir, { recursive: true, force: true }) }
+})
+
+test('main public pages render no internal release or audit vocabulary', async () => {
+  const cacheDir = mkdtempSync(join(root, '.copy-standard-ssr-'))
+  const server = await createServer({ root, cacheDir, server: { middlewareMode: true, watch: { ignored: () => true }, hmr: false, preTransformRequests: false }, appType: 'custom', logLevel: 'error', optimizeDeps: { noDiscovery: true, include: [] } })
+  const forbidden = [
+    /\bcandidate\b/i, /unverified/i, /NO-GO/, /\bTST\b/, /Azure TST/, /\bPOC\b/, /historical checkpoint/i,
+    /starter correction/i, /synthetic (core|acceptance|checks)/i, /owner-ratified/i, /owner-promoted/i,
+    /not a fully released/i, /sha256:/,
+  ]
+  const deployed = JSON.parse(read('src/data/product-status.public.json')).hosted_runtime
+  const identifiers = [deployed.active_revision, deployed.source_commit, deployed.source_commit.slice(0, 7), deployed.signed_source_commit.slice(0, 7)]
+  try {
+    for (const [name, route] of [
+      ['HomePage', '/'], ['FeusAiPage', '/feus-ai'], ['CloudRuntimePage', '/cloud-runtime'], ['ArchitecturePage', '/architecture'],
+      ['TrustPage', '/trust'], ['TrustSecurityPage', '/trust/security'], ['SecurityPage', '/security'], ['StatusPage', '/status'],
+      ['ReleaseNotesPage', '/release-notes'], ['CommercialJourneyPage', '/journey'], ['TrialPage', '/trial'], ['ReadinessPage', '/readiness'],
+      ['PackagesPage', '/packages'], ['DemoPage', '/demo'], ['GetStartedPage', '/get-started'], ['FaqPage', '/faq'],
+    ]) {
+      const module = await server.ssrLoadModule(`/src/pages/${name}.jsx`)
+      const html = renderToStaticMarkup(React.createElement(StaticRouter, { location: route }, React.createElement(module.default)))
+      const copy = html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ')
+      assert.ok(copy.length > 500, `${name} must render content`)
+      for (const pattern of forbidden) assert.doesNotMatch(copy, pattern, `${name} renders ${pattern}`)
+      for (const identifier of identifiers) assert.ok(!copy.includes(identifier), `${name} renders internal identifier ${identifier}`)
+    }
   } finally { await server.close(); rmSync(cacheDir, { recursive: true, force: true }) }
 })

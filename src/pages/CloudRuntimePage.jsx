@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
-import CommercialNotice from '../components/CommercialNotice'
 import { SectionLabel } from '../components/ui'
 import AudiencePaths from '../components/AudiencePaths'
 import CloudEvidence from '../components/CloudEvidence'
@@ -11,59 +10,47 @@ import {
   ROUTING_MODES,
   ROUTING_AUTHORITY,
   RUNTIME_SURFACES,
-  RUNTIME_EVIDENCE,
+  RUNTIME_FACTS,
   RUNTIME_SCOPE,
   TURN_PIPELINE,
-  HISTORICAL_CLOUD_VALIDATION,
-  STARTER_STATUS,
 } from '../data/cloudRuntime'
 
 /**
  * /cloud-runtime — the FEUS Cloud Runtime as a current product surface.
  *
  * Every claim on this page is sourced from src/data/cloudRuntime.js, which the
- * public-claims gate pins. Nothing is asserted here that the verified 5.3 cloud
- * release did not establish.
+ * public-claims gate pins.
  */
 export default function CloudRuntimePage() {
   return (
     <div className="bg-navy-950 min-h-screen">
       <SEO
         title="FEUS Cloud Runtime"
-        description="FEUS.ai runs in the browser as a governed cloud runtime on Azure. Sign in with Microsoft Entra ID, send a governed turn, and read the routing, cost, and audit record for every decision."
+        description="FEUS.ai runs in production on Microsoft Azure as a governed cloud service. Sign in with Microsoft Entra ID, send a governed request, and read the routing, cost, and audit record for every decision."
       />
 
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <SectionLabel>Guided cloud evaluation</SectionLabel>
-          <CommercialNotice />
+          <SectionLabel>FEUS Cloud Runtime</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">
             {CLOUD_RUNTIME.headline}
           </h1>
           <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-feus-200">
-            Azure TST · Authorized access
+            {CLOUD_RUNTIME.environmentLabel}
           </p>
-          <p className="mt-6 text-gray-300 leading-relaxed">{CLOUD_RUNTIME.availabilitySummary}</p>
-          <p className="mt-4 text-sm font-semibold text-amber-200">{STARTER_STATUS.summary}</p>
+          <p className="mt-6 text-gray-300 leading-relaxed">{CLOUD_RUNTIME.summary}</p>
+          <p className="mt-4 text-gray-300 leading-relaxed">{CLOUD_RUNTIME.availabilitySummary}</p>
 
           <AudiencePaths className="mt-8" />
           <p className="mt-5 text-sm text-gray-300">{LIVE_DEMO.boundary}</p>
-
-          <details className="mt-8 rounded-lg border border-white/10 bg-white/[0.03] p-5">
-            <summary className="cursor-pointer text-sm font-bold text-feus-200">
-              Deployment assurance details
-            </summary>
-            <p className="mt-3 text-sm text-gray-300 leading-relaxed">{CLOUD_RUNTIME.qualification}</p>
-          </details>
         </div>
       </section>
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Historical validation evidence</h2>
-          <p className="mb-6 text-sm text-gray-400">The following counts belong to historical validation {HISTORICAL_CLOUD_VALIDATION.sourceRevision.slice(0, 7)}, not to the latest deployed revision or current customer acceptance.</p>
+          <h2 className="text-2xl font-bold text-white mb-6">Service at a glance</h2>
           <div className="grid gap-4 sm:grid-cols-2">
-            {RUNTIME_EVIDENCE.map((item) => (
+            {RUNTIME_FACTS.map((item) => (
               <div key={item.label} className="glass-card rounded-2xl p-6">
                 <p className="text-2xl font-bold text-feus-200">{item.value}</p>
                 <p className="mt-1 text-sm font-semibold text-white">{item.label}</p>
@@ -72,7 +59,6 @@ export default function CloudRuntimePage() {
             ))}
           </div>
           <div className="mt-6"><CloudEvidence /></div>
-          <p className="mt-4 text-xs text-gray-400">Hosting: {CLOUD_RUNTIME.hosting}.</p>
         </div>
       </section>
 
@@ -114,8 +100,8 @@ export default function CloudRuntimePage() {
           </div>
 
           <details className="mt-6 rounded-lg border border-white/10 bg-white/[0.03] p-6">
-            <summary className="cursor-pointer text-base font-bold text-white">Model and provider details</summary>
-            <ul className="mt-3 space-y-1 text-sm text-gray-300 font-mono">
+            <summary className="cursor-pointer text-base font-bold text-white">Model catalog</summary>
+            <ul className="mt-3 space-y-1 text-sm text-gray-300">
               {ROUTING_AUTHORITY.activatedModels.map((model) => (
                 <li key={model}>{model}</li>
               ))}
@@ -172,7 +158,7 @@ export default function CloudRuntimePage() {
           <h2 className="text-2xl font-bold text-white">Open it and send a turn</h2>
           <p className="mt-3 text-gray-300 leading-relaxed">
             You will need a Microsoft Entra ID account that has been granted access.
-            If you do not have one yet, start with the onboarding path.
+            If your organisation is not onboarded yet, start with the onboarding path.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a

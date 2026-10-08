@@ -1,222 +1,22 @@
 import SEO from '../components/SEO'
 import { SectionLabel, CTAButton } from '../components/ui'
-import { RELEASE_ASSESSMENT } from '../data/releaseAssessment'
 import CloudEvidence from '../components/CloudEvidence'
 import { CLOUD_ARCHITECTURE } from '../data/cloudRuntime'
 import ArchitectureBlueprint from '../components/ArchitectureBlueprint'
 
-/**
- * /architecture — cloud evaluation first; historical vNext diagram retained below.
- * Diagram rules (Session 13A visual requirements §13 / Trust plan §8):
- *  - CURRENT STATE label, revision binding, environment, legend, alt text.
- *  - Solid = implemented and tested; dashed/red = missing, mock, or disabled.
- *  - The flow STOPS at the fail-closed execution boundary. No connected
- *    database, provider logos, or green end-to-end arrows.
- */
-
-const implementedStages = [
-  {
-    n: '1',
-    title: 'Typed service request intake',
-    body: 'A service request enters through FEUS RequestOps as a typed, classified request (tested against an in-memory adapter — no live ticket source).',
-  },
-  {
-    n: '2',
-    title: 'Governed work order',
-    body: 'The request becomes a typed work order submitted to the FEUS Control Plane. The agent package has no direct database surface.',
-  },
-  {
-    n: '3',
-    title: 'Routing, policy, and approval',
-    body: 'Deny-by-default routing selects a specialist; policy checks run before any side effect; approvals bind request, target, action, environment, plan, expiry, and separation of duties. The Control Plane records a policy verdict — it has no execution dispatcher.',
-  },
-]
-
-const gateStage = {
-  n: '4',
-  title: 'Pre-execution governance gates (stages 0–5)',
-  body: 'The Protected Execution Service evaluates identity, environment, policy, approval, and evidence gates. Each gate fails closed under its tested conditions. At this revision the PES is exercised in-process by tests — it is not invoked by the Control Plane.',
-}
-
-function HistoricalArchitecture() {
-  return (
-    <div className="bg-navy-950 min-h-screen">
-      <section className="py-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <SectionLabel>Historical architecture · Session 12D</SectionLabel>
-          <h2 className="section-heading text-2xl mt-4">Historical 5.2 request path</h2>
-          <p className="mt-6 text-gray-300 leading-relaxed">
-            This historical diagram shows the RequestOps-to-Control-Plane-to-PES path at the
-            Session 12D assessed revision, including where it intentionally stops.
-            In this vNext design, stages 0–5 are implemented and fail closed, while
-            stage 6 is unbound because no dispatcher or executor exists. This diagram
-            does not represent the separately documented operational core GEG SQL
-            Server workflow.
-          </p>
-        </div>
-      </section>
-
-      <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
-        <div className="max-w-4xl mx-auto">
-          {/* Diagram metadata block */}
-          <div
-            role="img"
-            aria-label={
-              'Historical diagram of the Session 12D FEUS.ai vNext governed request path, not the current cloud runtime. ' +
-              'Implemented and tested: a typed service request enters FEUS RequestOps, becomes a governed work order, ' +
-              'and passes through Control Plane routing, policy, and approval, which record a policy verdict. ' +
-              'First fail-closed discontinuity: the Control Plane has no execution dispatcher, so nothing is dispatched onward from its verdict. ' +
-              'Separately implemented and tested in-process: pre-execution governance gates stages zero through five in the Protected Execution Service. ' +
-              'Second fail-closed discontinuity: stage six execution is unavailable because no SQL executor is bound, ' +
-              'so any governed request stops at a recorded verdict with local evidence. ' +
-              'Not implemented or mock in this vNext path: live ITSM connectors, sanitized outbound ticket updates, model invocation, live database execution, and rollback. The diagram does not describe the operational core GEG path.'
-            }
-            className="glass-card rounded-2xl p-6 sm:p-8"
-          >
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500 border-b border-white/[0.08] pb-4 mb-6">
-              <span className="font-semibold text-amber-300/90 uppercase tracking-wide">Historical assessed vNext state</span>
-              <span>Diagram FEUS-ARCH-PUB-001 · v1.1</span>
-              <span className="font-mono break-all">Revision {RELEASE_ASSESSMENT.certifiedRevision}</span>
-              <span>Assessed environment: LOCAL / test evidence only</span>
-            </div>
-
-            <ol className="space-y-0">
-              {implementedStages.map((s, i) => (
-                <li key={s.n} className="relative pl-12 pb-8">
-                  {i < implementedStages.length - 1 && (
-                    <span className="absolute left-4 top-8 bottom-0 w-0.5 bg-feus-500/50" aria-hidden="true" />
-                  )}
-                  <span
-                    className="absolute left-0 top-0 w-8 h-8 rounded-full border-2 border-feus-500/70 bg-navy-900 text-feus-300 text-sm font-bold flex items-center justify-center"
-                    aria-hidden="true"
-                  >
-                    {s.n}
-                  </span>
-                  <h3 className="text-white font-semibold">{s.title}</h3>
-                  <p className="mt-1 text-sm text-gray-400 leading-relaxed">{s.body}</p>
-                </li>
-              ))}
-
-              {/* First fail-closed discontinuity — no dispatch from the Control Plane */}
-              <li className="relative pl-12 pb-8">
-                <span
-                  className="absolute left-0 top-0 w-8 h-8 rounded-full border-2 border-dashed border-rose-500 bg-navy-900 text-rose-300 text-sm font-bold flex items-center justify-center"
-                  aria-hidden="true"
-                >
-                  ✕
-                </span>
-                <div className="border-l-4 border-rose-500 bg-rose-500/5 rounded-r-xl p-4">
-                  <h3 className="text-white font-semibold">
-                    Fail-closed discontinuity — no execution dispatch
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-300 leading-relaxed">
-                    The Control Plane has no execution dispatcher. Its output is a
-                    recorded policy verdict; nothing is dispatched onward from that
-                    verdict at this revision.
-                  </p>
-                </div>
-              </li>
-
-              {/* Stage 4 — implemented and tested in-process, not reached from stage 3 */}
-              <li className="relative pl-12 pb-8">
-                <span
-                  className="absolute left-0 top-0 w-8 h-8 rounded-full border-2 border-feus-500/70 bg-navy-900 text-feus-300 text-sm font-bold flex items-center justify-center"
-                  aria-hidden="true"
-                >
-                  {gateStage.n}
-                </span>
-                <h3 className="text-white font-semibold">{gateStage.title}</h3>
-                <p className="mt-1 text-sm text-gray-400 leading-relaxed">{gateStage.body}</p>
-              </li>
-
-              {/* Second fail-closed discontinuity — the flow stops here */}
-              <li className="relative pl-12">
-                <span
-                  className="absolute left-0 top-0 w-8 h-8 rounded-full border-2 border-dashed border-rose-500 bg-navy-900 text-rose-300 text-sm font-bold flex items-center justify-center"
-                  aria-hidden="true"
-                >
-                  ✕
-                </span>
-                <div className="border-l-4 border-rose-500 bg-rose-500/5 rounded-r-xl p-4">
-                  <h3 className="text-white font-semibold">
-                    Fail-closed execution boundary — stage 6 execution unavailable
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-300 leading-relaxed">
-                    No SQL executor is bound to the Protected Execution Service. Any
-                    governed request stops here at a recorded verdict with local
-                    evidence. No database is reached through the vNext path.
-                  </p>
-                </div>
-              </li>
-            </ol>
-
-            {/* Not-implemented lane */}
-            <div className="mt-8 border-t border-dashed border-white/[0.15] pt-6">
-              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
-                Not implemented, mock, or disabled at this revision
-              </h3>
-              <ul className="grid sm:grid-cols-2 gap-2 text-sm text-gray-400">
-                <li className="border border-dashed border-rose-500/40 rounded-lg px-3 py-2">Live ITSM connectors (mock transports only)</li>
-                <li className="border border-dashed border-rose-500/40 rounded-lg px-3 py-2">Sanitized outbound ticket updates (not released)</li>
-                <li className="border border-dashed border-rose-500/40 rounded-lg px-3 py-2">Model invocation (disabled)</li>
-                <li className="border border-dashed border-rose-500/40 rounded-lg px-3 py-2">vNext live database execution (no dispatcher/executor)</li>
-                <li className="border border-dashed border-rose-500/40 rounded-lg px-3 py-2">Compensating rollback (does not exist)</li>
-                <li className="border border-dashed border-rose-500/40 rounded-lg px-3 py-2">Cloud deployment (templates incomplete, undeployed)</li>
-              </ul>
-            </div>
-
-            {/* Legend */}
-            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-xs text-gray-500">
-              <span className="inline-flex items-center gap-2">
-                <span className="inline-block w-6 h-0.5 bg-feus-500/70" aria-hidden="true" />
-                Implemented and tested (in-process)
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <span className="inline-block w-6 border-t-2 border-dashed border-rose-500/70" aria-hidden="true" />
-                Missing, mock, or disabled
-              </span>
-            </div>
-            <p className="mt-3 text-xs text-gray-600">
-              This diagram intentionally shows no connected database, vendor tenant, or
-              model provider.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-6">
-            <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed">
-              <h2 className="text-lg font-semibold text-white mb-2">About &ldquo;seven-stage&rdquo; language</h2>
-              <p>
-                In this assessed vNext architecture, seven-stage refers to gate stages
-                0–6. Stages 0–5 are implemented and fail closed under their tested
-                conditions. Stage 6 is unbound at this revision. The core GEG has its
-                own seven-gate operational workflow and evidence record.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-10 flex flex-wrap gap-4">
-            <CTAButton to="/feus-ai">Platform overview</CTAButton>
-            <CTAButton to="/status" variant="secondary">Platform status</CTAButton>
-            <CTAButton to="/integrations" variant="secondary">Integration status</CTAButton>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
-}
-
+/** /architecture — the governed cloud path and the reference architecture. */
 export default function ArchitecturePage() {
   return (
     <div className="bg-navy-950 min-h-screen">
-      <SEO title="Cloud Evaluation Architecture" description="The FEUS.ai Azure TST path: website, workbench, Entra identity, tenant authorization, classification, FEUS Policy Router, eligible provider, governed tool boundary and durable evidence." />
+      <SEO title="Architecture" description="The FEUS.ai cloud path on Microsoft Azure: website, workbench, Entra identity, tenant authorization, classification, FEUS Policy Router, eligible model, governed tool boundary and durable evidence." />
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <SectionLabel>FEUS.ai · Cloud evaluation architecture</SectionLabel>
+          <SectionLabel>FEUS.ai · Cloud architecture</SectionLabel>
           <h1 className="section-heading text-4xl sm:text-5xl mt-4">From website to governed cloud turn</h1>
-          <p className="mt-6 text-gray-300 leading-relaxed">FEUS.ai is a product of FEUS Electronics Group. The public website explains the offer; the separate Azure workbench handles authenticated evaluation. This is the published TST topology, not a claim that all agent or tool capabilities are live.</p>
+          <p className="mt-6 text-gray-300 leading-relaxed">FEUS.ai is a product of FEUS Electronics Group. The public website explains the offer; the authenticated workbench on Microsoft Azure is where onboarded organisations work. Every turn follows the same governed path.</p>
           <div className="mt-8"><CloudEvidence /></div>
-          <h2 className="mt-10 text-2xl font-bold text-white" id="cloud-path">Cloud evaluation path</h2>
-          <p className="mt-3 text-sm text-gray-400">Ordered logical boundaries, not unconditional execution arrows. Identity, tenant authorization, policy or budget checks can refuse a turn. A required approval holds it; a deterministic route contacts no provider.</p>
+          <h2 className="mt-10 text-2xl font-bold text-white" id="cloud-path">The governed cloud path</h2>
+          <p className="mt-3 text-sm text-gray-400">Each boundary can refuse a turn: identity, tenant authorization, policy or budget. A required approval holds it, and a deterministic route contacts no model.</p>
           <ol aria-labelledby="cloud-path" className="mt-6 glass-card rounded-2xl p-6 space-y-6">
             {CLOUD_ARCHITECTURE.map((stage, index) => (
               <li key={stage.title} className="flex gap-4">
@@ -225,18 +25,11 @@ export default function ArchitecturePage() {
               </li>
             ))}
           </ol>
-          <p className="mt-5 text-sm text-gray-300">Live inference is not live SQL or tool execution. Customer connections, effective target privileges and operation-specific controls require separate validation. Durable storage is not an immutable or independently anchored audit guarantee.</p>
-          <div className="mt-8 flex flex-wrap gap-4"><CTAButton to="/demo">Explore the guided demo</CTAButton><CTAButton to="/trust" variant="secondary">Review evidence scope</CTAButton></div>
+          <p className="mt-5 text-sm text-gray-300">Database operations follow their own seven-gate path: readiness, audit, environment and identity, policy, PII inspection, approval, and execution. Customer connections are set up during onboarding with your identities, targets and approvals.</p>
+          <div className="mt-8 flex flex-wrap gap-4"><CTAButton to="/demo">Request a guided demo</CTAButton><CTAButton to="/trust" variant="secondary">Visit the Trust Center</CTAButton></div>
         </div>
       </section>
       <div className="commercial-page commercial-architecture"><ArchitectureBlueprint /></div>
-      <section className="max-w-5xl mx-auto px-4 pb-12">
-        <details id="historical-architecture" className="border border-white/10 rounded-2xl p-5 scroll-mt-24">
-          <summary className="cursor-pointer text-xl text-white font-bold">Historical 5.2 architecture · Session 12D</summary>
-          <p className="mt-4 text-sm text-gray-300">Retained for its named revision and assessment scope. Missing dispatch and disabled inference below describe that historical path, not the current 5.3 cloud deployment.</p>
-          <HistoricalArchitecture />
-        </details>
-      </section>
     </div>
   )
 }

@@ -26,7 +26,6 @@ import { CalendlyButton } from '../components/CalendlyEmbed'
 import { SectionLabel, SectionHeader, CTAButton } from '../components/ui'
 import { AGENT_PORTFOLIO, POSTURE } from '../data/publicStatus'
 import { CLOUD_RUNTIME, LAUNCH_URL, ROUTING_MODES } from '../data/cloudRuntime'
-import CommercialNotice from '../components/CommercialNotice'
 
 const servicePaths = [
   {
@@ -187,9 +186,9 @@ function Hero() {
             <CTAButton to="/get-started" variant="secondary">See the adoption path</CTAButton>
             <CTAButton to="/feus-ai" variant="secondary">Explore the platform</CTAButton>
           </div>
-          <p className="mt-4 text-sm text-slate-300">Intro requests are not yet booked. Review <Link to="/readiness" className="underline">customer readiness</Link> and <Link to="/packages" className="underline">scoped engagement options</Link>; no trial clock before onboarding or automatic billing.</p>
+          <p className="mt-4 text-sm text-slate-300">We confirm every intro by email. Review <Link to="/readiness" className="underline">customer readiness</Link> and <Link to="/packages" className="underline">engagement packages</Link>: trials start after onboarding, with no automatic billing.</p>
           <p className="mt-4 max-w-2xl text-sm text-slate-300">
-            FEUS.ai is a product of FEUS Electronics Group. Start with a guided live Azure TST demo: Microsoft Foundry inference, synthetic inputs, authorized Entra access and agreed budgets. No customer connections; an offline fixture option is available.
+            FEUS.ai is a product of FEUS Electronics Group and runs in production on Microsoft Azure. Start with a guided live demonstration led by a FEUS engineer, using Microsoft Foundry models, sample data, Microsoft Entra ID sign-in and an agreed budget. An offline walkthrough is also available.
           </p>
           <p className="mt-4 text-sm text-slate-400">
             Already onboarded?{' '}
@@ -204,7 +203,6 @@ function Hero() {
             </a>{' '}
             &mdash; requires an account your organisation has granted.
           </p>
-          <CommercialNotice />
           <p className="mt-8 flex max-w-xl items-start gap-3 text-sm leading-relaxed text-slate-400">
             <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent-300" aria-hidden="true" />
             Human-controlled where risk requires it, policy-governed throughout, and transparent by design.
@@ -363,7 +361,7 @@ function CloudRuntimeSection() {
               {CLOUD_RUNTIME.availabilitySummary}
             </p>
             <p className="mt-4 text-sm leading-relaxed text-slate-400">
-              Available now through a governed enterprise onboarding and deployment scope.
+              {CLOUD_RUNTIME.environmentLabel}. Available now through a governed enterprise onboarding.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <CTAButton to="/get-started">See the adoption path</CTAButton>

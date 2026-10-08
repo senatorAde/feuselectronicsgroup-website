@@ -1,66 +1,60 @@
-// Release status text; current revision/digest values derive from the pinned canonical projection.
-export const COMMERCIAL_CANDIDATE = {
-  status: 'Commercialization release deployed 2026-10-08 (owner-approved)',
-  reconciliation: 'The commercialization journey is deployed on the owner-promoted hosted runtime. The 2026-10-07 catalog is owner-ratified; tenant, environment, privacy, capability and budget checks remain required. The journey is synthetically accepted; each customer still needs readiness approval, and no live customer trial or automatic billing is claimed.',
-}
-
 export const JOURNEY_CALLS = [
   { title: 'Call 1 · Intro', timing: 'Approximately 20–30 minutes', detail: 'Understand the outcome, decision makers, existing estate and delivery preference. Agree whether a deeper evaluation is useful; no target access is required.' },
   { title: 'Call 2 · Discovery & fit', timing: 'Approximately 30–60 minutes', detail: 'Review one bounded use case, baseline evidence, data sensitivity, delivery route, constraints and commercial expectations. Scope users, resources and entitlements together.' },
-  { title: 'Call 3 · Readiness & onboarding', timing: 'Approximately 60–90 minutes', detail: 'Review the customer-specific pack, confirm identity, tenant isolation, target permissions, privacy, model budgets, approval owners, audit and rollback. Missing prerequisites hold activation; there is no trial clock before onboarding.' },
-  { title: 'Call 4 · Value & next decision', timing: 'Around trial day 12–14', detail: 'Review verified outcomes against the agreed baseline. Choose conversion, extension subject to approval, or stop and offboard. No automatic billing or silent conversion.' },
+  { title: 'Call 3 · Readiness & onboarding', timing: 'Approximately 60–90 minutes', detail: 'Review your customer-specific readiness pack: identity, tenant isolation, target permissions, privacy, model budgets, approval owners, audit and rollback. The trial starts only after onboarding is complete.' },
+  { title: 'Call 4 · Value & next decision', timing: 'Around trial day 12–14', detail: 'Review results against the agreed baseline. Choose a paid package, an approved extension, or a clean offboarding. No automatic billing or silent conversion.' },
 ]
 
 export const READINESS_PACK = [
   ['Customer & owners', 'Customer/tenant reference, sponsor, customer administrator, operational owner, security/privacy reviewer and commercial approver; contact channels and responsibilities.'],
-  ['Intent & baseline', 'One agreed problem, scope, exclusions, baseline collection method, success criteria and measurement period. No guaranteed ROI or invented performance uplift.'],
-  ['Route & capability', 'Hosted browser or Expert installed route, exact candidate revision, capability constraints and route-specific acceptance evidence. No inference-to-execution equivalence.'],
+  ['Intent & baseline', 'One agreed problem, scope, exclusions, baseline collection method, success criteria and measurement period. Value is measured against your own baseline.'],
+  ['Route & capability', 'Hosted browser or Expert installed route, the capabilities in scope and the acceptance checks for that route.'],
   ['Identity & targets', 'Authorized identities, effective privileges, target references and validation, environment context, tenant isolation and least privilege. Never submit credentials through the website.'],
   ['Approvals & safety', 'Action-specific approvals, operation-bound confirmations, review/expiry rules, PII controls, approved data boundaries, fail-closed decisions and escalation contacts.'],
-  ['Models & budgets', 'Eligible owner-ratified catalog candidates, tenant/environment/privacy restrictions, model routing, spend limits and who can change them. Catalog ratification alone is not runtime access.'],
-  ['Trial & entitlements', 'Negotiated users, resources, workloads, support, entitlements, agreed 14-day term, activation authority, readiness evidence and execution-anchored activation timestamp.'],
+  ['Models & budgets', 'Approved models for each environment, privacy restrictions, routing preferences, spend limits and who can change them. Frontier models need explicit permission and budget.'],
+  ['Trial & entitlements', 'Negotiated users, resources, workloads, support, entitlements, the agreed 14-day term, activation authority and the activation timestamp recorded at onboarding.'],
   ['Evidence & offboarding', 'Audit access, acceptance checklist, reproducible verification, value review, customer consent for conversion, renewal/extension approvals, revocation, retained records and rollback/offboarding plan.'],
 ]
 
 export const COMPONENT_POSTURE = [
-  ['Governed SQL gateway', 'Available in controlled legacy SQL evidence', 'Target-specific readiness and authorized identity required; not proof of hosted live SQL.'],
-  ['Identity, policy, approval, PII & audit', 'Available core with constraints', 'Verify wiring, effective privileges and audit health on the selected route before execution.'],
-  ['Hosted browser & Entra entry', 'Available · controlled live runtime', 'Dated Azure readback and source verification are published separately from new-candidate acceptance. Customer targets are not enabled by a demo.'],
-  ['Model catalog & routing', 'Controlled · owner-ratified Foundry catalog', 'Eleven configured deployments; tenant, environment, privacy, capability and budget checks remain required. Fresh customer inference acceptance is separate.'],
-  ['Commercial lifecycle & customer pack', 'Installed candidate · deployment unverified', 'Readiness/activation and commercial approvals belong to the governed backend. The website is documentation and lead intake, not an authority source.'],
-  ['Lead delivery & scheduling', 'Configuration dependent', 'Server-side provider, privacy and shared abuse controls must be enabled. Calendly requires an operator-configured valid event. No durable CRM is implemented here.'],
-  ['Specialist integrations & autonomous operation', 'Limited / roadmap by capability', 'Consult the published capability register. Diagram placement does not establish implementation, certification or autonomous production authority.'],
+  ['Governed SQL gateway', 'Available by engagement', 'Delivered through the Expert / VS Code path with an authorized identity and a qualified target.'],
+  ['Identity, policy, approval, PII & audit', 'Available', 'Applied on every governed route; wiring and privileges are confirmed for your targets during onboarding.'],
+  ['Hosted browser & Entra sign-in', 'Available', 'Production service on Microsoft Azure. Access is granted per organisation through Microsoft Entra ID.'],
+  ['Model catalog & routing', 'Available', 'Microsoft Foundry catalog routed by the FEUS Policy Router. Models are approved per tenant and per environment.'],
+  ['Customer lifecycle & readiness pack', 'Available by engagement', 'Readiness, activation and commercial approvals run in the governed backend; the website is information and contact only.'],
+  ['Lead intake & scheduling', 'Available', 'Inquiries arrive by email; scheduling links appear when an event is configured.'],
+  ['Specialist integrations & automation', 'Preview / roadmap by capability', 'See the capability register for each integration. Oracle and ITSM connectors are in preview through scoped engagements.'],
 ]
 
 export const USE_CASE_STORIES = [
   {
-    id: 'sql', title: 'A DBA investigates a slow workload', route: 'Controlled legacy SQL evidence',
+    id: 'sql', title: 'A DBA investigates a slow workload', route: 'Expert route · governed SQL gateway',
     steps: [
       'Intent · A DBA asks for a bounded read-only health assessment on an authorized target.',
-      'Govern · Verify selected identity, target, policy, PII, action-specific approvals and audit readiness through the governed gateway.',
-      'Execute · Illustrate an approved diagnostic request routed through the SQL gateway. This walkthrough does not connect or run SQL.',
-      'Verify · Compare the scoped result and audit evidence, record limitations and review any proposed change before execution.',
-      'Measure Value · Agree a before/after diagnostic effort baseline, reproducible latency observations and avoided rework. No uplift is promised.',
+      'Govern · The governed gateway checks identity, target, policy, PII, action-specific approvals and audit readiness.',
+      'Execute · An approved diagnostic request runs through the SQL gateway. This walkthrough illustrates the flow; it does not connect to a database.',
+      'Verify · The scoped result and audit evidence are compared, and any proposed change is reviewed before execution.',
+      'Measure Value · Diagnostic effort, reproducible latency observations and avoided rework are compared with the agreed baseline.',
     ],
   },
   {
-    id: 'hosted', title: 'An enterprise team evaluates the hosted route', route: 'Hosted candidate / historical TST evidence',
+    id: 'hosted', title: 'An enterprise team adopts the hosted route', route: 'Hosted route · production service on Azure',
     steps: [
-      'Intent · A sponsor requests a synthetic-input capability briefing before granting customer access.',
-      'Govern · Qualify tenant, Entra identity, eligible model, privacy boundary, budgets and exact deployed revision.',
-      'Execute · Illustrate a browser inference turn after scoped access. Model inference is not live SQL or tool execution.',
-      'Verify · Check route/revision acceptance and visible decisions against evidence. Historical TST evidence does not attest the current candidate.',
-      'Measure Value · Record task completion, reviewer effort, policy clarity and spend using an agreed baseline. Customer acceptance is still required.',
+      'Intent · A sponsor asks for a capability briefing with sample data before granting customer access.',
+      'Govern · Tenant, Entra identity, approved models, privacy boundary and budgets are configured.',
+      'Execute · Users send requests in the browser; FEUS routes each turn to an eligible model and applies policy and approvals.',
+      'Verify · Routing, approvals and audit records are reviewed for each turn.',
+      'Measure Value · Task completion, reviewer effort, policy clarity and spend are recorded against the agreed baseline.',
     ],
   },
   {
-    id: 'change', title: 'An operations owner considers a change', route: 'Expert route · approval-led illustration',
+    id: 'change', title: 'An operations owner considers a change', route: 'Expert route · approval-led change',
     steps: [
       'Intent · Propose a bounded maintenance action with target, identity, expected outcome and rollback.',
       'Govern · Obtain risk-appropriate operation-bound approval; confirm plan hash, identity, target and expiry. The website cannot approve it.',
-      'Execute · Illustrate permitted execution only through the wired governed gateway. Missing readiness blocks the operation.',
+      'Execute · Permitted execution runs only through the governed gateway; missing readiness blocks the operation.',
       'Verify · Review audit outcome and post-change checks; stop or roll back within the approved plan if criteria fail.',
-      'Measure Value · Compare verified completion and rework against the agreed baseline. Simulation results are not customer production outcomes.',
+      'Measure Value · Compare verified completion and rework against the agreed baseline.',
     ],
   },
 ]
