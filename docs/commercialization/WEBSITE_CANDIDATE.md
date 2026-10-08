@@ -21,6 +21,15 @@ verification. Local checks use the authenticated `gh` session without reading or
 printing tokens. Provisioning the CI credential is an operator action, not model
 authorization or a production release.
 
+Main's earlier artwork/release-history integration has now been merged into
+this feature branch without rewriting either accepted candidate history or
+main. The real conflict was September checkpoint/EmailJS wording versus the
+new canonical observation and guarded server transport; corrected semantics,
+historic evidence, shared artwork and crawler previews are all retained.
+Cloud inference validation is surface-scoped and never enables an unbound
+Hello FEUS executor. The pinned observation remains dated evidence, not an
+authorization, live monitoring feed or fresh model invocation result.
+
 The authenticated backend interface is `GET /api/v1/customer/journey` and `POST /api/v1/customer/journey/commands` with `{action,payload,expected_revision,idempotency_key}`. A configured human owner uses separate `/api/v1/customer/owner/journey` and `/api/v1/customer/owner/journey/commands` for readiness review and notification delivery. All require bearer identity, stable `X-Session-ID` and explicit `X-FEUS-Organization`; there is no anonymous activation path. `/readiness` links only to the existing workbench root (`LAUNCH_URL`) and names **Workspace & account**, not an invented deep-link route. The public website sends no lifecycle commands. Payload/decision contracts are owned by distribution `docs/commercialization/TRIAL_WORKFLOW.md`.
 
 Interactive stories are original user-controlled walkthroughs/simulations. No database or model calls, auto-play, production outcomes, invented ROI, customer references, certifications or prices. Native keyboard buttons, live-region stage updates, touch-sized controls and reduced-motion styling are included.

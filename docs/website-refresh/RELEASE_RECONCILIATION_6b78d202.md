@@ -1,5 +1,10 @@
 # Website release reconciliation — 6b78d202
 
+> HISTORICAL prior-session release/integration record. Its authorization and
+> pending-starter wording do not authorize the present candidate or describe
+> current hosting. See [current candidate](../commercialization/WEBSITE_CANDIDATE.md)
+> and its pinned canonical observation for the current evidence boundary.
+
 Owner `senatorAde` explicitly authorized source review, commits, pushes, integration,
 signing and deployment for this session. This records intent, not an independent
 reviewer or new platform permission. Automated engineering review was performed.
