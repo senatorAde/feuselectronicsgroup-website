@@ -83,7 +83,7 @@ export default function CloudRuntimePage() {
           <p className="text-gray-300 leading-relaxed">{ROUTING_AUTHORITY.statement}</p>
           <p className="mt-3 text-gray-300 leading-relaxed">{ROUTING_AUTHORITY.modeRule}</p>
 
-          <div className="mt-6 grid gap-3">
+          <div className="mt-6 grid grid-cols-1 gap-3">
             {ROUTING_MODES.map((mode) => (
               <div key={mode.id} className="glass-card rounded-2xl p-5">
                 <div className="flex flex-wrap items-center gap-3">

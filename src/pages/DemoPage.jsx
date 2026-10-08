@@ -40,7 +40,7 @@ export default function DemoPage() {
       </section>
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
-        <div className="max-w-3xl mx-auto grid gap-8">
+        <div className="max-w-3xl mx-auto grid grid-cols-1 gap-8">
           <div className="glass-card rounded-2xl p-6 text-sm text-gray-300 leading-relaxed">
             <h2 className="text-lg font-semibold text-white mb-3">What you will see</h2>
             <ul className="space-y-2 list-disc list-inside">

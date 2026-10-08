@@ -10,7 +10,11 @@ const primaryNavigation = [
   { name: 'Solutions', href: '/solutions' },
   { name: 'FEUS.ai', href: '/feus-ai' },
   { name: 'Cloud Runtime', href: '/cloud-runtime' },
-  { name: 'Get started', href: '/get-started' },
+]
+
+// Grouped on desktop so the full bar fits without wrapping; listed flat on mobile.
+const startNavigation = [
+  { name: 'Adoption path', href: '/get-started' },
   { name: 'Evaluation journey', href: '/journey' },
 ]
 
@@ -23,8 +27,10 @@ const companyNavigation = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isCompanyOpen, setIsCompanyOpen] = useState(false)
+  const [isStartOpen, setIsStartOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const companyMenuRef = useRef(null)
+  const startMenuRef = useRef(null)
   const location = useLocation()
   const isActive = (href) =>
     location.pathname === href || location.pathname.startsWith(`${href}/`)
@@ -38,6 +44,7 @@ export default function Navbar() {
   useEffect(() => {
     setIsOpen(false)
     setIsCompanyOpen(false)
+    setIsStartOpen(false)
   }, [location])
 
   useEffect(() => {
@@ -45,10 +52,14 @@ export default function Navbar() {
       if (companyMenuRef.current && !companyMenuRef.current.contains(event.target)) {
         setIsCompanyOpen(false)
       }
+      if (startMenuRef.current && !startMenuRef.current.contains(event.target)) {
+        setIsStartOpen(false)
+      }
     }
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         setIsCompanyOpen(false)
+        setIsStartOpen(false)
         setIsOpen(false)
       }
     }
@@ -79,19 +90,19 @@ export default function Navbar() {
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-[84px] items-center justify-between">
-          <Link to="/" aria-label="FEUS Electronics Group home" className="rounded-lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-[1440px]:max-w-[1376px] min-[1440px]:px-0">
+        <div className="flex h-[84px] items-center justify-between gap-6">
+          <Link to="/" aria-label="FEUS Electronics Group home" className="shrink-0 rounded-lg">
             <BrandMark />
           </Link>
 
-          <div className="hidden items-center gap-1 xl:flex">
+          <div className="hidden items-center gap-0.5 whitespace-nowrap min-[1440px]:flex">
             {primaryNavigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 aria-current={isActive(item.href) ? 'page' : undefined}
-                className={`rounded-lg px-3 py-2 text-sm font-bold transition-colors ${
+                className={`rounded-lg px-2.5 py-2 text-sm font-bold transition-colors ${
                   isActive(item.href)
                     ? 'bg-feus-400/10 text-feus-200'
                     : 'text-slate-300 hover:bg-white/5 hover:text-white'
@@ -100,13 +111,59 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
+            <div className="relative" ref={startMenuRef}>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsStartOpen((value) => !value)
+                  setIsCompanyOpen(false)
+                }}
+                aria-haspopup="menu"
+                aria-expanded={isStartOpen}
+                className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-2 text-sm font-bold transition-colors ${
+                  startNavigation.some((item) => isActive(item.href))
+                    ? 'bg-feus-400/10 text-feus-200'
+                    : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                }`}
+              >
+                Get started
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform ${isStartOpen ? 'rotate-180' : ''}`}
+                  aria-hidden="true"
+                />
+              </button>
+              {isStartOpen && (
+                <div
+                  role="menu"
+                  className="absolute left-0 top-full mt-2 w-56 rounded-lg border border-white/10 bg-navy-950/95 p-2 shadow-2xl shadow-black/30 backdrop-blur-xl"
+                >
+                  {startNavigation.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      role="menuitem"
+                      className={`block rounded-md px-3 py-2.5 text-sm font-semibold transition-colors ${
+                        isActive(item.href)
+                          ? 'bg-feus-400/10 text-feus-200'
+                          : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
             <div className="relative" ref={companyMenuRef}>
               <button
                 type="button"
-                onClick={() => setIsCompanyOpen((value) => !value)}
+                onClick={() => {
+                  setIsCompanyOpen((value) => !value)
+                  setIsStartOpen(false)
+                }}
                 aria-haspopup="menu"
                 aria-expanded={isCompanyOpen}
-                className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-bold transition-colors ${
+                className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-2 text-sm font-bold transition-colors ${
                   companyNavigation.some((item) => isActive(item.href))
                     ? 'bg-feus-400/10 text-feus-200'
                     : 'text-slate-300 hover:bg-white/5 hover:text-white'
@@ -143,7 +200,7 @@ export default function Navbar() {
             <Link
               to="/trust"
               aria-current={isActive('/trust') ? 'page' : undefined}
-              className={`rounded-lg px-3 py-2 text-sm font-bold transition-colors ${
+              className={`rounded-lg px-2.5 py-2 text-sm font-bold transition-colors ${
                 isActive('/trust')
                   ? 'bg-feus-400/10 text-feus-200'
                   : 'text-slate-300 hover:bg-white/5 hover:text-white'
@@ -156,15 +213,15 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               title="For users whose organisation has already granted access"
-              className="btn-secondary ml-3 !min-h-11 !px-5 !py-2.5 inline-flex items-center gap-2"
+              className="btn-secondary ml-2 !min-h-11 !px-3.5 !py-2.5 inline-flex items-center gap-2"
             >
               Sign in
               <ExternalLink className="h-4 w-4" aria-hidden="true" />
             </a>
-            <CalendlyButton className="btn-primary ml-2 !min-h-11 !px-5 !py-2.5">Request an intro</CalendlyButton>
+            <CalendlyButton className="btn-primary ml-2 !min-h-11 !px-3.5 !py-2.5">Request an intro</CalendlyButton>
             <Link
               to="/demo"
-              className="btn-secondary ml-2 !min-h-11 !px-5 !py-2.5 inline-flex items-center gap-2"
+              className="btn-secondary ml-2 !min-h-11 !px-3.5 !py-2.5 inline-flex items-center gap-2"
             >
               Request a demo
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -177,7 +234,7 @@ export default function Navbar() {
             aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={isOpen}
             aria-controls="mobile-navigation"
-            className="rounded-lg p-3 text-slate-200 transition-colors hover:bg-white/10 hover:text-white xl:hidden"
+            className="rounded-lg p-3 text-slate-200 transition-colors hover:bg-white/10 hover:text-white min-[1440px]:hidden"
           >
             {isOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
           </button>
@@ -185,13 +242,13 @@ export default function Navbar() {
 
         <div
           id="mobile-navigation"
-          className={`xl:hidden ${
+          className={`min-[1440px]:hidden ${
             isOpen ? 'block max-h-[calc(100svh-84px)] overflow-y-auto pb-8' : 'hidden'
           }`}
         >
           <div className="space-y-1 border-t border-white/10 pt-4">
             <p className="px-3 pb-2 text-xs font-bold uppercase text-slate-500">Explore</p>
-            {[...primaryNavigation, { name: 'Trust Center', href: '/trust' }].map((item) => (
+            {[...primaryNavigation, ...startNavigation, { name: 'Trust Center', href: '/trust' }].map((item) => (
               <Link
                 key={item.name}
                 to={item.href}

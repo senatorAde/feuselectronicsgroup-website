@@ -1,4 +1,4 @@
-﻿import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
   ArrowRight, Users, Target, Heart, Shield,
   Lightbulb, Building2, Rocket, Zap
@@ -80,7 +80,7 @@ export default function AboutPage() {
                   <strong className="text-feus-800">FEUS.ai</strong> is the governed AI Data Operations platform we operate and continue to expand. Its core has documented operational validation; newer agents and integrations publish their own scope and status.
                 </p>
               </div>
-              <div className="grid gap-6 border-l border-slate-200 pl-6 sm:pl-10">
+              <div className="grid grid-cols-1 gap-6 border-l border-slate-200 pl-6 sm:pl-10">
                 <AnimatedSection delay={100}>
                   <div className="border-t-2 border-feus-500 pt-6">
                     <div className="flex items-center gap-4 mb-4">
