@@ -34,7 +34,7 @@ export default function RequestOpsPage() {
       </section>
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
-        <div className="max-w-4xl mx-auto grid gap-10">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 gap-10">
           <div>
             <h2 className="text-2xl font-bold text-white mb-4">What it includes</h2>
             <ul className="glass-card rounded-2xl p-6 space-y-2 list-disc list-inside text-sm text-gray-300 leading-relaxed">

@@ -32,7 +32,7 @@ export default function IntegrationsPage() {
       </section>
 
       <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
-        <div className="max-w-4xl mx-auto grid gap-10">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 gap-10">
           <div className="glass-card rounded-2xl p-6">
             <IntegrationStatusTable />
           </div>
