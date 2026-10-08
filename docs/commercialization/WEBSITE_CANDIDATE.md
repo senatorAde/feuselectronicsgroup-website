@@ -87,3 +87,7 @@ Public pages present the current product scope confidently and concisely. FEUS.a
 The projection is re-pinned to distribution main `3dcd0fba9a9b041374fb13b1c4a560787a821188`, recording the production service `rc-f3dc0b7-chq` with `FEUS_ENVIRONMENT=PROD` as the service default and a single rollback revision. Public copy describes the hosted runtime as the production service.
 
 The projection is re-pinned to distribution main `3f27eb2fc0e03ad7af67c037c095e106df1d9e11`, recording the production service `rc-802c35c-chr` (runtime access release: requests processed rather than refused, all agents and tools available in every environment, eleven models for the internal tenant) with a single rollback revision.
+
+## Layout fixes (2026-10-08)
+
+The desktop header groups the adoption path and evaluation journey under a **Get started** menu and shows the full bar from 1440 px, so no label wraps and the wordmark keeps a 32 px gap; narrower screens use the menu button with every destination listed. Single-column page grids use `grid-cols-1` so long content wraps instead of overflowing on phones (previously `/sqlops`, `/requestops` and `/integrations`). A rendered sweep of all public routes at 1440 px and 390 px shows no overflow, off-screen elements, broken images or page errors.
