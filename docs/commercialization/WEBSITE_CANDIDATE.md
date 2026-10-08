@@ -85,3 +85,5 @@ Public pages present the current product scope confidently and concisely. FEUS.a
 ## Production re-pin (2026-10-08)
 
 The projection is re-pinned to distribution main `3dcd0fba9a9b041374fb13b1c4a560787a821188`, recording the production service `rc-f3dc0b7-chq` with `FEUS_ENVIRONMENT=PROD` as the service default and a single rollback revision. Public copy describes the hosted runtime as the production service.
+
+The projection is re-pinned to distribution main `3f27eb2fc0e03ad7af67c037c095e106df1d9e11`, recording the production service `rc-802c35c-chr` (runtime access release: requests processed rather than refused, all agents and tools available in every environment, eleven models for the internal tenant) with a single rollback revision.
