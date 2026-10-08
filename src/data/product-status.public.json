@@ -228,7 +228,7 @@
     "deployment": "not_deployed_by_this_reconciliation",
     "validated_baseline_commit": "712e2f82d8eddd2cd3c7b78befe99dda01f1ec96"
   },
-  "constitution_revision": "80f8f8ab2b21eeaae8633c72c8bcd32b7933d25a964c25ba232eb955c328fd2b",
+  "constitution_revision": "856b3c993834545f8b8017e918a0c520f48ed2170f96f3f430a3d5b6688da829",
   "generated_notice": "GENERATED FROM FEUS PLATFORM CONSTITUTION.\nDO NOT EDIT DIRECTLY.",
   "hosted_runtime": {
     "acceptance": {
@@ -291,7 +291,7 @@
     },
     "image": "acrfeuspoc28c5.azurecr.io/feus-cloud-runtime",
     "image_digest": "sha256:ff57a83c9b909ba09dea978e95ce242932e73adfea7dc1ca1e1933053a974043",
-    "last_verified_at": "2026-10-08T01:40:21Z",
+    "last_verified_at": "2026-10-08T03:00:46Z",
     "model_catalog_ratification": "OWNER-RATIFY-MODELS-2026-10-07",
     "planned_capabilities": [
       "additional_live_data_engine_qualification",
@@ -382,7 +382,7 @@
   "source_hashes": {
     "feus-platform/deployment.yaml": "9dacf7494a0b275077fee300d98fba2f41e991488e0a26a841da6c430245bc94",
     "feus-platform/models.yaml": "6b969a89a9a776fff7033a26c6429f1c44649552f59aa45dd1092926d72938b7",
-    "feus-platform/product-status.yaml": "e6327e6493188f36de35887a43539c07a1be08987be12b2a4d8f8e47e493eb0e",
+    "feus-platform/product-status.yaml": "ba2149df16cca9e2f06c9ce4a1fa1a5ae2dd172673e366ffb2597bac4067a3bd",
     "feus-platform/schemas/product-status.schema.json": "a92483ea0d29a208065978b74f1490b88b50d6b4f35c3f50954f9711db404306"
   }
 }

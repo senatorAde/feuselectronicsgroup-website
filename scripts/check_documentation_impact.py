@@ -108,7 +108,8 @@ def main() -> int:
     try:
         base = git(root, "rev-parse", "--verify", f"{args.base}^{{commit}}").strip()
         head = git(root, "rev-parse", "HEAD").strip()
-        changed = set(git(root, "diff", "--name-only", base).splitlines())
+        # Rename detection reports only the destination; a protected source path must stay visible.
+        changed = set(git(root, "diff", "--name-only", "--no-renames", base).splitlines())
         changed.update(git(root, "ls-files", "--others", "--exclude-standard").splitlines())
         # Existing baseline policy governs a PR; a PR cannot weaken its own gate.
         prior_exists = bool(git(root, "ls-tree", "--name-only", base, "--", policy_name).strip())
