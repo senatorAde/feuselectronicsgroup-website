@@ -14,12 +14,13 @@ Historical release evidence remains unchanged except explicit supersession label
 Catalog eligibility remains tenant/environment/privacy/capability/budget-specific;
 existing live hosting does not approve the new journey or qualify a customer.
 
-The distribution repository is private. Cross-repository CI must have
-`FEUS_DISTRIBUTION_READ_TOKEN` with contents-read access to that repository;
-missing access fails explicitly rather than treating a local copy as remote
-verification. Local checks use the authenticated `gh` session without reading or
-printing tokens. Provisioning the CI credential is an operator action, not model
-authorization or a production release.
+The distribution repository is private and this website repository is public.
+The pinned-source comparison therefore runs in distribution CI
+(`website-truth.yml`), which reads this repository's pin and copy anonymously and
+compares them with its own Git objects; no cross-repository credential exists.
+Website CI keeps the local pin/hash integrity check. Operators can still run
+`node scripts/check-production-truth.mjs --remote` with an authenticated `gh`
+session; tokens are never read or printed. Neither check is a production release.
 
 Main's earlier artwork/release-history integration has now been merged into
 this feature branch without rewriting either accepted candidate history or
@@ -60,7 +61,7 @@ Before release, the parent gate should require this document and link its review
 2. Backend lifecycle contract and customer-pack/activation/conversion acceptance evidence for the actual revision.
 3. Website `npm test` and `npm run build` outputs, plus mobile/browser and reduced-motion acceptance.
 4. Delivery/privacy/abuse-control operator acceptance and scheduler verification, or explicit unavailable-mode acceptance.
-5. Approved customer-specific commercial terms and signed/deployed candidate evidence. No public price or self-service availability until approved.
+5. Owner-approved packages and pricing basis (2026-10-08): public pages present approved packages with pricing quoted per customer scope. No public numeric list price was supplied, so none is published; self-service purchase and automatic billing remain unavailable.
 
 Website tests use local provider/rate stubs; they prove behavior, not operational configuration, inbox receipt, privacy approval or live deployment. Historical assertions are retained; directly coupled EmailJS/no-endpoint expectations were replaced by stronger server transport/guard assertions.
 

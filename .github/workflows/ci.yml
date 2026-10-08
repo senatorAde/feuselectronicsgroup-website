@@ -44,10 +44,12 @@ jobs:
       - name: Public claims gate
         run: npm test
 
-      - name: Compare observation with pinned distribution source
-        run: node scripts/check-production-truth.mjs --remote
-        env:
-          GH_TOKEN: ${{ secrets.FEUS_DISTRIBUTION_READ_TOKEN }}
+      # The pinned-source comparison needs read access to the private
+      # distribution repository, so it runs in that repository's CI
+      # (website-truth.yml), which can read this public repository without a
+      # credential. This job keeps the local pin/hash integrity check.
+      - name: Verify pinned observation integrity
+        run: node scripts/check-production-truth.mjs
 
       - name: Validate public data (Session 13A claims baseline)
         run: |

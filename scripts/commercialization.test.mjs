@@ -134,7 +134,7 @@ test('actual candidate pages SSR retain journey boundaries, email fallback and a
       ['CommercialJourneyPage', '/journey', [/Request an intro/, /20–30/, /30–60/, /60–90/, /12–14/, /aria-pressed="true"/, /aria-live="polite"/, /not live execution/, /owner-ratified/, /not yet deployed/, /Existing runtime evidence does not approve/]],
       ['TrialPage', '/trial', [/No clock before onboarding/, /No auto-billing/, /explicit customer consent/, /day 12–14/i]],
       ['ReadinessPage', '/readiness', [/Hosted readiness/, /Expert installed readiness/, /all five gateway/, /do not need Git/, /not a browser-issued approval/, /customer-specific pack/]],
-      ['PackagesPage', '/packages', [/unpublished/, /negotiated/, /Contact sales/, /<caption>/, /scope="row"/]],
+      ['PackagesPage', '/packages', [/Quoted per scope/, /approved/, /negotiated/, /Contact sales/, /<caption>/, /scope="row"/]],
       ['ContactPage', '/contact?type=intro', [/Request a FEUS.ai Intro/, /disabled=""/, /name="privacyConsent"/, /tabindex="-1"/, /mailto:info@feuselectronicsgroup.com/, /not yet booked/]],
       ['ArchitecturePage', '/architecture', [/official architecture reference/, /Not every component or arrow is implemented/, /feus-ai-architecture-reference.jpg/, /Snowflake/, /Databricks/, /Executive context/, /Technical context/, /Security context/]],
     ]) {
