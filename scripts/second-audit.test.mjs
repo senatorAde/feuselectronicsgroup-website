@@ -149,7 +149,9 @@ test('status describes the current release without claiming live monitoring or u
   assert.ok(copy.includes(CURRENT_RELEASE.label))
   assert.doesNotMatch(copy, /No active incidents reported|responding normally|Current health|uptime|\bSLA\b/i)
   assert.doesNotMatch(copy, /source date is later|needs reconciliation|future.dated/i)
-  assert.match(CLOUD_RUNTIME.verifiedOn, /^2026-10-08T/)
+  // A real, dated observation that is never in the future (no fixed calendar pin).
+  assert.match(CLOUD_RUNTIME.verifiedOn, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/)
+  assert.ok(Date.parse(CLOUD_RUNTIME.verifiedOn) <= Date.now(), 'verification time is not future-dated')
 })
 
 test('cost is estimated and catalog membership never implies unrestricted model access', () => {

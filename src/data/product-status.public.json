@@ -228,7 +228,7 @@
     "deployment": "not_deployed_by_this_reconciliation",
     "validated_baseline_commit": "712e2f82d8eddd2cd3c7b78befe99dda01f1ec96"
   },
-  "constitution_revision": "07ff844c37d5fdf113c7c9cd639bbee1d1ff66e837fe4b0883900d5abc8eb3ed",
+  "constitution_revision": "ebe1b0911153eff7bed4743ccf2f196260d0ce2b77d3b45b253889ba3af74020",
   "generated_notice": "GENERATED FROM FEUS PLATFORM CONSTITUTION.\nDO NOT EDIT DIRECTLY.",
   "hosted_runtime": {
     "acceptance": {
@@ -238,7 +238,7 @@
       "synthetic_core_failed": 0,
       "synthetic_core_passed": 31
     },
-    "active_revision": "ca-feus-runtime--rc-802c35c-chr",
+    "active_revision": "ca-feus-runtime--rc-b7d3c7c-cht",
     "application_version": "5.3.0-enterprise.1",
     "authentication": {
       "mechanism": "application_entra_bearer_validation",
@@ -251,7 +251,7 @@
       "autonomous_runtime": "not_authorized_by_this_observation",
       "historical_promotion": "owner_requested_traffic_promotion_with_postchecks",
       "new_release": "separate_action_specific_authorization_and_fresh_signed_source_required",
-      "reference": "owner-promote-802c35c.evidence.jsonl"
+      "reference": "owner-promote-b7d3c7c.evidence.jsonl"
     },
     "azure_endpoint": "https://ca-feus-runtime.mangopond-5bfbdbec.eastus2.azurecontainerapps.io",
     "classification": "live_owner_promoted_controlled_service",
@@ -269,17 +269,17 @@
       "claude-opus-5-5"
     ],
     "declared_environment": "PROD",
-    "deployed_at": "2026-10-08T21:56:34Z",
+    "deployed_at": "2026-10-09T00:49:45Z",
     "deployment_timestamp_basis": "operator_promotion_postcheck_record",
     "endpoint": "https://app.feuselectronicsgroup.com",
     "evidence": [
       {
         "kind": "source",
-        "reference": "https://github.com/senatorAde/FEUS-Enterprise-Distribution/pull/29"
+        "reference": "https://github.com/senatorAde/FEUS-Enterprise-Distribution/pull/33"
       },
       {
         "kind": "signing",
-        "reference": "https://github.com/senatorAde/FEUS-Enterprise-Distribution/actions/runs/37842244890"
+        "reference": "https://github.com/senatorAde/FEUS-Enterprise-Distribution/actions/runs/37863660888"
       }
     ],
     "fresh_model_invocation_verified": false,
@@ -290,8 +290,8 @@
       "status": "ok"
     },
     "image": "acrfeuspoc28c5.azurecr.io/feus-cloud-runtime",
-    "image_digest": "sha256:a81d8c813e67faa8f5c775b7c6cf6dcc2e8e4f13020f3ef66881f3d3b0058c70",
-    "last_verified_at": "2026-10-08T21:58:19Z",
+    "image_digest": "sha256:d8b0be36104890bda65b8a6ad7962be944b11b872b2a9c8c764b4b80c1f9c721",
+    "last_verified_at": "2026-10-09T00:51:02Z",
     "model_catalog_ratification": "OWNER-RATIFY-MODELS-2026-10-07",
     "planned_capabilities": [
       "additional_live_data_engine_qualification",
@@ -303,7 +303,7 @@
       "full_release_certification": false,
       "passed": 18,
       "public_key": "feg-release-signing-key-2026-09",
-      "signing_run": "37842244890",
+      "signing_run": "37863660888",
       "skipped": 0,
       "target": "PROD",
       "warned": 0
@@ -322,8 +322,8 @@
       "maximum": 3,
       "minimum": 1
     },
-    "signed_source_commit": "159711e896fedfcc25fa52c35d4c333d3d15c3b9",
-    "source_commit": "802c35c8e90b1bd7ab92d54efb6aec7c3de272dc",
+    "signed_source_commit": "a41d8580d2700f7db050b3809a11f6f6bf415930",
+    "source_commit": "b7d3c7cc15ef9006a4a3dd755eff0e78a50d6b74",
     "source_equivalence": "identical_outside_release_metadata",
     "source_mapping": "operator_build_record_acr_output_and_azure_readback",
     "traffic_percent": 100,
@@ -339,7 +339,8 @@
       "prod_follow_up_turns_processed",
       "credential_values_redacted_before_inference",
       "all_customer_runtime_agents_all_environments",
-      "eleven_models_approved_internal_tenant"
+      "eleven_models_approved_internal_tenant",
+      "conversation_archive_delete_tenant_scoped"
     ]
   },
   "model_invoke": {
@@ -388,7 +389,7 @@
   "source_hashes": {
     "feus-platform/deployment.yaml": "9dacf7494a0b275077fee300d98fba2f41e991488e0a26a841da6c430245bc94",
     "feus-platform/models.yaml": "6b969a89a9a776fff7033a26c6429f1c44649552f59aa45dd1092926d72938b7",
-    "feus-platform/product-status.yaml": "3d318809a1aeff22546efa9d281fac68914af885caf85ce9d2713670fbcd11bc",
+    "feus-platform/product-status.yaml": "6ab62365dcbf9726656b322cf38e127219036faa38cf908812b50d0917d13c71",
     "feus-platform/schemas/product-status.schema.json": "a92483ea0d29a208065978b74f1490b88b50d6b4f35c3f50954f9711db404306"
   }
 }
