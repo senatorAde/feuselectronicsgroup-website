@@ -24,7 +24,7 @@ export default function CommercialJourneyPage() {
     <UseCaseStories />
     <section><h2>Choose the route that fits your team</h2><div className="commercial-grid">
       <article className="commercial-card"><h3>Hosted browser route</h3><p>The production service on Microsoft Azure, used from the browser with Microsoft Entra ID sign-in. No editor or Git is needed for ordinary users. Customer SQL execution is delivered through the Expert route.</p><Link to="/readiness#hosted">Hosted readiness</Link></article>
-      <article className="commercial-card"><h3>Expert installed route</h3><p>For DBA/operator-led work in your environment through VS Code. We confirm installed dependencies, gateway wiring and effective target privileges with you. Installed-product use does not require Git.</p><Link to="/readiness#expert">Expert readiness</Link></article>
+      <article className="commercial-card"><h3>Expert installed route</h3><p>For DBA/operator-led work in your environment through VS Code. We confirm installed dependencies, gateway wiring and effective target privileges with you. It runs from a FEUS-provided distribution checkout that we set up with you.</p><Link to="/readiness#expert">Expert readiness</Link></article>
     </div></section>
     <section><h2>Agree the commercial scope that fits</h2><p>Users, resources, capabilities, support and entitlements are negotiated for your customer-specific pack. Package pricing is approved and quoted in your scoped proposal; contact sales to start.</p><div className="commercial-actions"><Link to="/packages" className="btn-secondary">Compare engagement options</Link><Link to="/readiness" className="btn-secondary">Review your readiness pack</Link></div></section>
   </div>

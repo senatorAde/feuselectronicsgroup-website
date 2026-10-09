@@ -292,9 +292,11 @@ export const ONBOARDING_STEPS = [
     title: 'Users and roles',
     owner: 'Client identity administrator',
     detail:
-      'The client consents to the FEUS application in their Microsoft Entra ' +
-      'directory, nominates the people who may sign in, and assigns operator, ' +
-      'approver, and administrator roles. FEUS never receives a password.',
+      'The client allows Microsoft Entra B2B collaboration with the FEUS ' +
+      'directory and nominates the people who may sign in; FEUS invites them as ' +
+      'guest users, and they sign in with their own organisation account. The ' +
+      'client then assigns operator, approver, and administrator roles. FEUS ' +
+      'never receives a password.',
   },
   {
     number: '03',
@@ -309,8 +311,10 @@ export const ONBOARDING_STEPS = [
     title: 'Connections',
     owner: 'Client system owner',
     detail:
-      'Register customer systems by reference and validate network reachability ' +
-      'and effective permissions without placing credentials in the browser.',
+      'Register customer systems by reference, without placing credentials in ' +
+      'the browser. Network reachability and effective permissions are ' +
+      'qualified separately for each system before any governed execution; the ' +
+      'hosted workbench does not connect to customer systems.',
   },
   {
     number: '05',
