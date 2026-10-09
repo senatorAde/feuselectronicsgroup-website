@@ -91,3 +91,5 @@ The projection is re-pinned to distribution main `3f27eb2fc0e03ad7af67c037c095e1
 ## Layout fixes (2026-10-08)
 
 The desktop header groups the adoption path and evaluation journey under a **Get started** menu and shows the full bar from 1440 px, so no label wraps and the wordmark keeps a 32 px gap; narrower screens use the menu button with every destination listed. Single-column page grids use `grid-cols-1` so long content wraps instead of overflowing on phones (previously `/sqlops`, `/requestops` and `/integrations`). A rendered sweep of all public routes at 1440 px and 390 px shows no overflow, off-screen elements, broken images or page errors.
+
+The projection is re-pinned to distribution main `61c76b9a5c5d64f68f75c80654b1f8a15a6908d3`, recording the production service `rc-b7d3c7c-cht` (conversation archive and delete, Last month grouping and reliable info tips) with a single rollback revision.
