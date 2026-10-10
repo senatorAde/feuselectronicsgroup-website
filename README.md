@@ -6,7 +6,7 @@
 |---|---|
 | **Website hosting status** | ✅ Website is live (hosting status only — see note below) |
 | **FEUS.ai platform status** | Operationally validated, governance-first AI Data Operations platform. Availability varies by capability, environment, integration, and customer configuration. See `/status`. |
-| **Product-posture authority** | `FEUS-Enterprise-Distribution/docs/product-posture/` |
+| **Product-truth authority** | Pinned public projection `src/data/product-status.public.json` (checked against `FEUS-Enterprise-Distribution/feus-platform/generated/product-status.public.json` in CI). Technical onboarding truth: `FEUS-Enterprise-Distribution/docs/FEUS_DOCUMENTATION_MAP.md` (private). Public copy must not contradict `docs/onboarding/FEUS_HOSTED_CUSTOMER_ONBOARDING.md`. |
 | **Exact-release evidence** | Session 12D/13A artifacts in `FEUS-Enterprise-Distribution/docs/branding/vnext/` remain authoritative for their assessed revision. Release-gate outcomes are Trust Center content (`RELEASE_ASSESSMENT` in `src/data/publicStatus.js`) and must not appear on marketing or adoption surfaces. |
 | **Claims gate** | `npm test` / `prebuild` runs `scripts/validate-public-claims.mjs` — the build fails on prohibited claims |
 | **URL** | [feuselectronicsgroup.com](https://www.feuselectronicsgroup.com) |
@@ -32,9 +32,6 @@ A modern enterprise website for **FEUS Electronics Group** — covering its prac
 ### Local Development
 
 ```bash
-# Working directory (primary — contains Git repo)
-cd C:\feuswebsite
-
 # Install dependencies (first time only)
 npm install
 
@@ -47,13 +44,12 @@ The site will open at `http://localhost:3000`.
 ### Deploy Changes (Git CI/CD — Recommended)
 
 ```bash
-cd C:\feuswebsite
-# 1. Make your edits in src/pages/ or src/components/
-# 2. Stage & commit
-git add -A
-git commit -m "description of your change"
-# 3. Push — Vercel auto-builds & deploys in ~15 seconds
-git push origin master
+# 1. Branch from main and make your edits in src/pages/ or src/components/
+git switch -c fix/short-description origin/main
+npm test                      # claims, production-truth pin and copy tests
+git commit -am "description of your change"
+git push -u origin HEAD        # Vercel builds a preview deployment for the PR
+# 2. Open a pull request to main; production deploys when the owner merges it
 ```
 
 ### Manual Build (Fallback Only)
